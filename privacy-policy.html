@@ -151,7 +151,7 @@
       <h2>1. Where this stands today</h2>
       <p>CryptoBetGrade has a real account system: "Log in" / "Sign up" sends a one-time link to your email address (no password) — clicking it creates an account if you don't have one, and signs you in if you do. Logged-in visitors can file a complaint about an operator, which CryptoBetGrade reviews before it's shown publicly. This policy describes what that system actually collects and stores today, not a hypothetical future version. The site's own team also has a separate admin area for editing the curated operator dataset, protected by a password checked in your browser and unrelated to your account.</p>
 
-      <h2>2. Who this will apply to</h2>
+      <h2>2. Who this applies to</h2>
       <p>This policy covers cryptobetgrade.com ("the Site"), an informational site that reviews and tracks publicly available information about crypto sportsbook and casino operators. It does not cover the operators listed on the Site — each has its own privacy practices, linked from their profile page where available.</p>
 
       <h2>3. What we collect</h2>
@@ -191,7 +191,7 @@
       <p>The Site is not directed at anyone under 18. We don't knowingly collect data from minors.</p>
 
       <h2>11. Changes to this policy</h2>
-      <p>We'll update the date at the top when this changes materially — most notably, the first time this Site actually starts collecting real data.</p>
+      <p>We'll update the date at the top whenever this policy changes materially — for example, if a new subprocessor is added, or the account or complaint system starts collecting something new.</p>
     </div>
   </div>
 </section>
@@ -245,10 +245,10 @@
 
 <script>
 
-// Cookie notice — intentionally NOT persisted via localStorage/cookies (this
-// project doesn't use browser storage anywhere), so it reappears each visit.
-// That's fine here: since the Site sets no cookies of its own, this is a
-// transparency notice, not a consent gate that legally needs to "stick."
+// Cookie notice — dismissal is remembered via localStorage (see cookies.html
+// Section 2a), so it only shows once per browser. It's a transparency notice,
+// not a consent gate: the one cookie this Site sets (cbg_session) is strictly
+// necessary and exempt from consent requirements, see cookies.html Section 2.
 function dismissCookieNotice(){
   document.getElementById("cookieNotice").classList.add("hidden");
   try{ localStorage.setItem("cbg_cookie_notice_dismissed","1"); }catch(e){}
