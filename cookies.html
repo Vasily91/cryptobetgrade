@@ -142,29 +142,35 @@
 
 <header class="page-hero">
   <div class="wrap">
-    <span class="kicker">LEGAL · DRAFT</span>
+    <span class="kicker">LEGAL</span>
     <h1>Cookies</h1>
-    <p>A short, honest page: this site sets no cookies of its own. Here's exactly what does happen when you load a page.</p>
-    <p class="meta">Last updated: 2026-08-22</p>
+    <p>A short, honest page: one strictly-necessary cookie, one local preference, and nothing else. Here's exactly what happens when you load a page.</p>
+    <p class="meta">Last updated: 2026-08-24</p>
   </div>
 </header>
 
 <section>
   <div class="wrap">
     <div class="status-box">
-      <b>Current status: no cookies set by this Site.</b> No analytics, no advertising, no tracking pixels, and no first-party cookie of any kind is set by cryptobetgrade.com today. We also don't use browser <code>localStorage</code>. This page will be rewritten with a real cookie table the moment that changes.
+      <b>Current status: one strictly-necessary cookie, one local preference — no analytics, no advertising.</b> Logging in sets a single cookie that keeps you signed in. Dismissing the notice at the bottom of the page saves that choice in your browser's <code>localStorage</code>, on your device only. Neither is used for tracking, analytics, or advertising, and no third-party ad or analytics cookie is set by cryptobetgrade.com.
     </div>
 
     <div class="legal">
       <h2>1. What a "cookie" is, briefly</h2>
-      <p>A cookie is a small piece of data a website asks your browser to store and send back on later visits — usually to remember who you are, a preference, or to track behaviour across visits for analytics or advertising. This Site currently asks your browser to store nothing.</p>
+      <p>A cookie is a small piece of data a website asks your browser to store and send back on later visits — usually to remember who you are, a preference, or to track behaviour across visits for analytics or advertising. This Site asks your browser to store the minimum needed to keep you logged in, and nothing for tracking or advertising.</p>
 
       <h2>2. Cookies this Site sets</h2>
       <table class="cookie-table">
         <tr><th>Name</th><th>Purpose</th><th>Duration</th></tr>
-        <tr><td colspan="3" style="text-align:center;color:var(--ink-muted);font-style:italic;">None currently set.</td></tr>
+        <tr><td><code>cbg_session</code></td><td>Strictly necessary — keeps you logged in after you click your one-time email login link. Set only if you log in.</td><td>30 days, or until you log out</td></tr>
       </table>
-      <p>If analytics or a real account system is added later, this table will list the actual cookie names, what each one does, and how long it's kept — not a generic placeholder.</p>
+      <p>This cookie is exempt from consent under GDPR/ePrivacy rules because it's strictly necessary for a feature you asked for (staying logged in) — it isn't used for analytics, tracking, or advertising, and nothing is set until you actually log in.</p>
+
+      <h2>2a. Browser storage that isn't a cookie</h2>
+      <table class="cookie-table">
+        <tr><th>Name</th><th>Purpose</th><th>Duration</th></tr>
+        <tr><td><code>cbg_cookie_notice_dismissed</code><br><span style="font-size:12px;color:var(--ink-muted);">(localStorage, not a cookie)</span></td><td>Remembers that you dismissed the notice at the bottom of the page, so it doesn't reappear on every visit. Stored only in your browser — never sent to us.</td><td>Until you clear your browser's site data</td></tr>
+      </table>
 
       <h2>3. Requests to third parties (not cookies, but related)</h2>
       <p>Loading this Site's pages does trigger a small number of automatic requests to services we don't control, even though none of them set a cookie in your browser via this Site:</p>
@@ -179,13 +185,13 @@
       <p>These are standard, publicly documented services used purely to render the page correctly (the site's font, each operator's logo, and the country-acceptance check on profile pages) — not for tracking by us. What Google, DuckDuckGo, or ipwho.is themselves do with that request is governed by their own privacy policies, not ours. The country-acceptance check is informational only — it's based on our own research into each operator's stated restrictions, which may be incomplete or outdated, and is never a substitute for checking the operator's own terms before depositing.</p>
 
       <h2>4. The notice you see at the bottom of the page</h2>
-      <p>The small banner shown on this Site is a transparency notice, not a legally-required consent gate — under GDPR/ePrivacy rules, consent is only required before setting non-essential cookies, and this Site sets none. It reappears each visit rather than being remembered, since remembering it would itself require storing something in your browser, which we've chosen not to do while there's nothing to consent to.</p>
+      <p>The small banner shown on this Site is a transparency notice, not a legally-required consent gate — under GDPR/ePrivacy rules, consent is only required before setting non-essential cookies, and this Site sets none (the one cookie it does set is strictly necessary and exempt, see Section 2). Clicking "Got it" saves that choice in your browser's <code>localStorage</code> so it doesn't reappear on later visits.</p>
 
       <h2>5. If this changes</h2>
-      <p>The first time this Site adds analytics, an ad, or any real account system that needs a cookie, this page gets rewritten with the actual cookie name, purpose, and duration — and, if legally required at that point, the bottom banner becomes a real accept/decline control rather than an acknowledgement.</p>
+      <p>The first time this Site adds analytics, an ad, or anything that needs a non-essential cookie, this page and the table above get updated with the actual cookie name, purpose, and duration — and the bottom banner becomes a real accept/decline control rather than an acknowledgement.</p>
 
       <h2>6. Questions</h2>
-      <p>See the full <a href="privacy-policy.html" class="inline">Privacy Policy</a> for how this relates to data collection more broadly, or contact <b>[privacy@cryptobetgrade.com]</b>.</p>
+      <p>See the full <a href="privacy-policy.html" class="inline">Privacy Policy</a> for how this relates to data collection more broadly, or contact <a href="mailto:privacy@cryptobetgrade.com" class="inline"><b>privacy@cryptobetgrade.com</b></a>.</p>
     </div>
   </div>
 </section>

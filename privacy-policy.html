@@ -138,9 +138,9 @@
 
 <header class="page-hero">
   <div class="wrap">
-    <span class="kicker">LEGAL · DRAFT</span>
+    <span class="kicker">LEGAL</span>
     <h1>Privacy Policy</h1>
-    <p>What CryptoBetGrade collects today, what it doesn't, and what a live version of this product would need before launch.</p>
+    <p>What CryptoBetGrade actually collects today, why, who it's shared with, and how to exercise your rights over it.</p>
     <p class="meta">Last updated: 2026-08-24</p>
   </div>
 </header>
@@ -149,18 +149,19 @@
   <div class="wrap">
     <div class="legal">
       <h2>1. Where this stands today</h2>
-      <p>CryptoBetGrade, as it exists right now, is a static set of pages with no server, no database, and no real user-account system. That has a direct effect on this policy: there is currently <b>no working mechanism on this site that collects personal data from an ordinary visitor</b>. The "Log in" / "Sign up" links open a placeholder explaining that player accounts don't exist yet, and the admin area is a client-side password gate for the site's own team, not a real authentication system. The sections below describe what applies once a real backend exists — most of it is not yet in effect.</p>
+      <p>CryptoBetGrade has a real account system: "Log in" / "Sign up" sends a one-time link to your email address (no password) — clicking it creates an account if you don't have one, and signs you in if you do. Logged-in visitors can file a complaint about an operator, which CryptoBetGrade reviews before it's shown publicly. This policy describes what that system actually collects and stores today, not a hypothetical future version. The site's own team also has a separate admin area for editing the curated operator dataset, protected by a password checked in your browser and unrelated to your account.</p>
 
       <h2>2. Who this will apply to</h2>
       <p>This policy covers cryptobetgrade.com ("the Site"), an informational site that reviews and tracks publicly available information about crypto sportsbook and casino operators. It does not cover the operators listed on the Site — each has its own privacy practices, linked from their profile page where available.</p>
 
       <h2>3. What we collect</h2>
-      <p><b>Visitors browsing the Site.</b> No analytics tool is currently installed, so no browsing data is collected or stored by us today. If/when an analytics tool is added (e.g. a privacy-focused, cookie-free option like Plausible, or Google Analytics), this section will name it, describe what it collects (typically: approximate location from IP, device/browser type, pages visited, referring site), and state the legal basis (legitimate interest under Art. 6(1)(f) GDPR, or consent where required).</p>
-      <p><b>Anyone submitting a complaint or a "suggest a sportsbook" form.</b> These forms exist in the design but aren't wired up to actually send or store anything yet. Once live, submitted data (name or handle, email, and the content submitted) would be collected on the basis of consent (Art. 6(1)(a) GDPR).</p>
-      <p><b>Admin users.</b> The current admin login is a single shared password checked entirely in your browser — no login attempt, email, or credential is transmitted anywhere or stored server-side. A real version would use a proper auth provider with individual accounts; this section will be rewritten once that exists.</p>
+      <p><b>Anyone browsing the Site without logging in.</b> No analytics tool is currently installed, so we don't collect or store any browsing data about visitors who never log in or submit anything. Section 5 below covers the small number of automatic third-party requests every visitor's browser makes regardless.</p>
+      <p><b>Anyone who logs in or signs up.</b> Just your email address, which we use to send a one-time login link (valid 15 minutes, usable once) and to keep you signed in afterwards. Legal basis: performance of a contract with you (Art. 6(1)(b) GDPR) — you're asking us to give you an account. We don't ask for a name, and we never see or store a password, because there isn't one.</p>
+      <p><b>Anyone who files a complaint about an operator.</b> The complaint's title, description, any amount stated, and any follow-up messages you or CryptoBetGrade post in that complaint's thread — all tied to the logged-in account that submitted it. Legal basis: consent (Art. 6(1)(a) GDPR) — you're choosing to submit this for publication. A submitted complaint starts in a private "pending review" state visible only to you and CryptoBetGrade's admin, and only becomes publicly visible on the operator's page once reviewed and approved.</p>
+      <p><b>Admin users.</b> A small, fixed list of email addresses get admin rights automatically the moment they log in through the same one-time-link system above — no separate password or credential. The site's older curated-data editor is a different, unrelated password gate checked entirely in your browser; that password is never transmitted or stored server-side.</p>
 
       <h2>4. What we don't collect</h2>
-      <p>We don't process payments on this Site — any deposit happens on the operator's own site, entirely outside our systems. We don't require account creation to browse or search. We don't use browser local storage to remember anything about you.</p>
+      <p>We don't process payments on this Site — any deposit happens on the operator's own site, entirely outside our systems. We don't require an account to browse or search. We don't collect your name, phone number, or any government ID. We do use one piece of browser storage — <code>localStorage</code> — but only to remember, on your device alone, that you've dismissed the cookie notice at the bottom of the page; see <a href="cookies.html" class="inline">Cookies</a> for details.</p>
 
       <h2>5. Requests your browser makes automatically</h2>
       <p>Even with no backend of our own, loading this Site's pages makes a small number of automatic requests to third parties, each of which may see your IP address as part of that request:</p>
@@ -170,22 +171,21 @@
       </ul>
       <p>See <a href="cookies.html" class="inline">Cookies</a> for how this relates to cookies specifically.</p>
 
-      <h2>6. Third parties / subprocessors (once a backend exists)</h2>
+      <h2>6. Third parties / subprocessors</h2>
       <ul>
-        <li><b>[Hosting provider, e.g. Cloudflare Pages/Vercel]</b> — would serve the Site's files.</li>
-        <li><b>[Database/auth provider, e.g. Supabase]</b> — would store operator, complaint, and admin-account data.</li>
-        <li><b>[Analytics provider]</b> — if/when added, named here.</li>
+        <li><b>Cloudflare</b> (Workers + D1 database) — hosts the Site's pages, runs its backend, and stores every account, session, and complaint record described in Section 3. Cloudflare is a US-based provider; see Cloudflare's own privacy and data-processing terms for how it safeguards data transferred outside the EU/EEA.</li>
+        <li><b>Resend</b> — the email service that delivers your one-time login link. Sending you a link means your email address passes through Resend's systems to reach your inbox. Resend does not receive complaint content or any other account data.</li>
       </ul>
-      <p>If any future provider processes data outside the EU/EEA, the transfer safeguard (Standard Contractual Clauses, or an adequacy decision) will be listed here.</p>
+      <p>No analytics provider is in use. If one is added later, it'll be named here along with what it collects.</p>
 
       <h2>7. Retention</h2>
-      <p>Not applicable today — nothing is stored. Once live: visitor analytics data would be kept for <b>[X months]</b>; submitted complaints retained as long as relevant to the operator's public profile or until deletion is requested; admin account data for the duration of the person's role plus <b>[X]</b>.</p>
+      <p><b>Login links:</b> valid for 15 minutes and deleted the moment they're used; an unused link simply stops working once it expires. <b>Sessions:</b> your login is remembered for 30 days from the cookie set on your device; logging out deletes that session immediately. <b>Account (email address):</b> kept for as long as your account exists — email <a href="mailto:privacy@cryptobetgrade.com" class="inline">privacy@cryptobetgrade.com</a> to have it deleted. <b>Complaints:</b> kept as long as relevant to the operator's public profile, since they form part of that public record, or until you request deletion of a specific complaint.</p>
 
       <h2>8. Your rights (EU/EEA visitors, GDPR)</h2>
       <p>Once this Site processes personal data, you'll be able to request access to, correction of, or deletion of your data, object to processing based on legitimate interest, and request a portable copy. Contact <a href="mailto:privacy@cryptobetgrade.com" class="inline"><b>privacy@cryptobetgrade.com</b></a>. You can also lodge a complaint with your local data protection authority — in Lithuania, that's the State Data Protection Inspectorate (Valstybinė duomenų apsaugos inspekcija).</p>
 
       <h2>9. Cookies</h2>
-      <p>See the dedicated <a href="cookies.html" class="inline">Cookies page</a> for the current, accurate list — short version: this Site does not set any cookies of its own today.</p>
+      <p>See the dedicated <a href="cookies.html" class="inline">Cookies page</a> for the current, accurate list — short version: one strictly-necessary cookie keeps you logged in, and nothing else. No advertising or tracking cookie is set.</p>
 
       <h2>10. Children</h2>
       <p>The Site is not directed at anyone under 18. We don't knowingly collect data from minors.</p>
