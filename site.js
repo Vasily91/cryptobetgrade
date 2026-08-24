@@ -25,6 +25,7 @@ function cbgRenderNavAuth(){
   if(!slot) return;
   if(CBG_USER){
     slot.innerHTML = `
+      ${CBG_USER.is_admin ? `<a href="admin-complaints.html" class="link-muted">Admin</a>` : ""}
       <span class="link-muted" style="cursor:default;" title="${CBG_USER.email}">${cbgTruncateEmail(CBG_USER.email)}</span>
       <button class="btn btn-outline btn-sm" onclick="cbgLogout()">Log out</button>
     `;

@@ -3764,9 +3764,12 @@ function renderComplaintsTab(op, id){
   const priorityOrder = { A:0, B:1, C:2 };
   const sorted = op.complaints.slice().sort((a,b) => (priorityOrder[a.priority] ?? 3) - (priorityOrder[b.priority] ?? 3));
   return `
-      <div class="section-title" style="margin-top:0;">
-        Complaints
-        ${isAdmin ? `<button class="btn btn-outline btn-sm" onclick="openComplaintModal('${id}')">+ Add complaint</button>` : ""}
+      <div class="section-title" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span>Complaints</span>
+        <span style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${isAdmin ? `<button class="btn btn-outline btn-sm" onclick="openComplaintModal('${id}')">+ Add complaint</button>` : ""}
+          <button class="btn btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
+        </span>
       </div>
       <div class="stat-tiles">
         <div class="stat-tile"><div class="n">${st.total}</div><div class="l">Reported issues</div></div>
@@ -3776,9 +3779,8 @@ function renderComplaintsTab(op, id){
       ${op.complaints.length === 0 ? `<div class="empty-note">${op.complaintsNote || "No complaints logged yet."}</div>` : ""}
       ${sorted.map(c => complaintCardHtml(c, id)).join("")}
 
-      <div class="section-title" style="margin-top:30px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div class="section-title" style="margin-top:30px;">
         <span>Community-submitted complaints</span>
-        <button class="btn btn-outline btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
       </div>
       <p class="cmeta" style="margin:-4px 0 12px;">Submitted by site visitors, reviewed by CryptoBetGrade before publishing. Separate from the sourced complaints above.</p>
       <div id="cbgComplaints-${id}"><div class="empty-note">Loading…</div></div>
@@ -4612,8 +4614,13 @@ if(ADMIN_URL_FLAG && !isAdmin) openModal("loginModal");
 // See cookies.html for the actual, current list.
 function dismissCookieNotice(){
   document.getElementById("cookieNotice").classList.add("hidden");
+  try{ localStorage.setItem("cbg_cookie_notice_dismissed","1"); }catch(e){}
 }
-document.getElementById("cookieNotice").classList.remove("hidden");
+(function(){
+  let cbgCookieDismissed = false;
+  try{ cbgCookieDismissed = localStorage.getItem("cbg_cookie_notice_dismissed") === "1"; }catch(e){}
+  if(!cbgCookieDismissed) document.getElementById("cookieNotice").classList.remove("hidden");
+})();
 </script>
 <script src="/site.js"></script>
 </body>

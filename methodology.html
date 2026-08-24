@@ -705,10 +705,13 @@ footer{padding:26px 0 22px;}
 // See cookies.html for the actual, current list.
 function dismissCookieNotice(){
   document.getElementById("cookieNotice").classList.add("hidden");
+  try{ localStorage.setItem("cbg_cookie_notice_dismissed","1"); }catch(e){}
 }
 document.addEventListener("DOMContentLoaded", () => {
   const n = document.getElementById("cookieNotice");
-  if(n) n.classList.remove("hidden");
+  let cbgCookieDismissed = false;
+  try{ cbgCookieDismissed = localStorage.getItem("cbg_cookie_notice_dismissed") === "1"; }catch(e){}
+  if(n && !cbgCookieDismissed) n.classList.remove("hidden");
 });
 </script>
 

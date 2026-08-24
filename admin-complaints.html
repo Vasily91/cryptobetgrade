@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Complaint moderation — CryptoBetGrade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0b6e4f;
+    --brand-dark:#074a35;
+    --brand-light:#e6f4ec;
+    --brand-lighter:#f3faf6;
+    --surface:#fcfcfb;
+    --page:#f9f9f7;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --ink-muted:#898781;
+    --line:#e1e0d9;
+    --border:rgba(11,11,11,0.10);
+    --good:#0ca30c; --good-bg:#e5f6e0; --good-ink:#0a5c0a;
+    --warning:#fab219; --warning-bg:#fff3dc; --warning-ink:#8a5c00;
+    --serious:#ec835a; --serious-bg:#fdebe2; --serious-ink:#a3441f;
+    --critical:#d03b3b; --critical-bg:#fbe5e5; --critical-ink:#8f1f1f;
+    --gold:#c8860d; --gold-bg:#fdf1da; --gold-ink:#8a5c00;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;}
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+  /* NAV (shared) */
+  nav{position:sticky;top:0;z-index:50;background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);box-shadow:0 4px 18px rgba(7,74,53,0.28);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;}
+  .logo{display:flex;align-items:center;gap:10px;font-size:18.5px;letter-spacing:-0.3px;text-decoration:none;font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .logo .mark{position:relative;width:34px;height:34px;border-radius:10px;flex:none;background:#fff;padding:4px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.28);}
+  .logo .mark svg{width:100%;height:100%;}
+  .logo .wordmark-light{font-weight:600;color:rgba(255,255,255,0.72);}
+  .logo .wordmark-bold{font-weight:800;color:#fff;}
+  .navlinks{display:flex;gap:8px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.9);}
+  .navlinks a{text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.08);padding:8px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.14);transition:.15s ease;}
+  .navlinks a:hover{background:rgba(255,255,255,0.2);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+  .navlinks a.active{background:rgba(255,255,255,0.22);color:#fff;}
+  .navlinks svg{width:16px;height:16px;flex:none;}
+  .btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--brand);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer;transition:.15s;}
+  .btn:hover{background:var(--brand-dark);box-shadow:0 6px 16px rgba(11,110,79,0.28);transform:translateY(-1px);}
+  .btn:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none;}
+  .btn,.btn-outline{transition:.15s ease;}
+  .btn-outline{background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand);display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer;}
+  .btn-outline:hover{background:var(--brand-light);transform:translateY(-1px);}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .link-muted{text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);padding:8px 4px;white-space:nowrap;}
+  .link-muted:hover{color:var(--brand-dark);}
+  nav .link-muted{color:rgba(255,255,255,0.85);}
+  nav .link-muted:hover{color:#fff;}
+  nav .btn-outline{background:rgba(255,255,255,0.06);color:#fff;border:1.5px solid rgba(255,255,255,0.55);box-shadow:0 2px 6px rgba(0,0,0,0.14);}
+  nav .btn-outline:hover{background:rgba(255,255,255,0.18);border-color:#fff;}
+  nav .btn{background:#fff;color:var(--brand-dark);box-shadow:0 4px 14px rgba(0,0,0,0.24);}
+  nav .btn:hover{background:var(--gold-bg);color:var(--brand-dark);box-shadow:0 6px 18px rgba(0,0,0,0.3);}
+  @media (max-width:820px){ .navlinks{display:none;} }
+  @media (max-width:600px){ .link-muted{display:none;} }
+
+  /* MODAL (shared, for the login modal site.js injects) */
+  .modal-bg{position:fixed;inset:0;background:rgba(11,11,11,0.45);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px;z-index:100;overflow-y:auto;}
+  .modal-bg.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:28px;max-width:440px;width:100%;}
+  .modal h3{margin:0 0 6px;font-size:18px;}
+  .modal p.hint{font-size:13.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.6;}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+
+  /* PAGE HERO */
+  .page-hero{padding:40px 0 28px;background:radial-gradient(600px 260px at 50% -60px, var(--brand-light), transparent 70%);}
+  .page-hero .kicker{display:inline-block;background:var(--brand-light);color:var(--brand-dark);font-size:12.5px;font-weight:700;letter-spacing:.03em;padding:6px 14px;border-radius:999px;margin-bottom:14px;}
+  .page-hero h1{font-size:clamp(24px,3.4vw,32px);margin:0 0 8px;letter-spacing:-0.6px;}
+  .page-hero p{max-width:640px;margin:0;color:var(--ink-2);font-size:15px;}
+
+  main{padding:36px 0 64px;}
+
+  /* Gate (logged out / not admin) */
+  .gate-box{max-width:520px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px 30px;text-align:center;box-shadow:0 10px 30px rgba(11,11,11,0.05);}
+  .gate-box p{color:var(--ink-2);font-size:14.5px;margin:0 0 16px;}
+  .gate-box p:last-child{margin-bottom:0;}
+
+  /* Filters */
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+  .filter-pill{background:#fff;border:1.5px solid var(--line);color:var(--ink-2);font-size:13px;font-weight:600;padding:8px 15px;border-radius:999px;cursor:pointer;transition:.15s;}
+  .filter-pill:hover{border-color:var(--brand);color:var(--brand-dark);}
+  .filter-pill.active{background:var(--brand);border-color:var(--brand);color:#fff;}
+
+  .empty-note{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--ink-muted);font-size:14px;}
+
+  /* Complaint rows */
+  .queue-item{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 14px rgba(11,11,11,0.04);}
+  .queue-row{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;cursor:pointer;}
+  .queue-row:hover{background:var(--brand-lighter);}
+  .queue-main{min-width:0;flex:1;}
+  .queue-op{font-size:12px;font-weight:700;color:var(--brand-dark);text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;}
+  .queue-title{font-size:15px;font-weight:600;margin-bottom:4px;}
+  .queue-meta{font-size:12.5px;color:var(--ink-muted);}
+  .status-chip{font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:999px;white-space:nowrap;text-transform:uppercase;letter-spacing:.02em;}
+  .status-pending_review{background:var(--warning-bg);color:var(--warning-ink);}
+  .status-open{background:var(--critical-bg);color:var(--critical-ink);}
+  .status-awaiting_response{background:var(--critical-bg);color:var(--critical-ink);}
+  .status-resolved{background:var(--good-bg);color:var(--good-ink);}
+  .status-rejected, .status-removed{background:#eeece6;color:var(--ink-muted);}
+
+  .queue-detail{border-top:1px solid var(--line);padding:20px;background:var(--page);display:none;}
+  .queue-detail.open{display:block;}
+  .thread{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+  .msg{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;max-width:640px;}
+  .msg.admin{background:var(--brand-lighter);border-color:var(--brand-light);align-self:flex-end;}
+  .msg-role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-muted);margin-bottom:5px;}
+  .msg.admin .msg-role{color:var(--brand-dark);}
+  .msg-body{font-size:14px;color:var(--ink);white-space:pre-wrap;}
+  .msg-time{font-size:11px;color:var(--ink-muted);margin-top:6px;}
+
+  .reply-box textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;min-height:70px;box-sizing:border-box;margin-bottom:8px;}
+  .status-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
+  .status-actions .lbl{font-size:12.5px;color:var(--ink-muted);font-weight:600;width:100%;margin-bottom:2px;}
+  .status-btn{background:#fff;border:1.5px solid var(--line);color:var(--ink-2);font-size:12.5px;font-weight:700;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.15s;}
+  .status-btn:hover{border-color:var(--brand);color:var(--brand-dark);}
+  .status-btn.current{background:var(--brand);border-color:var(--brand);color:#fff;cursor:default;}
+  .amount-line{font-size:13px;color:var(--ink-2);margin-bottom:12px;}
+  .row-actions{display:flex;align-items:center;gap:10px;flex:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24"><path d="M12 2 L19.5 5.2 V11.6 C19.5 17 16.2 20.7 12 22 C7.8 20.7 4.5 17 4.5 11.6 V5.2 Z" fill="#0b6e4f"/><path d="M12.8 8.8 A3.7 3.7 0 1 0 12.8 16.2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="12.9" y="13.8" width="1.5" height="3.2" rx="0.5" fill="#8fcdae"/><rect x="15" y="11.6" width="1.5" height="5.4" rx="0.5" fill="#c9b467"/><rect x="17.1" y="9.4" width="1.5" height="7.6" rx="0.5" fill="#c8860d"/></svg></span>
+      <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="index.html#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>
+    </div>
+    <div class="nav-actions" id="navAuthSlot"></div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="kicker">ADMIN</span>
+    <h1>Complaint moderation queue</h1>
+    <p>Review complaints submitted by visitors, reply to submitters, and change a complaint's status. Only visible to logged-in admin accounts.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div id="adminGate" class="gate-box">
+      <p>Checking your session…</p>
+    </div>
+    <div id="adminApp" style="display:none;">
+      <div class="filter-row" id="filterRow"></div>
+      <div id="queueList"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const CBG_ADMIN_FILTERS = [
+  { key: "", label: "All" },
+  { key: "pending_review", label: "Pending review" },
+  { key: "open", label: "Open" },
+  { key: "awaiting_response", label: "Awaiting response" },
+  { key: "resolved", label: "Resolved" },
+  { key: "rejected", label: "Rejected" },
+  { key: "removed", label: "Removed" },
+];
+const CBG_STATUS_LABEL = {
+  pending_review: "Pending review", open: "Open", awaiting_response: "Awaiting response",
+  resolved: "Resolved", rejected: "Rejected", removed: "Removed",
+};
+const CBG_ALLOWED_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "removed"];
+
+let cbgAdminFilter = "";
+let cbgAdminQueue = [];
+let cbgAdminOpenId = null;
+let cbgAdminDetailCache = {};
+
+function cbgAdminEscape(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+function cbgAdminDate(iso){
+  try{ return new Date(iso.replace(" ", "T") + "Z").toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }); }
+  catch(e){ return iso; }
+}
+
+async function cbgAdminInit(){
+  await cbgCheckSession();
+  const gate = document.getElementById("adminGate");
+  const app = document.getElementById("adminApp");
+  if(!CBG_USER){
+    gate.innerHTML = `
+      <p><b>You need to log in with an admin account to see this page.</b></p>
+      <p>Use the same email set as <code>ADMIN_EMAILS</code> in the Worker config.</p>
+      <button class="btn" onclick="return cbgOpenAuthModal()">Log in</button>
+    `;
+    return;
+  }
+  if(!CBG_USER.is_admin){
+    gate.innerHTML = `
+      <p><b>This account isn't an admin account.</b></p>
+      <p>Logged in as ${cbgAdminEscape(CBG_USER.email)}. Log in with the email listed in <code>ADMIN_EMAILS</code> to moderate complaints.</p>
+    `;
+    return;
+  }
+  gate.style.display = "none";
+  app.style.display = "";
+  cbgAdminRenderFilters();
+  cbgAdminLoadQueue();
+}
+
+function cbgAdminRenderFilters(){
+  const row = document.getElementById("filterRow");
+  row.innerHTML = CBG_ADMIN_FILTERS.map(f =>
+    `<button class="filter-pill${f.key === cbgAdminFilter ? " active" : ""}" onclick="cbgAdminSetFilter('${f.key}')">${f.label}</button>`
+  ).join("");
+}
+function cbgAdminSetFilter(key){
+  cbgAdminFilter = key;
+  cbgAdminRenderFilters();
+  cbgAdminLoadQueue();
+}
+
+async function cbgAdminLoadQueue(){
+  const list = document.getElementById("queueList");
+  list.innerHTML = `<div class="empty-note">Loading…</div>`;
+  try{
+    const url = "/api/admin/complaints" + (cbgAdminFilter ? "?status=" + encodeURIComponent(cbgAdminFilter) : "");
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("Failed to load (HTTP " + res.status + ")");
+    const data = await res.json();
+    cbgAdminQueue = data.complaints || [];
+    cbgAdminRenderQueue();
+  }catch(e){
+    list.innerHTML = `<div class="empty-note">Couldn't load the queue: ${cbgAdminEscape(e.message)}</div>`;
+  }
+}
+
+function cbgAdminRenderQueue(){
+  const list = document.getElementById("queueList");
+  if(cbgAdminQueue.length === 0){
+    list.innerHTML = `<div class="empty-note">No complaints in this view.</div>`;
+    return;
+  }
+  list.innerHTML = cbgAdminQueue.map(c => `
+    <div class="queue-item">
+      <div class="queue-row" onclick="cbgAdminToggle(${c.id})">
+        <div class="queue-main">
+          <div class="queue-op">${cbgAdminEscape(c.operator_name)}</div>
+          <div class="queue-title">${cbgAdminEscape(c.title)}</div>
+          <div class="queue-meta">${cbgAdminEscape(c.submitter_email)} · ${cbgAdminDate(c.created_at)}</div>
+        </div>
+        <div class="row-actions">
+          <span class="status-chip status-${c.status}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
+        </div>
+      </div>
+      <div class="queue-detail" id="detail-${c.id}"></div>
+    </div>
+  `).join("");
+}
+
+async function cbgAdminToggle(id){
+  const el = document.getElementById("detail-" + id);
+  if(!el) return;
+  if(cbgAdminOpenId === id){
+    el.classList.remove("open");
+    cbgAdminOpenId = null;
+    return;
+  }
+  if(cbgAdminOpenId !== null){
+    const prev = document.getElementById("detail-" + cbgAdminOpenId);
+    if(prev) prev.classList.remove("open");
+  }
+  cbgAdminOpenId = id;
+  el.classList.add("open");
+  el.innerHTML = `<div class="empty-note">Loading…</div>`;
+  try{
+    const res = await fetch("/api/complaints/" + id);
+    if(!res.ok) throw new Error("Failed to load (HTTP " + res.status + ")");
+    const data = await res.json();
+    cbgAdminDetailCache[id] = data;
+    cbgAdminRenderDetail(id);
+  }catch(e){
+    el.innerHTML = `<div class="empty-note">Couldn't load this complaint: ${cbgAdminEscape(e.message)}</div>`;
+  }
+}
+
+function cbgAdminRenderDetail(id){
+  const el = document.getElementById("detail-" + id);
+  const data = cbgAdminDetailCache[id];
+  if(!el || !data) return;
+  const c = data.complaint;
+  const messages = data.messages || [];
+  el.innerHTML = `
+    ${c.amount ? `<div class="amount-line"><b>Amount:</b> ${cbgAdminEscape(c.amount)}</div>` : ""}
+    <div class="thread">
+      ${messages.map(m => `
+        <div class="msg ${m.author_role === "admin" ? "admin" : ""}">
+          <div class="msg-role">${m.author_role === "admin" ? "CryptoBetGrade" : "Submitter"}</div>
+          <div class="msg-body">${cbgAdminEscape(m.body)}</div>
+          <div class="msg-time">${cbgAdminDate(m.created_at)}</div>
+        </div>
+      `).join("")}
+    </div>
+    <div class="reply-box">
+      <textarea id="reply-${id}" placeholder="Reply to the submitter…"></textarea>
+      <button class="btn btn-sm" onclick="cbgAdminReply(${id})">Post reply</button>
+    </div>
+    <div class="status-actions">
+      <div class="lbl">Set status:</div>
+      ${CBG_ALLOWED_STATUSES.map(s => `
+        <button class="status-btn${c.status === s ? " current" : ""}" onclick="cbgAdminSetStatus(${id}, '${s}')" ${c.status === s ? "disabled" : ""}>${CBG_STATUS_LABEL[s]}</button>
+      `).join("")}
+    </div>
+  `;
+}
+
+async function cbgAdminReply(id){
+  const ta = document.getElementById("reply-" + id);
+  const body = ta.value.trim();
+  if(!body) return;
+  try{
+    const res = await fetch("/api/complaints/" + id + "/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body }),
+    });
+    if(!res.ok){
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || "Couldn't post the reply.");
+    }
+    const detailRes = await fetch("/api/complaints/" + id);
+    cbgAdminDetailCache[id] = await detailRes.json();
+    cbgAdminRenderDetail(id);
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+async function cbgAdminSetStatus(id, status){
+  try{
+    const res = await fetch("/api/admin/complaints/" + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    if(!res.ok){
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || "Couldn't update status.");
+    }
+    await cbgAdminLoadQueue();
+    const el = document.getElementById("detail-" + id);
+    if(el){
+      el.classList.add("open");
+      cbgAdminOpenId = id;
+      const detailRes = await fetch("/api/complaints/" + id);
+      cbgAdminDetailCache[id] = await detailRes.json();
+      cbgAdminRenderDetail(id);
+    }
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", cbgAdminInit);
+</script>
+
+<script src="/site.js"></script>
+</body>
+</html>

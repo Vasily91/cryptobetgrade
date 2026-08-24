@@ -259,9 +259,12 @@
 // transparency notice, not a consent gate that legally needs to "stick."
 function dismissCookieNotice(){
   document.getElementById("cookieNotice").classList.add("hidden");
+  try{ localStorage.setItem("cbg_cookie_notice_dismissed","1"); }catch(e){}
 }
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("cookieNotice").classList.remove("hidden");
+  let cbgCookieDismissed = false;
+  try{ cbgCookieDismissed = localStorage.getItem("cbg_cookie_notice_dismissed") === "1"; }catch(e){}
+  if(!cbgCookieDismissed) document.getElementById("cookieNotice").classList.remove("hidden");
 });
 </script>
 
