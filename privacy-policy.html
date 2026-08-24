@@ -39,6 +39,8 @@
   }
   a{color:inherit;}
   .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .demo-banner{background:var(--brand-dark);color:#fff;text-align:center;font-size:13px;padding:10px 16px;}
+  .demo-banner b{color:#a9e6c9;}
 
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);box-shadow:0 4px 18px rgba(7,74,53,0.28);}
@@ -95,6 +97,8 @@
   .legal li{margin-bottom:6px;}
   .legal b{color:var(--ink);}
   .legal a.inline{color:var(--brand-dark);font-weight:600;text-decoration:underline;}
+  .draft-note{max-width:760px;margin:0 auto 28px;background:var(--warning-bg);border:1px solid #f0d9a6;border-radius:14px;padding:18px 22px;font-size:13.5px;color:var(--warning-ink);}
+  .draft-note b{color:var(--ink);}
 
   footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;}
   .trust-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
@@ -115,104 +119,87 @@
 </style>
 </head>
 <body>
+
+<div class="demo-banner">
+  <b>Concept demo:</b> this describes the intended privacy approach for this product design — no real backend or data collection is wired up yet, see "Where this stands today" below.
+</div>
+
 <nav>
   <div class="wrap">
-    <a href="index.html" class="logo">
+    <a href="https://claude.ai/code/artifact/6b461404-0bc7-4a47-99d2-8f60e8d56680" class="logo">
       <span class="mark"><svg viewBox="0 0 24 24"><path d="M12 2 L19.5 5.2 V11.6 C19.5 17 16.2 20.7 12 22 C7.8 20.7 4.5 17 4.5 11.6 V5.2 Z" fill="#0b6e4f"/><path d="M12.8 8.8 A3.7 3.7 0 1 0 12.8 16.2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="12.9" y="13.8" width="1.5" height="3.2" rx="0.5" fill="#8fcdae"/><rect x="15" y="11.6" width="1.5" height="5.4" rx="0.5" fill="#c9b467"/><rect x="17.1" y="9.4" width="1.5" height="7.6" rx="0.5" fill="#c8860d"/></svg></span>
       <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
     </a>
     <div class="navlinks">
-      <a href="index.html#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
-      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
-      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
-      <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>
+      <a href="https://claude.ai/code/artifact/6b461404-0bc7-4a47-99d2-8f60e8d56680#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="https://claude.ai/code/artifact/d380e3ad-30b8-4f72-8653-0f965901018c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>
     </div>
-    <div class="nav-actions">
-      <a href="#" class="link-muted" onclick="return openAuthModal('login')">Log in</a>
-      <a href="#" class="btn btn-outline btn-sm" onclick="return openAuthModal('signup')">Sign up</a>
-    </div>
+    <div class="nav-actions" id="navAuthSlot"></div>
   </div>
 </nav>
 
-<div class="modal-bg" id="authModal">
-  <div class="modal">
-    <h3 id="authModalTitle">Log in</h3>
-    <p class="hint">Account access is not currently available. You can continue browsing CryptoBetGrade without creating an account.</p>
-    <div class="modal-actions"><button class="btn" onclick="closeAuthModal()">Got it</button></div>
-  </div>
-</div>
-
 <header class="page-hero">
   <div class="wrap">
-    <span class="kicker">LEGAL · PRIVACY</span>
+    <span class="kicker">LEGAL · DRAFT</span>
     <h1>Privacy Policy</h1>
-    <p>How CryptoBetGrade handles personal data, third-party requests and your privacy rights.</p>
+    <p>What CryptoBetGrade collects today, what it doesn't, and what a live version of this product would need before launch.</p>
     <p class="meta">Last updated: 2026-08-24</p>
   </div>
 </header>
 
 <section>
   <div class="wrap">
-<div class="legal">
-      <h2>1. About this Privacy Policy</h2>
-      <p>This Privacy Policy explains how <b>CryptoBetGrade</b> handles personal data when you visit <b>cryptobetgrade.com</b> (the “Site”), contact us, submit information to us, or otherwise interact with the Site.</p>
-      <p>CryptoBetGrade is an independent informational website focused on crypto sportsbooks and related operator information. CryptoBetGrade does not operate a sportsbook or casino and does not process gambling deposits or withdrawals.</p>
+    <div class="draft-note">
+      <b>Draft — not legal advice.</b> This is a starting template written for the current, static version of this site, not a finished, lawyer-reviewed policy. Before this product collects any real personal data, have a qualified lawyer (ideally one familiar with GDPR and gambling-adjacent advertising rules) review and finalise it — every <code>[bracketed]</code> field below needs a real value first.
+    </div>
 
-      <h2>2. Data we may receive</h2>
-      <p><b>Information you provide directly.</b> If you contact us by email, submit a dispute, report an issue, suggest an operator, or otherwise send information to CryptoBetGrade, we may receive the information you choose to provide. This may include your name or online handle, email address, the content of your message, supporting documents, screenshots, transaction references, and other information relevant to your submission.</p>
-      <p><b>Technical information.</b> When you access the Site, your browser necessarily communicates technical information such as your IP address, browser and device information, requested page, and request time to the services needed to deliver the Site and its resources. CryptoBetGrade does not use this information to identify visitors unless necessary for security, abuse prevention, or legal compliance.</p>
+    <div class="legal">
+      <h2>1. Where this stands today</h2>
+      <p>CryptoBetGrade, as it exists right now, is a static set of pages with no server, no database, and no real user-account system. That has a direct effect on this policy: there is currently <b>no working mechanism on this site that collects personal data from an ordinary visitor</b>. The "Log in" / "Sign up" links open a placeholder explaining that player accounts don't exist yet, and the admin area is a client-side password gate for the site's own team, not a real authentication system. The sections below describe what applies once a real backend exists — most of it is not yet in effect.</p>
 
-      <h2>3. Third-party resources loaded by the Site</h2>
-      <p>The Site currently uses certain externally hosted resources. When your browser requests those resources, the relevant provider may receive technical information including your IP address:</p>
+      <h2>2. Who this will apply to</h2>
+      <p>This policy covers cryptobetgrade.com ("the Site"), an informational site that reviews and tracks publicly available information about crypto sportsbook and casino operators. It does not cover the operators listed on the Site — each has its own privacy practices, linked from their profile page where available.</p>
+
+      <h2>3. What we collect</h2>
+      <p><b>Visitors browsing the Site.</b> No analytics tool is currently installed, so no browsing data is collected or stored by us today. If/when an analytics tool is added (e.g. a privacy-focused, cookie-free option like Plausible, or Google Analytics), this section will name it, describe what it collects (typically: approximate location from IP, device/browser type, pages visited, referring site), and state the legal basis (legitimate interest under Art. 6(1)(f) GDPR, or consent where required).</p>
+      <p><b>Anyone submitting a complaint or a "suggest a sportsbook" form.</b> These forms exist in the design but aren't wired up to actually send or store anything yet. Once live, submitted data (name or handle, email, and the content submitted) would be collected on the basis of consent (Art. 6(1)(a) GDPR).</p>
+      <p><b>Admin users.</b> The current admin login is a single shared password checked entirely in your browser — no login attempt, email, or credential is transmitted anywhere or stored server-side. A real version would use a proper auth provider with individual accounts; this section will be rewritten once that exists.</p>
+
+      <h2>4. What we don't collect</h2>
+      <p>We don't process payments on this Site — any deposit happens on the operator's own site, entirely outside our systems. We don't require account creation to browse or search. We don't use browser local storage to remember anything about you.</p>
+
+      <h2>5. Requests your browser makes automatically</h2>
+      <p>Even with no backend of our own, loading this Site's pages makes a small number of automatic requests to third parties, each of which may see your IP address as part of that request:</p>
       <ul>
-        <li><b>Google Fonts</b> — used to load the Site's typeface.</li>
-        <li><b>Google favicon services and DuckDuckGo icon services</b> — may be used to display operator website icons or logos.</li>
+        <li><b>Google Fonts</b> (fonts.googleapis.com, fonts.gstatic.com) — loads the site's typeface.</li>
+        <li><b>Google's favicon service &amp; DuckDuckGo's icon service</b> — used to fetch each crypto sportsbook's logo on its profile and on the homepage's top-5 cards, with one as a fallback if the other doesn't have it.</li>
       </ul>
-      <p>These providers process requests under their own privacy terms. See our <a href="cookies.html" class="inline">Cookies page</a> for additional information about browser storage and tracking technologies used by the Site.</p>
+      <p>See <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34" class="inline">Cookies</a> for how this relates to cookies specifically.</p>
 
-      <h2>4. Why we process personal data</h2>
-      <p>Where the GDPR applies, we process personal data only where there is an appropriate legal basis. Depending on the context, this may include:</p>
+      <h2>6. Third parties / subprocessors (once a backend exists)</h2>
       <ul>
-        <li><b>Legitimate interests</b> — operating, securing and improving the Site; responding to legitimate enquiries; maintaining accurate operator and complaint records; and preventing abuse or fraud.</li>
-        <li><b>Consent</b> — where you voluntarily provide information for a purpose that requires consent, or where consent is required for a particular technology or processing activity.</li>
-        <li><b>Legal obligations</b> — where processing is necessary to comply with applicable law, regulatory requirements, court orders or other binding legal obligations.</li>
+        <li><b>[Hosting provider, e.g. Cloudflare Pages/Vercel]</b> — would serve the Site's files.</li>
+        <li><b>[Database/auth provider, e.g. Supabase]</b> — would store operator, complaint, and admin-account data.</li>
+        <li><b>[Analytics provider]</b> — if/when added, named here.</li>
       </ul>
+      <p>If any future provider processes data outside the EU/EEA, the transfer safeguard (Standard Contractual Clauses, or an adequacy decision) will be listed here.</p>
 
-      <h2>5. Complaint and dispute submissions</h2>
-      <p>If you submit a complaint, dispute, correction request or supporting evidence, please provide only information necessary for us to assess the matter. <b>Do not send passwords, private keys, seed phrases, full payment-card details, or other credentials.</b></p>
-      <p>Information supplied in connection with a complaint or dispute may be reviewed against publicly available sources and, where appropriate, may be shared with the relevant operator or service provider for the purpose of checking or responding to the claim. We may publish a summary of a complaint or its outcome where this is appropriate for the Site, but we aim to avoid publishing unnecessary personal information.</p>
+      <h2>7. Retention</h2>
+      <p>Not applicable today — nothing is stored. Once live: visitor analytics data would be kept for <b>[X months]</b>; submitted complaints retained as long as relevant to the operator's public profile or until deletion is requested; admin account data for the duration of the person's role plus <b>[X]</b>.</p>
 
-      <h2>6. What we do not do</h2>
-      <p>CryptoBetGrade does not process gambling deposits or withdrawals and does not receive your sportsbook account credentials. Deposits, withdrawals, KYC checks and gambling activity performed on an operator's website are handled by that operator and are subject to its own privacy policy and terms.</p>
-      <p>We do not sell personal data to advertisers.</p>
+      <h2>8. Your rights (EU/EEA visitors, GDPR)</h2>
+      <p>Once this Site processes personal data, you'll be able to request access to, correction of, or deletion of your data, object to processing based on legitimate interest, and request a portable copy. Contact <a href="mailto:privacy@cryptobetgrade.com" class="inline"><b>privacy@cryptobetgrade.com</b></a>. You can also lodge a complaint with your local data protection authority — in Lithuania, that's the State Data Protection Inspectorate (Valstybinė duomenų apsaugos inspekcija).</p>
 
-      <h2>7. Service providers and international transfers</h2>
-      <p>We may use hosting, email, security, analytics or other technical service providers to operate CryptoBetGrade. Those providers may process limited personal data on our behalf or receive technical request data as part of providing their services.</p>
-      <p>If personal data is transferred outside the European Economic Area, we will use an applicable transfer mechanism where required, such as an adequacy decision or Standard Contractual Clauses.</p>
+      <h2>9. Cookies</h2>
+      <p>See the dedicated <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34" class="inline">Cookies page</a> for the current, accurate list — short version: this Site does not set any cookies of its own today.</p>
 
-      <h2>8. Data retention</h2>
-      <p>We keep personal data only for as long as reasonably necessary for the purpose for which it was collected, including to respond to enquiries or disputes, maintain the integrity of published complaint records, establish or defend legal claims, comply with legal obligations, and protect the Site from abuse.</p>
-      <p>Retention periods may differ depending on the type of information and the reason it is held. Where information is no longer required, it will be deleted or anonymised where reasonably practicable.</p>
+      <h2>10. Children</h2>
+      <p>The Site is not directed at anyone under 18. We don't knowingly collect data from minors.</p>
 
-      <h2>9. Your rights</h2>
-      <p>If the GDPR applies to you, you may have rights including access to your personal data, correction of inaccurate data, deletion, restriction of processing, data portability, and the right to object to certain processing. Where processing is based on consent, you may withdraw that consent at any time without affecting processing carried out before withdrawal.</p>
-      <p>To exercise a privacy right, contact <a href="mailto:privacy@cryptobetgrade.com" class="inline"><b>privacy@cryptobetgrade.com</b></a>. We may need to verify your identity before acting on a request.</p>
-      <p>You also have the right to lodge a complaint with the competent data protection authority. In Lithuania, this is the <b>State Data Protection Inspectorate (Valstybinė duomenų apsaugos inspekcija)</b>.</p>
-
-      <h2>10. Cookies and similar technologies</h2>
-      <p>Information about cookies, local storage and similar technologies used by CryptoBetGrade is provided on our dedicated <a href="cookies.html" class="inline">Cookies page</a>.</p>
-
-      <h2>11. Children</h2>
-      <p>CryptoBetGrade is intended for adults aged 18 and over. We do not knowingly seek to collect personal data from children.</p>
-
-      <h2>12. External websites</h2>
-      <p>The Site contains links to third-party websites, including sportsbook and casino operators. CryptoBetGrade is not responsible for the privacy practices, security or content of those third-party websites. Review the relevant provider's privacy information before providing personal data to it.</p>
-
-      <h2>13. Changes to this Privacy Policy</h2>
-      <p>We may update this Privacy Policy when the Site, our data practices, or applicable legal requirements change. The “Last updated” date at the top of this page identifies the current version.</p>
-
-      <h2>14. Contact</h2>
-      <p>Privacy questions and requests can be sent to <a href="mailto:privacy@cryptobetgrade.com" class="inline"><b>privacy@cryptobetgrade.com</b></a>.</p>
+      <h2>11. Changes to this policy</h2>
+      <p>We'll update the date at the top when this changes materially — most notably, the first time this Site actually starts collecting real data.</p>
     </div>
   </div>
 </section>
@@ -228,27 +215,27 @@
     <div class="footer-grid">
       <div class="footer-col">
         <h5>Product</h5>
-        <a href="methodology.html">How scoring works</a>
-        <a href="dashboard.html">Leaderboard</a>
-        <a href="analytics.html">Market analytics</a>
+        <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73">How scoring works</a>
+        <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5">Leaderboard</a>
+        <a href="https://claude.ai/code/artifact/d380e3ad-30b8-4f72-8653-0f965901018c">Market analytics</a>
       </div>
       <div class="footer-col">
         <h5>Crypto sportsbooks</h5>
         <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
         <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
         <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
-        <a href="index.html#operators">Suggest a sportsbook</a>
+        <a href="https://claude.ai/code/artifact/6b461404-0bc7-4a47-99d2-8f60e8d56680#operators">Suggest a sportsbook</a>
       </div>
       <div class="footer-col">
         <h5>Company</h5>
-        <a href="about.html">About</a>
-        <a href="methodology.html">Methodology paper</a>
+        <a href="https://claude.ai/code/artifact/b3bf154c-3b7d-4924-94d6-b7d089d46f75">About</a>
+        <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73">Methodology paper</a>
         <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
       </div>
       <div class="footer-col">
         <h5>Legal</h5>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="cookies.html">Cookies</a>
+        <a href="https://claude.ai/code/artifact/af95f3ca-e927-494a-9df2-fdb0565ee9c8">Privacy Policy</a>
+        <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34">Cookies</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -258,23 +245,18 @@
 </footer>
 
 <div id="cookieNotice" class="hidden">
-  <p>This site doesn't set tracking or advertising cookies. Loading our web font and each sportsbook's logo makes a couple of requests to Google/DuckDuckGo — see <a href="cookies.html" class="inline" style="color:var(--brand-dark);">Cookies</a> for details.</p>
+  <p>This site doesn't set tracking or advertising cookies. Loading our web font and each sportsbook's logo makes a couple of requests to Google/DuckDuckGo — see <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34" class="inline" style="color:var(--brand-dark);">Cookies</a> for details.</p>
   <div class="actions">
     <button class="btn btn-sm" onclick="dismissCookieNotice()">Got it</button>
   </div>
 </div>
 
 <script>
-function openAuthModal(kind){
-  document.getElementById("authModalTitle").textContent = kind === "signup" ? "Sign up" : "Log in";
-  document.getElementById("authModal").classList.add("open");
-  return false;
-}
-function closeAuthModal(){ document.getElementById("authModal").classList.remove("open"); }
-document.getElementById("authModal").addEventListener("click", e => {
-  if(e.target.id === "authModal") closeAuthModal();
-});
 
+// Cookie notice — intentionally NOT persisted via localStorage/cookies (this
+// project doesn't use browser storage anywhere), so it reappears each visit.
+// That's fine here: since the Site sets no cookies of its own, this is a
+// transparency notice, not a consent gate that legally needs to "stick."
 function dismissCookieNotice(){
   document.getElementById("cookieNotice").classList.add("hidden");
 }
@@ -283,5 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script src="/site.js"></script>
 </body>
 </html>

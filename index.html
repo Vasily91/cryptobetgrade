@@ -1535,26 +1535,14 @@ function handleLogoError(img){
     </a>
     <div class="navlinks">
       <a href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
-      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
-      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
-      <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>    </div>
-    <div class="nav-actions">
-      <a href="#" class="link-muted" onclick="return openAuthModal('login')">Log in</a>
-      <a href="#" class="btn btn-outline btn-sm" onclick="return openAuthModal('signup')">Sign up</a>
-    </div>
+      <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="https://claude.ai/code/artifact/d380e3ad-30b8-4f72-8653-0f965901018c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>    </div>
+    <div class="nav-actions" id="navAuthSlot"></div>
   </div>
 </nav>
 
 <!-- AUTH MODAL (placeholder — no account system built yet) -->
-<div class="modal-bg" id="authModal">
-  <div class="modal">
-    <h3 id="authModalTitle">Log in</h3>
-    <p class="hint" id="authModalText">Player accounts (saved searches, complaint submissions tied to your name) aren't built yet — this is a placeholder for that future feature. For now, browse the leaderboard or submit a complaint anonymously.</p>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeAuthModal()">Got it</button>
-    </div>
-  </div>
-</div>
 
 <!-- SUGGEST A SPORTSBOOK MODAL — no backend yet, so this opens a prefilled
      email to the team instead of silently doing nothing. Honest about that
@@ -1694,7 +1682,7 @@ function handleLogoError(img){
         <span class="name">Stake</span>
         <div class="stat-n">$26.3M</div><div class="stat-l">24h deposits</div>
         <div class="card-actions">
-          <a href="dashboard.html#/operator/stake" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5#/operator/stake" class="btn-mini btn-mini-primary">View profile</a>
           <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
         </div>
       </div>
@@ -1704,7 +1692,7 @@ function handleLogoError(img){
         <span class="name">Duel</span>
         <div class="stat-n">$8.6M</div><div class="stat-l">24h deposits</div>
         <div class="card-actions">
-          <a href="dashboard.html#/operator/duel" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5#/operator/duel" class="btn-mini btn-mini-primary">View profile</a>
           <a href="https://duel.com" target="_blank" rel="noopener" class="btn-mini btn-mini-secondary">View website</a>
         </div>
       </div>
@@ -1714,7 +1702,7 @@ function handleLogoError(img){
         <span class="name">Shuffle</span>
         <div class="stat-n">$8.2M</div><div class="stat-l">24h deposits</div>
         <div class="card-actions">
-          <a href="dashboard.html#/operator/shuffle" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5#/operator/shuffle" class="btn-mini btn-mini-primary">View profile</a>
           <a href="https://shuffle.com" target="_blank" rel="noopener" class="btn-mini btn-mini-secondary">View website</a>
         </div>
       </div>
@@ -1724,7 +1712,7 @@ function handleLogoError(img){
         <span class="name">Roobet</span>
         <div class="stat-n">$8.1M</div><div class="stat-l">24h deposits</div>
         <div class="card-actions">
-          <a href="dashboard.html#/operator/roobet" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5#/operator/roobet" class="btn-mini btn-mini-primary">View profile</a>
           <a href="https://roobet.com/?ref=akgamble" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
         </div>
       </div>
@@ -1734,13 +1722,13 @@ function handleLogoError(img){
         <span class="name">Rainbet</span>
         <div class="stat-n">$6.1M</div><div class="stat-l">24h deposits</div>
         <div class="card-actions">
-          <a href="dashboard.html#/operator/rainbet" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5#/operator/rainbet" class="btn-mini btn-mini-primary">View profile</a>
           <a href="https://rainbet.com?r=crptobetgrade" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
         </div>
       </div>
     </div>
     <div class="top5-cta">
-      <a href="dashboard.html" class="btn btn-outline">Full list →</a>
+      <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5" class="btn btn-outline">Full list →</a>
     </div>
   </div>
 </section>
@@ -1766,9 +1754,9 @@ function handleLogoError(img){
     <div class="footer-grid">
       <div class="footer-col">
         <h5>Product</h5>
-        <a href="methodology.html">How scoring works</a>
-        <a href="dashboard.html">Leaderboard</a>
-        <a href="analytics.html">Market analytics</a>
+        <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73">How scoring works</a>
+        <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5">Leaderboard</a>
+        <a href="https://claude.ai/code/artifact/d380e3ad-30b8-4f72-8653-0f965901018c">Market analytics</a>
       </div>
       <div class="footer-col">
         <h5>Crypto sportsbooks</h5>
@@ -1779,25 +1767,25 @@ function handleLogoError(img){
       </div>
       <div class="footer-col">
         <h5>Company</h5>
-        <a href="about.html">About</a>
-        <a href="methodology.html">Methodology paper</a>
+        <a href="https://claude.ai/code/artifact/b3bf154c-3b7d-4924-94d6-b7d089d46f75">About</a>
+        <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73">Methodology paper</a>
         <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
       </div>
       <div class="footer-col">
         <h5>Legal</h5>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="cookies.html">Cookies</a>
+        <a href="https://claude.ai/code/artifact/af95f3ca-e927-494a-9df2-fdb0565ee9c8">Privacy Policy</a>
+        <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34">Cookies</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="about.html" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
+      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="https://claude.ai/code/artifact/b3bf154c-3b7d-4924-94d6-b7d089d46f75" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
       <p>Some crypto sportsbook listings include an affiliate link — clearly marked on that sportsbook's profile page. Affiliate relationships never influence Trust Scores.</p>
     </div>
   </div>
 </footer>
 
 <div id="cookieNotice" class="hidden">
-  <p>This site doesn't set tracking or advertising cookies. Loading our web font and each sportsbook's logo makes a couple of requests to Google/DuckDuckGo — see <a href="cookies.html" style="color:var(--brand-dark);font-weight:600;">Cookies</a> for details.</p>
+  <p>This site doesn't set tracking or advertising cookies. Loading our web font and each sportsbook's logo makes a couple of requests to Google/DuckDuckGo — see <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34" style="color:var(--brand-dark);font-weight:600;">Cookies</a> for details.</p>
   <div class="actions">
     <button class="btn btn-sm" onclick="dismissCookieNotice()">Got it</button>
   </div>
@@ -1807,16 +1795,6 @@ function handleLogoError(img){
 // Placeholder auth modal — there is no player-account system built yet (see
 // dashboard.html for the separate admin login, which is a different thing).
 // This just tells visitors honestly that Log in/Sign up isn't wired up yet.
-function openAuthModal(kind){
-  document.getElementById("authModalTitle").textContent = kind === "signup" ? "Sign up" : "Log in";
-  document.getElementById("authModal").classList.add("open");
-  return false;
-}
-function closeAuthModal(){ document.getElementById("authModal").classList.remove("open"); }
-document.addEventListener("DOMContentLoaded", () => {
-  const bg = document.getElementById("authModal");
-  if(bg) bg.addEventListener("click", e => { if(e.target === bg) closeAuthModal(); });
-});
 
 // "Suggest a sportsbook" — also no backend yet, so submitting builds a
 // mailto: link (prefilled subject/body) instead of pretending to save
@@ -1977,5 +1955,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script src="/site.js"></script>
 </body>
 </html>

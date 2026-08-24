@@ -1,0 +1,4 @@
+worker.js
+wrangler.jsonc
+d1-schema.sql
+.assetsignore

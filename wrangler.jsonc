@@ -1,0 +1,31 @@
+{
+  "name": "cryptobetgrade",
+  "main": "worker.js",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cryptobetgrade-db",
+      // Replace with the ID printed by `wrangler d1 create cryptobetgrade-db`
+      "database_id": "8b212fd3-9442-4609-95f4-e5ce24ca26d9"
+    }
+  ],
+  "vars": {
+    // Comma-separated list of emails that get admin rights the moment
+    // they log in through the normal magic-link flow. No separate
+    // "make someone admin" step needed — just list the email here.
+    "ADMIN_EMAILS": "koncius1991@gmail.com",
+    "SITE_URL": "https://cryptobetgrade.com",
+    // Shown as the "from" name on magic-link emails.
+    "SITE_NAME": "CryptoBetGrade"
+  }
+  // RESEND_API_KEY is a SECRET, not a var — set it with:
+  //   npx wrangler secret put RESEND_API_KEY
+  // (or add it in the Cloudflare dashboard: Worker -> Settings -> Variables and Secrets)
+  // so it never ends up committed to the repo.
+}

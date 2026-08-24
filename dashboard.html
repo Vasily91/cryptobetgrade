@@ -780,19 +780,16 @@ footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;marg
 
 <nav>
   <div class="wrap">
-    <a href="index.html" class="logo">
+    <a href="https://claude.ai/code/artifact/6b461404-0bc7-4a47-99d2-8f60e8d56680" class="logo">
       <span class="mark"><svg viewBox="0 0 24 24"><path d="M12 2 L19.5 5.2 V11.6 C19.5 17 16.2 20.7 12 22 C7.8 20.7 4.5 17 4.5 11.6 V5.2 Z" fill="#0b6e4f"/><path d="M12.8 8.8 A3.7 3.7 0 1 0 12.8 16.2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="12.9" y="13.8" width="1.5" height="3.2" rx="0.5" fill="#8fcdae"/><rect x="15" y="11.6" width="1.5" height="5.4" rx="0.5" fill="#c9b467"/><rect x="17.1" y="9.4" width="1.5" height="7.6" rx="0.5" fill="#c8860d"/></svg></span>
       <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
     </a>
     <div class="navlinks">
-      <a href="index.html#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
-      <a href="dashboard.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
-      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
-      <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>    </div>
-    <div class="nav-actions">
-      <a href="#" class="link-muted" onclick="return openAuthModal('login')">Log in</a>
-      <a href="#" class="btn btn-outline btn-sm" onclick="return openAuthModal('signup')">Sign up</a>
-    </div>
+      <a href="https://claude.ai/code/artifact/6b461404-0bc7-4a47-99d2-8f60e8d56680#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="https://claude.ai/code/artifact/d380e3ad-30b8-4f72-8653-0f965901018c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>    </div>
+    <div class="nav-actions" id="navAuthSlot"></div>
   </div>
 </nav>
 
@@ -804,15 +801,6 @@ footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;marg
 </div>
 
 <!-- AUTH MODAL (placeholder — no player account system built yet) -->
-<div class="modal-bg" id="authModal">
-  <div class="modal">
-    <h3 id="authModalTitle">Log in</h3>
-    <p class="hint">Player accounts (saved searches, complaint submissions tied to your name) aren't built yet — this is a placeholder for that future feature. For now, browse the list or submit a complaint anonymously.</p>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('authModal')">Got it</button>
-    </div>
-  </div>
-</div>
 
 <main>
   <div class="wrap" id="view"></div>
@@ -829,31 +817,31 @@ footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;marg
     <div class="footer-grid">
       <div class="footer-col">
         <h5>Product</h5>
-        <a href="methodology.html">How scoring works</a>
-        <a href="dashboard.html">Leaderboard</a>
-        <a href="analytics.html">Market analytics</a>
+        <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73">How scoring works</a>
+        <a href="https://claude.ai/code/artifact/5bf01ba3-50ab-4d9e-ac8f-d6c3d02751d5">Leaderboard</a>
+        <a href="https://claude.ai/code/artifact/d380e3ad-30b8-4f72-8653-0f965901018c">Market analytics</a>
       </div>
       <div class="footer-col">
         <h5>Crypto sportsbooks</h5>
         <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
         <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
         <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
-        <a href="index.html#operators">Suggest a sportsbook</a>
+        <a href="https://claude.ai/code/artifact/6b461404-0bc7-4a47-99d2-8f60e8d56680#operators">Suggest a sportsbook</a>
       </div>
       <div class="footer-col">
         <h5>Company</h5>
-        <a href="about.html">About</a>
-        <a href="methodology.html">Methodology paper</a>
+        <a href="https://claude.ai/code/artifact/b3bf154c-3b7d-4924-94d6-b7d089d46f75">About</a>
+        <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73">Methodology paper</a>
         <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
       </div>
       <div class="footer-col">
         <h5>Legal</h5>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="cookies.html">Cookies</a>
+        <a href="https://claude.ai/code/artifact/af95f3ca-e927-494a-9df2-fdb0565ee9c8">Privacy Policy</a>
+        <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34">Cookies</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="about.html" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
+      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="https://claude.ai/code/artifact/b3bf154c-3b7d-4924-94d6-b7d089d46f75" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
       <p>Some crypto sportsbook listings include an affiliate link — clearly marked on that sportsbook's profile page. Affiliate relationships never influence Trust Scores.</p>
     </div>
   </div>
@@ -948,11 +936,39 @@ footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;marg
   </div>
 </div>
 
+<!-- FILE A COMPLAINT (real, community-submitted — separate from the
+     curated dataset above; goes to admin review before it's public) -->
+<div class="modal-bg" id="cbgFileModal">
+  <div class="modal" style="max-width:560px;">
+    <h3>File a complaint about <span id="cbgFileOperatorName"></span></h3>
+    <p class="hint">This goes to CryptoBetGrade for review before it's shown publicly — it won't appear on the site immediately. You'll get a case thread you and our team can post updates to.</p>
+    <div class="field"><label>Title</label><input type="text" id="cbgFileTitle" placeholder="e.g. Withdrawal delayed 3 weeks, no explanation given" maxlength="140"></div>
+    <div class="field"><label>Amount at stake (optional)</label><input type="text" id="cbgFileAmount" placeholder="e.g. $500, or leave blank"></div>
+    <div class="field"><label>What happened</label><textarea id="cbgFileDescription" placeholder="Describe what happened, in your own words — at least a few sentences." style="min-height:120px;"></textarea></div>
+    <p id="cbgFileError" style="display:none;color:var(--critical-ink);font-size:12.5px;margin:0 0 8px;"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('cbgFileModal')">Cancel</button>
+      <button class="btn" id="cbgFileSubmitBtn" onclick="cbgSubmitNewComplaint()">Submit for review</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLAINT THREAD VIEWER (community-submitted complaints) -->
+<div class="modal-bg" id="cbgThreadModal">
+  <div class="modal" style="max-width:640px;max-height:80vh;overflow-y:auto;">
+    <h3 id="cbgThreadTitle">Complaint</h3>
+    <div id="cbgThreadBody"><div class="empty-note">Loading…</div></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('cbgThreadModal')">Close</button>
+    </div>
+  </div>
+</div>
+
 <input type="file" id="logoFileInput" accept="image/*" style="display:none" onchange="onLogoFileChosen(event)">
 <input type="file" id="importFileInput" accept="application/json" style="display:none" onchange="onImportFile(event)">
 
 <div id="cookieNotice" class="hidden">
-  <p>This site doesn't set tracking or advertising cookies. Loading our web font, each sportsbook's logo, and (on profile pages) a country-acceptance check makes a couple of requests to Google/DuckDuckGo/ipwho.is/flagcdn.com — see <a href="cookies.html" style="color:var(--brand-dark);font-weight:600;">Cookies</a> for details.</p>
+  <p>This site doesn't set tracking or advertising cookies. Loading our web font, each sportsbook's logo, and (on profile pages) a country-acceptance check makes a couple of requests to Google/DuckDuckGo/ipwho.is/flagcdn.com — see <a href="https://claude.ai/code/artifact/e6d60f30-5fb9-4c71-94c3-ce2b9b350a34" style="color:var(--brand-dark);font-weight:600;">Cookies</a> for details.</p>
   <div class="actions">
     <button class="btn btn-sm" onclick="dismissCookieNotice()">Got it</button>
   </div>
@@ -3493,6 +3509,7 @@ function renderDetail(id){
     </div>
   `;
   if(!editing) initGeoStatus(id);
+  if(!editing && detailTab === "complaints") cbgLoadComplaints(id, op.name);
 }
 
 /* ---- OVERVIEW TAB — folds in everything that used to be its own Trust &
@@ -3758,6 +3775,13 @@ function renderComplaintsTab(op, id){
       </div>
       ${op.complaints.length === 0 ? `<div class="empty-note">${op.complaintsNote || "No complaints logged yet."}</div>` : ""}
       ${sorted.map(c => complaintCardHtml(c, id)).join("")}
+
+      <div class="section-title" style="margin-top:30px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span>Community-submitted complaints</span>
+        <button class="btn btn-outline btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
+      </div>
+      <p class="cmeta" style="margin:-4px 0 12px;">Submitted by site visitors, reviewed by CryptoBetGrade before publishing. Separate from the sourced complaints above.</p>
+      <div id="cbgComplaints-${id}"><div class="empty-note">Loading…</div></div>
   `;
 }
 function complaintCardHtml(c, id){
@@ -3884,11 +3908,181 @@ function renderComplaintDetail(op, id, c){
           </div>
           <div class="sidebar-box">
             <div class="section-title" style="margin-top:0;">How we source this</div>
-            <p style="font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0;">Cases here come from operator-facing complaint platforms (AskGamblers, Casino Guru) and public forum/Reddit reports. A verified case went through that platform's own review process; an unverified one is a community report we haven't independently confirmed. There's no submissions system yet — see <a href="methodology.html" style="color:var(--brand-dark);font-weight:600;">How scoring works</a> for the full methodology.</p>
+            <p style="font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0;">Cases here come from operator-facing complaint platforms (AskGamblers, Casino Guru) and public forum/Reddit reports. A verified case went through that platform's own review process; an unverified one is a community report we haven't independently confirmed. Visitors can also file a complaint directly (see below) — those go through our own review before publishing, kept separate from this sourced set. See <a href="https://claude.ai/code/artifact/68402b5a-8df6-4263-b4dd-b0e952ca6d73" style="color:var(--brand-dark);font-weight:600;">How scoring works</a> for the full methodology.</p>
           </div>
         </div>
       </div>
   `;
+}
+
+/* ---- COMMUNITY COMPLAINTS — real, visitor-submitted complaints, backed
+   by the /api/complaints* endpoints (see the Worker). Kept visually and
+   functionally separate from the curated op.complaints dataset above:
+   these go through admin review before they're public, and the thread
+   view lets the submitter and an admin post back and forth. Uses the
+   shared login widget from site.js (CBG_USER, cbgOpenAuthModal). */
+
+const CBG_STATUS_LABEL = {
+  open: "Open", awaiting_response: "Awaiting response", resolved: "Resolved",
+  rejected: "Rejected", removed: "Removed", pending_review: "Pending review",
+};
+const CBG_STATUS_CLASS = {
+  open: "bad", awaiting_response: "bad", resolved: "good", rejected: "neutral", removed: "neutral",
+};
+
+async function cbgLoadComplaints(id, operatorName){
+  const container = document.getElementById(`cbgComplaints-${id}`);
+  if(!container) return;
+  const op = findOp(id);
+  try{
+    const res = await fetch(`/api/complaints?operator_slug=${encodeURIComponent(op.id)}`);
+    if(!res.ok) throw new Error("Couldn't load community complaints.");
+    const data = await res.json();
+    const items = data.complaints || [];
+    if(!items.length){
+      container.innerHTML = `<div class="empty-note">No community-submitted complaints yet — be the first to file one if you've had an issue with ${operatorName}.</div>`;
+      return;
+    }
+    container.innerHTML = items.map(c => `
+      <div class="complaint" onclick="cbgOpenThread(${c.id})" role="button" tabindex="0">
+        <div class="row1">
+          <div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+              <span class="unverified-tag">Community report</span>
+            </div>
+            <div class="ctitle">${cbgEscape(c.title)}</div>
+            <div class="cmeta">${cbgEscape(cbgTruncate(c.description, 120))}</div>
+          </div>
+          <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}">${CBG_STATUS_LABEL[c.status]||c.status}</span>
+        </div>
+        <div class="cmeta" style="margin-top:8px;">${c.amount ? cbgEscape(c.amount) + " at stake" : "Amount not stated"} · filed ${cbgDateShort(c.created_at)}</div>
+      </div>
+    `).join("");
+  }catch(e){
+    container.innerHTML = `<div class="empty-note">Couldn't load community complaints right now. Try refreshing.</div>`;
+  }
+}
+
+function cbgTruncate(s, n){ return (s||"").length > n ? s.slice(0, n).trim() + "…" : (s||""); }
+function cbgEscape(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
+function cbgDateShort(iso){ try{ return new Date(iso.replace(" ","T")+"Z").toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"}); }catch(e){ return iso; } }
+
+// ---- File a complaint ----------------------------------------------------
+
+let cbgFileContext = null; // { id, operatorName }
+
+function cbgOpenFileComplaint(id, operatorName){
+  if(!CBG_USER){
+    cbgOpenAuthModal();
+    return;
+  }
+  cbgFileContext = { id, operatorName };
+  document.getElementById("cbgFileOperatorName").textContent = operatorName;
+  document.getElementById("cbgFileTitle").value = "";
+  document.getElementById("cbgFileAmount").value = "";
+  document.getElementById("cbgFileDescription").value = "";
+  document.getElementById("cbgFileError").style.display = "none";
+  openModal("cbgFileModal");
+}
+
+async function cbgSubmitNewComplaint(){
+  if(!cbgFileContext) return;
+  const op = findOp(cbgFileContext.id);
+  const title = document.getElementById("cbgFileTitle").value.trim();
+  const amount = document.getElementById("cbgFileAmount").value.trim();
+  const description = document.getElementById("cbgFileDescription").value.trim();
+  const errorEl = document.getElementById("cbgFileError");
+
+  if(title.length < 6){ errorEl.textContent = "Title should be at least 6 characters."; errorEl.style.display = "block"; return; }
+  if(description.length < 30){ errorEl.textContent = "Please describe what happened in at least 30 characters."; errorEl.style.display = "block"; return; }
+  errorEl.style.display = "none";
+
+  const btn = document.getElementById("cbgFileSubmitBtn");
+  btn.disabled = true; btn.textContent = "Submitting…";
+  try{
+    const res = await fetch("/api/complaints", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ operator_slug: op.id, operator_name: op.name, title, amount: amount || null, description }),
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || "Couldn't submit — try again.");
+    closeModal("cbgFileModal");
+    alert("Submitted — thanks. It'll appear here once reviewed.");
+  }catch(e){
+    errorEl.textContent = e.message;
+    errorEl.style.display = "block";
+  }finally{
+    btn.disabled = false; btn.textContent = "Submit for review";
+  }
+}
+
+// ---- Thread viewer ---------------------------------------------------
+
+let cbgActiveThreadId = null;
+
+async function cbgOpenThread(complaintId){
+  cbgActiveThreadId = complaintId;
+  document.getElementById("cbgThreadTitle").textContent = "Complaint";
+  document.getElementById("cbgThreadBody").innerHTML = `<div class="empty-note">Loading…</div>`;
+  openModal("cbgThreadModal");
+  await cbgRenderThread();
+}
+
+async function cbgRenderThread(){
+  const body = document.getElementById("cbgThreadBody");
+  try{
+    const res = await fetch(`/api/complaints/${cbgActiveThreadId}`);
+    if(!res.ok){ body.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`; return; }
+    const data = await res.json();
+    const c = data.complaint;
+    document.getElementById("cbgThreadTitle").textContent = c.title;
+    const isSubmitter = CBG_USER; // server checks the real match; client just decides whether to show a reply box at all
+    const canReply = CBG_USER && c.status !== "pending_review";
+    body.innerHTML = `
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
+        <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}">${CBG_STATUS_LABEL[c.status]||c.status}</span>
+        ${c.amount ? `<span class="cmeta">${cbgEscape(c.amount)} at stake</span>` : ""}
+      </div>
+      <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;">
+        ${data.messages.map(m => `
+          <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role==='admin' ? 'var(--brand-lighter)' : '#fff'};">
+            <div style="font-size:11.5px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${m.author_role==='admin' ? 'CryptoBetGrade team' : 'Submitter'} · ${cbgDateShort(m.created_at)}</div>
+            <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${cbgEscape(m.body)}</div>
+          </div>
+        `).join("")}
+      </div>
+      ${canReply ? `
+        <textarea id="cbgReplyBox" placeholder="Add an update…" style="min-height:70px;width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;margin-bottom:8px;"></textarea>
+        <button class="btn btn-sm" onclick="cbgSubmitReply()">Post</button>
+      ` : c.status === "pending_review"
+        ? `<p class="cmeta">This is still awaiting review — replies open once it's approved.</p>`
+        : `<p class="cmeta"><a href="#" onclick="return cbgOpenAuthModal()">Log in</a> to reply.</p>`
+      }
+    `;
+  }catch(e){
+    body.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`;
+  }
+}
+
+async function cbgSubmitReply(){
+  const box = document.getElementById("cbgReplyBox");
+  const text = box.value.trim();
+  if(!text) return;
+  try{
+    const res = await fetch(`/api/complaints/${cbgActiveThreadId}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body: text }),
+    });
+    if(!res.ok){
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || "Couldn't post that.");
+    }
+    await cbgRenderThread();
+  }catch(e){
+    alert(e.message);
+  }
 }
 
 /* ---- ANALYTICS TAB — on-chain data is real (where tracked); the 30-day
@@ -4405,11 +4599,6 @@ function onImportFile(evt){
 /* ================= MODALS ================= */
 function openModal(id){ document.getElementById(id).classList.add("open"); }
 function closeModal(id){ document.getElementById(id).classList.remove("open"); }
-function openAuthModal(kind){
-  document.getElementById("authModalTitle").textContent = kind === "signup" ? "Sign up" : "Log in";
-  openModal("authModal");
-  return false;
-}
 document.querySelectorAll(".modal-bg").forEach(m => {
   m.addEventListener("click", e => { if(e.target === m) m.classList.remove("open"); });
 });
@@ -4426,5 +4615,6 @@ function dismissCookieNotice(){
 }
 document.getElementById("cookieNotice").classList.remove("hidden");
 </script>
+<script src="/site.js"></script>
 </body>
 </html>
