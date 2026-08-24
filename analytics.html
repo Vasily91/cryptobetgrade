@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Analytics — CryptoBetGrade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0b6e4f;
+    --brand-dark:#074a35;
+    --brand-light:#e6f4ec;
+    --brand-lighter:#f3faf6;
+    --surface:#fcfcfb;
+    --page:#f9f9f7;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --ink-muted:#898781;
+    --line:#e1e0d9;
+    --border:rgba(11,11,11,0.10);
+    --good:#0ca30c; --good-bg:#e5f6e0; --good-ink:#0a5c0a;
+    --warning:#fab219; --warning-bg:#fff3dc; --warning-ink:#8a5c00;
+    --serious:#ec835a; --serious-bg:#fdebe2; --serious-ink:#a3441f;
+    --critical:#d03b3b; --critical-bg:#fbe5e5; --critical-ink:#8f1f1f;
+    --gold:#c8860d; --gold-bg:#fdf1da; --gold-ink:#8a5c00;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .demo-banner{background:var(--brand-dark);color:#fff;text-align:center;font-size:13px;padding:10px 16px;}
+  .demo-banner b{color:#a9e6c9;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);box-shadow:0 4px 18px rgba(7,74,53,0.28);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;}
+  .logo{display:flex;align-items:center;gap:10px;font-size:18.5px;letter-spacing:-0.3px;text-decoration:none;font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .logo .mark{position:relative;width:34px;height:34px;border-radius:10px;flex:none;background:#fff;padding:4px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.28);}
+  .logo .mark svg{width:100%;height:100%;}
+  .logo .wordmark-light{font-weight:600;color:rgba(255,255,255,0.72);}
+  .logo .wordmark-bold{font-weight:800;color:#fff;}
+  .navlinks{display:flex;gap:8px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.9);}
+  .navlinks a{text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.08);padding:8px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.14);transition:.15s ease;}
+  .navlinks a:hover{background:rgba(255,255,255,0.2);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+  .navlinks a.active{background:rgba(255,255,255,0.22);color:#fff;}
+  .navlinks svg{width:16px;height:16px;flex:none;}
+  .btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--brand);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer;transition:.15s;}
+  .btn:hover{background:var(--brand-dark);box-shadow:0 6px 16px rgba(11,110,79,0.28);transform:translateY(-1px);}
+  .btn,.btn-outline{transition:.15s ease;}
+  .btn-outline{background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand);display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;}
+  .btn-outline:hover{background:var(--brand-light);transform:translateY(-1px);}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .link-muted{text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);padding:8px 4px;white-space:nowrap;}
+  .link-muted:hover{color:var(--brand-dark);}
+  nav .link-muted{color:rgba(255,255,255,0.85);}
+  nav .link-muted:hover{color:#fff;}
+  nav .btn-outline{background:rgba(255,255,255,0.06);color:#fff;border:1.5px solid rgba(255,255,255,0.55);box-shadow:0 2px 6px rgba(0,0,0,0.14);}
+  nav .btn-outline:hover{background:rgba(255,255,255,0.18);border-color:#fff;}
+  nav .btn{background:#fff;color:var(--brand-dark);box-shadow:0 4px 14px rgba(0,0,0,0.24);}
+  nav .btn:hover{background:var(--gold-bg);color:var(--brand-dark);box-shadow:0 6px 18px rgba(0,0,0,0.3);}
+  @media (max-width:900px){ .navlinks{display:none;} }
+  @media (max-width:600px){ .link-muted{display:none;} }
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(11,11,11,0.45);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px;z-index:100;overflow-y:auto;}
+  .modal-bg.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:28px;max-width:440px;width:100%;}
+  .modal h3{margin:0 0 6px;font-size:18px;}
+  .modal p.hint{font-size:13.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.6;}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+
+  /* PAGE HERO */
+  .page-hero{padding:52px 0 36px;text-align:center;background:radial-gradient(600px 260px at 50% -60px, var(--brand-light), transparent 70%);}
+  .page-hero .kicker{display:inline-block;background:var(--brand-light);color:var(--brand-dark);font-size:12.5px;font-weight:700;letter-spacing:.03em;padding:6px 14px;border-radius:999px;margin-bottom:20px;}
+  .page-hero h1{font-size:clamp(28px,4vw,42px);margin:0 0 14px;letter-spacing:-0.8px;}
+  .page-hero p{max-width:640px;margin:0 auto;color:var(--ink-2);font-size:16px;}
+  .page-hero p.meta{max-width:640px;margin:14px auto 0;color:var(--ink-muted);font-size:12.5px;}
+
+  section{padding:0 0 48px;}
+  section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:44px 0;}
+  .section-head{max-width:680px;margin:0 auto 24px;text-align:center;}
+  .section-head .eyebrow{color:var(--brand-dark);font-weight:700;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+  .section-head h2{font-size:clamp(21px,3vw,27px);margin:0 0 10px;letter-spacing:-0.5px;}
+  .section-head p{color:var(--ink-2);font-size:14.5px;margin:0;}
+
+  /* STAT STRIP */
+  .stat-strip{max-width:1000px;margin:0 auto 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 4px 14px rgba(11,11,11,0.04);}
+  .stat-tile .stat-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);font-weight:700;margin-bottom:9px;}
+  .stat-tile .stat-value{font-size:25px;font-weight:800;letter-spacing:-0.5px;color:var(--ink);}
+  .stat-tile .stat-value small{font-size:14px;font-weight:700;color:var(--brand-dark);margin-left:4px;}
+  .stat-tile .stat-sub{font-size:11.5px;color:var(--ink-muted);margin-top:5px;}
+  .strip-caption{max-width:1000px;margin:0 auto;text-align:center;font-size:12px;color:var(--ink-muted);}
+  @media(max-width:760px){.stat-strip{grid-template-columns:1fr 1fr;}}
+
+  /* INSIGHT CARDS */
+  .insight-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .insight-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 4px 14px rgba(11,11,11,0.04);}
+  .insight-card .ic-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-dark);font-weight:700;margin-bottom:9px;}
+  .insight-card .ic-value{font-size:21px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px;}
+  .insight-card .ic-value.up{color:var(--good-ink);}
+  .insight-card .ic-value.down{color:var(--critical-ink);}
+  .insight-card p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.55;}
+  @media(max-width:900px){.insight-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.insight-grid{grid-template-columns:1fr;}}
+
+  /* PANELS / TABLES */
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:0 10px 30px rgba(11,11,11,0.05);max-width:1000px;margin:0 auto;overflow-x:auto;}
+  .panel h3{margin:0 0 3px;font-size:16px;}
+  .panel .panel-sub{margin:0 0 16px;font-size:12.5px;color:var(--ink-muted);}
+  .data-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:480px;}
+  .data-table th{text-align:left;color:var(--ink-muted);font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  .data-table td{padding:10px 10px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:middle;white-space:nowrap;}
+  .data-table tr:last-child td{border-bottom:none;}
+  .data-table td.op a, .data-table td.op b{color:var(--ink);font-weight:700;text-decoration:none;}
+  .data-table td.op a:hover{color:var(--brand-dark);text-decoration:underline;}
+  .data-table .num{text-align:right;font-variant-numeric:tabular-nums;}
+  .unranked{font-size:10px;color:var(--ink-muted);font-weight:500;display:block;margin-top:1px;}
+  .chg-up{color:var(--good-ink);font-weight:700;font-size:11.5px;}
+  .chg-down{color:var(--critical-ink);font-weight:700;font-size:11.5px;}
+
+  .two-col-panels{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:800px){.two-col-panels{grid-template-columns:1fr;}}
+
+  /* MOVERS */
+  .mover-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .mover-col{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;}
+  .mover-col h4{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);}
+  .mover-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;gap:10px;}
+  .mover-row:last-child{border-bottom:none;}
+  .mover-row .mv-name{font-weight:700;color:var(--ink);}
+  .mover-row .mv-figs{text-align:right;flex:none;}
+  .mover-row .mv-amt{font-weight:700;color:var(--good-ink);display:block;}
+  .mover-row .mv-pct{font-size:11px;color:var(--ink-muted);}
+  @media(max-width:720px){.mover-grid{grid-template-columns:1fr;}}
+
+  /* CHAIN MIX (our own aggregate) */
+  .chain-bars{max-width:720px;margin:0 auto;}
+  .chain-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:13px;}
+  .chain-bar-row .cb-name{width:104px;flex:none;font-size:13px;font-weight:700;}
+  .chain-bar-row .cb-track{flex:1;height:10px;background:var(--page);border-radius:6px;overflow:hidden;}
+  .chain-bar-row .cb-fill{height:100%;border-radius:6px;}
+  .chain-bar-row .cb-pct{width:54px;flex:none;text-align:right;font-size:13px;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums;}
+
+  .source-note{max-width:760px;margin:0 auto;background:var(--brand-lighter);border:1px dashed var(--brand);border-radius:12px;padding:16px 20px;font-size:13px;color:var(--ink-2);line-height:1.65;}
+  .source-note a{color:var(--brand-dark);font-weight:700;text-decoration:underline;}
+  .source-note b{color:var(--ink);}
+
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;}
+  .trust-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+  .trust-item{display:flex;align-items:center;gap:9px;background:var(--page);border:1px solid var(--line);border-radius:12px;padding:11px 16px;font-size:12.5px;font-weight:600;color:var(--ink-2);}
+  .trust-item svg{width:17px;height:17px;flex:none;color:var(--brand-dark);}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:28px;}
+  .footer-col h5{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);margin:0 0 12px;}
+  .footer-col a{display:block;font-size:14px;color:var(--ink-2);text-decoration:none;margin-bottom:8px;}
+  .footer-col a:hover{color:var(--brand-dark);}
+  .footer-bottom{border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink-muted);line-height:1.7;max-width:1160px;}
+  .footer-bottom b{color:var(--ink-2);}
+
+  /* COOKIE NOTICE */
+  #cookieNotice{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 14px 40px rgba(11,11,11,0.16);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  #cookieNotice p{margin:0;font-size:13px;color:var(--ink-2);flex:1;min-width:220px;}
+  #cookieNotice .actions{display:flex;gap:8px;flex:none;}
+  #cookieNotice.hidden{display:none;}
+</style>
+
+<style>
+/* ===== PREMIUM ANALYTICS REDESIGN ===== */
+body{background:#fff!important;}
+.wrap{max-width:1180px;padding-left:28px;padding-right:28px;}
+
+/* Homepage header */
+nav{background:#fff!important;border-bottom:1px solid #e8e8e3!important;box-shadow:0 4px 18px rgba(11,11,11,.035)!important;}
+nav .wrap{max-width:1180px!important;padding-top:12px!important;padding-bottom:12px!important;}
+.logo .mark{width:40px!important;height:40px!important;padding:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;}
+.logo .wordmark-light{color:#111!important;font-weight:700!important}.logo .wordmark-bold{color:var(--brand)!important;font-weight:800!important}
+.navlinks{gap:22px!important;font-size:13px!important}.navlinks a{position:relative;color:#2f312f!important;background:transparent!important;box-shadow:none!important;padding:7px 0!important;border-radius:0!important}.navlinks a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--brand);transform:scaleX(0)}.navlinks a:hover:after,.navlinks a.active:after{transform:scaleX(1)}
+nav .link-muted{color:#444!important}nav .btn-outline{background:#fff!important;color:var(--brand-dark)!important;border:1px solid #cfded6!important;box-shadow:none!important}nav .btn{background:var(--brand)!important;color:#fff!important;box-shadow:0 6px 16px rgba(11,110,79,.16)!important}
+
+/* hero */
+.analytics-hero{
+  padding:54px 0 48px;
+  background:
+    radial-gradient(630px 330px at 82% 8%,rgba(220,241,228,.92),transparent 70%),
+    linear-gradient(180deg,#fff,#fafcfb);
+  border-bottom:1px solid #eceeea;
+  overflow:hidden;
+}
+.analytics-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:48px;}
+.analytics-kicker,.eyebrow{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--brand-dark);}
+.analytics-kicker{padding:6px 11px;border-radius:999px;background:#edf7f1;margin-bottom:16px;}
+.analytics-hero h1{font-family:'Poppins',system-ui,sans-serif;font-size:clamp(42px,5.4vw,62px);line-height:1.02;letter-spacing:-2px;margin:0 0 15px;max-width:680px;}
+.analytics-hero-copy>p{font-size:15px;line-height:1.7;color:#606662;max-width:610px;margin:0;}
+.hero-source{display:flex;align-items:center;gap:9px;margin-top:20px;padding-top:16px;border-top:1px solid #e5eae6;width:max-content;max-width:100%;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#4ea377;box-shadow:0 0 0 5px rgba(78,163,119,.10);}
+.hero-source div{display:flex;flex-direction:column}.hero-source b{font-size:10.5px}.hero-source small{font-size:9px;color:#8d928e;}
+
+.market-visual{position:relative;height:340px;perspective:1100px}
+.market-card{position:absolute;right:24px;top:22px;width:390px;padding:20px;border-radius:22px;border:1px solid #dbe6df;background:rgba(255,255,255,.97);box-shadow:28px 38px 64px rgba(7,74,53,.12);transform:rotateY(-9deg) rotateX(4deg) rotateZ(1deg)}
+.market-card-head{display:flex;justify-content:space-between;align-items:flex-start}.market-card-head span{font-size:8.5px;color:#8d938e;font-weight:800;letter-spacing:.07em}.market-card-head strong{display:block;font-family:'Poppins',system-ui,sans-serif;font-size:28px;line-height:1.1;margin-top:3px}.period-pill{background:#edf7f1;color:#0b6e4f!important;padding:5px 8px;border-radius:999px}
+.market-line{width:100%;height:120px;margin:9px 0 2px}
+.market-card-foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #edf0ed;padding-top:12px}.market-card-foot div{border-right:1px solid #edf0ed;padding:0 10px}.market-card-foot div:first-child{padding-left:0}.market-card-foot div:last-child{border:none}.market-card-foot span{display:block;font-size:7.5px;color:#969a96}.market-card-foot b{display:block;font-size:12px;margin-top:2px}
+.market-float{position:absolute;display:flex;gap:8px;align-items:center;padding:9px 11px;background:#fff;border:1px solid #e1e6e2;border-radius:12px;box-shadow:0 12px 28px rgba(11,11,11,.08)}
+.market-float>span{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800}.market-float div{display:flex;flex-direction:column}.market-float b{font-size:9.5px}.market-float small{font-size:8px;color:#8e928e}.float-up{left:0;bottom:62px}.float-up>span{background:#e7f6eb;color:#15713d}.float-down{right:0;bottom:6px}.float-down>span{background:#fbe9e5;color:#a94830}
+
+/* global */
+.analytics-main{background:#fff}.analytics-shell{max-width:1080px}
+.analytics-main section{padding:54px 0;border-bottom:1px solid #f0f1ef}
+.section-heading{margin-bottom:20px}.section-heading.split{display:flex;justify-content:space-between;gap:35px;align-items:flex-end}.section-heading h2{font-family:'Poppins',system-ui,sans-serif;font-size:28px;line-height:1.18;letter-spacing:-.7px;margin:6px 0 0}.section-heading.split>div{max-width:650px}.section-heading.split>p{max-width:320px;font-size:11.5px;color:#787e79;line-height:1.55;margin:0 0 3px}
+
+/* KPI */
+.kpi-section{padding-top:28px!important}.kpi-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:10px}.kpi-card{position:relative;border:1px solid #e5e8e5;border-radius:15px;padding:16px;background:#fff;min-height:128px;overflow:hidden}.kpi-card.featured{background:linear-gradient(145deg,#f7fbf8,#fff)}.kpi-label{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:#8f948f;font-weight:800}.kpi-card strong{display:block;font-family:'Poppins',system-ui,sans-serif;font-size:25px;letter-spacing:-.5px;margin:6px 0 2px}.kpi-card small{font-size:8.8px;color:#969a96}.kpi-spark{position:absolute;right:13px;bottom:11px;width:90px;height:35px;display:flex;align-items:flex-end;gap:3px;opacity:.8}.kpi-spark i{flex:1;background:linear-gradient(180deg,#73b893,#dcefe4);border-radius:2px}.data-caption{text-align:right;margin:8px 2px 0;font-size:9px;color:#a0a39f}
+
+/* concentration */
+.concentration-layout{display:grid;grid-template-columns:330px 1fr;gap:18px}.share-chart,.rank-panel{border:1px solid #e5e8e5;border-radius:16px;background:#fff}.share-chart{padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center}.share-donut{position:relative;width:180px;height:180px;border-radius:50%;background:conic-gradient(#0b6e4f 0 48.27%,#65a884 48.27% 57.25%,#9cc9b0 57.25% 65.22%,#e8eeea 65.22% 100%)}.share-donut:after{content:"";position:absolute;inset:23px;background:#fff;border-radius:50%}.share-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center}.share-center strong{font-family:'Poppins',system-ui,sans-serif;font-size:28px}.share-center span{font-size:9px;color:#929792}.share-legend{width:100%;margin-top:20px}.share-legend div{display:grid;grid-template-columns:13px 1fr auto;align-items:center;gap:7px;padding:5px 0;font-size:10px}.share-legend b{font-size:10px}.legend-dot{width:8px;height:8px;border-radius:50%}.legend-dot.stake{background:#0b6e4f}.legend-dot.roobet{background:#65a884}.legend-dot.rainbet{background:#9cc9b0}.legend-dot.rest{background:#e8eeea}
+.rank-panel{padding:15px 17px}.rank-head{display:flex;justify-content:space-between;align-items:flex-end;padding:0 4px 9px;border-bottom:1px solid #eef0ee}.rank-head div{display:flex;flex-direction:column}.rank-head b{font-size:11px}.rank-head span,.rank-head div span{font-size:7.5px;color:#9a9e9a;font-weight:800;letter-spacing:.06em}.rank-row{display:grid;grid-template-columns:22px 1fr 62px;gap:9px;align-items:center;padding:8px 4px;border-bottom:1px solid #f1f2f0;text-decoration:none}.rank-row:last-child{border:none}.rank-row:hover{background:#fafcfa}.rank-num{font-size:9px;color:#a1a4a1}.rank-name{display:grid;grid-template-columns:85px 1fr;align-items:center;gap:8px}.rank-name>b{font-size:10px}.rank-name>i{height:4px;background:#eef1ef;border-radius:999px;overflow:hidden}.rank-name>i em{display:block;height:100%;background:#6cae89;border-radius:999px}.rank-name>span{grid-column:1/-1;font-size:7.5px;color:#a1a4a1}.rank-value{text-align:right}.rank-value b{display:block;font-size:9.5px}.rank-value small{font-size:7.5px}.up{color:#18834a!important}.down{color:#b6533c!important}.muted{opacity:.65}
+
+/* signals */
+.signal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.signal-card{border:1px solid #e5e8e5;border-radius:15px;padding:16px;background:#fff}.signal-card.positive{background:#f8fcf9}.signal-card.negative{background:#fffafa}.signal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.signal-top span{font-size:7.5px;font-weight:800;letter-spacing:.07em;color:#959995}.signal-top i{width:26px;height:26px;border-radius:8px;background:#f0f4f1;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px}.signal-card strong{display:block;font-size:12px}.signal-card>b{display:block;font-family:'Poppins',system-ui,sans-serif;font-size:22px;margin:3px 0 5px}.positive>b{color:#15713d}.negative>b{color:#a94830}.signal-card p{font-size:9.5px;color:#878c87;line-height:1.5;margin:0}
+
+/* movers */
+.movers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.movers-card{border:1px solid #e5e8e5;border-radius:15px;padding:16px}.movers-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.movers-title span{font-size:10.5px;font-weight:800}.movers-title small{font-size:8px;color:#9a9e9a}.movers-card>a{display:grid;grid-template-columns:90px 1fr 72px;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #f0f1ef;text-decoration:none}.movers-card>a:last-child{border:none}.movers-card>a>span{font-size:9.5px;font-weight:700}.movers-card>a>i{height:5px;background:#eef1ef;border-radius:999px;overflow:hidden}.movers-card>a>i em{display:block;height:100%;background:#72b391;border-radius:999px}.movers-card>a>b{text-align:right;font-size:9.5px;color:#177b46}
+
+/* records */
+.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-card{border:1px solid #e5e8e5;border-radius:15px;padding:16px;background:#fff}.record-label{font-size:7.5px;font-weight:800;letter-spacing:.07em;color:#999d99}.record-card strong{display:block;font-size:11px;margin-top:17px}.record-card>b{display:block;font-family:'Poppins',system-ui,sans-serif;font-size:21px;margin:3px 0}.record-card small{font-size:8.5px;color:#939793;line-height:1.4}.data-details{margin-top:13px;border:1px solid #e5e8e5;border-radius:13px;background:#fbfcfb;overflow:hidden}.data-details summary{cursor:pointer;padding:12px 15px;font-size:10.5px;font-weight:700;color:#516057}.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 12px}.mini-table-card{background:#fff;border:1px solid #e8eae8;border-radius:10px;padding:12px}.mini-table-card h3{font-size:11px;margin:0 0 8px}.data-table{font-size:9.5px!important;min-width:0!important}.data-table th{font-size:7.5px!important;padding:6px!important}.data-table td{font-size:8.8px!important;padding:7px 6px!important}
+
+/* wallets */
+.wallet-layout{display:grid;grid-template-columns:260px 1fr;gap:16px;align-items:stretch}.wallet-total{border-radius:16px;padding:22px;background:linear-gradient(145deg,#0a5c43,#0b6e4f);color:#fff;display:flex;flex-direction:column;justify-content:center}.wallet-total span{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.65)}.wallet-total strong{font-family:'Poppins',system-ui,sans-serif;font-size:30px;margin:5px 0}.wallet-total small{font-size:8.5px;color:rgba(255,255,255,.62)}.wallet-bars{border:1px solid #e5e8e5;border-radius:16px;padding:14px 17px}.wallet-bars>a,.wallet-bars>div{display:grid;grid-template-columns:82px 1fr 72px;gap:9px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f1ef;text-decoration:none}.wallet-bars>*:last-child{border:none}.wallet-bars span{font-size:9.5px;font-weight:700}.wallet-bars i{height:5px;background:#edf1ee;border-radius:999px;overflow:hidden}.wallet-bars i em{display:block;height:100%;background:#6daf89;border-radius:999px}.wallet-bars b{text-align:right;font-size:9.5px}
+
+/* chains */
+.chain-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:center;border:1px solid #e5e8e5;border-radius:16px;padding:25px}.chain-donut{position:relative;width:190px;height:190px;margin:auto}.chain-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#627eea 0 38.9%,#9945ff 38.9% 65.7%,#eb0029 65.7% 86.3%,#f0b90b 86.3% 94.6%,#8a949d 94.6% 100%)}.chain-ring:after{content:"";position:absolute;inset:27px;border-radius:50%;background:#fff}.chain-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center}.chain-center strong{font-family:'Poppins',system-ui,sans-serif;font-size:27px}.chain-center span{font-size:8.5px;color:#939793}.chain-list>div{display:grid;grid-template-columns:12px 86px 1fr 48px;align-items:center;gap:8px;padding:8px 0}.chain-dot{width:8px;height:8px;border-radius:50%}.eth{background:#627eea}.sol{background:#9945ff}.trx{background:#eb0029}.bnb{background:#f0b90b}.other{background:#8a949d}.chain-list b{font-size:9.5px}.chain-list i{height:5px;background:#eef1ef;border-radius:999px;overflow:hidden}.chain-list i em{display:block;height:100%;background:#8db9a1;border-radius:999px}.chain-list strong{text-align:right;font-size:9.5px}
+
+/* source + CTA */
+.source-section{border-bottom:none!important}.source-card{display:grid;grid-template-columns:50px 1fr;gap:15px;padding:20px;border:1px solid #dfe8e2;border-radius:16px;background:#f8fbf9}.source-icon{width:44px;height:44px;border-radius:50%;background:#e6f4ec;color:#0b6e4f;display:flex;align-items:center;justify-content:center;font-family:serif;font-size:22px;font-weight:700}.source-card h2{font-family:'Poppins',system-ui,sans-serif;font-size:17px;margin:5px 0 7px}.source-card p{font-size:10.5px;color:#707671;line-height:1.6;margin:0 0 6px}.source-card a{font-size:10.5px;color:#0b6e4f;font-weight:700;text-decoration:none}.analytics-cta{display:flex;justify-content:space-between;align-items:center;gap:25px;margin-top:18px;padding:24px;border-radius:17px;background:linear-gradient(135deg,#0a5c43,#0b6e4f);color:#fff}.analytics-cta .eyebrow{color:#bee3d1}.analytics-cta h2{font-family:'Poppins',system-ui,sans-serif;font-size:20px;margin:4px 0}.analytics-cta p{font-size:10.5px;color:rgba(255,255,255,.7);margin:0}.analytics-cta .btn{background:#fff;color:#0b6e4f;box-shadow:none;border-radius:10px;font-size:11px;padding:9px 13px}
+
+footer{background:#fbfbfa!important;padding-top:32px!important}
+
+/* responsive */
+@media(max-width:900px){
+ nav .wrap{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;padding:10px 16px!important}.logo .mark{width:34px!important;height:34px!important}.logo .wordmark-light,.logo .wordmark-bold{font-size:17px!important}
+ .navlinks{display:flex!important;grid-column:1/-1;order:3;width:100%;gap:6px!important;overflow-x:auto;padding:4px 0 1px;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{flex:0 0 auto;padding:8px 11px!important;border:1px solid #e2e8e4;border-radius:999px!important;background:#fff!important;font-size:11.5px!important}.navlinks a:after{display:none!important}.nav-actions .link-muted{display:none!important}
+ .analytics-hero-grid{grid-template-columns:1fr}.market-visual{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}.concentration-layout{grid-template-columns:1fr}.share-chart{flex-direction:row;gap:30px}.share-legend{max-width:300px;margin-top:0}.signal-grid{grid-template-columns:repeat(2,1fr)}.records-grid{grid-template-columns:repeat(2,1fr)}.section-heading.split{display:block}.section-heading.split>p{margin-top:8px;max-width:none}.wallet-layout{grid-template-columns:1fr}.chain-layout{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ .wrap{padding-left:16px!important;padding-right:16px!important}.logo .wordmark-light,.logo .wordmark-bold{font-size:15px!important}nav .btn-outline{display:none!important}
+ .analytics-hero{padding:34px 0 31px}.analytics-hero h1{font-size:39px}.analytics-hero-copy>p{font-size:13.5px}.hero-source{width:100%}
+ .analytics-main section{padding:38px 0}.kpi-grid{grid-template-columns:1fr 1fr}.kpi-card{min-height:112px;padding:13px}.kpi-card strong{font-size:21px}.kpi-spark{display:none}
+ .section-heading h2{font-size:23px}.share-chart{display:block}.share-donut{width:150px;height:150px;margin:auto}.share-legend{margin-top:16px;max-width:none}.rank-name{grid-template-columns:65px 1fr}.rank-row{grid-template-columns:18px 1fr 55px}
+ .signal-grid,.records-grid{grid-template-columns:1fr 1fr}.movers-grid{grid-template-columns:1fr}.movers-card>a{grid-template-columns:72px 1fr 65px}.details-grid{grid-template-columns:1fr}.wallet-bars>a,.wallet-bars>div{grid-template-columns:65px 1fr 64px}.chain-layout{padding:18px}.chain-donut{width:150px;height:150px}.analytics-cta{display:block}.analytics-cta .btn{margin-top:15px}
+}
+@media(max-width:390px){
+ .kpi-grid,.signal-grid,.records-grid{grid-template-columns:1fr}.rank-name>i{display:none}.rank-name{grid-template-columns:1fr}.share-chart{padding:18px}
+}
+</style>
+
+
+<style>
+/* ===== Interactive market explorer ===== */
+.explorer-section{padding-top:46px!important;}
+.explorer-heading{margin-bottom:16px!important;}
+.explorer-shell{
+  border:1px solid #dfe5e1;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 14px 40px rgba(11,11,11,.045);
+  overflow:hidden;
+}
+.explorer-toolbar{
+  display:grid;
+  grid-template-columns:minmax(200px,1.5fr) repeat(2,minmax(135px,.75fr)) auto;
+  gap:8px;
+  padding:12px;
+  background:#fafcfa;
+  border-bottom:1px solid #e8ebe8;
+}
+.explorer-search{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+  border:1px solid #dfe4e0;
+  border-radius:10px;
+  padding:0 11px;
+}
+.explorer-search span{color:#8c928d;font-size:17px;}
+.explorer-search input{
+  width:100%;border:none;outline:none;background:transparent;
+  font:inherit;font-size:11px;padding:9px 0;color:#222;
+}
+.explorer-control{
+  display:flex;flex-direction:column;gap:3px;
+  background:#fff;border:1px solid #dfe4e0;border-radius:10px;
+  padding:6px 9px;
+}
+.explorer-control label{
+  font-size:7.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#9a9e9a;
+}
+.explorer-control select{
+  border:none;outline:none;background:transparent;font:inherit;
+  font-size:10px;font-weight:700;color:#303632;padding:0;cursor:pointer;
+}
+.reset-btn{
+  border:1px solid #dfe4e0;background:#fff;border-radius:10px;
+  padding:0 13px;font-size:10px;font-weight:700;color:#5f6661;cursor:pointer;
+}
+.reset-btn:hover{background:#f2f7f4;color:var(--brand-dark);}
+
+.explorer-summary{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid #edf0ed;
+}
+.explorer-summary>div{padding:11px 14px;border-right:1px solid #edf0ed;}
+.explorer-summary>div:last-child{border-right:none;}
+.explorer-summary span{display:block;font-size:7.5px;color:#969b96;text-transform:uppercase;letter-spacing:.05em;}
+.explorer-summary b{display:block;font-size:11.5px;margin-top:2px;color:#1f2823;}
+
+.explorer-content{
+  display:grid;
+  grid-template-columns:minmax(0,1.7fr) 300px;
+  min-height:430px;
+}
+.explorer-list-panel{padding:13px 14px 16px;}
+.explorer-list-head{
+  display:grid;grid-template-columns:1fr 112px;
+  padding:0 7px 7px;
+  font-size:7.5px;text-transform:uppercase;letter-spacing:.07em;
+  color:#9a9e9a;font-weight:800;
+}
+.explorer-list-head span:last-child{text-align:right;}
+
+.explorer-row{
+  display:grid;
+  grid-template-columns:28px minmax(120px,1fr) minmax(110px,1.4fr) 85px 76px;
+  align-items:center;gap:8px;
+  padding:9px 7px;
+  border-top:1px solid #f0f1ef;
+  transition:.15s ease;
+}
+.explorer-row:hover{background:#fafcfa;}
+.explorer-rank{font-size:9px;color:#aaa;}
+.explorer-name{min-width:0;display:flex;align-items:center;gap:9px;}
+.explorer-logo{width:24px;height:24px;border-radius:7px;flex:none;object-fit:contain;background:#eef1ef;}
+.explorer-logo-fallback{width:24px;height:24px;border-radius:7px;flex:none;background:#e4e9e5;color:#6d7570;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.explorer-name b{display:block;font-size:12.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.explorer-name small{display:block;font-size:7.5px;color:#9ca09c;margin-top:1px;}
+.explorer-bar{
+  height:6px;background:#eef1ef;border-radius:999px;overflow:hidden;
+}
+.explorer-bar i{
+  display:block;height:100%;border-radius:999px;
+  background:linear-gradient(90deg,#9acbb1,#4f9f76);
+}
+.explorer-value{text-align:right;}
+.explorer-value b{display:block;font-size:10px;}
+.explorer-value small{display:block;font-size:7.5px;margin-top:1px;}
+.compare-btn{
+  border:1px solid #dfe5e1;background:#fff;border-radius:8px;
+  padding:6px 7px;font-size:8.5px;font-weight:700;color:#526158;cursor:pointer;
+}
+.compare-btn:hover,.compare-btn.active{
+  border-color:#a9cfba;background:#eef7f2;color:#0b6e4f;
+}
+.no-results{
+  padding:40px 10px;text-align:center;color:#979b97;font-size:11px;
+}
+
+.compare-panel{
+  border-left:1px solid #edf0ed;
+  padding:15px;
+  background:#fbfcfb;
+}
+.compare-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:8px;margin-bottom:12px;
+}
+.compare-head h3{font-size:13px;margin:3px 0 0;}
+.compare-head button{
+  border:none;background:transparent;color:#8f948f;
+  font-size:8.5px;font-weight:700;cursor:pointer;padding:4px;
+}
+.compare-empty{
+  border:1px dashed #d9dfdb;border-radius:11px;
+  padding:18px 12px;text-align:center;font-size:9.5px;color:#8f948f;
+}
+.compare-cards{display:grid;gap:8px;}
+.compare-card{
+  border:1px solid #dfe5e1;border-radius:11px;background:#fff;padding:11px;
+}
+.compare-card-head{
+  display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px;
+}
+.compare-card-head b{font-size:10.5px;}
+.compare-card-head button{border:none;background:transparent;color:#aaa;cursor:pointer;font-size:12px;}
+.compare-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.compare-stat{background:#fafcfa;border-radius:8px;padding:7px;}
+.compare-stat span{display:block;font-size:6.8px;color:#999;text-transform:uppercase;letter-spacing:.04em;}
+.compare-stat b{display:block;font-size:9.5px;margin-top:1px;}
+
+.explorer-footnote{
+  display:flex;gap:8px;align-items:flex-start;
+  padding:10px 13px;background:#fafcfa;border-top:1px solid #edf0ed;
+}
+.info-dot{
+  width:19px;height:19px;border-radius:50%;background:#eaf5ee;color:#0b6e4f;
+  display:flex;align-items:center;justify-content:center;font-family:serif;font-weight:700;flex:none;
+}
+.explorer-footnote p{margin:0;font-size:8.5px;line-height:1.5;color:#8a8f8a;}
+
+@media(max-width:900px){
+  .explorer-toolbar{grid-template-columns:1fr 1fr;}
+  .explorer-search{grid-column:1/-1;}
+  .reset-btn{min-height:44px;}
+  .explorer-content{grid-template-columns:1fr;}
+  .compare-panel{border-left:none;border-top:1px solid #edf0ed;}
+}
+@media(max-width:600px){
+  .explorer-toolbar{grid-template-columns:1fr;}
+  .explorer-summary{grid-template-columns:1fr 1fr;}
+  .explorer-summary>div:nth-child(2){border-right:none;}
+  .explorer-summary>div:nth-child(-n+2){border-bottom:1px solid #edf0ed;}
+  .explorer-row{
+    grid-template-columns:24px 1fr 72px;
+    gap:7px;padding:10px 5px;
+  }
+  .explorer-bar{grid-column:2/4;grid-row:2;}
+  .explorer-value{grid-column:3;grid-row:1;}
+  .compare-btn{grid-column:2/4;width:max-content;}
+}
+</style>
+
+
+<style>
+/* ===== Compact pass: less scrolling ===== */
+.analytics-main section{
+  padding-top:36px!important;
+  padding-bottom:36px!important;
+}
+.kpi-section{padding-top:22px!important;padding-bottom:26px!important;}
+.section-heading{margin-bottom:14px!important;}
+.section-heading h2{font-size:24px!important;}
+.section-heading.split>p{font-size:10.5px!important;max-width:300px!important;}
+
+.explorer-section{padding-top:30px!important;padding-bottom:30px!important;}
+.explorer-shell{border-radius:15px!important;}
+.explorer-toolbar{
+  grid-template-columns:minmax(180px,1.5fr) repeat(2,minmax(125px,.7fr)) auto!important;
+  padding:9px!important;
+  gap:6px!important;
+}
+.explorer-search,.explorer-control{border-radius:9px!important;}
+.explorer-search input{padding:7px 0!important;}
+.reset-btn{padding:0 10px!important;}
+.explorer-summary>div{padding:8px 11px!important;}
+.explorer-content.compact{display:block!important;min-height:0!important;}
+.explorer-list-panel{padding:9px 11px 10px!important;}
+.explorer-list-head{grid-template-columns:1fr 96px!important;padding-bottom:5px!important;}
+.explorer-row.compact-row{
+  grid-template-columns:24px minmax(120px,1fr) minmax(90px,1.1fr) 78px!important;
+  padding:7px 5px!important;
+  gap:7px!important;
+}
+.explorer-name b{font-size:12px!important;}
+.explorer-name small{font-size:7px!important;}
+.explorer-logo,.explorer-logo-fallback{width:21px!important;height:21px!important;}
+.explorer-bar{height:5px!important;}
+.explorer-footnote{padding:8px 10px!important;}
+.explorer-footnote p{font-size:8px!important;}
+
+/* Remove leftover compare styles from occupying anything */
+.compare-panel,.compare-cards,.compare-empty{display:none!important;}
+
+/* Compress fixed insight sections */
+.signal-grid{
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:8px!important;
+}
+.signal-card{padding:13px!important;min-height:145px!important;}
+.signal-top{margin-bottom:12px!important;}
+.signal-card>b{font-size:19px!important;}
+.signal-card p{font-size:8.8px!important;}
+
+.movers-grid{gap:9px!important;}
+.movers-card{padding:13px!important;}
+.movers-card>a{padding:7px 0!important;}
+
+.records-grid{gap:8px!important;}
+.record-card{padding:13px!important;min-height:132px!important;}
+.record-card strong{margin-top:12px!important;}
+.record-card>b{font-size:18px!important;}
+.data-details{margin-top:10px!important;}
+
+.wallet-layout{grid-template-columns:230px 1fr!important;gap:12px!important;}
+.wallet-total{padding:18px!important;}
+.wallet-total strong{font-size:26px!important;}
+.wallet-bars{padding:10px 14px!important;}
+.wallet-bars>a,.wallet-bars>div{padding:6px 0!important;}
+
+.chain-layout{grid-template-columns:220px 1fr!important;padding:18px!important;gap:18px!important;}
+.chain-donut{width:150px!important;height:150px!important;}
+.chain-list>div{padding:6px 0!important;}
+
+.source-card{padding:16px!important;}
+.analytics-cta{padding:19px!important;margin-top:12px!important;}
+
+/* Shorten hero a bit too */
+.analytics-hero{padding-top:42px!important;padding-bottom:36px!important;}
+.analytics-hero h1{font-size:clamp(38px,5vw,55px)!important;}
+.market-visual{height:300px!important;}
+.market-card{width:360px!important;top:14px!important;}
+.market-line{height:100px!important;}
+
+/* Mobile stays compact */
+@media(max-width:900px){
+  .signal-grid,.records-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .wallet-layout,.chain-layout{grid-template-columns:1fr!important;}
+}
+@media(max-width:600px){
+  .analytics-main section{padding-top:28px!important;padding-bottom:28px!important;}
+  .explorer-toolbar{grid-template-columns:1fr!important;}
+  .explorer-row.compact-row{
+    grid-template-columns:22px 1fr 70px!important;
+  }
+  .explorer-row.compact-row .explorer-bar{
+    grid-column:2/4;
+    grid-row:2;
+  }
+  .signal-grid,.records-grid{grid-template-columns:1fr 1fr!important;}
+}
+@media(max-width:390px){
+  .signal-grid,.records-grid{grid-template-columns:1fr!important;}
+}
+</style>
+
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#home" class="logo">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40">
+          <path d="M20 3.5 33 8.8v9.6c0 8.6-5.2 14.5-13 17.9C12.2 32.9 7 27 7 18.4V8.8L20 3.5Z" fill="#0b6e4f"/>
+          <path d="M20 7.4 29.2 11v7.1c0 6.2-3.5 10.7-9.2 13.5-5.7-2.8-9.2-7.3-9.2-13.5V11L20 7.4Z" fill="none" stroke="#dff3e8" stroke-width="1.5"/>
+          <path d="M14.7 21.4c1.5 3 5.5 4.3 8.4 2.7 1.1-.6 1.9-1.5 2.5-2.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M14.8 17.2c1-2.6 3.6-4.5 6.6-4.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="22.2" y="20.4" width="2.2" height="5.4" rx="1.1" fill="#a7d9bd"/>
+          <rect x="25.5" y="17.2" width="2.2" height="8.6" rx="1.1" fill="#e1c47a"/>
+          <rect x="28.8" y="14.1" width="2.2" height="11.7" rx="1.1" fill="#c8860d"/>
+        </svg>
+      </span>
+      <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="analytics.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="link-muted" onclick="return openAuthModal('login')">Log in</a>
+      <a href="#" class="btn btn-outline btn-sm" onclick="return openAuthModal('signup')">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<div class="modal-bg" id="authModal">
+  <div class="modal">
+    <h3 id="authModalTitle">Log in</h3>
+    <p class="hint">Player accounts aren't built yet — this is a placeholder for that future feature. For now, browse the sportsbooks list.</p>
+    <div class="modal-actions"><button class="btn" onclick="closeAuthModal()">Got it</button></div>
+  </div>
+</div>
+
+
+<header class="analytics-hero">
+  <div class="wrap analytics-hero-grid">
+    <div class="analytics-hero-copy">
+      <span class="analytics-kicker">MARKET ANALYTICS</span>
+      <h1>Follow the money, not the marketing.</h1>
+      <p>On-chain activity gives a different view of crypto gambling: who is actually receiving deposits, where market share is moving, and how concentrated the market really is.</p>
+    </div>
+
+    <div class="market-visual" aria-hidden="true">
+      <div class="market-card">
+        <div class="market-card-head">
+          <div>
+            <span>TRACKED DEPOSIT VOLUME</span>
+            <strong>$49.4B</strong>
+          </div>
+          <span class="period-pill">365D</span>
+        </div>
+        <svg class="market-line" viewBox="0 0 430 150" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="marketArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#62ad85" stop-opacity=".30"/>
+              <stop offset="100%" stop-color="#62ad85" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 118 C38 111 62 117 91 98 S142 88 165 92 S210 62 243 72 S284 56 312 63 S350 27 379 40 S407 27 430 15 L430 150 L0 150Z" fill="url(#marketArea)"/>
+          <path d="M0 118 C38 111 62 117 91 98 S142 88 165 92 S210 62 243 72 S284 56 312 63 S350 27 379 40 S407 27 430 15" fill="none" stroke="#4fa176" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="market-card-foot">
+          <div><span>Top 3 share</span><b>64.4%</b></div>
+          <div><span>Tracked operators</span><b>77</b></div>
+          <div><span>Hot wallet balance</span><b>$490M</b></div>
+        </div>
+      </div>
+      <div class="market-float float-up"><span>↗</span><div><b>Rainbet</b><small>+17.4% · 30D</small></div></div>
+      <div class="market-float float-down"><span>↘</span><div><b>Rollbit</b><small>−54.3% · 30D</small></div></div>
+    </div>
+  </div>
+</header>
+
+<main class="analytics-main">
+  <div class="wrap analytics-shell">
+
+    <section class="kpi-section">
+      <div class="kpi-grid">
+        <article class="kpi-card featured">
+          <span class="kpi-label">365D deposit volume</span>
+          <strong>$49.4B</strong>
+          <small>Across the tracked market</small>
+          <div class="kpi-spark">
+            <i style="height:35%"></i><i style="height:44%"></i><i style="height:39%"></i><i style="height:58%"></i><i style="height:54%"></i><i style="height:70%"></i><i style="height:84%"></i>
+          </div>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Deposit wallets · 365D</span>
+          <strong>7.8M</strong>
+          <small>Tracked wallets / depositors in source data</small>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Average deposit</span>
+          <strong>$518</strong>
+          <small>365-day market average</small>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Operators tracked</span>
+          <strong>77</strong>
+          <small>Market-wide coverage</small>
+        </article>
+      </div>
+      <p class="data-caption">Market-wide figures include operators not yet reviewed by CryptoBetGrade.</p>
+    </section>
+
+
+    <section class="explorer-section" id="market-explorer">
+      <div class="section-heading split explorer-heading">
+        <div>
+          <span class="eyebrow">Interactive market explorer</span>
+          <h2>Sort the market your way.</h2>
+        </div>
+        <p>Search, filter and rank operators by the signal you care about instead of reading one fixed leaderboard.</p>
+      </div>
+
+      <div class="explorer-shell">
+        <div class="explorer-toolbar">
+          <div class="explorer-search">
+            <span>⌕</span>
+            <input id="operatorSearch" type="search" placeholder="Search operator">
+          </div>
+
+          <div class="explorer-control">
+            <label for="metricSelect">Rank by</label>
+            <select id="metricSelect">
+              <option value="share">Market share</option>
+              <option value="volume">30D volume</option>
+              <option value="deposits">Deposits</option>
+              <option value="change">30D change</option>
+              <option value="wallet">Hot wallet balance</option>
+            </select>
+          </div>
+
+          <div class="explorer-control">
+            <label for="directionSelect">Order</label>
+            <select id="directionSelect">
+              <option value="desc">Highest first</option>
+              <option value="asc">Lowest first</option>
+            </select>
+          </div>
+
+          <button class="reset-btn" id="resetExplorer" type="button">Reset</button>
+        </div>
+
+        <div class="explorer-summary">
+          <div><span>Operators shown</span><b id="shownCount">20</b></div>
+          <div><span>Combined share</span><b id="shownShare">96.17%</b></div>
+          <div><span>Largest mover</span><b id="largestMover">Duelbits +29.0%</b></div>
+          <div><span>Current view</span><b id="currentMetric">Market share</b></div>
+        </div>
+
+        <div class="explorer-content compact">
+          <div class="explorer-list-panel">
+            <div class="explorer-list-head">
+              <span>Operator</span>
+              <span id="metricHeadLabel">Market share</span>
+            </div>
+            <div id="explorerRows"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="market-section">
+      <div class="section-heading split">
+        <div>
+          <span class="eyebrow">Market concentration</span>
+          <h2>The market is dominated by a few names.</h2>
+        </div>
+        <p>Stake alone represents almost half of tracked deposit volume. The top three account for 64.4%.</p>
+      </div>
+
+      <div class="concentration-layout">
+        <div class="share-chart">
+          <div class="share-donut" aria-label="Top three market share 64.4%">
+            <div class="share-center"><strong>64.4%</strong><span>Top 3 share</span></div>
+          </div>
+          <div class="share-legend">
+            <div><i class="legend-dot stake"></i><span>Stake</span><b>48.27%</b></div>
+            <div><i class="legend-dot roobet"></i><span>Roobet</span><b>8.98%</b></div>
+            <div><i class="legend-dot rainbet"></i><span>Rainbet</span><b>7.97%</b></div>
+            <div><i class="legend-dot rest"></i><span>Rest of market</span><b>35.6%</b></div>
+          </div>
+        </div>
+
+        <div class="rank-panel">
+          <div class="rank-head">
+            <div><b>Top operators</b><span>30-day deposit volume</span></div>
+            <span>SHARE</span>
+          </div>
+          <a class="rank-row" href="dashboard.html#/operator/stake"><span class="rank-num">1</span><div class="rank-name"><b>Stake</b><i><em style="width:100%"></em></i></div><div class="rank-value"><b>48.27%</b><small class="down">−5.9%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/roobet"><span class="rank-num">2</span><div class="rank-name"><b>Roobet</b><i><em style="width:18.6%"></em></i></div><div class="rank-value"><b>8.98%</b><small class="down">−1.4%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/rainbet"><span class="rank-num">3</span><div class="rank-name"><b>Rainbet</b><i><em style="width:16.5%"></em></i></div><div class="rank-value"><b>7.97%</b><small class="up">+17.4%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/duel"><span class="rank-num">4</span><div class="rank-name"><b>Duel</b><i><em style="width:13%"></em></i></div><div class="rank-value"><b>6.27%</b><small class="up">+15.7%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/shuffle"><span class="rank-num">5</span><div class="rank-name"><b>Shuffle</b><i><em style="width:10.4%"></em></i></div><div class="rank-value"><b>5.02%</b><small class="down">−13.1%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/gamdom"><span class="rank-num">6</span><div class="rank-name"><b>Gamdom</b><i><em style="width:9%"></em></i></div><div class="rank-value"><b>4.34%</b><small class="up">+4.3%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/1win"><span class="rank-num">7</span><div class="rank-name"><b>1win</b><i><em style="width:6.8%"></em></i></div><div class="rank-value"><b>3.26%</b><small class="up">+2.6%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/bc-game"><span class="rank-num">8</span><div class="rank-name"><b>BC.Game</b><i><em style="width:5.5%"></em></i></div><div class="rank-value"><b>2.67%</b><small class="up">+15.0%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/stakeus"><span class="rank-num">9</span><div class="rank-name"><b>StakeUS</b><i><em style="width:3.8%"></em></i></div><div class="rank-value"><b>1.82%</b><small class="down">−0.3%</small></div></a>
+          <a class="rank-row" href="dashboard.html#/operator/thrill"><span class="rank-num">10</span><div class="rank-name"><b>Thrill</b><i><em style="width:2.8%"></em></i></div><div class="rank-value"><b>1.33%</b><small class="down">−9.6%</small></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="signals-section">
+      <div class="section-heading">
+        <span class="eyebrow">Signals</span>
+        <h2>What changed in the last 30 days.</h2>
+      </div>
+
+      <div class="signal-grid">
+        <article class="signal-card positive">
+          <div class="signal-top"><span>FASTEST GROWER</span><i>↗</i></div>
+          <strong>Duelbits</strong>
+          <b>+29.0%</b>
+          <p>Largest percentage increase in tracked deposit volume.</p>
+        </article>
+        <article class="signal-card negative">
+          <div class="signal-top"><span>SHARPEST DROP</span><i>↘</i></div>
+          <strong>Rollbit</strong>
+          <b>−54.3%</b>
+          <p>Largest percentage decline in tracked deposit volume.</p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-top"><span>MOST ACTIVE</span><i>◎</i></div>
+          <strong>Stake</strong>
+          <b>3.29M</b>
+          <p>Highest number of deposits in the source snapshot.</p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-top"><span>NEW WALLETS</span><i>＋</i></div>
+          <strong>Stake</strong>
+          <b>613K</b>
+          <p>Largest first-time depositor count; 62% of wallets are new.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="movers-section">
+      <div class="section-heading split">
+        <div>
+          <span class="eyebrow">30-day movers</span>
+          <h2>Growth in dollars, not just percentages.</h2>
+        </div>
+        <p>Large operators can add more absolute volume even with a smaller percentage move.</p>
+      </div>
+
+      <div class="movers-grid">
+        <div class="movers-card">
+          <div class="movers-title"><span>Deposit volume gained</span><small>30D</small></div>
+          <a href="dashboard.html#/operator/rainbet"><span>Rainbet</span><i><em style="width:100%"></em></i><b>+$49.0M</b></a>
+          <a href="dashboard.html#/operator/duel"><span>Duel</span><i><em style="width:72%"></em></i><b>+$35.3M</b></a>
+          <a href="dashboard.html#/operator/bc-game"><span>BC.Game</span><i><em style="width:30%"></em></i><b>+$14.5M</b></a>
+          <a href="dashboard.html#/operator/gamdom"><span>Gamdom</span><i><em style="width:15%"></em></i><b>+$7.4M</b></a>
+          <a href="dashboard.html#/operator/duelbits"><span>Duelbits</span><i><em style="width:12%"></em></i><b>+$6.0M</b></a>
+        </div>
+
+        <div class="movers-card">
+          <div class="movers-title"><span>Net flow gained</span><small>30D</small></div>
+          <a href="dashboard.html#/operator/rainbet"><span>Rainbet</span><i><em style="width:100%"></em></i><b>+$19.1M</b></a>
+          <a href="dashboard.html#/operator/duel"><span>Duel</span><i><em style="width:47%"></em></i><b>+$9.0M</b></a>
+          <a href="dashboard.html#/operator/duelbits"><span>Duelbits</span><i><em style="width:7%"></em></i><b>+$1.4M</b></a>
+          <a href="dashboard.html#/operator/bc-game"><span>BC.Game</span><i><em style="width:7%"></em></i><b>+$1.4M</b></a>
+          <a href="dashboard.html#/operator/cloudbet"><span>Cloudbet</span><i><em style="width:4%"></em></i><b>+$0.77M</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="records-section">
+      <div class="section-heading">
+        <span class="eyebrow">Records</span>
+        <h2>Extreme days and extreme transfers.</h2>
+      </div>
+
+      <div class="records-grid">
+        <div class="record-card">
+          <span class="record-label">BIGGEST VOLUME DAY</span>
+          <strong>Stake</strong>
+          <b>$152.4M</b>
+          <small>Oct 2 · 76.5K deposits · 48.8K wallets</small>
+        </div>
+        <div class="record-card">
+          <span class="record-label">LARGEST SINGLE DEPOSIT</span>
+          <strong>Stake · TRON</strong>
+          <b>$7.4M</b>
+          <small>Largest individual deposit in the snapshot</small>
+        </div>
+        <div class="record-card">
+          <span class="record-label">LARGEST SINGLE WITHDRAWAL</span>
+          <strong>Stake · TRON</strong>
+          <b>$15.1M</b>
+          <small>Largest individual withdrawal in the snapshot</small>
+        </div>
+        <div class="record-card">
+          <span class="record-label">HIGHEST AVG DEPOSIT</span>
+          <strong><a href="dashboard.html#/operator/sportsbet-io" style="text-decoration:none;color:inherit;">Sportsbet.io</a></strong>
+          <b>$3.5K</b>
+          <small>See full CryptoBetGrade review</small>
+        </div>
+      </div>
+
+      <details class="data-details">
+        <summary>View full record tables</summary>
+        <div class="details-grid">
+          <div class="mini-table-card">
+            <h3>Biggest days on record</h3>
+            <table class="data-table">
+              <thead><tr><th>Casino</th><th>Date</th><th class="num">Volume</th><th class="num">Deposits</th></tr></thead>
+              <tbody>
+                <tr><td class="op"><a href="dashboard.html#/operator/stake">Stake</a></td><td>Oct 2</td><td class="num">$152.4M</td><td class="num">76.5K</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/stakeus">StakeUS</a></td><td>Oct 19</td><td class="num">$64.4M</td><td class="num">6.5K</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/rainbet">Rainbet</a></td><td>Jul 29</td><td class="num">$43.7M</td><td class="num">27K</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/roobet">Roobet</a></td><td>May 16</td><td class="num">$38.0M</td><td class="num">7.9K</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/shuffle">Shuffle</a></td><td>Nov 17</td><td class="num">$32.2M</td><td class="num">18.2K</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mini-table-card">
+            <h3>Largest single withdrawals</h3>
+            <table class="data-table">
+              <thead><tr><th>Casino</th><th>Chain</th><th class="num">Amount</th></tr></thead>
+              <tbody>
+                <tr><td class="op"><a href="dashboard.html#/operator/stake">Stake</a></td><td>TRX</td><td class="num">$15.1M</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/rollbit">Rollbit</a></td><td>SOL</td><td class="num">$10.3M</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/stake">Stake</a></td><td>ETH</td><td class="num">$8.6M</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/stake">Stake</a></td><td>SOL</td><td class="num">$8.5M</td></tr>
+                <tr><td class="op"><a href="dashboard.html#/operator/stake">Stake</a></td><td>TRX</td><td class="num">$8.0M</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="reserves-section">
+      <div class="section-heading split">
+        <div>
+          <span class="eyebrow">Tracked hot wallets</span>
+          <h2>Where visible balances are concentrated.</h2>
+        </div>
+        <p>Hot-wallet balance is not the same thing as total company reserves or solvency.</p>
+      </div>
+
+      <div class="wallet-layout">
+        <div class="wallet-total">
+          <span>Total tracked hot wallet balance</span>
+          <strong>$490.2M</strong>
+          <small>Across the tracked market</small>
+        </div>
+        <div class="wallet-bars">
+          <a href="dashboard.html#/operator/stake"><span>Stake</span><i><em style="width:100%"></em></i><b>$132.6M</b></a>
+          <a href="dashboard.html#/operator/rainbet"><span>Rainbet</span><i><em style="width:64.6%"></em></i><b>$85.64M</b></a>
+          <a href="dashboard.html#/operator/stakeus"><span>StakeUS</span><i><em style="width:35.9%"></em></i><b>$47.56M</b></a>
+          <a href="dashboard.html#/operator/roobet"><span>Roobet</span><i><em style="width:30%"></em></i><b>$39.71M</b></a>
+          <a href="dashboard.html#/operator/shuffle"><span>Shuffle</span><i><em style="width:17.8%"></em></i><b>$23.58M</b></a>
+          <a href="dashboard.html#/operator/1win"><span>1win</span><i><em style="width:14.9%"></em></i><b>$19.78M</b></a>
+          <a href="dashboard.html#/operator/cloudbet"><span>Cloudbet</span><i><em style="width:10.6%"></em></i><b>$14.12M</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="chain-section">
+      <div class="section-heading split">
+        <div>
+          <span class="eyebrow">CryptoBetGrade aggregate</span>
+          <h2>Which chains carry sportsbook deposits?</h2>
+        </div>
+        <p>Equal-weighted average across 18 reviewed sportsbooks with a verified chain split.</p>
+      </div>
+
+      <div class="chain-layout">
+        <div class="chain-donut">
+          <div class="chain-ring"></div>
+          <div class="chain-center"><strong>18</strong><span>sportsbooks</span></div>
+        </div>
+        <div class="chain-list">
+          <div><span class="chain-dot eth"></span><b>Ethereum</b><i><em style="width:100%"></em></i><strong>38.9%</strong></div>
+          <div><span class="chain-dot sol"></span><b>Solana</b><i><em style="width:68.9%"></em></i><strong>26.8%</strong></div>
+          <div><span class="chain-dot trx"></span><b>TRON</b><i><em style="width:53%"></em></i><strong>20.6%</strong></div>
+          <div><span class="chain-dot bnb"></span><b>BNB Chain</b><i><em style="width:21.3%"></em></i><strong>8.3%</strong></div>
+          <div><span class="chain-dot other"></span><b>Other</b><i><em style="width:13.9%"></em></i><strong>5.4%</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="source-section">
+      <div class="source-card">
+        <div class="source-icon">i</div>
+        <div>
+          <span class="eyebrow">About this data</span>
+          <h2>Use it as market intelligence, not an accounting statement.</h2>
+          <p>All figures on this page except the deposit-chain mix are a market-data snapshot, checked 24 Aug 2026. The underlying tracker covers a wider set of gambling operators than CryptoBetGrade reviews, so some names shown here do not have profiles on this site.</p>
+          <p>On-chain visibility depends on which wallets and flows have been identified. A tracked hot-wallet balance is not a complete measure of an operator's assets, liabilities or solvency.</p>
+        </div>
+      </div>
+
+      <div class="analytics-cta">
+        <div>
+          <span class="eyebrow">Put the numbers in context</span>
+          <h2>Market size is not the same as trust.</h2>
+          <p>Use analytics alongside complaint history, terms and licensing — not instead of them.</p>
+        </div>
+        <a href="dashboard.html" class="btn">Browse sportsbook profiles</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="trust-row">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> Same formula for every operator</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> No crypto sportsbook can buy a score</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> Independent complaint records</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg> 18+ · Play responsibly</div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="methodology.html">How scoring works</a>
+        <a href="dashboard.html">Leaderboard</a>
+        <a href="analytics.html">Market analytics</a>
+      </div>
+      <div class="footer-col">
+        <h5>Crypto sportsbooks</h5>
+        <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
+        <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
+        <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
+        <a href="index.html#operators">Suggest a sportsbook</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="methodology.html">Methodology paper</a>
+        <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="cookies.html">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="about.html" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
+      <p>Some crypto sportsbook listings include an affiliate link — clearly marked on that sportsbook's profile page. Affiliate relationships never influence Trust Scores.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function openAuthModal(kind){
+  document.getElementById("authModalTitle").textContent = kind === "signup" ? "Sign up" : "Log in";
+  document.getElementById("authModal").classList.add("open");
+  return false;
+}
+function closeAuthModal(){ document.getElementById("authModal").classList.remove("open"); }
+document.getElementById("authModal").addEventListener("click", e => {
+  if(e.target.id === "authModal") closeAuthModal();
+});
+
+</script>
+
+
+
+
+
+<script>
+// CryptoBetGrade-reviewed operators only — every entry below is matched against this
+// site's 32-operator roster and cross-checked against FairGambling's own casino
+// slug/name, using their expanded ("Show 10 More") 30-day market-share table plus
+// their "Wallet Balance · By Casino" table (checked 24 Aug 2026). Everyone else
+// FairGambling tracks that we don't review at all (Yeet, MetaWin, Dicey, Gamba,
+// etc.) is intentionally left out — not filtered by a toggle, just never included.
+const explorerData = [
+  {name:"Stake",        slug:"stake",         domain:"stake.com",       fgRank:1,  share:48.26, volume:2000,   deposits:3290,  change:-5.9,  wallet:141.3},
+  {name:"Roobet",       slug:"roobet",        domain:"roobet.com",      fgRank:2,  share:8.98,  volume:372.68, deposits:653.33, change:-1.4,  wallet:38.41},
+  {name:"Rainbet",      slug:"rainbet",       domain:"rainbet.com",     fgRank:3,  share:7.96,  volume:330.47, deposits:822.70, change:17.4,  wallet:85.75},
+  {name:"Duel",         slug:"duel",          domain:"duel.com",        fgRank:4,  share:6.29,  volume:260.82, deposits:233.62, change:16.1,  wallet:14.28},
+  {name:"Shuffle",      slug:"shuffle",       domain:"shuffle.com",     fgRank:5,  share:5.02,  volume:208.14, deposits:542.93, change:-13.0, wallet:23.58},
+  {name:"Gamdom",       slug:"gamdom",        domain:"gamdom.com",      fgRank:6,  share:4.34,  volume:180.15, deposits:193.91, change:4.3,   wallet:5.31},
+  {name:"1win",         slug:"1win",          domain:"1win.com",        fgRank:7,  share:3.26,  volume:135.09, deposits:370.93, change:2.6,   wallet:19.73},
+  {name:"BC.Game",      slug:"bc-game",       domain:"bc.game",         fgRank:8,  share:2.68,  volume:111.12, deposits:68.79, change:15.2,  wallet:11.69},
+  {name:"StakeUS",      slug:"stakeus",       domain:"stake.us",        fgRank:9,  share:1.82,  volume:75.70,  deposits:140.69, change:-0.3, wallet:47.92},
+  {name:"Thrill",       slug:"thrill",        domain:"thrill.com",      fgRank:10, share:1.33,  volume:55.01,  deposits:130.68, change:-9.6,  wallet:1.68},
+  {name:"Sportsbet.io", slug:"sportsbet-io",  domain:"sportsbet.io",    fgRank:11, share:1.31,  volume:54.45,  deposits:15.39, change:-23.9, wallet:3.09},
+  {name:"Winna",        slug:"winna",         domain:"winna.com",       fgRank:12, share:0.90,  volume:37.16,  deposits:58.32, change:-9.1,  wallet:4.70},
+  {name:"Duelbits",     slug:"duelbits",      domain:"duelbits.com",    fgRank:14, share:0.64,  volume:26.54,  deposits:43.19, change:29.0,  wallet:6.66},
+  {name:"Betpanda",     slug:"betpanda",      domain:"betpanda.io",     fgRank:15, share:0.60,  volume:24.90,  deposits:96.53, change:0.6,   wallet:2.31},
+  {name:"Rollbit",      slug:"rollbit",       domain:"rollbit.com",     fgRank:16, share:0.57,  volume:23.60,  deposits:50.72, change:-54.3, wallet:0.15},
+  {name:"500Casino",    slug:"500casino",     domain:"500.casino",      fgRank:17, share:0.55,  volume:22.84,  deposits:58.16, change:-4.0,  wallet:2.59},
+  {name:"Cloudbet",     slug:"cloudbet",      domain:"cloudbet.com",    fgRank:18, share:0.54,  volume:22.29,  deposits:9.03,  change:-37.3, wallet:13.88},
+  {name:"Razed",        slug:"razed",         domain:"razedcasino.com", fgRank:19, share:0.52,  volume:21.68,  deposits:42.26, change:-15.8, wallet:3.70},
+  {name:"SolCasino.io", slug:"solcasino-io",  domain:"solcasino.io",    fgRank:22, share:0.31,  volume:12.91,  deposits:55.54, change:-22.0, wallet:9.00},
+  {name:"BetFury",      slug:"betfury",       domain:"betfury.io",      fgRank:23, share:0.29,  volume:12.19,  deposits:36.78, change:-25.8, wallet:5.50}
+];
+
+const metricMeta = {
+  share:{label:"Market share", fmt:v=>v==null?"—":v.toFixed(2)+"%"},
+  volume:{label:"30D volume", fmt:v=>v==null?"—":(v>=1000?"$"+(v/1000).toFixed(2)+"B":"$"+v.toFixed(2)+"M")},
+  deposits:{label:"Deposits", fmt:v=>v==null?"—":(v>=1000?(v/1000).toFixed(2)+"M":v.toFixed(2)+"K")},
+  change:{label:"30D change", fmt:v=>v==null?"—":(v>0?"+":"")+v.toFixed(1)+"%"},
+  wallet:{label:"Hot wallet balance", fmt:v=>v==null?"—":"$"+v.toFixed(2)+"M"}
+};
+
+function explorerInitials(name){ return name.replace(/[^A-Za-z0-9 ]/g,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(); }
+function handleExplorerLogoError(img){
+  if(img.dataset.stage !== "ddg"){ img.dataset.stage="ddg"; img.src = img.dataset.fallback; }
+  else {
+    const span = document.createElement("span");
+    span.className = "explorer-logo-fallback";
+    span.textContent = img.dataset.initials;
+    img.replaceWith(span);
+  }
+}
+function explorerFiltered(){
+  const q = document.getElementById("operatorSearch").value.trim().toLowerCase();
+  const metric = document.getElementById("metricSelect").value;
+  const dir = document.getElementById("directionSelect").value;
+  let rows = explorerData.filter(x => !q || x.name.toLowerCase().includes(q));
+  rows.sort((a,b)=>{
+    const av = a[metric], bv = b[metric];
+    if(av==null && bv==null) return 0;
+    if(av==null) return 1;
+    if(bv==null) return -1;
+    return dir==="desc" ? bv-av : av-bv;
+  });
+  return rows;
+}
+
+function renderExplorer(){
+  const metric = document.getElementById("metricSelect").value;
+  const rows = explorerFiltered();
+  const vals = rows.map(x=>x[metric]).filter(v=>v!=null);
+  const max = vals.length ? Math.max(...vals.map(v=>Math.abs(v))) : 1;
+  const root = document.getElementById("explorerRows");
+
+  document.getElementById("metricHeadLabel").textContent = metricMeta[metric].label;
+  document.getElementById("currentMetric").textContent = metricMeta[metric].label;
+  document.getElementById("shownCount").textContent = rows.length;
+  document.getElementById("shownShare").textContent = rows.reduce((s,x)=>s+(x.share||0),0).toFixed(2)+"%";
+
+  const mover = rows.filter(x=>x.change!=null).sort((a,b)=>b.change-a.change)[0];
+  document.getElementById("largestMover").textContent = mover ? mover.name+" "+(mover.change>0?"+":"")+mover.change.toFixed(1)+"%" : "—";
+
+  if(!rows.length){
+    root.innerHTML = '<div class="no-results">No operators match these filters.</div>';
+    return;
+  }
+
+  root.innerHTML = rows.map((x,i)=>{
+    const val = x[metric];
+    const width = val==null ? 0 : Math.max(4, Math.abs(val)/max*100);
+    const changeClass = x.change>0 ? "up" : x.change<0 ? "down" : "";
+    return `
+      <div class="explorer-row compact-row">
+        <span class="explorer-rank">${i+1}</span>
+        <a class="explorer-name" href="dashboard.html#/operator/${x.slug}" style="text-decoration:none;color:inherit;">
+          <img class="explorer-logo" src="https://www.google.com/s2/favicons?domain=${x.domain}&sz=64" data-fallback="https://icons.duckduckgo.com/ip3/${x.domain}.ico" data-initials="${explorerInitials(x.name)}" alt="${x.name} logo" loading="lazy" onerror="handleExplorerLogoError(this)">
+          <b>${x.name}</b>
+        </a>
+        <div class="explorer-bar"><i style="width:${width}%"></i></div>
+        <div class="explorer-value">
+          <b>${metricMeta[metric].fmt(val)}</b>
+          <small class="${changeClass}">${metric==="change" ? "" : (x.change>0?"+":"")+x.change.toFixed(1)+"% 30D"}</small>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function resetExplorer(){
+  document.getElementById("operatorSearch").value="";
+  document.getElementById("metricSelect").value="share";
+  document.getElementById("directionSelect").value="desc";
+  renderExplorer();
+}
+["operatorSearch","metricSelect","directionSelect"].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener(el.tagName==="INPUT"?"input":"change",renderExplorer);
+});
+document.getElementById("resetExplorer")?.addEventListener("click",resetExplorer);
+document.addEventListener("DOMContentLoaded",renderExplorer);
+</script>
+
+</body>
+</html>

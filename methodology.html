@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>How scoring works — CryptoBetGrade Methodology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0b6e4f;
+    --brand-dark:#074a35;
+    --brand-light:#e6f4ec;
+    --brand-lighter:#f3faf6;
+    --surface:#fcfcfb;
+    --page:#f9f9f7;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --ink-muted:#898781;
+    --line:#e1e0d9;
+    --border:rgba(11,11,11,0.10);
+    --good:#0ca30c; --good-bg:#e5f6e0; --good-ink:#0a5c0a;
+    --warning:#fab219; --warning-bg:#fff3dc; --warning-ink:#8a5c00;
+    --serious:#ec835a; --serious-bg:#fdebe2; --serious-ink:#a3441f;
+    --critical:#d03b3b; --critical-bg:#fbe5e5; --critical-ink:#8f1f1f;
+    --gold:#c8860d; --gold-bg:#fdf1da; --gold-ink:#8a5c00;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .demo-banner{
+    background:var(--brand-dark);
+    color:#fff;
+    text-align:center;
+    font-size:13px;
+    padding:10px 16px;
+  }
+  .demo-banner b{color:#a9e6c9;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    box-shadow:0 4px 18px rgba(7,74,53,0.28);
+  }
+  nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-size:18.5px;letter-spacing:-0.3px;
+    text-decoration:none;
+    font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .logo .mark{
+    position:relative;
+    width:34px;height:34px;border-radius:10px;flex:none;
+    background:#fff;padding:4px;box-sizing:border-box;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.28);
+  }
+  .logo .mark svg{width:100%;height:100%;}
+  .logo .wordmark-light{font-weight:600;color:rgba(255,255,255,0.72);}
+  .logo .wordmark-bold{font-weight:800;color:#fff;}
+  .navlinks{display:flex;gap:8px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.9);}
+  .navlinks a{
+    text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;
+    color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.08);
+    padding:8px 14px;border-radius:999px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.14);
+    transition:.15s ease;
+  }
+  .navlinks a:hover{background:rgba(255,255,255,0.2);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+  .navlinks a.active{background:rgba(255,255,255,0.22);color:#fff;}
+  .navlinks svg{width:16px;height:16px;flex:none;}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+    background:var(--brand);color:#fff;
+    padding:10px 18px;border-radius:999px;
+    font-weight:700;font-size:14px;text-decoration:none;
+    border:none;cursor:pointer;
+    transition:.15s;
+  }
+  .btn:hover{background:var(--brand-dark);box-shadow:0 6px 16px rgba(11,110,79,0.28);transform:translateY(-1px);}
+  .btn,.btn-outline{transition:.15s ease;}
+  .btn-outline{
+    background:#fff;color:var(--brand-dark);
+    border:1.5px solid var(--brand);
+  }
+  .btn-outline:hover{background:var(--brand-light);transform:translateY(-1px);}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .link-muted{
+    text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);
+    padding:8px 4px;white-space:nowrap;
+  }
+  .link-muted:hover{color:var(--brand-dark);}
+  nav .link-muted{color:rgba(255,255,255,0.85);}
+  nav .link-muted:hover{color:#fff;}
+  nav .btn-outline{
+    background:rgba(255,255,255,0.06);color:#fff;
+    border:1.5px solid rgba(255,255,255,0.55);
+    box-shadow:0 2px 6px rgba(0,0,0,0.14);
+  }
+  nav .btn-outline:hover{background:rgba(255,255,255,0.18);border-color:#fff;}
+  nav .btn{
+    background:#fff;color:var(--brand-dark);
+    box-shadow:0 4px 14px rgba(0,0,0,0.24);
+  }
+  nav .btn:hover{background:var(--gold-bg);color:var(--brand-dark);box-shadow:0 6px 18px rgba(0,0,0,0.3);}
+  @media (max-width:820px){ .navlinks{display:none;} }
+  @media (max-width:600px){ .link-muted{display:none;} }
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(11,11,11,0.45);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px;z-index:100;overflow-y:auto;}
+  .modal-bg.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:28px;max-width:440px;width:100%;}
+  .modal h3{margin:0 0 6px;font-size:18px;}
+  .modal p.hint{font-size:13.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.6;}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+
+  /* PAGE HERO */
+  .page-hero{
+    padding:42px 0 30px;
+    text-align:center;
+    background:radial-gradient(600px 260px at 50% -60px, var(--brand-light), transparent 70%);
+  }
+  .page-hero .kicker{
+    display:inline-block;
+    background:var(--brand-light);color:var(--brand-dark);
+    font-size:12.5px;font-weight:700;letter-spacing:.03em;
+    padding:6px 14px;border-radius:999px;margin-bottom:20px;
+  }
+  .page-hero h1{font-size:clamp(28px,4vw,42px);margin:0 0 14px;letter-spacing:-0.8px;}
+  .page-hero p{max-width:640px;margin:0 auto;color:var(--ink-2);font-size:16px;}
+
+  section{padding:38px 0;}
+  section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .section-head{max-width:680px;margin:0 auto 24px;}
+  .section-head.center{text-align:center;}
+  .section-head .eyebrow{
+    color:var(--brand-dark);font-weight:700;font-size:12.5px;
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(22px,3vw,28px);margin:0 0 12px;letter-spacing:-0.5px;}
+  .section-head p{color:var(--ink-2);font-size:15.5px;margin:0;}
+
+  .intro-box{
+    max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);
+    border-radius:16px;padding:20px 24px;font-size:14.5px;color:var(--ink-2);
+    box-shadow:0 10px 30px rgba(11,11,11,0.05);
+  }
+  .intro-box b{color:var(--ink);}
+
+  /* CATEGORY CARDS */
+  .method-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    max-width:900px;margin:0 auto;
+  }
+  @media (max-width:720px){ .method-grid{grid-template-columns:1fr;} }
+  .method-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:17px 18px;
+    box-shadow:0 4px 14px rgba(11,11,11,0.04);transition:.18s ease;
+  }
+  .method-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(11,110,79,0.10);border-color:var(--brand-light);}
+  .method-card .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:10px;}
+  .method-card .row .name{font-weight:700;font-size:14.5px;}
+  .method-card .row .weight{font-size:12.5px;color:var(--brand-dark);font-weight:800;flex-shrink:0;}
+  .weightbar{width:100%;height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:10px;}
+  .weightbar-fill{height:100%;background:var(--brand);border-radius:4px;}
+  .method-card p{margin:0;font-size:12.8px;color:var(--ink-2);line-height:1.5;}
+  .method-note{
+    max-width:760px;margin:24px auto 0;
+    font-size:13.5px;color:var(--brand-dark);
+    background:var(--brand-lighter);border:1px dashed var(--brand);
+    border-radius:10px;padding:14px 18px;
+  }
+
+  .prose{max-width:760px;margin:0 auto;}
+  .prose p{color:var(--ink-2);font-size:15px;margin:0 0 16px;}
+  .prose p:last-child{margin-bottom:0;}
+
+  .today-box{
+    max-width:760px;margin:0 auto;background:var(--warning-bg);border:1px solid #f0d9a6;
+    border-radius:16px;padding:20px 24px;
+    box-shadow:0 10px 30px rgba(138,92,0,0.06);
+  }
+  .today-box p{color:var(--warning-ink);font-size:15px;margin:0 0 12px;}
+  .today-box p:last-child{margin-bottom:0;}
+  .today-box b{color:var(--ink);}
+
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+  .btn-outline{
+    background:#fff;color:var(--brand-dark);
+    border:1.5px solid var(--brand);
+    display:inline-flex;align-items:center;gap:6px;
+    padding:10px 18px;border-radius:999px;
+    font-weight:700;font-size:14px;text-decoration:none;
+    transition:.15s ease;
+  }
+  .btn-outline:hover{background:var(--brand-light);transform:translateY(-1px);}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;}
+  .trust-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+  .trust-item{display:flex;align-items:center;gap:9px;background:var(--page);border:1px solid var(--line);border-radius:12px;padding:11px 16px;font-size:12.5px;font-weight:600;color:var(--ink-2);}
+  .trust-item svg{width:17px;height:17px;flex:none;color:var(--brand-dark);}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:28px;}
+  .footer-col h5{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);margin:0 0 12px;}
+  .footer-col a{display:block;font-size:14px;color:var(--ink-2);text-decoration:none;margin-bottom:8px;}
+  .footer-col a:hover{color:var(--brand-dark);}
+  .footer-bottom{border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink-muted);line-height:1.7;}
+  .footer-bottom b{color:var(--ink-2);}
+
+  /* COOKIE NOTICE */
+  #cookieNotice{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 14px 40px rgba(11,11,11,0.16);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  #cookieNotice p{margin:0;font-size:13px;color:var(--ink-2);flex:1;min-width:220px;}
+  #cookieNotice .actions{display:flex;gap:8px;flex:none;}
+  #cookieNotice.hidden{display:none;}
+
+  /* Compact visual enhancements */
+  .visual-strip{max-width:900px;margin:0 auto 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .visual-chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(11,11,11,.035);}
+  .visual-chip .vicon{width:34px;height:34px;border-radius:10px;background:var(--brand-lighter);border:1px solid var(--brand-light);display:flex;align-items:center;justify-content:center;flex:none;color:var(--brand-dark);font-size:17px;font-weight:800;}
+  .visual-chip .vtitle{font-weight:800;font-size:13px;color:var(--ink);}
+  .visual-chip .vsub{font-size:11.5px;color:var(--ink-muted);margin-top:1px;}
+  .method-card .card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .method-card .micon{width:32px;height:32px;border-radius:9px;background:var(--brand-lighter);border:1px solid var(--brand-light);display:flex;align-items:center;justify-content:center;flex:none;color:var(--brand-dark);font-size:15px;}
+  .method-card .row{flex:1;margin-bottom:0;}
+  .step-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .step-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
+  .step-num{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none;}
+  .step-card h3{margin:0 0 5px;font-size:14px;}
+  .step-card p{margin:0;color:var(--ink-2);font-size:13px;}
+  .mini-grid{max-width:900px;margin:18px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .mini-box{background:var(--brand-lighter);border:1px solid var(--brand-light);border-radius:12px;padding:14px 16px;}
+  .mini-box b{display:block;font-size:12.5px;margin-bottom:4px;color:var(--brand-dark);}
+  .mini-box span{font-size:12px;color:var(--ink-2);}
+  @media (max-width:720px){.visual-strip,.mini-grid,.step-grid{grid-template-columns:1fr;}}
+
+</style>
+
+<style>
+.cb-icon{
+  width:36px;height:36px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--brand-lighter);border:1px solid #d7eadf;
+  color:var(--brand-dark);font-size:18px;flex:none;
+}
+.cb-title-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.method-card .cb-icon{width:32px;height:32px;font-size:16px;border-radius:9px;}
+.process-icon{width:40px;height:40px;border-radius:12px;font-size:19px;}
+@media(max-width:600px){.cb-icon{width:32px;height:32px;}}
+</style>
+
+
+<style>
+  .page-hero{padding:42px 0 34px;background:#fff;border-bottom:1px solid var(--line);text-align:left;}
+  .hero-grid{max-width:980px;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:28px;}
+  .hero-copy .kicker{margin-bottom:14px;}
+  .hero-copy h1{font-size:clamp(34px,5vw,54px);margin:0 0 4px;letter-spacing:-1.2px;}
+  .hero-sub{font-size:20px!important;font-weight:600;color:var(--ink-2)!important;margin:0 0 10px!important;}
+  .hero-copy p:last-child{max-width:520px;color:var(--ink-2);font-size:15px;margin:0;}
+  .hero-graphic{position:relative;height:210px;display:flex;align-items:center;justify-content:center;}
+  .hero-graphic-card{width:145px;height:165px;border:2px solid #9ed5b9;border-radius:18px;padding:28px 20px;background:linear-gradient(180deg,#f7fcf9,#eef8f2);box-shadow:0 10px 30px rgba(11,110,79,.08);}
+  .hg-line{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--brand);}
+  .hg-line span{font-weight:900;font-size:20px}.hg-line i{display:block;height:5px;border-radius:99px;background:#9ed5b9;width:72px}
+  .hero-search{position:absolute;right:45px;bottom:35px;width:62px;height:62px;border-radius:50%;border:4px solid var(--brand);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:34px;background:#fff;}
+  .hero-shield{position:absolute;right:2px;bottom:24px;width:50px;height:58px;clip-path:polygon(50% 0,90% 18%,86% 70%,50% 100%,14% 70%,10% 18%);background:#e8f6ee;color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;border:1px solid #9ed5b9;}
+  .method-main{background:#fff;padding:0 0 56px;}
+  .method-shell{max-width:980px;}
+  .quick-principles{margin:18px 0 34px;border:1px solid var(--line);border-radius:14px;background:#fbfdfb;display:grid;grid-template-columns:repeat(3,1fr);padding:16px 18px;gap:0;}
+  .principle{display:flex;gap:12px;align-items:center;padding:8px 18px;border-right:1px solid var(--line);}
+  .principle:last-child{border-right:none}.principle b{display:block;font-size:13.5px}.principle span:not(.picon){display:block;color:var(--ink-2);font-size:12.5px;line-height:1.45;margin-top:2px}
+  .picon{width:38px;height:38px;border-radius:50%;border:2px solid var(--brand);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+  .score-section,.complaint-flow-section{padding:0 0 34px;}
+  .compact-head{margin-bottom:16px}.compact-head h2{font-size:22px;margin:0 0 4px}.compact-head p{margin:0;color:var(--ink-2);font-size:13.5px}
+  .score-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  .score-card{border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center;background:#fff;min-height:230px;display:flex;flex-direction:column;align-items:center}
+  .score-card h3{font-size:13px;margin:10px 0 7px;line-height:1.35}.score-card p{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.5;flex:1}
+  .score-icon{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:800;border:1px solid currentColor}
+  .green{color:#169448;background:#eef9f2}.amber{color:#c48400;background:#fff6df}.blue{color:#2869c8;background:#eef4fd}.violet{color:#7550be;background:#f5effd}.orange{color:#d48b00;background:#fff6e4}
+  .weight-pill{margin-top:14px;padding:5px 12px;border-radius:999px;font-size:11.5px;font-weight:800}.green-pill{background:#eaf7ee;color:#247c45}.amber-pill{background:#fff1cc;color:#956900}.blue-pill{background:#eaf2fd;color:#356bb7}.violet-pill{background:#f1eafd;color:#7550be}.orange-pill{background:#fff1d6;color:#986b00}
+  .score-note{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;background:#fbfdfb;font-size:12.5px;color:var(--ink-2)}.note-star{font-size:21px;color:var(--brand)}
+  .flow-grid{display:grid;grid-template-columns:1fr 40px 1fr;align-items:center;gap:12px}.flow-arrow{text-align:center;color:var(--brand);font-size:34px}
+  .flow-card{position:relative;border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;grid-template-columns:70px 1fr;gap:16px;background:#fff}.flow-num{position:absolute;top:14px;left:14px;width:25px;height:25px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+  .flow-icon{width:64px;height:64px;border-radius:50%;background:var(--brand-lighter);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:28px;margin-top:14px}.flow-card h3{margin:0 0 3px;font-size:16px}.flow-card p{margin:0 0 8px;color:var(--ink-2);font-size:12.5px}.flow-card ul{list-style:none;padding:0;margin:0}.flow-card li{font-size:12px;color:var(--ink-2);margin:4px 0}.flow-card li:before{content:"✓";color:var(--good);font-weight:800;margin-right:7px}
+  .info-grid{display:grid;grid-template-columns:1fr 1.05fr 1.1fr;gap:12px;margin-top:14px}.info-card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}.info-card h3{font-size:14px;margin:0 0 12px;display:flex;gap:7px;align-items:center}
+  .dot-list,.check-list{list-style:none;padding:0;margin:0}.dot-list li,.check-list li{font-size:12px;color:var(--ink-2);margin:8px 0}.dot-list li:before{content:"•";color:var(--brand);font-weight:900;margin-right:9px}.check-list li:before{content:"✓";color:var(--good);font-weight:900;margin-right:8px}
+  .outcome-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:7px 0}.outcome-row small{color:var(--ink-muted);font-size:10.8px}.outcome{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700}.resolved{background:#e5f6e0;color:#0a5c0a}.partial{background:#eaf2fd;color:#356bb7}.operator{background:#fff1d6;color:#8a5c00}.unresolved{background:#fdebe2;color:#a3441f}.rejected{background:#eee;color:#666}
+  .beta-strip{border:1px solid var(--line);border-radius:14px;background:#fbfdfb;display:grid;grid-template-columns:80px 1.2fr 1.6fr;align-items:center;gap:20px;padding:18px 22px}.beta-rocket{width:64px;height:64px;border-radius:50%;background:var(--brand-lighter);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:30px}.beta-title{font-size:17px;font-weight:800}.beta-title span{font-size:10px;background:var(--brand-light);color:var(--brand-dark);padding:3px 8px;border-radius:999px;margin-left:6px}.beta-copy p{font-size:12.5px;color:var(--ink-2);margin:5px 0 0}.beta-points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.beta-points div{border-left:1px solid var(--line);padding-left:14px}.beta-points b{display:block;font-size:12px}.beta-points span{display:block;color:var(--ink-2);font-size:11px;margin-top:2px}
+  section{padding:0}
+  @media(max-width:900px){.score-cards{grid-template-columns:repeat(2,1fr)}.hero-grid{grid-template-columns:1fr}.hero-graphic{display:none}.info-grid{grid-template-columns:1fr}.beta-strip{grid-template-columns:1fr}.beta-points{grid-template-columns:1fr 1fr 1fr}.quick-principles{grid-template-columns:1fr}.principle{border-right:none;border-bottom:1px solid var(--line)}.principle:last-child{border-bottom:none}}
+  @media(max-width:640px){.score-cards{grid-template-columns:1fr}.flow-grid{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg)}.beta-points{grid-template-columns:1fr}.flow-card{grid-template-columns:55px 1fr}}
+</style>
+
+
+<style>
+/* FINAL MOCKUP MATCH OVERRIDES */
+body{background:#fff;}
+.wrap{max-width:1020px;padding:0 28px;}
+nav{
+  background:#fff !important;
+  box-shadow:none !important;
+  border-bottom:1px solid var(--line);
+}
+nav .wrap{max-width:1120px;padding-top:12px;padding-bottom:12px;}
+.logo .mark{
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  width:38px;height:38px;
+}
+.logo .wordmark-light{color:#111 !important;font-weight:700;}
+.logo .wordmark-bold{color:var(--brand) !important;}
+.navlinks{gap:22px;}
+.navlinks a{
+  background:transparent !important;
+  box-shadow:none !important;
+  padding:6px 0 !important;
+  color:#111 !important;
+  border-radius:0 !important;
+  font-size:13px;
+}
+.navlinks a:hover,
+.navlinks a.active{color:var(--brand) !important;background:transparent !important;}
+.nav-actions .link-muted{color:#111 !important;}
+nav .btn-outline{
+  background:var(--brand) !important;
+  color:#fff !important;
+  border:none !important;
+  padding:9px 15px !important;
+  box-shadow:0 5px 14px rgba(11,110,79,.16) !important;
+}
+
+.page-hero{
+  padding:44px 0 28px;
+  border-bottom:none;
+  background:
+    radial-gradient(520px 220px at 79% 48%, rgba(230,244,236,.72), transparent 70%),
+    #fff;
+}
+.hero-grid{max-width:960px;grid-template-columns:1.16fr .84fr;gap:22px;}
+.hero-copy .kicker{
+  background:#eff7f2;
+  color:#167447;
+  font-size:10.5px;
+  padding:5px 11px;
+  margin-bottom:14px;
+}
+.hero-copy h1{font-size:48px;line-height:1.03;letter-spacing:-1.7px;margin-bottom:8px;}
+.hero-sub{font-size:18px!important;margin-bottom:12px!important;}
+.hero-copy p:last-child{font-size:13.5px;max-width:430px;line-height:1.65;}
+
+.hero-graphic{height:220px;}
+.hero-graphic-card{
+  width:132px;height:152px;
+  border:2px solid #8fcdae;border-radius:16px;
+  padding:25px 18px;
+  box-shadow:none;
+}
+.hg-line{margin-bottom:13px;gap:8px}
+.hg-line span{font-size:18px}
+.hg-line i{height:4px;width:62px}
+.hero-search{width:57px;height:57px;right:55px;bottom:33px;font-size:30px;border-width:3px}
+.hero-shield{right:13px;bottom:19px;width:45px;height:52px;font-size:21px}
+
+.method-shell{max-width:960px;}
+.quick-principles{
+  margin:4px 0 30px;
+  padding:11px 12px;
+  border-radius:11px;
+  background:#fbfdfb;
+}
+.principle{padding:8px 18px;gap:11px;}
+.picon{width:34px;height:34px;font-size:14px;border-width:1.7px;}
+.principle b{font-size:12.5px;}
+.principle span:not(.picon){font-size:11px;line-height:1.38;}
+
+.compact-head{margin-bottom:13px;}
+.compact-head h2{font-size:20px;letter-spacing:-.3px;}
+.compact-head p{font-size:12px;}
+
+.score-cards{gap:10px;}
+.score-card{
+  min-height:210px;
+  padding:16px 12px 14px;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(11,11,11,.025);
+}
+.score-icon{
+  width:50px;height:50px;border-radius:15px;
+  font-size:23px;border-width:1.5px;
+}
+.score-card h3{font-size:12.5px;margin:10px 0 6px;}
+.score-card p{font-size:11.25px;line-height:1.55;}
+.weight-pill{margin-top:12px;padding:4px 11px;font-size:10.5px;}
+.score-note{margin-top:10px;padding:10px 14px;font-size:11.5px;border-radius:10px;}
+
+.complaint-flow-section{padding-top:0}
+.flow-grid{gap:10px;grid-template-columns:1fr 34px 1fr;}
+.flow-card{
+  min-height:150px;
+  padding:17px 18px 16px 18px;
+  border-radius:12px;
+  grid-template-columns:62px 1fr;
+  gap:13px;
+}
+.flow-num{width:23px;height:23px;top:13px;left:13px;font-size:11px;}
+.flow-icon{width:55px;height:55px;font-size:23px;margin-top:13px;}
+.flow-card h3{font-size:14px;}
+.flow-card p{font-size:11.5px;margin-bottom:5px;}
+.flow-card li{font-size:11px;margin:3px 0;}
+.flow-arrow{font-size:28px;}
+
+.info-grid{gap:10px;margin-top:11px;}
+.info-card{padding:14px 15px;border-radius:11px;}
+.info-card h3{font-size:13px;margin-bottom:9px;}
+.dot-list li,.check-list li{font-size:10.8px;margin:6px 0;}
+.outcome-row{margin:5px 0;}
+.outcome-row small{font-size:9.8px;}
+.outcome{font-size:9.5px;padding:2px 7px;}
+
+.beta-strip{
+  margin-top:2px;
+  border-radius:12px;
+  padding:14px 18px;
+  grid-template-columns:68px 1.15fr 1.7fr;
+  gap:16px;
+}
+.beta-rocket{width:54px;height:54px;font-size:24px;}
+.beta-title{font-size:15px;}
+.beta-copy p{font-size:10.8px;line-height:1.45;}
+.beta-points{gap:10px;}
+.beta-points div{padding-left:11px;}
+.beta-points b{font-size:10.8px;}
+.beta-points span{font-size:9.8px;}
+
+footer{padding:26px 0 22px;}
+.footer-bottom{font-size:11px;}
+
+@media(max-width:900px){
+  nav .navlinks{display:none}
+  .hero-copy h1{font-size:40px}
+}
+</style>
+
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24"><path d="M12 2 L19.5 5.2 V11.6 C19.5 17 16.2 20.7 12 22 C7.8 20.7 4.5 17 4.5 11.6 V5.2 Z" fill="#0b6e4f"/><path d="M12.8 8.8 A3.7 3.7 0 1 0 12.8 16.2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="12.9" y="13.8" width="1.5" height="3.2" rx="0.5" fill="#8fcdae"/><rect x="15" y="11.6" width="1.5" height="5.4" rx="0.5" fill="#c9b467"/><rect x="17.1" y="9.4" width="1.5" height="7.6" rx="0.5" fill="#c8860d"/></svg></span>
+      <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="index.html#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="methodology.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>    </div>
+    <div class="nav-actions">
+      <a href="#" class="link-muted" onclick="return openAuthModal('login')">Log in</a>
+      <a href="#" class="btn btn-outline btn-sm" onclick="return openAuthModal('signup')">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- AUTH MODAL (placeholder — no account system built yet) -->
+<div class="modal-bg" id="authModal">
+  <div class="modal">
+    <h3 id="authModalTitle">Log in</h3>
+    <p class="hint">Accounts are not enabled in this prototype yet.</p>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeAuthModal()">Got it</button>
+    </div>
+  </div>
+</div>
+
+
+<header class="page-hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="kicker">METHODOLOGY</span>
+      <h1>How scoring works</h1>
+      <p class="hero-sub">Transparent. Consistent. Evidence-based.</p>
+      <p>We evaluate crypto sportsbooks using 5 core categories to calculate the final CryptoBetGrade.</p>
+    </div>
+    <div class="hero-graphic" aria-hidden="true">
+      <div class="hero-graphic-card">
+        <div class="hg-line"><span>✓</span><i></i></div>
+        <div class="hg-line"><span>✓</span><i></i></div>
+        <div class="hg-line"><span>✓</span><i></i></div>
+        <div class="hg-line"><span>✓</span><i></i></div>
+      </div>
+      <div class="hero-search">⌕</div>
+      <div class="hero-shield">✓</div>
+    </div>
+  </div>
+</header>
+
+<main class="method-main">
+  <div class="wrap method-shell">
+
+    <section class="quick-principles">
+      <div class="principle">
+        <span class="picon">✓</span>
+        <div><b>Evidence-based</b><span>We use verifiable data, documents and real player reports.</span></div>
+      </div>
+      <div class="principle">
+        <span class="picon">%</span>
+        <div><b>One score</b><span>All categories are weighted to produce a single grade.</span></div>
+      </div>
+      <div class="principle">
+        <span class="picon">↻</span>
+        <div><b>Updated regularly</b><span>Scores change as new data and outcomes come in.</span></div>
+      </div>
+    </section>
+
+    <section class="score-section">
+      <div class="compact-head">
+        <h2>The 5 scoring categories</h2>
+        <p>Each operator is scored across 5 categories to calculate the final CryptoBetGrade.</p>
+      </div>
+
+      <div class="score-cards">
+        <article class="score-card">
+          <span class="score-icon green">✓</span>
+          <h3>1. Licence &amp; regulation</h3>
+          <p>Licence strength, regulator quality and enforcement history.</p>
+          <span class="weight-pill green-pill">25%</span>
+        </article>
+        <article class="score-card">
+          <span class="score-icon amber">↗</span>
+          <h3>2. Payout reliability</h3>
+          <p>Withdrawal speed, limits and history of delayed or denied payouts.</p>
+          <span class="weight-pill amber-pill">25%</span>
+        </article>
+        <article class="score-card">
+          <span class="score-icon blue">⚑</span>
+          <h3>3. Complaint record</h3>
+          <p>Complaint severity, disputed value and how cases are resolved.</p>
+          <span class="weight-pill blue-pill">25%</span>
+        </article>
+        <article class="score-card">
+          <span class="score-icon violet">✓</span>
+          <h3>4. KYC practice</h3>
+          <p>Whether verification is proportionate, clear and fairly applied.</p>
+          <span class="weight-pill violet-pill">12.5%</span>
+        </article>
+        <article class="score-card">
+          <span class="score-icon orange">⚖</span>
+          <h3>5. T&amp;C fairness</h3>
+          <p>One-sided clauses, voiding rules, arbitrage restrictions and withdrawal terms.</p>
+          <span class="weight-pill orange-pill">12.5%</span>
+        </article>
+      </div>
+
+      <div class="score-note">
+        <span class="note-star">☆</span>
+        <span>Final score is weighted and updated when new evidence or complaint outcomes appear.</span>
+      </div>
+    </section>
+
+    <section class="complaint-flow-section">
+      <div class="compact-head">
+        <h2>How we collect and process complaints</h2>
+      </div>
+
+      <div class="flow-grid">
+        <article class="flow-card">
+          <span class="flow-num">1</span>
+          <div class="flow-icon">✎</div>
+          <div>
+            <h3>Submission</h3>
+            <p>Anyone can submit a complaint.</p>
+            <ul>
+              <li>Describe the issue</li>
+              <li>Add evidence</li>
+              <li>Stay anonymous if needed</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="flow-arrow">→</div>
+
+        <article class="flow-card">
+          <span class="flow-num">2</span>
+          <div class="flow-icon">✓</div>
+          <div>
+            <h3>Review &amp; classification</h3>
+            <p>We verify and classify each case.</p>
+            <ul>
+              <li>Check evidence</li>
+              <li>Contact the operator</li>
+              <li>Assign the outcome</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <h3><span>▣</span> Evidence we use</h3>
+          <ul class="dot-list">
+            <li>Screenshots &amp; documents</li>
+            <li>Transaction IDs</li>
+            <li>Operator responses</li>
+            <li>Public data &amp; community reports</li>
+          </ul>
+        </article>
+
+        <article class="info-card">
+          <h3><span>⚑</span> Complaint outcomes</h3>
+          <div class="outcome-row"><span class="outcome resolved">Resolved</span><small>Issue solved</small></div>
+          <div class="outcome-row"><span class="outcome partial">Partial</span><small>Issue partly solved</small></div>
+          <div class="outcome-row"><span class="outcome operator">Operator's favor</span><small>Decision supports operator</small></div>
+          <div class="outcome-row"><span class="outcome unresolved">Unresolved</span><small>No resolution yet</small></div>
+          <div class="outcome-row"><span class="outcome rejected">Rejected</span><small>Insufficient evidence / invalid</small></div>
+        </article>
+
+        <article class="info-card">
+          <h3><span>↻</span> Updates</h3>
+          <ul class="check-list">
+            <li>Scores change with new evidence</li>
+            <li>New complaints affect relevant categories</li>
+            <li>Resolved cases remain visible</li>
+            <li>Old issues can lose impact over time</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="beta-strip">
+      <div class="beta-rocket">↗</div>
+      <div class="beta-copy">
+        <div class="beta-title">We are in beta <span>BETA</span></div>
+        <p>CryptoBetGrade is still being refined as more complaint data and verified evidence are collected.</p>
+      </div>
+      <div class="beta-points">
+        <div><b>Transparent</b><span>No hidden scoring.</span></div>
+        <div><b>Built for bettors</b><span>Focused on sportsbook risk.</span></div>
+        <div><b>Evidence first</b><span>Claims are tied to sources.</span></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="trust-row">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> Same formula for every operator</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> No crypto sportsbook can buy a score</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> Independent complaint records</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg> 18+ · Play responsibly</div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="methodology.html">How scoring works</a>
+        <a href="dashboard.html">Leaderboard</a>
+        <a href="analytics.html">Market analytics</a>
+      </div>
+      <div class="footer-col">
+        <h5>Crypto sportsbooks</h5>
+        <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
+        <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
+        <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
+        <a href="index.html#operators">Suggest a sportsbook</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="methodology.html">Methodology paper</a>
+        <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="cookies.html">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="margin-bottom:12px;"><a href="privacy-policy.html" style="color:var(--brand-dark);font-weight:600;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="cookies.html" style="color:var(--brand-dark);font-weight:600;text-decoration:none;">Cookies</a></p>
+      <p><b>18+.</b> Gambling can be addictive — play responsibly. Scores are evidence-based estimates and may change as new information is reviewed.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="cookieNotice" class="hidden">
+  <p>This site doesn't set tracking or advertising cookies. Loading our web font and each sportsbook's logo makes a couple of requests to Google/DuckDuckGo — see <a href="cookies.html" style="color:var(--brand-dark);font-weight:600;">Cookies</a> for details.</p>
+  <div class="actions">
+    <button class="btn btn-sm" onclick="dismissCookieNotice()">Got it</button>
+  </div>
+</div>
+
+<script>
+// Placeholder auth modal — there is no player-account system built yet (see
+// dashboard.html for the separate admin login, which is a different thing).
+function openAuthModal(kind){
+  document.getElementById("authModalTitle").textContent = kind === "signup" ? "Sign up" : "Log in";
+  document.getElementById("authModal").classList.add("open");
+  return false;
+}
+function closeAuthModal(){ document.getElementById("authModal").classList.remove("open"); }
+document.getElementById("authModal").addEventListener("click", e => {
+  if(e.target.id === "authModal") closeAuthModal();
+});
+
+// Cookie notice — intentionally NOT persisted via localStorage/cookies (this
+// project doesn't use browser storage anywhere), so it reappears each visit.
+// See cookies.html for the actual, current list.
+function dismissCookieNotice(){
+  document.getElementById("cookieNotice").classList.add("hidden");
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const n = document.getElementById("cookieNotice");
+  if(n) n.classList.remove("hidden");
+});
+</script>
+
+</body>
+</html>

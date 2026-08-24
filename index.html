@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CryptoBetGrade — Crypto Sportsbook Trust &amp; Complaints Database</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0b6e4f;
+    --brand-dark:#074a35;
+    --brand-light:#e6f4ec;
+    --brand-lighter:#f3faf6;
+    --surface:#fcfcfb;
+    --page:#f9f9f7;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --ink-muted:#898781;
+    --line:#e1e0d9;
+    --border:rgba(11,11,11,0.10);
+    --good:#0ca30c; --good-bg:#e5f6e0; --good-ink:#0a5c0a;
+    --warning:#fab219; --warning-bg:#fff3dc; --warning-ink:#8a5c00;
+    --serious:#ec835a; --serious-bg:#fdebe2; --serious-ink:#a3441f;
+    --critical:#d03b3b; --critical-bg:#fbe5e5; --critical-ink:#8f1f1f;
+    --blue:#2f6fed; --blue-bg:#e8f0fe; --blue-ink:#1d4ed8;
+    --gold:#c8860d; --gold-bg:#fdf1da; --gold-ink:#8a5c00;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .demo-banner{
+    background:var(--brand-dark);
+    color:#fff;
+    text-align:center;
+    font-size:13px;
+    padding:10px 16px;
+  }
+  .demo-banner b{color:#a9e6c9;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    box-shadow:0 4px 18px rgba(7,74,53,0.28);
+  }
+  nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-size:18.5px;letter-spacing:-0.3px;
+    text-decoration:none;
+    font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .logo .mark{
+    position:relative;
+    width:34px;height:34px;border-radius:10px;flex:none;
+    background:#fff;padding:4px;box-sizing:border-box;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.28);
+  }
+  .logo .mark svg{width:100%;height:100%;}
+  .logo .wordmark-light{font-weight:600;color:rgba(255,255,255,0.72);}
+  .logo .wordmark-bold{font-weight:800;color:#fff;}
+  .navlinks{display:flex;gap:8px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.9);}
+  .navlinks a{
+    text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;
+    color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.08);
+    padding:8px 14px;border-radius:999px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.14);
+    transition:.15s ease;
+  }
+  .navlinks a:hover{background:rgba(255,255,255,0.2);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+  .navlinks a.active{background:rgba(255,255,255,0.22);color:#fff;}
+  .navlinks svg{width:16px;height:16px;flex:none;}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+    background:var(--brand);color:#fff;
+    padding:10px 18px;border-radius:999px;
+    font-weight:700;font-size:14px;text-decoration:none;
+    border:none;cursor:pointer;
+    transition:.15s;
+  }
+  .btn:hover{background:var(--brand-dark);box-shadow:0 6px 16px rgba(11,110,79,0.28);transform:translateY(-1px);}
+  .btn,.btn-outline{transition:.15s ease;}
+  .btn-outline{
+    background:#fff;color:var(--brand-dark);
+    border:1.5px solid var(--brand);
+  }
+  .btn-outline:hover{background:var(--brand-light);transform:translateY(-1px);}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .link-muted{
+    text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);
+    padding:8px 4px;white-space:nowrap;
+  }
+  .link-muted:hover{color:var(--brand-dark);}
+  nav .link-muted{color:rgba(255,255,255,0.85);}
+  nav .link-muted:hover{color:#fff;}
+  nav .btn-outline{
+    background:rgba(255,255,255,0.06);color:#fff;
+    border:1.5px solid rgba(255,255,255,0.55);
+    box-shadow:0 2px 6px rgba(0,0,0,0.14);
+  }
+  nav .btn-outline:hover{background:rgba(255,255,255,0.18);border-color:#fff;}
+  nav .btn{
+    background:#fff;color:var(--brand-dark);
+    box-shadow:0 4px 14px rgba(0,0,0,0.24);
+  }
+  nav .btn:hover{background:var(--gold-bg);color:var(--brand-dark);box-shadow:0 6px 18px rgba(0,0,0,0.3);}
+  @media (max-width:820px){ .navlinks{display:none;} }
+  @media (max-width:600px){ .link-muted{display:none;} }
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(11,11,11,0.45);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px;z-index:100;overflow-y:auto;}
+  .modal-bg.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:28px;max-width:440px;width:100%;}
+  .modal h3{margin:0 0 6px;font-size:18px;}
+  .modal p.hint{font-size:13.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.6;}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+  .modal.modal-wide{max-width:480px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px;}
+  .field input[type=url],.field input[type=text],.field textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;color:var(--ink);background:#fff;font-family:inherit;
+  }
+  .field input[type=url]:focus,.field input[type=text]:focus,.field textarea:focus{outline:2px solid var(--brand);outline-offset:1px;}
+  .field textarea{min-height:76px;resize:vertical;}
+  .field-error{display:none;font-size:12.5px;color:var(--critical-ink);margin:-6px 0 12px;}
+
+  /* HERO */
+  .hero{
+    padding:32px 0 28px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(600px 260px at 50% -60px, var(--brand-light), transparent 70%);
+  }
+  .hero::before,.hero::after{
+    content:"";position:absolute;border-radius:50%;
+    background:radial-gradient(circle, var(--brand-light) 0%, transparent 72%);
+    opacity:.7;pointer-events:none;
+  }
+  .hero::before{width:420px;height:420px;top:-220px;left:-140px;}
+  .hero::after{width:360px;height:360px;top:-140px;right:-120px;}
+  .hero .wrap{position:relative;}
+  .hero .kicker{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--brand-light);color:var(--brand-dark);
+    font-size:12.5px;font-weight:700;letter-spacing:.03em;
+    padding:7px 16px 7px 12px;border-radius:999px;margin-bottom:12px;
+    box-shadow:0 2px 8px rgba(11,110,79,0.12);
+  }
+  .hero .kicker svg{width:14px;height:14px;flex:none;}
+  .hero h1{
+    font-size:clamp(24px,3.6vw,34px);
+    margin:0 0 16px;
+    letter-spacing:-1px;
+    max-width:820px;margin-left:auto;margin-right:auto;
+  }
+  .hero h1 span{color:var(--brand);}
+  .hero p.sub{
+    color:var(--ink-2);font-size:16px;
+    max-width:600px;margin:0 auto 16px;
+  }
+  .searchbar{
+    max-width:560px;margin:0 auto;
+    display:flex;gap:8px;
+    background:#fff;border:1.5px solid var(--line);
+    border-radius:999px;padding:5px;
+    box-shadow:0 8px 24px rgba(11,110,79,0.08);
+  }
+  .searchbar input{
+    flex:1;border:none;outline:none;background:transparent;
+    padding:9px 14px;font-size:14.5px;color:var(--ink);
+  }
+  .searchbar input::placeholder{color:var(--ink-muted);}
+
+  .search-wrap{max-width:660px;margin:0;position:relative;z-index:5!important;}
+  .search-wrap .searchbar{max-width:none;margin:0;}
+  .search-dropdown{
+    display:none;position:fixed;
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 16px 40px rgba(11,11,11,0.12);
+    max-height:340px;overflow-y:auto;z-index:9999;text-align:left;
+  }
+  .search-dropdown.open{display:block;}
+  .search-dropdown-item{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:11px 16px;font-size:14px;color:var(--ink);cursor:pointer;
+  }
+  .search-dropdown-item + .search-dropdown-item{border-top:1px solid var(--line);}
+  .search-dropdown-item:hover, .search-dropdown-item.active{background:var(--brand-lighter);}
+  .search-dropdown-item .sdi-hint{font-size:12px;color:var(--ink-muted);}
+  .search-dropdown-empty{padding:14px 16px;font-size:13px;color:var(--ink-muted);}
+
+  section{padding:64px 0;}
+  section.alt{background:var(--page);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  #clause{background:radial-gradient(600px 260px at 15% 20%, var(--blue-bg), transparent 65%);}
+  #business{background:radial-gradient(600px 300px at 85% 10%, var(--gold-bg), transparent 65%);}
+  .section-head{max-width:640px;margin:0 auto 40px;text-align:center;}
+  .section-head .eyebrow{
+    color:var(--brand-dark);font-weight:700;font-size:12.5px;
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(24px,3vw,32px);margin:0 0 12px;letter-spacing:-0.5px;}
+  .section-head p{color:var(--ink-2);font-size:15.5px;margin:0;}
+
+  /* TOP 5 */
+  #top-operators{padding-top:32px;}
+  #top-operators .section-head{margin-bottom:24px;}
+  .top5-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:14px;
+    max-width:1100px;margin:0 auto;
+  }
+  @media (max-width:920px){ .top5-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:620px){ .top5-grid{grid-template-columns:repeat(2,1fr);} }
+  .top5-card{
+    position:relative;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:16px;padding:20px 16px 18px;text-align:center;
+    box-shadow:0 6px 18px rgba(11,11,11,0.07);transition:.18s ease;
+  }
+  .top5-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(11,110,79,0.14);border-color:var(--brand-light);border-left-color:var(--gold);}
+  .top5-rank{
+    position:absolute;top:10px;left:10px;
+    width:22px;height:22px;border-radius:7px;background:var(--brand-dark);color:#fff;
+    font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  .top5-card .op-logo{
+    width:56px;height:56px;border-radius:14px;margin:6px auto 12px;
+    background:var(--gold-bg);border:1px solid #f0dba8;
+    box-shadow:0 2px 6px rgba(11,11,11,0.06);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:16px;color:var(--gold-ink);overflow:hidden;
+  }
+  .top5-card .op-logo img{width:32px;height:32px;object-fit:contain;}
+  .top5-card .name{display:block;font-weight:800;font-size:15px;margin-bottom:8px;}
+  .top5-card .stat-n{font-size:19px;font-weight:800;color:var(--ink);}
+  .top5-card .stat-l{font-size:11px;color:var(--ink-muted);margin:2px 0 14px;}
+  .top5-card .card-actions{display:flex;flex-direction:column;gap:8px;}
+  .top5-card .btn-mini{
+    display:block;width:100%;text-align:center;box-sizing:border-box;
+    font-size:12.5px;font-weight:700;text-decoration:none;
+    padding:9px 8px;border-radius:8px;transition:.15s ease;
+  }
+  .top5-card .btn-mini-primary{background:var(--brand);color:#fff;}
+  .top5-card .btn-mini-primary:hover{background:var(--brand-dark);}
+  .top5-card .btn-mini-secondary{background:var(--page);color:var(--ink-2);border:1px solid var(--line);}
+  .top5-card .btn-mini-secondary:hover{background:#efeee8;border-color:#cfcec5;color:var(--ink);}
+  .top5-cta{text-align:center;margin-top:30px;}
+
+
+  /* PROFILE */
+  .profile-card{
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:32px;max-width:960px;margin:0 auto;
+  }
+  .profile-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:28px;}
+  .profile-head h3{font-size:26px;margin:0 0 6px;letter-spacing:-0.5px;}
+  .profile-head .tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{font-size:12px;font-weight:600;color:var(--ink-2);background:var(--page);border:1px solid var(--line);padding:3px 10px;border-radius:999px;}
+  .trust-score-box{
+    text-align:center;background:var(--brand-lighter);border:1px solid var(--brand-light);
+    border-radius:14px;padding:16px 28px;min-width:140px;
+  }
+  .trust-score-box .n{font-size:34px;font-weight:800;color:var(--brand-dark);line-height:1;}
+  .trust-score-box .l{font-size:11.5px;color:var(--ink-muted);margin-top:6px;text-transform:uppercase;letter-spacing:.04em;}
+
+  .profile-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:32px;margin-bottom:32px;}
+  @media (max-width:800px){ .profile-grid{grid-template-columns:1fr;} }
+  .breakdown-row{display:grid;grid-template-columns:150px 1fr 34px;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;}
+  .breakdown-row .lbl{color:var(--ink-2);font-weight:600;}
+  .breakdown-row .val{text-align:right;font-weight:700;color:var(--brand-dark);}
+
+  .stat-tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+  @media (max-width:700px){ .stat-tile-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat-tile{background:var(--page);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+  .stat-tile .n{font-size:20px;font-weight:800;}
+  .stat-tile .l{font-size:11px;color:var(--ink-muted);margin-top:4px;}
+
+  .issue-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .issue-row:last-child{border-bottom:none;}
+  .issue-row .left{display:flex;align-items:center;gap:9px;}
+  .sev-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+  .sev-critical{background:var(--critical);}
+  .sev-serious{background:var(--serious);}
+  .sev-warning{background:var(--warning);}
+  .sev-good{background:var(--good);}
+  .issue-row .count{font-weight:800;color:var(--ink);}
+
+  /* OWNERSHIP TREE */
+  .owner-tree{display:flex;flex-direction:column;align-items:center;gap:0;margin:8px 0 6px;}
+  .owner-node{
+    background:#fff;border:1.5px solid var(--line);border-radius:10px;
+    padding:10px 18px;font-size:13.5px;font-weight:700;text-align:center;
+  }
+  .owner-node.main{border-color:var(--brand);background:var(--brand-lighter);color:var(--brand-dark);}
+  .owner-connector{width:1.5px;height:22px;background:var(--line);}
+  .owner-siblings{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px;}
+  .owner-siblings .owner-node{font-weight:600;font-size:12.5px;padding:7px 14px;color:var(--ink-2);}
+
+  /* DISPUTE CASE */
+  .case-box{background:var(--page);border:1px solid var(--line);border-radius:14px;padding:22px;}
+  .case-box .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+  .case-box .title{font-weight:700;font-size:15px;}
+  .timeline{margin-top:14px;}
+  .tl-item{display:flex;gap:14px;padding:8px 0;font-size:13px;}
+  .tl-item .date{min-width:70px;color:var(--ink-muted);font-weight:700;font-variant-numeric:tabular-nums;}
+  .tl-item .txt{color:var(--ink-2);}
+  .status-chip{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;padding:4px 12px;border-radius:999px;}
+
+  /* CLAUSE SEARCH */
+  .clause-demo{
+    max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);
+    border-radius:16px;padding:24px;
+    box-shadow:0 10px 30px rgba(11,11,11,0.05);
+  }
+  .clause-input{
+    display:flex;gap:8px;background:var(--page);border:1px solid var(--line);
+    border-radius:10px;padding:12px 16px;font-size:14px;color:var(--ink-2);margin-bottom:16px;
+  }
+  .clause-result{font-size:14px;color:var(--ink-2);margin-bottom:14px;}
+  .clause-result b{color:var(--brand-dark);}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{background:var(--brand-lighter);color:var(--brand-dark);border:1px solid var(--brand-light);font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:999px;}
+
+  /* OPERATOR CTA */
+  .cta-band{
+    background:linear-gradient(135deg, var(--brand-dark), #0b6e4f);
+    color:#fff;border-radius:22px;
+    padding:48px 40px;text-align:center;max-width:900px;margin:0 auto;
+    box-shadow:0 16px 40px rgba(7,74,53,0.28);
+    position:relative;overflow:hidden;
+  }
+  .cta-band::after{
+    content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%);
+    top:-120px;right:-80px;pointer-events:none;
+  }
+  .cta-band h2{margin:0 0 12px;font-size:26px;position:relative;}
+  .cta-band p{color:#cfe9dc;max-width:520px;margin:0 auto 26px;font-size:15px;position:relative;}
+  .cta-band .btn{background:#fff;color:var(--brand-dark);position:relative;}
+  .cta-band .btn:hover{background:#eafff3;}
+
+  .money-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:900px;margin:0 auto 24px;}
+  @media (max-width:760px){ .money-grid{grid-template-columns:1fr;} }
+  .money-card{
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;
+    box-shadow:0 4px 14px rgba(11,11,11,0.04);transition:.18s ease;
+  }
+  .money-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(11,110,79,0.10);border-color:var(--brand-light);}
+  .money-card h4{margin:0 0 8px;font-size:15px;}
+  .money-card p{margin:0;font-size:13.5px;color:var(--ink-2);}
+  .pledge{
+    max-width:640px;margin:0 auto;text-align:center;font-size:14px;font-weight:700;
+    color:var(--brand-dark);background:var(--brand-lighter);border:1px dashed var(--brand);
+    border-radius:12px;padding:14px 18px;
+  }
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:48px 0 32px;}
+  .trust-row{
+    display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px;
+  }
+  .trust-item{
+    display:flex;align-items:center;gap:9px;
+    background:var(--page);border:1px solid var(--line);border-radius:12px;
+    padding:11px 16px;font-size:12.5px;font-weight:600;color:var(--ink-2);
+  }
+  .trust-item svg{width:17px;height:17px;flex:none;color:var(--brand-dark);}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:28px;}
+  .footer-col h5{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);margin:0 0 12px;}
+  .footer-col a{display:block;font-size:14px;color:var(--ink-2);text-decoration:none;margin-bottom:8px;}
+  .footer-col a:hover{color:var(--brand-dark);}
+  .footer-bottom{border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink-muted);line-height:1.7;}
+  .footer-bottom b{color:var(--ink-2);}
+
+  /* COOKIE NOTICE */
+  #cookieNotice{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 14px 40px rgba(11,11,11,0.16);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  #cookieNotice p{margin:0;font-size:13px;color:var(--ink-2);flex:1;min-width:220px;}
+  #cookieNotice .actions{display:flex;gap:8px;flex:none;}
+  #cookieNotice.hidden{display:none;}
+</style>
+
+<style>
+/* ===== Homepage redesign ===== */
+body{background:#fff;}
+.wrap{max-width:1180px;padding:0 28px;}
+
+nav{
+  background:#fff;
+  border-bottom:1px solid #e8e8e3;
+  box-shadow:0 4px 18px rgba(11,11,11,.035);
+}
+nav .wrap{padding-top:12px;padding-bottom:12px;}
+.logo{font-size:19px;gap:9px;letter-spacing:-.45px;}
+.logo .mark{
+  width:40px;height:40px;padding:0;background:transparent;
+  box-shadow:none;border-radius:0;
+}
+.logo .wordmark-light{color:#111;font-weight:700;}
+.logo .wordmark-bold{color:var(--brand);}
+.navlinks{gap:22px;}
+.navlinks a{
+  color:#2f312f;background:transparent;
+  box-shadow:none;padding:7px 0;border-radius:0;font-size:13px;
+  position:relative;
+}
+.navlinks a:after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:var(--brand);transform:scaleX(0);transition:.16s ease;
+}
+.navlinks a:hover{background:transparent;color:var(--brand);box-shadow:none;}
+.navlinks a:hover:after{transform:scaleX(1);}
+nav .link-muted{color:#444;}
+nav .link-muted:hover{color:var(--brand-dark);}
+nav .btn-outline{
+  background:#fff;color:var(--brand-dark);
+  border:1px solid #cfded6;box-shadow:none;
+}
+nav .btn-outline:hover{background:var(--brand-lighter);border-color:#b9d3c5;}
+nav .btn{
+  background:var(--brand);color:#fff;
+  box-shadow:0 6px 16px rgba(11,110,79,.16);
+}
+nav .btn:hover{background:var(--brand-dark);color:#fff;}
+
+.hero{
+  padding:46px 0 42px;
+  text-align:left;
+  background:
+    radial-gradient(560px 280px at 82% 16%, rgba(230,244,236,.95), transparent 66%),
+    linear-gradient(180deg,#fff 0%,#fbfcfb 100%);
+  border-bottom:1px solid #ecece7;
+}
+.hero::before,.hero::after{display:none;}
+.hero-grid{
+  display:grid;grid-template-columns:1.04fr .96fr;
+  align-items:center;gap:54px;
+}
+.hero-copy{position:relative;z-index:2;}
+.hero .kicker{
+  margin:0 0 15px;background:#eff7f2;color:#176343;
+  font-size:11px;padding:6px 11px;box-shadow:none;
+}
+.hero h1{
+  font-family:'Poppins',system-ui,sans-serif;
+  font-size:clamp(40px,5vw,58px);line-height:1.04;
+  max-width:660px;margin:0 0 14px;
+  letter-spacing:-1.8px;
+}
+.hero p.sub{
+  max-width:620px;margin:0 0 22px;
+  font-size:16px;line-height:1.65;color:#5d615e;
+}
+.searchbar{
+  max-width:620px;margin:0;
+  padding:6px;border-radius:14px;
+  border:1px solid #d8ddd9;
+  box-shadow:0 10px 30px rgba(11,110,79,.07);
+}
+.searchbar input{padding:11px 14px;font-size:14px;}
+.searchbar .btn{border-radius:10px;padding:11px 22px;}
+.hero-proof{
+  display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;
+  color:#747772;font-size:11.5px;
+}
+.hero-proof span{display:flex;gap:5px;align-items:center;}
+.hero-proof b{color:#174d39;}
+
+.hero-visual{position:relative;height:330px;}
+.visual-main-card{
+  position:absolute;right:24px;top:24px;width:360px;
+  border:1px solid #dce5df;border-radius:22px;background:rgba(255,255,255,.96);
+  box-shadow:0 26px 70px rgba(7,74,53,.12);padding:20px;
+}
+.vm-top{display:flex;align-items:center;gap:11px;padding-bottom:15px;border-bottom:1px solid #edf0ed;}
+.vm-logo{
+  width:42px;height:42px;border-radius:12px;background:var(--brand);
+  color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;
+}
+.vm-top div{flex:1;display:flex;flex-direction:column;}
+.vm-top b{font-size:13px}.vm-top small{font-size:10.5px;color:#8b8e89;}
+.vm-score{
+  min-width:48px;height:48px;border-radius:14px;background:#eef8f2;color:var(--brand-dark);
+  display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;
+}
+.vm-pills{display:flex;gap:7px;margin:14px 0;}
+.vm-pills span{font-size:10px;font-weight:700;border-radius:999px;padding:5px 9px;}
+.vm-pills .good{background:#e8f7e5;color:#226e2b;}
+.vm-pills .warn{background:#fff3dc;color:#8a5c00;}
+.vm-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f1ef;font-size:11.5px;color:#686b68;}
+.vm-row strong{color:#1d211f;font-size:12px;}
+.vm-chart{
+  height:58px;display:flex;gap:5px;align-items:flex-end;margin-top:14px;
+  padding:8px 4px 0;
+}
+.vm-chart i{flex:1;background:linear-gradient(180deg,#77bf99,#d8efe2);border-radius:4px 4px 2px 2px;}
+.visual-float{
+  position:absolute;display:flex;align-items:center;gap:9px;background:#fff;
+  border:1px solid #e1e5e1;border-radius:13px;padding:10px 12px;
+  box-shadow:0 14px 34px rgba(11,11,11,.08);
+}
+.visual-float>span{
+  width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;
+}
+.visual-float div{display:flex;flex-direction:column;}
+.visual-float b{font-size:10.5px}.visual-float small{font-size:9.5px;color:#8a8d89;}
+.visual-float.complaints{left:10px;bottom:46px;}
+.visual-float.complaints>span{background:#fff0eb;color:#b74725;}
+.visual-float.chain{right:6px;bottom:5px;}
+.visual-float.chain>span{background:#edf7f1;color:var(--brand);}
+
+section{padding:52px 0;}
+#top-operators{padding-top:38px;padding-bottom:54px;background:#fff;border:none;}
+.section-head{margin-bottom:26px;}
+.split-head{
+  max-width:1100px;display:flex;justify-content:space-between;gap:34px;
+  align-items:flex-end;text-align:left;
+}
+.split-head>div{max-width:680px;}
+.split-head p{max-width:310px;font-size:12.5px;color:#898c88;line-height:1.55;margin:0 0 3px;}
+.section-head .eyebrow{font-size:10.5px;margin-bottom:7px;}
+.section-head h2{font-size:30px;margin-bottom:0;}
+
+.top5-grid{gap:12px;}
+.top5-card{
+  border:1px solid #e3e5e1;border-left:none;border-radius:18px;
+  padding:20px 15px 16px;box-shadow:0 8px 24px rgba(11,11,11,.045);
+}
+.top5-card:hover{
+  transform:translateY(-4px);border-color:#cfe2d7;
+  box-shadow:0 18px 34px rgba(11,110,79,.10);
+}
+.top5-rank{
+  width:24px;height:24px;border-radius:8px;top:11px;left:11px;
+  background:#eef7f2;color:var(--brand-dark);font-size:11px;
+}
+.top5-card .op-logo{
+  width:58px;height:58px;border-radius:16px;background:#fafafa;border:1px solid #ebebe8;
+  box-shadow:none;margin-top:8px;
+}
+.top5-card .name{font-size:14px;margin-bottom:7px;}
+.top5-card .stat-n{font-size:22px;}
+.top5-card .stat-l{margin-bottom:13px;}
+.top5-card .btn-mini{border-radius:10px;padding:8px;font-size:11.5px;}
+.top5-card .btn-mini-primary{background:#0f6e50;}
+.top5-card .btn-mini-secondary{background:#fff;}
+.top5-cta{margin-top:22px;}
+.top5-cta .btn-outline{padding:9px 15px;}
+
+#operators{padding:28px 0 56px;background:#fff;border:none;}
+.cta-band{
+  max-width:1100px;text-align:left;border-radius:18px;padding:30px 34px;
+  background:
+    radial-gradient(240px 160px at 88% 15%, rgba(255,255,255,.12), transparent 70%),
+    linear-gradient(135deg,#0a5c43,#0b6e4f);
+  box-shadow:0 14px 34px rgba(7,74,53,.16);
+}
+.cta-band h2{font-size:22px;margin-bottom:7px;}
+.cta-band p{margin:0 0 18px;max-width:650px;font-size:13px;}
+.cta-band .btn{font-size:12.5px;padding:9px 15px;}
+
+footer{padding:34px 0 26px;background:#fbfbfa;}
+.trust-row{gap:8px;margin-bottom:28px;}
+.trust-item{
+  background:#fff;padding:9px 12px;border-radius:10px;font-size:11px;
+}
+.footer-grid{margin-bottom:20px;}
+.footer-col a{font-size:12.5px;}
+.footer-bottom{font-size:11.5px;padding-top:17px;}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+  .split-head{display:block;}
+  .split-head p{max-width:none;margin-top:8px;}
+}
+@media(max-width:620px){
+  .hero{padding-top:32px;}
+  .hero h1{font-size:38px;}
+  .hero-proof{gap:10px 15px;}
+}
+</style>
+
+
+<style>
+/* ===== Hero v2: diagram background + 3D sportsbook profile ===== */
+.hero{
+  overflow:hidden;
+}
+.hero-grid{
+  grid-template-columns:1.08fr .92fr;
+  gap:34px;
+}
+.hero-copy{
+  min-height:330px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  isolation:isolate;
+}
+.hero-copy > *:not(.hero-data-art){
+  position:relative;
+  z-index:2;
+}
+.hero-data-art{
+  position:absolute;
+  z-index:0;
+  inset:-35px -90px -45px -85px;
+  opacity:.92;
+  pointer-events:none;
+  mask-image:linear-gradient(90deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.36) 48%,transparent 93%);
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.36) 48%,transparent 93%);
+}
+.hero-data-art svg{width:100%;height:100%;}
+.hero-copy:after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:-25px -20px -25px -30px;
+  background:radial-gradient(ellipse at 32% 48%,rgba(255,255,255,.83) 0%,rgba(255,255,255,.68) 48%,rgba(255,255,255,.12) 78%,transparent 100%);
+  pointer-events:none;
+}
+.hero h1{max-width:690px;}
+.hero p.sub{max-width:590px;}
+
+.hero-visual{
+  height:350px;
+  perspective:1150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-card-stage{
+  width:430px;
+  height:320px;
+  position:relative;
+  transform-style:preserve-3d;
+}
+.visual-main-card-3d{
+  width:374px;
+  right:auto;
+  top:18px;
+  left:28px;
+  padding:19px;
+  border-radius:20px;
+  transform-origin:50% 58%;
+  transform:rotateY(-13deg) rotateX(5deg) rotateZ(1deg);
+  box-shadow:
+    28px 36px 55px rgba(7,74,53,.13),
+    0 18px 34px rgba(11,11,11,.08);
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+@media (hover:hover) and (pointer:fine){
+  .hero-card-stage:hover .visual-main-card-3d{
+    transform:rotateY(-7deg) rotateX(2deg) rotateZ(.3deg) translateY(-4px);
+    box-shadow:30px 40px 65px rgba(7,74,53,.16),0 20px 38px rgba(11,11,11,.09);
+  }
+}
+.card-shadow-plane{
+  position:absolute;
+  left:69px;right:20px;bottom:12px;height:42px;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(7,74,53,.19),rgba(7,74,53,.05) 48%,transparent 72%);
+  filter:blur(8px);
+  transform:rotateZ(2deg);
+}
+.visual-main-card-3d .vm-logo{
+  background:#101c18;
+  width:44px;height:44px;
+  border-radius:50%;
+  font-size:20px;
+  color:#48dc7d;
+}
+.visual-main-card-3d .vm-score{
+  font-size:19px;
+  background:#edf8f2;
+}
+.vm-grade{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:14px;
+  padding:13px 0 11px;
+  border-bottom:1px solid #edf0ed;
+}
+.vm-grade div{display:flex;align-items:baseline;gap:10px;}
+.vm-grade span{font-size:10px;color:#858984;}
+.vm-grade strong{font-size:27px;color:#159350;line-height:1;}
+.vm-grade small{font-size:9.5px;color:#8b8e89;}
+.vm-metrics{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  padding:13px 0 10px;
+}
+.vm-metrics>div{
+  padding:0 10px;
+  border-right:1px solid #edf0ed;
+  min-width:0;
+}
+.vm-metrics>div:first-child{padding-left:0;}
+.vm-metrics>div:last-child{border-right:none;padding-right:0;}
+.vm-metrics span,.vm-metrics small{display:block;color:#8a8e89;font-size:9px;}
+.vm-metrics b{display:block;font-size:16px;margin:2px 0;color:#151a17;}
+.vm-mini-chart{
+  height:42px;
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+  margin-top:8px;
+  border-top:1px solid #f0f2f0;
+  padding-top:8px;
+}
+.vm-mini-chart i{
+  flex:1;
+  min-width:0;
+  border-radius:4px 4px 1px 1px;
+  background:linear-gradient(180deg,#2fa46b,#d9eee3);
+}
+.hero-card-stage .visual-float{
+  z-index:5;
+}
+.hero-card-stage .visual-float.complaints{
+  left:-6px;
+  bottom:48px;
+  transform:rotateY(-3deg) translateZ(30px);
+}
+.hero-card-stage .visual-float.chain{
+  right:-2px;
+  bottom:5px;
+  transform:rotateY(-5deg) translateZ(20px);
+}
+@media(max-width:900px){
+  .hero-copy{min-height:0;}
+  .hero-data-art{inset:-30px -40px -30px -50px;}
+}
+</style>
+
+
+<style>
+/* ===== Final BC.Game hero data card ===== */
+.hero-copy{
+  overflow:visible;
+}
+.hero-illustration{
+  position:absolute;
+  z-index:0;
+  width:720px;
+  height:400px;
+  left:58px;
+  top:-26px;
+  opacity:.78;
+  pointer-events:none;
+  overflow:visible;
+}
+.hero-illustration svg{display:block;width:100%;height:100%;}
+.hero-copy:after{
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.91) 36%,rgba(255,255,255,.58) 62%,rgba(255,255,255,.08) 88%,transparent 100%);
+}
+.hero h1,.hero p.sub,.searchbar,.hero-proof,.hero .kicker{position:relative;z-index:3;}
+
+.visual-main-card-3d{
+  width:392px;
+  padding:19px 19px 17px;
+}
+.vm-logo-img{
+  width:46px;height:46px;border-radius:14px;background:#101613;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none;
+}
+.vm-logo-img img{width:34px;height:34px;object-fit:contain;}
+.vm-trust{
+  margin-left:auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;
+}
+.vm-trust span{
+  font-size:8.5px;color:#949792;font-weight:700;letter-spacing:.06em;
+}
+.vm-trust strong{
+  font-size:28px;line-height:1;color:#0b6e4f;margin-top:2px;
+}
+.vm-summary{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;border-bottom:1px solid #edf0ed;
+}
+.vm-summary small{font-size:9.5px;color:#8a8d89;}
+.vm-status-good{
+  display:inline-flex;padding:4px 9px;border-radius:999px;
+  background:#e7f6eb;color:#176d3d;font-size:9.5px;font-weight:800;
+}
+.vm-metrics-real{
+  padding:13px 0 12px;
+  border-bottom:1px solid #edf0ed;
+}
+.vm-metrics-real b{font-size:15.5px;}
+.vm-facts{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:8px;padding:11px 0;
+}
+.vm-facts div{
+  background:#f8faf8;border:1px solid #edf0ed;border-radius:9px;padding:8px 7px;
+}
+.vm-facts span,.vm-facts b{display:block;}
+.vm-facts span{font-size:8.5px;color:#92958f;margin-bottom:2px;}
+.vm-facts b{font-size:10.5px;color:#202521;}
+.vm-breakdown{
+  border-top:1px solid #edf0ed;padding-top:9px;
+}
+.vm-breakdown>div{
+  display:grid;grid-template-columns:62px 1fr 16px;
+  align-items:center;gap:7px;margin:6px 0;
+}
+.vm-breakdown span{font-size:8.5px;color:#858984;}
+.vm-breakdown i{
+  height:4px;background:#edf0ed;border-radius:999px;overflow:hidden;
+}
+.vm-breakdown em{
+  display:block;height:100%;background:#69af88;border-radius:999px;
+}
+.vm-breakdown b{font-size:9px;text-align:right;color:#315c48;}
+.hero-card-stage .visual-float.chain{
+  right:-4px;
+  bottom:0;
+}
+@media(max-width:900px){
+  .hero-illustration{
+    width:650px;left:0;top:-40px;opacity:.55;
+  }
+}
+</style>
+
+
+<style>
+/* ===== FIX: analytics graphic is now truly BEHIND the text ===== */
+.hero-copy{
+  position:relative;
+  overflow:visible;
+  isolation:isolate;
+  background:transparent;
+}
+
+/* soft chart artwork, painted as background decoration only */
+.hero-copy::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  left:235px;
+  top:4px;
+  width:520px;
+  height:305px;
+  opacity:.68;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 72% 28%, rgba(11,110,79,.13) 0 5px, transparent 6px),
+    radial-gradient(circle at 61% 43%, rgba(11,110,79,.12) 0 5px, transparent 6px),
+    radial-gradient(circle at 49% 58%, rgba(11,110,79,.11) 0 5px, transparent 6px),
+    linear-gradient(155deg,
+      transparent 0 46%,
+      rgba(105,175,136,.22) 46.2% 46.8%,
+      transparent 47% 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 35px,
+      rgba(11,110,79,.045) 36px 37px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 35px,
+      rgba(11,110,79,.04) 36px 37px
+    );
+  border-radius:34px;
+  filter:blur(.1px);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.32) 25%,rgba(0,0,0,.78) 62%,rgba(0,0,0,.28) 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.32) 25%,rgba(0,0,0,.78) 62%,rgba(0,0,0,.28) 100%);
+}
+
+/* translucent bars in the same background layer */
+.hero-copy::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  right:-40px;
+  bottom:12px;
+  width:275px;
+  height:155px;
+  pointer-events:none;
+  opacity:.52;
+  background:
+    linear-gradient(to top, rgba(120,185,148,.20) 0 48%, transparent 48%) 0 100%/24px 48% no-repeat,
+    linear-gradient(to top, rgba(120,185,148,.22) 0 66%, transparent 66%) 42px 100%/24px 66% no-repeat,
+    linear-gradient(to top, rgba(120,185,148,.26) 0 42%, transparent 42%) 84px 100%/24px 42% no-repeat,
+    linear-gradient(to top, rgba(120,185,148,.28) 0 78%, transparent 78%) 126px 100%/24px 78% no-repeat,
+    linear-gradient(to top, rgba(120,185,148,.31) 0 58%, transparent 58%) 168px 100%/24px 58% no-repeat,
+    linear-gradient(to top, rgba(120,185,148,.35) 0 92%, transparent 92%) 210px 100%/24px 92% no-repeat;
+  border-bottom:1px solid rgba(11,110,79,.10);
+}
+
+/* keep all real hero content above the decorative background */
+.hero-copy > *{
+  position:relative;
+  z-index:2;
+}
+
+/* remove old foreground/fade behavior */
+.hero-copy > .hero-data-art,
+.hero-copy > .hero-illustration{display:none!important;}
+
+.hero h1{
+  max-width:680px;
+}
+.hero p.sub{
+  max-width:585px;
+}
+
+/* the search bar remains crisp and readable */
+.searchbar{
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+
+@media(max-width:900px){
+  .hero-copy::before{
+    left:90px;
+    right:-20px;
+    width:auto;
+    opacity:.42;
+  }
+  .hero-copy::after{
+    right:0;
+    opacity:.30;
+  }
+}
+
+@media(max-width:620px){
+  .hero-copy::before,
+  .hero-copy::after{
+    opacity:.18;
+  }
+}
+</style>
+
+
+<style>
+/* ===== MOBILE FIXES ===== */
+@media (max-width: 900px) {
+  nav .wrap{
+    display:grid !important;
+    grid-template-columns:1fr auto !important;
+    gap:10px !important;
+    padding:10px 16px !important;
+  }
+
+  .logo{
+    display:flex !important;
+    align-items:center !important;
+    min-width:0;
+  }
+
+  .logo .mark{
+    display:flex !important;
+    width:34px !important;
+    height:34px !important;
+    flex:0 0 34px !important;
+  }
+
+  .logo .mark svg{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+  }
+
+  .logo .wordmark-light,
+  .logo .wordmark-bold{
+    display:inline !important;
+    font-size:17px !important;
+  }
+
+  /* Mobile navigation instead of hiding the menu */
+  .navlinks{
+    display:flex !important;
+    grid-column:1 / -1;
+    order:3;
+    width:100%;
+    gap:6px !important;
+    overflow-x:auto;
+    padding:4px 0 1px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .navlinks::-webkit-scrollbar{display:none;}
+
+  .navlinks a{
+    display:block !important;
+    flex:0 0 auto;
+    white-space:nowrap;
+    padding:8px 11px !important;
+    border:1px solid #e2e8e4;
+    border-radius:999px !important;
+    background:#fff !important;
+    font-size:11.5px !important;
+  }
+
+  .navlinks a:after{display:none !important;}
+
+  .nav-actions{
+    display:flex !important;
+    align-items:center;
+    gap:6px !important;
+  }
+
+  .nav-actions .link-muted{
+    display:none !important;
+  }
+
+  .nav-actions .btn,
+  .nav-actions .btn-outline{
+    display:inline-flex !important;
+    padding:8px 10px !important;
+    font-size:11px !important;
+    white-space:nowrap;
+  }
+
+  .hero{
+    padding:30px 0 32px !important;
+  }
+
+  .hero .wrap{
+    padding-left:18px !important;
+    padding-right:18px !important;
+  }
+
+  .hero-grid{
+    display:block !important;
+  }
+
+  .hero-copy{
+    min-height:0 !important;
+  }
+
+  .hero h1{
+    font-size:38px !important;
+    line-height:1.06 !important;
+    letter-spacing:-1.2px !important;
+  }
+
+  .hero p.sub{
+    font-size:14px !important;
+  }
+
+  /* Show BC.Game card on mobile instead of hiding entire visual */
+  .hero-visual{
+    display:block !important;
+    height:auto !important;
+    margin-top:28px;
+    perspective:none !important;
+  }
+
+  .hero-card-stage{
+    width:100% !important;
+    height:auto !important;
+  }
+
+  .visual-main-card-3d{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    width:100% !important;
+    max-width:430px;
+    margin:0 auto;
+    transform:none !important;
+    box-shadow:0 16px 38px rgba(7,74,53,.10) !important;
+  }
+
+  .card-shadow-plane{display:none !important;}
+
+  /* Operator grid */
+  .top5-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+  }
+
+  .top5-card{
+    min-width:0 !important;
+  }
+
+  /* Make logos visible and prevent image collapse */
+  .top5-card .op-logo{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    overflow:hidden !important;
+  }
+
+  .top5-card .op-logo img{
+    display:block !important;
+    width:42px !important;
+    height:42px !important;
+    max-width:42px !important;
+    max-height:42px !important;
+    object-fit:contain !important;
+    opacity:1 !important;
+    visibility:visible !important;
+  }
+
+  .split-head{
+    display:block !important;
+  }
+
+  .split-head p{
+    margin-top:8px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .wrap{
+    padding-left:16px !important;
+    padding-right:16px !important;
+  }
+
+  .logo .wordmark-light,
+  .logo .wordmark-bold{
+    font-size:15px !important;
+  }
+
+  nav .btn-outline{
+    display:none !important;
+  }
+
+  .hero .kicker{
+    font-size:9px !important;
+  }
+
+  .hero h1{
+    font-size:34px !important;
+  }
+
+  .searchbar{
+    width:100% !important;
+  }
+
+  .searchbar input{
+    min-width:0 !important;
+  }
+
+  .hero-proof{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:5px !important;
+  }
+
+  .top5-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .top5-card{
+    display:grid !important;
+    grid-template-columns:70px 1fr !important;
+    text-align:left !important;
+    align-items:center !important;
+    padding:14px !important;
+  }
+
+  .top5-card .top5-rank{
+    position:absolute !important;
+  }
+
+  .top5-card .op-logo{
+    grid-row:1 / span 5;
+    margin:0 !important;
+    width:58px !important;
+    height:58px !important;
+  }
+
+  .top5-card .name,
+  .top5-card .stat-n,
+  .top5-card .stat-l{
+    grid-column:2;
+  }
+
+  .top5-card .btn-mini{
+    grid-column:1 / -1;
+    width:100%;
+    margin-top:6px;
+  }
+
+  .cta-band{
+    padding:24px 20px !important;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:24px 14px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== MOBILE HERO REFINEMENT ===== */
+.mobile-mini-card{display:none;}
+
+@media (max-width: 900px){
+  /* The large desktop BC.Game design is decorative, so hide it on mobile */
+  .hero-visual{
+    display:none !important;
+  }
+
+  .mobile-hero-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+  }
+
+  .mobile-hero-row h1{
+    flex:1;
+    min-width:0;
+    margin-bottom:14px !important;
+  }
+
+  .mobile-mini-card{
+    display:block;
+    flex:0 0 150px;
+    width:150px;
+    border:1px solid #dce5df;
+    border-radius:14px;
+    background:rgba(255,255,255,.97);
+    padding:10px;
+    box-shadow:10px 14px 28px rgba(7,74,53,.11);
+    transform:perspective(500px) rotateY(-12deg) rotateX(4deg);
+    transform-origin:center;
+    margin-top:-4px;
+  }
+
+  .mm-top{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .mm-logo{
+    width:28px;height:28px;border-radius:8px;
+    background:#111915;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;flex:none;
+  }
+
+  .mm-logo img{width:20px;height:20px;object-fit:contain;}
+
+  .mm-name{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    flex:1;
+  }
+
+  .mm-name b{
+    font-size:9.5px;
+    line-height:1.1;
+    white-space:nowrap;
+  }
+
+  .mm-name small{
+    font-size:7.5px;
+    color:#8d918d;
+    margin-top:2px;
+  }
+
+  .mm-top strong{
+    font-size:16px;
+    color:#0b6e4f;
+    line-height:1;
+  }
+
+  .mm-line{
+    height:4px;
+    background:#edf1ee;
+    border-radius:999px;
+    overflow:hidden;
+    margin:9px 0 7px;
+  }
+
+  .mm-line i{
+    display:block;
+    height:100%;
+    border-radius:999px;
+    background:#63aa84;
+  }
+
+  .mm-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:4px;
+    font-size:7px;
+    color:#7e827e;
+  }
+}
+
+@media (max-width: 620px){
+  .mobile-hero-row{
+    align-items:flex-start;
+    gap:8px;
+  }
+
+  .mobile-hero-row h1{
+    font-size:31px !important;
+    line-height:1.04 !important;
+  }
+
+  .mobile-mini-card{
+    flex-basis:112px;
+    width:112px;
+    padding:8px;
+    border-radius:12px;
+    transform:perspective(420px) rotateY(-13deg) rotateX(4deg) scale(.96);
+  }
+
+  .mm-logo{width:23px;height:23px;border-radius:7px;}
+  .mm-logo img{width:16px;height:16px;}
+  .mm-name b{font-size:8px;}
+  .mm-name small{font-size:6.5px;}
+  .mm-top strong{font-size:13px;}
+  .mm-meta{
+    flex-direction:column;
+    gap:1px;
+    font-size:6.5px;
+  }
+
+  .hero p.sub{
+    margin-top:3px !important;
+  }
+}
+
+@media (max-width: 390px){
+  .mobile-mini-card{
+    display:none;
+  }
+
+  .mobile-hero-row{
+    display:block;
+  }
+
+  .mobile-hero-row h1{
+    font-size:33px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== S22 Ultra / narrow-mobile fix ===== */
+/* Do not hide the mini card on ~360–390px wide Android screens. */
+@media (max-width: 390px){
+  .mobile-mini-card{
+    display:block !important;
+    flex:0 0 96px !important;
+    width:96px !important;
+    padding:7px !important;
+    margin-right:-4px;
+    border-radius:11px !important;
+    transform:perspective(380px) rotateY(-12deg) rotateX(3deg) scale(.94) !important;
+    transform-origin:right top !important;
+  }
+
+  .mobile-hero-row{
+    display:flex !important;
+    align-items:flex-start !important;
+    gap:5px !important;
+  }
+
+  .mobile-hero-row h1{
+    flex:1 !important;
+    min-width:0 !important;
+    font-size:29px !important;
+    line-height:1.03 !important;
+    letter-spacing:-1px !important;
+  }
+
+  .mm-logo{
+    width:20px !important;
+    height:20px !important;
+  }
+
+  .mm-logo img{
+    width:14px !important;
+    height:14px !important;
+  }
+
+  .mm-name b{font-size:7.2px !important;}
+  .mm-name small{font-size:5.8px !important;}
+  .mm-top strong{font-size:12px !important;}
+
+  .mm-line{
+    margin:7px 0 5px !important;
+    height:3px !important;
+  }
+
+  .mm-meta{
+    display:block !important;
+    font-size:5.8px !important;
+    line-height:1.35 !important;
+  }
+
+  .mm-meta span{
+    display:block !important;
+    white-space:nowrap !important;
+  }
+}
+
+/* Only remove the decorative card on genuinely tiny screens. */
+@media (max-width: 330px){
+  .mobile-mini-card{
+    display:none !important;
+  }
+  .mobile-hero-row{
+    display:block !important;
+  }
+  .mobile-hero-row h1{
+    font-size:31px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== Robust operator logos on mobile ===== */
+.top5-card .op-logo,
+.mm-logo,
+.vm-logo-img{
+  background:#fff !important;
+}
+
+.top5-card .op-logo img,
+.mm-logo img,
+.vm-logo-img img{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  object-fit:contain !important;
+}
+
+.logo-initials-fallback{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  font-family:'Poppins',system-ui,sans-serif;
+  font-weight:800;
+  color:var(--brand-dark);
+  background:var(--brand-lighter);
+  border-radius:inherit;
+  font-size:14px;
+}
+
+.mm-logo .logo-initials-fallback{font-size:8px;}
+.vm-logo-img .logo-initials-fallback{font-size:11px;}
+
+@media(max-width:620px){
+  .top5-card .op-logo img{
+    width:40px !important;
+    height:40px !important;
+  }
+}
+</style>
+
+</head>
+<body>
+<script>
+// Defined early (before any logo <img> tags below) so a favicon load
+// failure during initial parsing never fires onerror before this exists.
+// Live favicon pulled from the operator's own site — tries two independent
+// icon services before falling back to initials, so one dead service
+// doesn't blank out a card.
+function handleLogoError(img){
+  const domain = img.dataset.domain;
+  const initials = img.dataset.initials || "?";
+  const stage = img.dataset.stage || "direct";
+
+  if(stage === "direct" && domain){
+    img.dataset.stage = "google";
+    img.src = "https://www.google.com/s2/favicons?domain=" + encodeURIComponent(domain) + "&sz=128";
+    return;
+  }
+
+  if(stage === "google" && domain){
+    img.dataset.stage = "ddg";
+    img.src = "https://icons.duckduckgo.com/ip3/" + domain + ".ico";
+    return;
+  }
+
+  const span = document.createElement("span");
+  span.className = "logo-initials-fallback";
+  span.textContent = initials;
+  span.setAttribute("aria-label", img.alt || initials);
+  img.replaceWith(span);
+}
+</script>
+
+<nav>
+  <div class="wrap">
+    <a href="#home" class="logo">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40">
+          <path d="M20 3.5 33 8.8v9.6c0 8.6-5.2 14.5-13 17.9C12.2 32.9 7 27 7 18.4V8.8L20 3.5Z" fill="#0b6e4f"/>
+          <path d="M20 7.4 29.2 11v7.1c0 6.2-3.5 10.7-9.2 13.5-5.7-2.8-9.2-7.3-9.2-13.5V11L20 7.4Z" fill="none" stroke="#dff3e8" stroke-width="1.5"/>
+          <path d="M14.7 21.4c1.5 3 5.5 4.3 8.4 2.7 1.1-.6 1.9-1.5 2.5-2.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M14.8 17.2c1-2.6 3.6-4.5 6.6-4.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="22.2" y="20.4" width="2.2" height="5.4" rx="1.1" fill="#a7d9bd"/>
+          <rect x="25.5" y="17.2" width="2.2" height="8.6" rx="1.1" fill="#e1c47a"/>
+          <rect x="28.8" y="14.1" width="2.2" height="11.7" rx="1.1" fill="#c8860d"/>
+        </svg>
+      </span>
+      <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>    </div>
+    <div class="nav-actions">
+      <a href="#" class="link-muted" onclick="return openAuthModal('login')">Log in</a>
+      <a href="#" class="btn btn-outline btn-sm" onclick="return openAuthModal('signup')">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- AUTH MODAL (placeholder — no account system built yet) -->
+<div class="modal-bg" id="authModal">
+  <div class="modal">
+    <h3 id="authModalTitle">Log in</h3>
+    <p class="hint" id="authModalText">Player accounts (saved searches, complaint submissions tied to your name) aren't built yet — this is a placeholder for that future feature. For now, browse the leaderboard or submit a complaint anonymously.</p>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeAuthModal()">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUGGEST A SPORTSBOOK MODAL — no backend yet, so this opens a prefilled
+     email to the team instead of silently doing nothing. Honest about that
+     in the hint text, same convention as the auth modal above. -->
+<div class="modal-bg" id="suggestModal">
+  <div class="modal modal-wide">
+    <h3>Suggest a sportsbook</h3>
+    <p class="hint">There's no submission backend yet — this opens an email to our team with your link and comment already filled in.</p>
+    <div class="field">
+      <label>Sportsbook link</label>
+      <input type="url" id="suggestUrl" placeholder="https://…">
+    </div>
+    <p class="field-error" id="suggestError">Add a link to the sportsbook first.</p>
+    <div class="field">
+      <label>Comment (optional)</label>
+      <textarea id="suggestComment" placeholder="Why should we review it?"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline btn-sm" onclick="closeSuggestModal()">Cancel</button>
+      <button class="btn" onclick="submitSuggestion()">Send suggestion →</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+<span class="kicker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        CRYPTO SPORTSBOOK INTELLIGENCE
+      </span>
+
+      <div class="mobile-hero-row">
+        <h1>Know the sportsbook <span>before you deposit.</span></h1>
+        <div class="mobile-mini-card" aria-hidden="true">
+          <div class="mm-top">
+            <span class="mm-logo"><img src="https://bc.game/favicon.ico" data-domain="bc.game" data-stage="direct" data-initials="BC" alt="" decoding="async" onerror="handleLogoError(this)"></span>
+            <div class="mm-name"><b>BC.Game</b><small>Trust Score</small></div>
+            <strong>9.0</strong>
+          </div>
+          <div class="mm-line"><i style="width:90%"></i></div>
+          <div class="mm-meta"><span>$1.63M · 24h</span><span>30+ sports</span></div>
+        </div>
+      </div>
+      <p class="sub">Independent profiles focused on complaints, sportsbook rules and on-chain activity — not casino marketing.</p>
+
+      <div class="search-wrap">
+        <div class="searchbar">
+          <input type="text" id="heroSearchInput" placeholder="Search a sportsbook" autocomplete="off" onkeydown="heroSearchKeydown(event)">
+          <button class="btn" onclick="heroSearchGo()">Search</button>
+        </div>
+        <div id="heroSearchResults" class="search-dropdown"></div>
+      </div>
+
+      <div class="hero-proof">
+        <span><b>29+</b> operators researched</span>
+        <span><b>Complaints</b> with outcomes</span>
+        <span><b>On-chain</b> activity where available</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-stage">
+        <div class="visual-main-card visual-main-card-3d">
+          <div class="vm-top">
+            <span class="vm-logo-img">
+              <img src="https://bc.game/favicon.ico" data-domain="bc.game" data-stage="direct" data-initials="BC" alt="BC.Game logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)">
+            </span>
+            <div>
+              <b>BC.Game</b>
+              <small>Crypto sportsbook · Anjouan</small>
+            </div>
+            <div class="vm-trust">
+              <span>TRUST SCORE</span>
+              <strong>9.0</strong>
+            </div>
+          </div>
+
+          <div class="vm-summary">
+            <span class="vm-status-good">Highly rated</span>
+            <small>CryptoBetGrade weighted score</small>
+          </div>
+
+          <div class="vm-metrics vm-metrics-real">
+            <div>
+              <span>24h deposits</span>
+              <b>$1.63M</b>
+              <small>rank 9 of 32</small>
+            </div>
+            <div>
+              <span>Annual deposits</span>
+              <b>$2.28B</b>
+              <small>+7% YoY</small>
+            </div>
+            <div>
+              <span>Typical payout</span>
+              <b>~10 min</b>
+              <small>crypto</small>
+            </div>
+          </div>
+
+          <div class="vm-facts">
+            <div><span>Sportsbook</span><b>30+ sports</b></div>
+            <div><span>Crypto</span><b>170+ coins</b></div>
+            <div><span>KYC</span><b>Conditional</b></div>
+          </div>
+
+          <div class="vm-breakdown">
+            <div><span>Licence</span><i><em style="width:90%"></em></i><b>9</b></div>
+            <div><span>Payout</span><i><em style="width:90%"></em></i><b>9</b></div>
+            <div><span>Complaints</span><i><em style="width:90%"></em></i><b>9</b></div>
+          </div>
+        </div>
+
+        <div class="card-shadow-plane"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="top-operators" class="alt">
+  <div class="wrap">
+    <div class="section-head split-head">
+      <div>
+        <div class="eyebrow">Live market snapshot</div>
+        <h2>Biggest crypto sportsbooks by 24h deposits</h2>
+      </div>
+      <p>Directional on-chain data from tracked operator wallets.</p>
+    </div>
+    <div class="top5-grid" id="top5Grid">
+      <div class="top5-card">
+        <div class="top5-rank">1</div>
+        <div class="op-logo"><img src="https://stake.com/favicon.ico" data-domain="stake.com" data-stage="direct" data-initials="ST" alt="Stake logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Stake</span>
+        <div class="stat-n">$26.3M</div><div class="stat-l">24h deposits</div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/stake" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
+        </div>
+      </div>
+      <div class="top5-card">
+        <div class="top5-rank">2</div>
+        <div class="op-logo"><img src="https://duel.com/favicon.ico" data-domain="duel.com" data-stage="direct" data-initials="DU" alt="Duel logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Duel</span>
+        <div class="stat-n">$8.6M</div><div class="stat-l">24h deposits</div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/duel" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://duel.com" target="_blank" rel="noopener" class="btn-mini btn-mini-secondary">View website</a>
+        </div>
+      </div>
+      <div class="top5-card">
+        <div class="top5-rank">3</div>
+        <div class="op-logo"><img src="https://shuffle.com/favicon.ico" data-domain="shuffle.com" data-stage="direct" data-initials="SH" alt="Shuffle logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Shuffle</span>
+        <div class="stat-n">$8.2M</div><div class="stat-l">24h deposits</div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/shuffle" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://shuffle.com" target="_blank" rel="noopener" class="btn-mini btn-mini-secondary">View website</a>
+        </div>
+      </div>
+      <div class="top5-card">
+        <div class="top5-rank">4</div>
+        <div class="op-logo"><img src="https://roobet.com/favicon.ico" data-domain="roobet.com" data-stage="direct" data-initials="RO" alt="Roobet logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Roobet</span>
+        <div class="stat-n">$8.1M</div><div class="stat-l">24h deposits</div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/roobet" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://roobet.com/?ref=akgamble" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
+        </div>
+      </div>
+      <div class="top5-card">
+        <div class="top5-rank">5</div>
+        <div class="op-logo"><img src="https://rainbet.com/favicon.ico" data-domain="rainbet.com" data-stage="direct" data-initials="RA" alt="Rainbet logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Rainbet</span>
+        <div class="stat-n">$6.1M</div><div class="stat-l">24h deposits</div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/rainbet" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://rainbet.com?r=crptobetgrade" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
+        </div>
+      </div>
+    </div>
+    <div class="top5-cta">
+      <a href="dashboard.html" class="btn btn-outline">Full list →</a>
+    </div>
+  </div>
+</section>
+
+<section id="operators" class="alt">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Missing a sportsbook?</h2>
+      <p>Suggest a crypto sportsbook and we'll review its ownership, terms, complaints and available on-chain data.</p>
+      <a href="#" class="btn" onclick="return openSuggestModal()">Suggest a sportsbook →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="trust-row">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> Same formula for every operator</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> No crypto sportsbook can buy a score</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> Independent complaint records</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg> 18+ · Play responsibly</div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="methodology.html">How scoring works</a>
+        <a href="dashboard.html">Leaderboard</a>
+        <a href="analytics.html">Market analytics</a>
+      </div>
+      <div class="footer-col">
+        <h5>Crypto sportsbooks</h5>
+        <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
+        <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
+        <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
+        <a href="#operators">Suggest a sportsbook</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="methodology.html">Methodology paper</a>
+        <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="cookies.html">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="about.html" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
+      <p>Some crypto sportsbook listings include an affiliate link — clearly marked on that sportsbook's profile page. Affiliate relationships never influence Trust Scores.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="cookieNotice" class="hidden">
+  <p>This site doesn't set tracking or advertising cookies. Loading our web font and each sportsbook's logo makes a couple of requests to Google/DuckDuckGo — see <a href="cookies.html" style="color:var(--brand-dark);font-weight:600;">Cookies</a> for details.</p>
+  <div class="actions">
+    <button class="btn btn-sm" onclick="dismissCookieNotice()">Got it</button>
+  </div>
+</div>
+
+<script>
+// Placeholder auth modal — there is no player-account system built yet (see
+// dashboard.html for the separate admin login, which is a different thing).
+// This just tells visitors honestly that Log in/Sign up isn't wired up yet.
+function openAuthModal(kind){
+  document.getElementById("authModalTitle").textContent = kind === "signup" ? "Sign up" : "Log in";
+  document.getElementById("authModal").classList.add("open");
+  return false;
+}
+function closeAuthModal(){ document.getElementById("authModal").classList.remove("open"); }
+document.addEventListener("DOMContentLoaded", () => {
+  const bg = document.getElementById("authModal");
+  if(bg) bg.addEventListener("click", e => { if(e.target === bg) closeAuthModal(); });
+});
+
+// "Suggest a sportsbook" — also no backend yet, so submitting builds a
+// mailto: link (prefilled subject/body) instead of pretending to save
+// anything. Same honesty convention as the auth modal above.
+function openSuggestModal(){
+  document.getElementById("suggestModal").classList.add("open");
+  return false;
+}
+function closeSuggestModal(){
+  document.getElementById("suggestModal").classList.remove("open");
+  document.getElementById("suggestError").style.display = "none";
+}
+function submitSuggestion(){
+  const urlInput = document.getElementById("suggestUrl");
+  const commentInput = document.getElementById("suggestComment");
+  const url = urlInput.value.trim();
+  const comment = commentInput.value.trim();
+  if(!url){
+    document.getElementById("suggestError").style.display = "block";
+    urlInput.focus();
+    return;
+  }
+  document.getElementById("suggestError").style.display = "none";
+  const subject = "Sportsbook suggestion: " + url;
+  const bodyLines = ["Suggested sportsbook: " + url];
+  if(comment) bodyLines.push("", "Comment:", comment);
+  const mailto = "mailto:suggestions@cryptobetgrade.com"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(bodyLines.join("\n"));
+  window.location.href = mailto;
+  urlInput.value = "";
+  commentInput.value = "";
+  closeSuggestModal();
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const bg = document.getElementById("suggestModal");
+  if(bg) bg.addEventListener("click", e => { if(e.target === bg) closeSuggestModal(); });
+});
+
+// Hero search — same 32 sportsbooks and IDs as dashboard.html's operator
+// list (kept in sync manually; ids match dashboard.html's slug(name)).
+// Shows a dropdown of name matches once the query reaches 3 characters,
+// e.g. typing "due" surfaces both Duel and Duelbits.
+const HERO_SEARCH_OPERATORS = [
+  {name:"Stake", id:"stake"}, {name:"BC.Game", id:"bc-game"}, {name:"Rainbet", id:"rainbet"},
+  {name:"Roobet", id:"roobet"}, {name:"500Casino", id:"500casino"}, {name:"Betpanda", id:"betpanda"},
+  {name:"Gamdom", id:"gamdom"}, {name:"Duelbits", id:"duelbits"}, {name:"Winna", id:"winna"},
+  {name:"Razed", id:"razed"}, {name:"Thrill", id:"thrill"}, {name:"Cryptorino", id:"cryptorino"},
+  {name:"Bets.io", id:"bets-io"}, {name:"Nitrobetting", id:"nitrobetting"}, {name:"Cloudbet", id:"cloudbet"},
+  {name:"Rakebit", id:"rakebit"}, {name:"Fresh Casino", id:"fresh-casino"}, {name:"SolCasino.io", id:"solcasino-io"},
+  {name:"Sol Casino", id:"sol-casino"}, {name:"Jet Casino", id:"jet-casino"}, {name:"Starda Casino", id:"starda-casino"},
+  {name:"1Go Casino", id:"1go-casino"}, {name:"Legzo Casino", id:"legzo-casino"}, {name:"Irwin Casino", id:"irwin-casino"},
+  {name:"Shuffle", id:"shuffle"}, {name:"Duel", id:"duel"}, {name:"1win", id:"1win"},
+  {name:"BetFury", id:"betfury"}, {name:"bet105.ag", id:"bet105-ag"}, {name:"Rollbit", id:"rollbit"},
+  {name:"StakeUS", id:"stakeus"}, {name:"Sportsbet.io", id:"sportsbet-io"}
+];
+const HERO_SEARCH_MIN_CHARS = 3;
+let heroSearchActiveIndex = -1;
+
+function heroSearchMatches(query){
+  const q = query.trim().toLowerCase();
+  if(q.length < HERO_SEARCH_MIN_CHARS) return [];
+  return HERO_SEARCH_OPERATORS.filter(op => op.name.toLowerCase().includes(q)).slice(0, 8);
+}
+function heroSearchGoTo(id){
+  location.href = "dashboard.html#/operator/" + id;
+}
+function heroSearchPosition(){
+  const box = document.getElementById("heroSearchResults");
+  const input = document.getElementById("heroSearchInput");
+  if(!box || !input) return;
+  const r = input.closest(".search-wrap").getBoundingClientRect();
+  box.style.left = r.left + "px";
+  box.style.width = r.width + "px";
+  box.style.top = (r.bottom + 8) + "px";
+}
+function heroSearchRender(){
+  const box = document.getElementById("heroSearchResults");
+  const input = document.getElementById("heroSearchInput");
+  if(!box || !input) return;
+  // Escape any clipping/overflow ancestor (e.g. .hero{overflow:hidden}) by
+  // parking the dropdown directly on <body>, positioned with fixed coords.
+  if(box.parentElement !== document.body) document.body.appendChild(box);
+  const matches = heroSearchMatches(input.value);
+  heroSearchActiveIndex = -1;
+  if(!matches.length){
+    box.classList.remove("open");
+    box.innerHTML = "";
+    return;
+  }
+  box.innerHTML = matches.map((op, i) =>
+    `<div class="search-dropdown-item" data-idx="${i}" data-id="${op.id}" onmousedown="event.preventDefault();heroSearchGoTo('${op.id}')">
+       <span>${op.name}</span><span class="sdi-hint">View profile →</span>
+     </div>`
+  ).join("");
+  heroSearchPosition();
+  box.classList.add("open");
+}
+function heroSearchKeydown(e){
+  const box = document.getElementById("heroSearchResults");
+  const input = document.getElementById("heroSearchInput");
+  const matches = heroSearchMatches(input.value);
+  if(e.key === "ArrowDown" || e.key === "ArrowUp"){
+    if(!matches.length) return;
+    e.preventDefault();
+    heroSearchActiveIndex += (e.key === "ArrowDown" ? 1 : -1);
+    if(heroSearchActiveIndex < 0) heroSearchActiveIndex = matches.length - 1;
+    if(heroSearchActiveIndex >= matches.length) heroSearchActiveIndex = 0;
+    Array.from(box.children).forEach((el, i) => el.classList.toggle("active", i === heroSearchActiveIndex));
+  } else if(e.key === "Enter"){
+    e.preventDefault();
+    if(heroSearchActiveIndex >= 0 && matches[heroSearchActiveIndex]){
+      heroSearchGoTo(matches[heroSearchActiveIndex].id);
+    } else {
+      heroSearchGo();
+    }
+  } else if(e.key === "Escape"){
+    box.classList.remove("open");
+  }
+}
+function heroSearchGo(){
+  const input = document.getElementById("heroSearchInput");
+  const matches = heroSearchMatches(input ? input.value : "");
+  if(matches.length){
+    heroSearchGoTo(matches[0].id);
+  } else {
+    location.href = "dashboard.html#/";
+  }
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("heroSearchInput");
+  const box = document.getElementById("heroSearchResults");
+  if(!input || !box) return;
+  input.addEventListener("input", heroSearchRender);
+  input.addEventListener("focus", heroSearchRender);
+  document.addEventListener("click", e => {
+    // box now lives on <body> (reparented in heroSearchRender), so also
+    // allow clicks landing inside the dropdown itself to stay open.
+    if(!e.target.closest(".search-wrap") && !e.target.closest("#heroSearchResults")){
+      box.classList.remove("open");
+    }
+  });
+  window.addEventListener("scroll", () => { if(box.classList.contains("open")) heroSearchPosition(); }, {passive:true});
+  window.addEventListener("resize", () => { if(box.classList.contains("open")) heroSearchPosition(); });
+});
+
+// Cookie notice — intentionally NOT persisted via localStorage/cookies (this
+// project doesn't use browser storage anywhere), so it reappears each visit.
+// That's fine here: since the Site sets no cookies of its own, this is a
+// transparency notice, not a consent gate that legally needs to "stick."
+// See cookies.html for the actual, current list.
+function dismissCookieNotice(){
+  document.getElementById("cookieNotice").classList.add("hidden");
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const n = document.getElementById("cookieNotice");
+  if(n) n.classList.remove("hidden");
+});
+</script>
+
+</body>
+</html>
