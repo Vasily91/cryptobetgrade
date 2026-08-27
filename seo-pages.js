@@ -162,12 +162,15 @@ function metaFor(match) {
 
 export async function renderSeoPage(match, env, request) {
   const meta = metaFor(match);
-  if (!meta) return null;
+  if (!meta) throw new Error(`DEBUG_NO_META match=${JSON.stringify(match)} operatorsLoaded=${OPERATORS_BY_ID.size} complaintsLoaded=${COMPLAINT_INDEX.size}`);
 
   const dashUrl = new URL("/dashboard.html", request.url);
   const dashResp = await env.ASSETS.fetch(new Request(dashUrl, request));
-  if (!dashResp.ok) return null;
+  if (!dashResp.ok) throw new Error(`DEBUG_ASSETS_NOT_OK status=${dashResp.status} statusText=${dashResp.statusText} dashUrl=${dashUrl}`);
   let html = await dashResp.text();
+  if (!html.includes('<div class="wrap" id="view"></div>')) {
+    throw new Error(`DEBUG_NO_VIEW_ANCHOR htmlLen=${html.length} hasHead=${html.includes("</head>")}`);
+  }
 
   const canonical = `${SITE_URL}${meta.canonicalPath}`;
   const headExtra = `<base href="/">
