@@ -1304,7 +1304,7 @@ const KEY_CONS = {
   "Thrill": ["Arbitrage bets may be voided"],
   "Cryptorino": ["Wagering multiplier disputed across sources","Account may be closed for arbitrage betting"],
   "Bets.io": [],
-  "Nitrobetting": ["History of severe withdrawal delays","Odds format not publicly specified"],
+  "Nitrobetting": ["History of severe withdrawal delays"],
   "Cloudbet": ["$2,200/day cap until Level 2 verified"],
   "Rakebit": ["Account may be closed for arbitrage betting"],
   "Fresh Casino": ["Some games/withdrawal methods restricted by country"],
@@ -3377,8 +3377,8 @@ function renderDetail(id){
   const bottomStats = op.stats || {markets:"",oddsFormat:"",maxWin:"",support:"",mobileApp:""};
   const restricted = op.restrictedCountries || {codes:[],confidence:"unknown",note:"",confirmedAccepted:[]};
   const escAttr = s => (s||"").replace(/"/g,"&quot;");
-  const hasRedRow = ARBITRAGE_CLAUSE[op.name] || KYC_DELAY_WARNING[op.name] || PAYOUT_COMPLAINT_WARNING[op.name] || ODDS_SOURCING_WARNING[op.name] || LIMITED_WITHDRAWAL_WARNING[op.name] || (!editing && keyCons.length);
-  const hasGreenRow = WINNERS_WELCOME[op.name] || (!editing && keyPros.length);
+  const hasRedRow = ARBITRAGE_CLAUSE[op.name] || KYC_DELAY_WARNING[op.name] || PAYOUT_COMPLAINT_WARNING[op.name] || ODDS_SOURCING_WARNING[op.name] || LIMITED_WITHDRAWAL_WARNING[op.name];
+  const hasGreenRow = WINNERS_WELCOME[op.name];
   const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>`;
   const xIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>`;
 
@@ -3488,7 +3488,6 @@ function renderDetail(id){
               <div class="arb-tooltip">${LIMITED_WITHDRAWAL_WARNING[op.name].text}</div>
             </div>
           ` : ""}
-          ${!editing ? keyCons.filter(c => !(ARBITRAGE_VOID_ONLY[op.name] && c === "Arbitrage bets may be voided")).map(c => `<div class="fact-pill bad">${xIcon}<span>${c}</span></div>`).join("") : ""}
           ${ARBITRAGE_VOID_ONLY[op.name] ? `
             <div class="neutral-warning" tabindex="0">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><path d="M12 16h.01"/><path d="M10.3 3.9 2.6 17.5a1.8 1.8 0 0 0 1.6 2.7h15.6a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/></svg>
@@ -3503,7 +3502,6 @@ function renderDetail(id){
               <div class="arb-tooltip">${WINNERS_WELCOME[op.name].text}</div>
             </div>
           ` : ""}
-          ${!editing ? keyPros.map(p => `<div class="fact-pill good">${checkIcon}<span>${p}</span></div>`).join("") : ""}
         </div>
       ` : ""}
 
