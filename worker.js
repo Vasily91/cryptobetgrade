@@ -44,16 +44,23 @@ export default {
 
     const seoMatch = matchSeoRoute(url.pathname);
     if (seoMatch) {
-      const rendered = await renderSeoPage(seoMatch, env, request);
-      if (rendered) {
-        return new Response(rendered, {
-          status: 200,
-          headers: { "Content-Type": "text/html; charset=utf-8" },
-        });
+      try {
+        const rendered = await renderSeoPage(seoMatch, env, request);
+        if (rendered) {
+          return new Response(rendered, {
+            status: 200,
+            headers: { "Content-Type": "text/html; charset=utf-8" },
+          });
+        }
+        // Path had the right shape (e.g. /sportsbooks/not-a-real-one) but no
+        // matching operator/complaint — fall through to the normal static
+        // 404 page rather than inventing content.
+      } catch (err) {
+        // Debug aid while wiring this up — remove the exposed message once
+        // this is confirmed stable, so we don't leak internals long-term.
+        console.error("SEO page render error:", err);
+        return new Response("SEO render error: " + (err && err.stack || err), { status: 500, headers: { "Content-Type": "text/plain" } });
       }
-      // Path had the right shape (e.g. /sportsbooks/not-a-real-one) but no
-      // matching operator/complaint — fall through to the normal static
-      // 404 page rather than inventing content.
     }
 
     // Everything else is a static file (index.html, dashboard.html, ...).
