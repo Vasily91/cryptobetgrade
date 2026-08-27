@@ -44,7 +44,7 @@ export default {
 
     const seoMatch = matchSeoRoute(url.pathname);
     if (seoMatch) {
-      const rendered = renderSeoPage(seoMatch);
+      const rendered = await renderSeoPage(seoMatch, env, request);
       if (rendered) {
         return new Response(rendered, {
           status: 200,
