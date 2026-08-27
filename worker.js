@@ -56,10 +56,8 @@ export default {
         // matching operator/complaint — fall through to the normal static
         // 404 page rather than inventing content.
       } catch (err) {
-        // Debug aid while wiring this up — remove the exposed message once
-        // this is confirmed stable, so we don't leak internals long-term.
         console.error("SEO page render error:", err);
-        return new Response("SEO render error: " + (err && err.stack || err), { status: 500, headers: { "Content-Type": "text/plain" } });
+        // Fall through to the normal static 404 rather than leaking internals.
       }
     }
 

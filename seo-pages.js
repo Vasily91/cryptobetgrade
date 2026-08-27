@@ -162,15 +162,17 @@ function metaFor(match) {
 
 export async function renderSeoPage(match, env, request) {
   const meta = metaFor(match);
-  if (!meta) throw new Error(`DEBUG_NO_META match=${JSON.stringify(match)} operatorsLoaded=${OPERATORS_BY_ID.size} complaintsLoaded=${COMPLAINT_INDEX.size}`);
+  if (!meta) return null;
 
-  const dashUrl = new URL("/dashboard.html", request.url);
+  // Cloudflare's static-asset handling 307-redirects "/dashboard.html" ->
+  // "/dashboard" (clean URLs). A normal browser fetch() follows that
+  // silently, but env.ASSETS.fetch() does not auto-follow it, so requesting
+  // the extensionless clean URL directly avoids the redirect entirely.
+  const dashUrl = new URL("/dashboard", request.url);
   const dashResp = await env.ASSETS.fetch(new Request(dashUrl, request));
-  if (!dashResp.ok) throw new Error(`DEBUG_ASSETS_NOT_OK status=${dashResp.status} statusText=${dashResp.statusText} dashUrl=${dashUrl}`);
+  if (!dashResp.ok) return null;
   let html = await dashResp.text();
-  if (!html.includes('<div class="wrap" id="view"></div>')) {
-    throw new Error(`DEBUG_NO_VIEW_ANCHOR htmlLen=${html.length} hasHead=${html.includes("</head>")}`);
-  }
+  if (!html.includes('<div class="wrap" id="view"></div>')) return null;
 
   const canonical = `${SITE_URL}${meta.canonicalPath}`;
   const headExtra = `<base href="/">
