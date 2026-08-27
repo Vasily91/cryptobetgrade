@@ -3433,6 +3433,7 @@ function renderDetail(id){
                 ${op.ownership.jurisdiction ? `<span class="tag">${jurisdictionShort(op)}</span>` : ""}
                 <div id="geo-status-${id}" class="geo-status geo-neutral" tabindex="0"><span class="h">Checking your country…</span></div>
                 ${op.complaints.length ? `<span class="tag warn-tag" onclick="setDetailTab('${id}','complaints')">⚠ ${op.complaints.length} complaint${op.complaints.length===1?"":"s"}</span>` : ""}
+                ${keyPros.map(p => `<span class="mini-tag good">${p}</span>`).join("")}
               `}
             </div>
           </div>
