@@ -1,4 +1,9 @@
 worker.js
+seo-pages.js
+data.json
 wrangler.jsonc
 d1-schema.sql
+schema.sql
+ARCHITECTURE.md
 .assetsignore
+tools/

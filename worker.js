@@ -19,6 +19,13 @@ const SESSION_COOKIE = "cbg_session";
 const SESSION_DAYS = 30;
 const MAGIC_LINK_MINUTES = 15;
 
+// ---------------------------------------------------------------------
+// SEO-friendly server-rendered pages: /sportsbooks/{id}, /sportsbooks/{id}/
+// complaints, /complaints/{slug}. See seo-pages.js for why these exist and
+// how they're generated/kept in sync with dashboard.html.
+// ---------------------------------------------------------------------
+import { matchSeoRoute, renderSeoPage } from "./seo-pages.js";
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -33,6 +40,20 @@ export default {
         console.error("API error:", err);
         return json({ error: "Something went wrong on our end. Try again shortly." }, 500);
       }
+    }
+
+    const seoMatch = matchSeoRoute(url.pathname);
+    if (seoMatch) {
+      const rendered = renderSeoPage(seoMatch);
+      if (rendered) {
+        return new Response(rendered, {
+          status: 200,
+          headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+      }
+      // Path had the right shape (e.g. /sportsbooks/not-a-real-one) but no
+      // matching operator/complaint — fall through to the normal static
+      // 404 page rather than inventing content.
     }
 
     // Everything else is a static file (index.html, dashboard.html, ...).
