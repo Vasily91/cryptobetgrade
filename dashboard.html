@@ -3374,7 +3374,7 @@ function renderList(){
           </button>
           <div class="filter-panel ${state.filterPanelOpen?"open":""}">
             <div class="fp-title">KYC stance</div>
-            ${Object.keys(KYC_STANCE_LABEL).map(k => `<label><input type="checkbox" ${f.kyc.includes(k)?"checked":""} onchange="toggleFilter('kyc','${k}')"> ${KYC_STANCE_LABEL[k]}</label>`).join("")}
+            ${Object.keys(KYC_STANCE_LABEL).filter(k => k !== "unclear").map(k => `<label><input type="checkbox" ${f.kyc.includes(k)?"checked":""} onchange="toggleFilter('kyc','${k}')"> ${KYC_STANCE_LABEL[k]}</label>`).join("")}
             ${activeFilterCount ? `<div style="margin-top:10px;"><a href="javascript:void(0)" onclick="clearFilters()" style="font-size:12px;font-weight:700;color:var(--brand-dark);">Clear filters</a></div>` : ""}
           </div>
         </div>
