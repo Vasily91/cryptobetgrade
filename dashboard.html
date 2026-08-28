@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <title>CryptoBetGrade — Crypto Sportsbooks</title>
+<link rel="icon" type="image/svg+xml" href="/logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -3549,7 +3550,12 @@ function renderDetail(id){
               <div class="arb-tooltip">${WINNERS_WELCOME[op.name].text}</div>
             </div>
           ` : ""}
-          ${keyPros.map(p => `<span class="mini-tag good">${p}</span>`).join("")}
+          ${keyPros.map(p => `
+            <div class="good-warning" tabindex="0">
+              ${checkIcon}
+              <span class="h">${p}</span>
+            </div>
+          `).join("")}
         </div>
       ` : ""}
 
