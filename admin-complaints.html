@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem('cbg_theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Admin — Complaint moderation — CryptoBetGrade</title>
@@ -130,6 +131,26 @@
   .amount-line{font-size:13px;color:var(--ink-2);margin-bottom:12px;}
   .row-actions{display:flex;align-items:center;gap:10px;flex:none;}
 </style>
+<style>
+/* THEME TOGGLE / DARK MODE */
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:transparent;color:inherit;cursor:pointer;flex:none;padding:0;transition:.15s ease;}
+.theme-toggle:hover{background:rgba(11,11,11,0.08);}
+.theme-toggle svg{width:18px;height:18px;display:block;}
+.theme-toggle .icon-sun{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-moon{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-sun{display:block;}
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#0b0b0b;color-scheme:dark;}
+html[data-theme="dark"] img,
+html[data-theme="dark"] .logo .mark svg{filter:invert(1) hue-rotate(180deg);}
+</style>
+<script>
+function cbgToggleTheme(){
+  var html=document.documentElement;
+  var next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  if(next==='dark'){html.setAttribute('data-theme','dark');}else{html.removeAttribute('data-theme');}
+  try{localStorage.setItem('cbg_theme',next);}catch(e){}
+}
+</script>
 </head>
 <body>
 
@@ -145,6 +166,10 @@
       <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
       <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>
     </div>
+    <button type="button" class="theme-toggle" onclick="cbgToggleTheme()" aria-label="Toggle dark mode" title="Dark / light mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
     <div class="nav-actions" id="navAuthSlot"></div>
   </div>
 </nav>
