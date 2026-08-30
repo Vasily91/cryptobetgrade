@@ -26,6 +26,7 @@ function cbgRenderNavAuth(){
   if(CBG_USER){
     slot.innerHTML = `
       ${CBG_USER.is_admin ? `<a href="admin-complaints.html" class="link-muted">Admin</a>` : ""}
+      <a href="dashboard.html?file=1" id="cbgNavFileComplaint" class="theme-toggle" title="File a complaint" aria-label="File a complaint" onclick="return cbgFileComplaintNavClick()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></a>
       <span class="link-muted" style="cursor:default;" title="${CBG_USER.email}">${cbgTruncateEmail(CBG_USER.email)}</span>
       <button class="btn btn-outline btn-sm" onclick="cbgLogout()">Log out</button>
     `;
@@ -35,6 +36,25 @@ function cbgRenderNavAuth(){
       <a href="#" class="btn btn-outline btn-sm" onclick="return cbgOpenAuthModal()">Sign up</a>
     `;
   }
+  // Some pages also carry a duplicate "File a complaint" entry inside the
+  // mobile hamburger panel (hidden by default in markup) — keep it in sync
+  // with login state too.
+  const mobileItem = document.getElementById("mobileNavFileComplaint");
+  if(mobileItem) mobileItem.style.display = CBG_USER ? "" : "none";
+}
+
+// Nav "File a complaint" click handler, shared by the top-bar button and the
+// mobile-panel duplicate. On dashboard.html itself (where the operator
+// picker + file-complaint modal actually live), open the picker in place
+// instead of navigating. On every other page, let the link through to
+// dashboard.html?file=1, which auto-opens the picker on load (see the inline
+// script after site.js in dashboard.html).
+function cbgFileComplaintNavClick(){
+  if(typeof cbgOpenComplaintPicker === "function"){
+    cbgOpenComplaintPicker();
+    return false;
+  }
+  return true;
 }
 
 function cbgTruncateEmail(email){
@@ -129,7 +149,10 @@ function cbgInjectAuthModal(){
 
 document.addEventListener("DOMContentLoaded", () => {
   cbgInjectAuthModal();
-  cbgCheckSession();
+  // Stashed on window so a page can `await window.cbgSessionReady` to know
+  // CBG_USER has been resolved (e.g. dashboard.html deciding whether a
+  // ?file=1 link should auto-open the complaint picker or the login modal).
+  window.cbgSessionReady = cbgCheckSession();
   const bg = document.getElementById("authModal");
   if(bg) bg.addEventListener("click", e => { if(e.target === bg) cbgCloseAuthModal(); });
 });

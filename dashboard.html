@@ -823,7 +823,7 @@ function cbgToggleTheme(){
 .nav-hamburger.open .icon-menu{display:none;}
 .nav-hamburger.open .icon-close{display:block;}
 .mobile-nav-panel{display:none;}
-@media(max-width:900px){
+@media(max-width:900px){#cbgNavFileComplaint{display:none!important;}
   .nav-hamburger{display:flex!important;}
   .navlinks{display:none!important;}
   .mobile-nav-panel{
@@ -849,6 +849,20 @@ function cbgToggleTheme(){
   .mobile-nav-panel a.active{background:var(--brand-light);color:var(--brand-dark);}
   .mobile-nav-panel a.active svg{color:var(--brand-dark);}
 }
+</style>
+<style id="cbg-complaint-picker">
+#cbgPickOperatorSearch{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;}
+.pick-op-row{display:flex;align-items:center;gap:11px;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--line);background:none;width:100%;text-align:left;font:inherit;color:inherit;}
+.pick-op-row:last-child{border-bottom:none;}
+.pick-op-row:hover{background:var(--brand-lighter);}
+.pick-op-logo{width:30px;height:30px;border-radius:8px;background:var(--brand-lighter);border:1px solid var(--brand-light);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;font-size:11px;font-weight:800;color:var(--brand-dark);}
+.pick-op-logo img{width:18px;height:18px;object-fit:contain;}
+.pick-op-name{font-size:13.5px;font-weight:700;color:var(--ink);}
+html[data-theme="dark"] .pick-op-row{border-bottom-color:#26342D;}
+html[data-theme="dark"] .pick-op-row:hover{background:#16211B;}
+html[data-theme="dark"] .pick-op-logo{background:#0C1210;border-color:#2A3931;}
+html[data-theme="dark"] .pick-op-name{color:#EEF3EF;}
+html[data-theme="dark"] #cbgPickOperatorSearch{background:#0C1210;color:#EDF3EF;border-color:#2C3A33;}
 </style>
 </head>
 <body>
@@ -881,6 +895,7 @@ function cbgToggleTheme(){
     <a href="dashboard.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
     <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
     <a href="methodology.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> How scoring works</a>
+    <a href="dashboard.html?file=1" id="mobileNavFileComplaint" style="display:none" onclick="return cbgFileComplaintNavClick()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> File a complaint</a>
   </div>
 </nav>
 
@@ -1023,6 +1038,22 @@ function cbgToggleTheme(){
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('complaintModal')">Cancel</button>
       <button class="btn" onclick="saveComplaint()">Save complaint</button>
+    </div>
+  </div>
+</div>
+
+<!-- FILE A COMPLAINT: pick a sportsbook first — opened from the top-nav
+     "File a complaint" button (site.js's cbgFileComplaintNavClick calls
+     cbgOpenComplaintPicker() below), separate from the per-operator
+     shortcut lower on this page which skips straight to cbgFileModal. -->
+<div class="modal-bg" id="cbgPickOperatorModal">
+  <div class="modal" style="max-width:480px;">
+    <h3>File a complaint</h3>
+    <p class="hint">Which sportsbook is this about?</p>
+    <div class="field"><input type="text" id="cbgPickOperatorSearch" placeholder="Search sportsbooks…" oninput="cbgRenderOperatorPicker(this.value)" autocomplete="off"></div>
+    <div id="cbgPickOperatorList" style="max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;margin-top:2px;"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('cbgPickOperatorModal')">Cancel</button>
     </div>
   </div>
 </div>
@@ -4132,6 +4163,51 @@ function cbgTruncate(s, n){ return (s||"").length > n ? s.slice(0, n).trim() + "
 function cbgEscape(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
 function cbgDateShort(iso){ try{ return new Date(iso.replace(" ","T")+"Z").toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"}); }catch(e){ return iso; } }
 
+// ---- File a complaint: pick-a-sportsbook step (from the top-nav button) --
+// Reached via site.js's cbgFileComplaintNavClick(), which either calls
+// cbgOpenComplaintPicker() directly (on this page) or, on every other page,
+// lets its link navigate here to dashboard.html?file=1 — see the small
+// inline script right after <script src="/site.js"> below, which detects
+// that query param once the session check resolves and opens either this
+// picker or the login modal.
+
+function cbgOpenComplaintPicker(){
+  if(!CBG_USER){
+    cbgOpenAuthModal();
+    return;
+  }
+  const search = document.getElementById("cbgPickOperatorSearch");
+  search.value = "";
+  cbgRenderOperatorPicker("");
+  openModal("cbgPickOperatorModal");
+  setTimeout(() => search.focus(), 50);
+}
+
+function cbgRenderOperatorPicker(filterText){
+  const list = document.getElementById("cbgPickOperatorList");
+  const q = (filterText||"").trim().toLowerCase();
+  const matches = state.operators
+    .filter(op => !q || op.name.toLowerCase().includes(q))
+    .sort((a,b) => a.name.localeCompare(b.name));
+  if(!matches.length){
+    list.innerHTML = `<div class="empty-note" style="padding:16px;">No sportsbooks match "${cbgEscape(filterText)}".</div>`;
+    return;
+  }
+  list.innerHTML = matches.map(op => `
+    <button type="button" class="pick-op-row" onclick="cbgPickOperatorForComplaint('${op.id}')">
+      <span class="pick-op-logo">${logoHtml(op)}</span>
+      <span class="pick-op-name">${cbgEscape(op.name)}</span>
+    </button>
+  `).join("");
+}
+
+function cbgPickOperatorForComplaint(id){
+  const op = findOp(id);
+  if(!op) return;
+  closeModal("cbgPickOperatorModal");
+  cbgOpenFileComplaint(op.id, op.name);
+}
+
 // ---- File a complaint ----------------------------------------------------
 
 let cbgFileContext = null; // { id, operatorName }
@@ -4814,6 +4890,37 @@ function dismissCookieNotice(){
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeMenu();
   });
+})();
+</script>
+<script>
+// Landed here as dashboard.html?file=1 — from the top-nav "File a
+// complaint" button on some other page (site.js's cbgFileComplaintNavClick
+// lets the link through when it's not already on this page). Wait for the
+// login-session check site.js kicked off to resolve, then either open the
+// sportsbook picker or, if the user isn't actually logged in (session
+// expired between page load and here), the login modal instead.
+(function(){
+  if(new URLSearchParams(location.search).get("file") !== "1") return;
+  function go(){
+    if(typeof CBG_USER !== "undefined" && CBG_USER){
+      cbgOpenComplaintPicker();
+    } else if(typeof cbgOpenAuthModal === "function"){
+      cbgOpenAuthModal();
+    }
+    var url = new URL(location.href);
+    url.searchParams.delete("file");
+    history.replaceState(null, "", url.pathname + url.search + url.hash);
+  }
+  function waitForSession(triesLeft){
+    if(window.cbgSessionReady && typeof window.cbgSessionReady.then === "function"){
+      window.cbgSessionReady.then(go);
+    } else if(triesLeft > 0){
+      setTimeout(() => waitForSession(triesLeft - 1), 50);
+    } else {
+      go(); // give up waiting, proceed with whatever CBG_USER currently is
+    }
+  }
+  waitForSession(60); // up to ~3s for site.js to load and start the check
 })();
 </script>
 </body>
