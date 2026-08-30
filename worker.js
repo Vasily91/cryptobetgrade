@@ -174,6 +174,48 @@ async function sendMagicLinkEmail(env, email, link) {
   }
 }
 
+// Admin notification — fired off after a new community complaint is filed
+// (see submitComplaint below), so whoever's listed in ADMIN_EMAILS finds out
+// there's something to review instead of having to keep checking
+// admin-complaints.html. Best-effort: a failure here is logged but never
+// blocks the complaint submission itself (see the try/catch around the call).
+async function sendComplaintNotificationEmail(env, complaint) {
+  const adminEmails = (env.ADMIN_EMAILS || "").split(",").map(e => e.trim()).filter(Boolean);
+  if (!adminEmails.length) {
+    console.warn("ADMIN_EMAILS not set — skipping new-complaint notification email.");
+    return;
+  }
+  if (!env.RESEND_API_KEY) {
+    console.warn(`RESEND_API_KEY not set — would have emailed ${adminEmails.join(", ")} about complaint #${complaint.id}`);
+    return;
+  }
+  const reviewUrl = `${env.SITE_URL}/admin-complaints.html`;
+  const amountLine = complaint.amount ? `Amount at stake: ${complaint.amount}\n` : "";
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: `${env.SITE_NAME || "CryptoBetGrade"} <complaints@${new URL(env.SITE_URL).hostname}>`,
+      to: adminEmails,
+      subject: `New complaint: ${complaint.operatorName} — ${complaint.title}`,
+      text: `A new complaint was filed and needs review.\n\nSportsbook: ${complaint.operatorName}\nTitle: ${complaint.title}\n${amountLine}Submitted by: ${complaint.submitterEmail}\n\nWhat happened:\n${complaint.description}\n\nReview it: ${reviewUrl}`,
+      html: `<p>A new complaint was filed and needs review.</p>
+        <p><b>Sportsbook:</b> ${escapeHtml(complaint.operatorName)}<br>
+        <b>Title:</b> ${escapeHtml(complaint.title)}<br>
+        ${complaint.amount ? `<b>Amount at stake:</b> ${escapeHtml(complaint.amount)}<br>` : ""}
+        <b>Submitted by:</b> ${escapeHtml(complaint.submitterEmail)}</p>
+        <p><b>What happened:</b><br>${escapeHtml(complaint.description).replace(/\n/g, "<br>")}</p>
+        <p><a href="${reviewUrl}">Review it on admin-complaints.html</a></p>`,
+    }),
+  });
+  if (!res.ok) {
+    console.error("Resend send failed (complaint notification):", res.status, await res.text());
+  }
+}
+
 // ---------------------------------------------------------------------
 // Auth: verify a magic link, start a session
 // ---------------------------------------------------------------------
@@ -345,6 +387,17 @@ async function submitComplaint(request, env) {
   await env.DB.prepare(
     `INSERT INTO complaint_messages (complaint_id, author_user_id, author_role, body) VALUES (?, ?, 'submitter', ?)`
   ).bind(inserted.id, user.id, description).run();
+
+  // Best-effort admin notification — never fail the submission itself over
+  // an email hiccup, the complaint is already safely saved above.
+  try {
+    await sendComplaintNotificationEmail(env, {
+      id: inserted.id, operatorName, title, description, amount,
+      submitterEmail: user.email,
+    });
+  } catch (e) {
+    console.error("New-complaint notification email failed:", e);
+  }
 
   return json({ ok: true, id: inserted.id, status: "pending_review" });
 }

@@ -26,10 +26,21 @@ function cbgRenderNavAuth(){
   if(CBG_USER){
     slot.innerHTML = `
       ${CBG_USER.is_admin ? `<a href="admin-complaints.html" class="link-muted">Admin</a>` : ""}
-      <a href="dashboard.html?file=1" id="cbgNavFileComplaint" class="theme-toggle" title="File a complaint" aria-label="File a complaint" onclick="return cbgFileComplaintNavClick()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></a>
-      <span class="link-muted" style="cursor:default;" title="${CBG_USER.email}">${cbgTruncateEmail(CBG_USER.email)}</span>
+      <div class="nav-user-menu" id="cbgUserMenu">
+        <button type="button" class="nav-user-trigger" onclick="cbgToggleUserMenu()" aria-haspopup="true" aria-expanded="false" aria-controls="cbgUserMenuPanel" title="${CBG_USER.email}">
+          <span class="nav-user-email">${cbgTruncateEmail(CBG_USER.email)}</span>
+          <svg class="nav-user-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-user-menu-panel" id="cbgUserMenuPanel">
+          <button type="button" class="nav-user-menu-item" onclick="return cbgUserMenuFileComplaint()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            File a complaint
+          </button>
+        </div>
+      </div>
       <button class="btn btn-outline btn-sm" onclick="cbgLogout()">Log out</button>
     `;
+    cbgBindUserMenuListeners();
   } else {
     slot.innerHTML = `
       <a href="#" class="link-muted" onclick="return cbgOpenAuthModal()">Log in</a>
@@ -38,12 +49,47 @@ function cbgRenderNavAuth(){
   }
   // Some pages also carry a duplicate "File a complaint" entry inside the
   // mobile hamburger panel (hidden by default in markup) — keep it in sync
-  // with login state too.
+  // with login state too. The top-bar dropdown above is desktop-only (see
+  // #cbgUserMenu's mobile breakpoint rule in each page's own stylesheet);
+  // this is how mobile users reach the same feature.
   const mobileItem = document.getElementById("mobileNavFileComplaint");
   if(mobileItem) mobileItem.style.display = CBG_USER ? "" : "none";
 }
 
-// Nav "File a complaint" click handler, shared by the top-bar button and the
+// ---- Nav "<email> ▾" dropdown (desktop) — currently just "File a
+// complaint", more items expected here later. --------------------------
+
+function cbgToggleUserMenu(){
+  const panel = document.getElementById("cbgUserMenuPanel");
+  const trigger = document.querySelector(".nav-user-trigger");
+  if(!panel || !trigger) return;
+  const isOpen = panel.classList.toggle("open");
+  trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+}
+function cbgCloseUserMenu(){
+  const panel = document.getElementById("cbgUserMenuPanel");
+  const trigger = document.querySelector(".nav-user-trigger");
+  if(panel) panel.classList.remove("open");
+  if(trigger) trigger.setAttribute("aria-expanded", "false");
+}
+let cbgUserMenuListenersBound = false;
+function cbgBindUserMenuListeners(){
+  if(cbgUserMenuListenersBound) return;
+  cbgUserMenuListenersBound = true;
+  document.addEventListener("click", e => {
+    const menu = document.getElementById("cbgUserMenu");
+    if(menu && !menu.contains(e.target)) cbgCloseUserMenu();
+  });
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape") cbgCloseUserMenu();
+  });
+}
+function cbgUserMenuFileComplaint(){
+  cbgCloseUserMenu();
+  return cbgFileComplaintNavClick();
+}
+
+// "File a complaint" click handler, shared by the nav dropdown item and the
 // mobile-panel duplicate. On dashboard.html itself (where the operator
 // picker + file-complaint modal actually live), open the picker in place
 // instead of navigating. On every other page, let the link through to
