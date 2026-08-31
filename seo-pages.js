@@ -94,6 +94,8 @@ function operatorMeta(op) {
   ];
   const review = reviewJsonLd(op);
   if (review) jsonLd.push(review);
+  const faq = faqJsonLd(op);
+  if (faq) jsonLd.push(faq);
   return {
     title: `${op.name} Review — Trust Score, KYC & Complaints | CryptoBetGrade`,
     description: `${op.name} reviewed: Trust Score ${op.score ?? "—"}/10, ${op.complaintStats.total} reported complaints, licensing, KYC stance, and payout reliability — independently assessed by CryptoBetGrade.`,
@@ -171,6 +173,43 @@ function reviewJsonLd(op) {
     author: { "@type": "Organization", name: "CryptoBetGrade", url: SITE_URL },
     publisher: { "@type": "Organization", name: "CryptoBetGrade", url: SITE_URL },
     reviewBody: op.overview ? (op.overview.length > 600 ? op.overview.slice(0, 597) + "…" : op.overview) : undefined,
+  };
+}
+
+// FAQ structured data for operator pages — built only from fields that
+// already exist in data.json (min deposit, markets, complaint counts), each
+// gated on the underlying field actually being present. No invented
+// content: an operator with no min-deposit figure simply gets no min-deposit
+// question, rather than a fabricated placeholder answer.
+function faqJsonLd(op) {
+  const qas = [];
+  qas.push({
+    q: `Is ${op.name} safe and trustworthy?`,
+    a: typeof op.score === "number" && !Number.isNaN(op.score)
+      ? `CryptoBetGrade rates ${op.name} ${op.score.toFixed(1)}/10 (${op.gradeLabel}), based on licensing, payout reliability, KYC practice, complaint record and terms fairness — see the full sourced breakdown on this page.`
+      : `${op.name} has not yet been assigned a Trust Score by CryptoBetGrade. See this page for the research completed so far.`,
+  });
+  if (op.sidebar?.minDeposit) {
+    qas.push({ q: `What is the minimum deposit at ${op.name}?`, a: op.sidebar.minDeposit });
+  }
+  if (op.stats?.markets) {
+    qas.push({ q: `What sports and markets does ${op.name} offer?`, a: op.stats.markets });
+  }
+  qas.push({
+    q: `How many complaints has ${op.name} received?`,
+    a: op.complaintStats.total > 0
+      ? `${op.complaintStats.total} publicly-sourced complaint${op.complaintStats.total === 1 ? "" : "s"} ${op.complaintStats.total === 1 ? "has" : "have"} been logged against ${op.name}, with ${op.complaintStats.ongoing} still unresolved or ongoing. See the full complaint log on this page for details and sources.`
+      : (op.complaintsNote || `No complaints have been logged against ${op.name} in CryptoBetGrade's research so far.`),
+  });
+  if (qas.length < 2) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: qas.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
   };
 }
 

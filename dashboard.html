@@ -686,6 +686,11 @@ main{padding:34px 0 74px!important;background:radial-gradient(560px 220px at 50%
 .sidebar-row .si-icon svg{width:13px!important;height:13px!important;}
 .sidebar-row .si-label{font-size:8.5px!important;}
 .sidebar-row .si-value{font-size:11px!important;line-height:1.35!important;}
+.similar-op-row{display:flex;align-items:center;gap:10px;padding:8px 4px;text-decoration:none;color:inherit;border-radius:8px;transition:background .15s;}
+.similar-op-row:hover{background:var(--brand-lighter);}
+.similar-op-logo{width:26px;height:26px;border-radius:7px;overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;background:var(--page);border:1px solid var(--line);}
+.similar-op-logo img{width:100%;height:100%;object-fit:contain;}
+.similar-op-name{flex:1;font-size:12.5px;font-weight:600;color:var(--ink);}
 .pc-grid{grid-template-columns:1fr!important;gap:0!important;}
 .pc-item{
   font-size:10.5px!important;
@@ -3481,6 +3486,36 @@ let lastDetailOpId = null;  // last operator id shown on the detail page, so swi
 function trustRingColor(cls){
   return { "badge-good":"var(--good)", "badge-warning":"var(--warning)", "badge-serious":"var(--serious)", "badge-critical":"var(--critical)" }[cls] || "var(--line)";
 }
+// Internal-linking block for operator review pages: links to a handful of
+// other reviewed operators so crawl paths and link equity spread across the
+// whole database instead of pooling only on /dashboard. Prefers operators
+// with a close Trust Score (a genuinely useful same-tier comparison); for
+// an operator with no score yet, falls back to the highest-scored other
+// operators rather than making a false "similar" claim.
+function similarOperatorsHtml(op){
+  const others = state.operators.filter(o => o.id !== op.id && o.score !== null && o.score !== undefined);
+  if(!others.length) return "";
+  const hasScore = op.score !== null && op.score !== undefined;
+  const picks = hasScore
+    ? others.slice().sort((a,b) => Math.abs(a.score-op.score) - Math.abs(b.score-op.score)).slice(0,4)
+    : others.slice().sort((a,b) => b.score - a.score).slice(0,4);
+  if(!picks.length) return "";
+  const heading = hasScore ? "Similar-tier sportsbooks" : "Top-rated sportsbooks";
+  return `
+    <div class="sidebar-box">
+      <div class="section-title" style="margin-top:0;">${heading}</div>
+      ${picks.map(o => {
+        const g = gradeInfo(o.score);
+        return `
+        <a class="similar-op-row" href="/sportsbooks/${o.id}">
+          <span class="similar-op-logo">${logoHtml(o)}</span>
+          <span class="similar-op-name">${o.name}</span>
+          <span class="score-badge ${g.cls}">${o.score.toFixed(1)}</span>
+        </a>`;
+      }).join("")}
+    </div>
+  `;
+}
 function gradeInfo(score){
   if(score===null || score===undefined) return { cls:"badge-unrated", label:"Not yet reviewed" };
   if(score>=8) return { cls:"badge-good", label:"Trusted" };
@@ -4218,6 +4253,7 @@ function renderOverviewTab(op, id, editing, ctx){
               <div class="section-title" style="margin-top:0;">Player rating</div>
               ${playerRatingWidgetHtml(op)}
             </div>
+            ${similarOperatorsHtml(op)}
           </div>
         </div>
       `}
