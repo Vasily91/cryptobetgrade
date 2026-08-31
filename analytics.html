@@ -2064,17 +2064,21 @@ html[data-theme="dark"] .explorer-name b{
 
 <script>
 // CryptoBetGrade-reviewed operators only — every entry below is matched against this
-// site's 32-operator roster and cross-checked against FairGambling's own casino
+// site's 36-operator roster and cross-checked against FairGambling's own casino
 // slug/name, using their /analytics "Crypto Casinos" 30-day market-share table
 // (expanded to 20 rows) plus each casino's own Analytics tab and the aggregate
-// "Wallet Balance" data for names ranked below that top 20 (checked 28 Aug 2026).
-// fgRank is each operator's position across FairGambling's full tracked roster by
-// 30D deposit volume, not just within the reviewed set here. Betpanda currently
-// sits in FairGambling's "crypto_new" bucket rather than "Crypto Casinos", so its
-// share is their raw market-wide % rather than one renormalized to that tab.
-// Everyone else FairGambling tracks that we don't review at all (Yeet, MetaWin,
-// Dicey, Gamba, etc.) is intentionally left out — not filtered by a toggle, just
-// never included.
+// "Wallet Balance" data for names ranked below that top 20 (checked 28 Aug 2026;
+// Yeet/Goated/Acebet/Chips.gg added and checked 31 Aug 2026, individually via
+// each casino's own Analytics tab since none place in FairGambling's top-20
+// table). fgRank is each operator's position across FairGambling's full tracked
+// roster by 30D deposit volume, not just within the reviewed set here. Betpanda
+// currently sits in FairGambling's "crypto_new" bucket rather than "Crypto
+// Casinos", so its share is their raw market-wide % rather than one renormalized
+// to that tab. Yeet/Goated/Acebet/Chips.gg's own Analytics tabs didn't surface a
+// 30-day % change figure, so "change" is left null (renders as "—") rather than
+// guessed. Everyone else FairGambling tracks that we don't review at all
+// (MetaWin, Dicey, Gamba, etc.) is intentionally left out — not filtered by a
+// toggle, just never included.
 const explorerData = [
   {name:"Stake",        slug:"stake",         domain:"stake.com",       fgRank:1,  share:49.36, volume:2019.63, deposits:3327.31, change:-5.4,  wallet:163.18},
   {name:"Roobet",       slug:"roobet",        domain:"roobet.com",      fgRank:2,  share:9.33,  volume:381.79,  deposits:664.55,  change:4.7,   wallet:29.27},
@@ -2088,6 +2092,7 @@ const explorerData = [
   {name:"Sportsbet.io", slug:"sportsbet-io",  domain:"sportsbet.io",    fgRank:11, share:1.37,  volume:56.20,   deposits:15.29,   change:-20.7, wallet:3.81},
   {name:"Thrill",       slug:"thrill",        domain:"thrill.com",      fgRank:13, share:1.24,  volume:50.77,   deposits:134.66,  change:-15.6, wallet:1.67},
   {name:"Winna",        slug:"winna",         domain:"winna.com",       fgRank:14, share:0.89,  volume:36.61,   deposits:58.00,   change:-9.5,  wallet:2.81},
+  {name:"Yeet",         slug:"yeet",          domain:"yeet.com",        fgRank:15, share:0.60,  volume:23.9,    deposits:35.1,    change:null,  wallet:2.4},
   {name:"Betpanda",     slug:"betpanda",      domain:"betpanda.io",     fgRank:16, share:0.60,  volume:26.33,   deposits:99.22,   change:9.6,   wallet:2.16},
   {name:"Cloudbet",     slug:"cloudbet",      domain:"cloudbet.com",    fgRank:19, share:0.59,  volume:24.26,   deposits:9.59,    change:-36.6, wallet:17.09},
   {name:"Duelbits",     slug:"duelbits",      domain:"duelbits.com",    fgRank:20, share:0.59,  volume:24.25,   deposits:43.52,   change:1.0,   wallet:7.37},
@@ -2095,7 +2100,10 @@ const explorerData = [
   {name:"Razed",        slug:"razed",         domain:"razedcasino.com", fgRank:22, share:0.54,  volume:22.28,   deposits:42.44,   change:-10.3, wallet:3.92},
   {name:"Rollbit",      slug:"rollbit",       domain:"rollbit.com",     fgRank:25, share:0.41,  volume:16.85,   deposits:38.45,   change:-67.6, wallet:0.15},
   {name:"BetFury",      slug:"betfury",       domain:"betfury.io",      fgRank:26, share:0.39,  volume:15.80,   deposits:36.77,   change:-2.7,  wallet:6.32},
-  {name:"SolCasino.io", slug:"solcasino-io",  domain:"solcasino.io",    fgRank:28, share:0.32,  volume:13.14,   deposits:56.69,   change:-19.6, wallet:10.05}
+  {name:"SolCasino.io", slug:"solcasino-io",  domain:"solcasino.io",    fgRank:28, share:0.32,  volume:13.14,   deposits:56.69,   change:-19.6, wallet:10.05},
+  {name:"Acebet",       slug:"acebet",        domain:"acebet.com",      fgRank:29, share:0.10,  volume:5.3,     deposits:9.7,     change:null,  wallet:0.167},
+  {name:"Goated",       slug:"goated",        domain:"goated.com",      fgRank:35, share:0.10,  volume:2.7,     deposits:18.6,    change:null,  wallet:1.4},
+  {name:"Chips.gg",     slug:"chips-gg",      domain:"chips.gg",        fgRank:43, share:0.00,  volume:1.2,     deposits:4.6,     change:null,  wallet:1.4}
 ];
 
 const metricMeta = {
