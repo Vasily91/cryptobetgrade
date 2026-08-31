@@ -85,16 +85,21 @@ export function matchSeoRoute(pathname) {
 // ---------------------------------------------------------------------
 
 function operatorMeta(op) {
+  const jsonLd = [
+    breadcrumb([
+      ["Home", `${SITE_URL}/`],
+      ["Sportsbooks", `${SITE_URL}/dashboard`],
+      [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
+    ]),
+  ];
+  const review = reviewJsonLd(op);
+  if (review) jsonLd.push(review);
   return {
     title: `${op.name} Review — Trust Score, KYC & Complaints | CryptoBetGrade`,
     description: `${op.name} reviewed: Trust Score ${op.score ?? "—"}/10, ${op.complaintStats.total} reported complaints, licensing, KYC stance, and payout reliability — independently assessed by CryptoBetGrade.`,
     canonicalPath: `/sportsbooks/${op.id}`,
     viewHtml: op.overviewHtml,
-    jsonLd: breadcrumb([
-      ["Home", `${SITE_URL}/`],
-      ["Sportsbooks", `${SITE_URL}/dashboard.html`],
-      [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
-    ]),
+    jsonLd,
   };
 }
 
@@ -104,12 +109,12 @@ function operatorComplaintsMeta(op) {
     description: `${op.complaints.length} publicly-sourced complaints reported against ${op.name}, with outcomes, disputed amounts, and links to the original source.`,
     canonicalPath: `/sportsbooks/${op.id}/complaints`,
     viewHtml: op.complaintsHtml,
-    jsonLd: breadcrumb([
+    jsonLd: [breadcrumb([
       ["Home", `${SITE_URL}/`],
-      ["Sportsbooks", `${SITE_URL}/dashboard.html`],
+      ["Sportsbooks", `${SITE_URL}/dashboard`],
       [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
       ["Complaints", `${SITE_URL}/sportsbooks/${op.id}/complaints`],
-    ]),
+    ])],
   };
 }
 
@@ -121,13 +126,13 @@ function complaintMeta(op, c) {
     description: `${op.name} complaint: ${c.whatHappened.length > 180 ? c.whatHappened.slice(0, 177) + "…" : c.whatHappened}`,
     canonicalPath: `/complaints/${c.slug}`,
     viewHtml: c.html,
-    jsonLd: breadcrumb([
+    jsonLd: [breadcrumb([
       ["Home", `${SITE_URL}/`],
-      ["Sportsbooks", `${SITE_URL}/dashboard.html`],
+      ["Sportsbooks", `${SITE_URL}/dashboard`],
       [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
       ["Complaints", `${SITE_URL}/sportsbooks/${op.id}/complaints`],
       [phrase, `${SITE_URL}/complaints/${c.slug}`],
-    ]),
+    ])],
   };
 }
 
@@ -136,6 +141,36 @@ function breadcrumb(items) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: items.map(([name, item], i) => ({ "@type": "ListItem", position: i + 1, name, item })),
+  };
+}
+
+// Single-review structured data so eligible operator pages can show a star
+// rating in Google search results. Only emitted when op.score is a real
+// number (Trust Score is left null for a handful of very new/thin-data
+// operators — no score means no fabricated rating). Uses the editorial
+// "Review" type (one review, by CryptoBetGrade, of the operator), not
+// AggregateRating — we don't aggregate multiple third-party ratings, this
+// is our own independently-researched assessment.
+function reviewJsonLd(op) {
+  if (typeof op.score !== "number" || Number.isNaN(op.score)) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    itemReviewed: {
+      "@type": "Organization",
+      name: op.name,
+      url: `${SITE_URL}/sportsbooks/${op.id}`,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: op.score,
+      bestRating: 10,
+      worstRating: 0,
+    },
+    name: `${op.name} Review`,
+    author: { "@type": "Organization", name: "CryptoBetGrade", url: SITE_URL },
+    publisher: { "@type": "Organization", name: "CryptoBetGrade", url: SITE_URL },
+    reviewBody: op.overview ? (op.overview.length > 600 ? op.overview.slice(0, 597) + "…" : op.overview) : undefined,
   };
 }
 
@@ -174,15 +209,36 @@ export async function renderSeoPage(match, env, request) {
   let html = await dashResp.text();
   if (!html.includes('<div class="wrap" id="view"></div>')) return null;
 
+  // dashboard.html (the template this fetches) now carries its own static
+  // description/canonical/OG/Twitter tags for when /dashboard is visited
+  // directly. Strip those before grafting this route's page-specific ones
+  // in below, or the page would ship two conflicting canonical links and
+  // two meta descriptions — Search Console treats duplicate canonicals as
+  // an invalid signal and effectively ignores both.
+  html = html
+    .replace(/<meta name="description"[^>]*>\n?/i, "")
+    .replace(/<link rel="canonical"[^>]*>\n?/i, "")
+    .replace(/<meta property="og:[^"]*"[^>]*>\n?/gi, "")
+    .replace(/<meta name="twitter:[^"]*"[^>]*>\n?/gi, "");
+
   const canonical = `${SITE_URL}${meta.canonicalPath}`;
+  const jsonLdBlocks = meta.jsonLd.map(obj => `<script type="application/ld+json">${JSON.stringify(obj)}</script>`).join("\n");
   const headExtra = `<base href="/">
 <meta name="description" content="${esc(meta.description)}">
 <link rel="canonical" href="${canonical}">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="CryptoBetGrade">
 <meta property="og:title" content="${esc(meta.title)}">
 <meta property="og:description" content="${esc(meta.description)}">
 <meta property="og:url" content="${canonical}">
-<script type="application/ld+json">${JSON.stringify(meta.jsonLd)}</script>
+<meta property="og:image" content="${SITE_URL}/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(meta.title)}">
+<meta name="twitter:description" content="${esc(meta.description)}">
+<meta name="twitter:image" content="${SITE_URL}/og-image.png">
+${jsonLdBlocks}
 </head>`;
 
   html = html.replace(/<title>.*?<\/title>/s, `<title>${esc(meta.title)}</title>`);
