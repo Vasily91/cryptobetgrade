@@ -1144,7 +1144,11 @@ const ANNUAL_VOLUME = {
   "Duelbits":  { amount:   200000000, yoy: "0% YoY" },
   "Shuffle":   { amount:  2340000000, yoy: "+41% YoY" },
   "Duel":      { amount:  1020000000, yoy: null },
-  "BetFury":   { amount:   351000000, yoy: "+61% YoY" }
+  "BetFury":   { amount:   351000000, yoy: "+61% YoY" },
+  "Yeet":      { amount:   236000000, yoy: null },
+  "Goated":    { amount:    50900000, yoy: "+135% YoY" },
+  "Chips.gg":  { amount:    47300000, yoy: "+149% YoY" },
+  "Acebet":    { amount:    29900000, yoy: null }
 };
 
 // Reliability score (0-10) — placeholder metric, NOT yet backed by a defined
@@ -1201,7 +1205,11 @@ const KYC_STANCE = {
   "bet105.ag":      "conditional",
   "Rollbit":        "conditional",
   "StakeUS":        "conditional",
-  "Sportsbet.io":   "conditional"
+  "Sportsbet.io":   "conditional",
+  "Yeet":           "conditional",
+  "Goated":         "conditional",
+  "Chips.gg":       "conditional",
+  "Acebet":         "conditional"
 };
 const KYC_STANCE_LABEL = {
   conditional: "KYC conditional",
@@ -1422,7 +1430,11 @@ const KEY_PROS = {
   "bet105.ag": ["No stated country restrictions"],
   "Rollbit": ["25+ cryptocurrencies accepted"],
   "StakeUS": ["No maximum withdrawal limit","20+ cryptocurrencies accepted","Generous rakeback"],
-  "Sportsbet.io": ["Operating since 2016 — established track record"]
+  "Sportsbet.io": ["Operating since 2016 — established track record"],
+  "Yeet": ["No routine KYC below ~$10K withdrawals","VC-backed ($7.75M raise led by Dragonfly)","Near-instant crypto withdrawals reported"],
+  "Goated": ["Casino-only, 2,000+ games","~29.5% rakeback measured by a third-party tester","No complaints found in this research pass"],
+  "Chips.gg": ["Established since 2020","Sportsbook via BETBY odds provider","No-fee withdrawals advertised"],
+  "Acebet": ["Sportsbook covers 25+ sports plus major esports titles","Fiat deposits reported crediting in ~5 minutes"]
 };
 const KEY_CONS = {
   "SolCasino.io": ["No live chat support","Account may be closed for arbitrage betting"],
@@ -1456,7 +1468,11 @@ const KEY_CONS = {
   "bet105.ag": [],
   "Rollbit": [],
   "StakeUS": [],
-  "Sportsbet.io": ["Casino.Guru Safety Index only 5.9/10 (\"Below Average\")"]
+  "Sportsbet.io": ["Casino.Guru Safety Index only 5.9/10 (\"Below Average\")"],
+  "Yeet": ["No traditional welcome bonus","US residents excluded","Restricted-country list not independently confirmed beyond the US"],
+  "Goated": ["No sportsbook","Restricted in the US and EU","No fixed KYC threshold published"],
+  "Chips.gg": ["\"No KYC\" marketing conflicts with a disclosed ~$2,000 verification trigger","One reviewer reported ~$4+ BTC withdrawal fees despite fee-free marketing","Restricted in 25+ countries including the US, Australia and Belgium"],
+  "Acebet": ["Newest operator here (2025 launch), little track record","Bonus terms reportedly undisclosed until after signup and deposit","Multiple 2026 complaints describe accounts banned/frozen with funds withheld, mostly unresolved","Restricted in 7+ countries including the UK, Switzerland and Poland"]
 };
 // Distilled from the same TERMS_INFO bonus/withdrawal/kyc text already on this
 // profile — see below for the full prose these summarize.
@@ -1652,6 +1668,30 @@ const BONUS_KYC_CHECKLIST = {
     { ok: false, text: "Sportsbook wagering: 10x at minimum 1.50 odds within 7 days; can rise to 5x deposit turnover if anti-abuse checks trigger" },
     { ok: true, text: "Crypto withdrawals reported from near-instant up to about 24 hours after approval" },
     { ok: false, text: "KYC can be triggered from roughly €2,500 in deposits or on AML flags, per third-party sources" }
+  ],
+  "Yeet": [
+    { ok: false, text: "No traditional deposit-match welcome bonus — rewards instead come from a $15,000 weekly \"Chairman's Cup\" leaderboard and rakeback" },
+    { ok: true, text: "No routine KYC for standard play" },
+    { ok: false, text: "KYC becomes mandatory above roughly $10,000 in withdrawals, or for VIP-tier perks" },
+    { ok: true, text: "Crypto withdrawals reported arriving within minutes" }
+  ],
+  "Goated": [
+    { ok: true, text: "VIP tier system (Bronze through Diamond) with daily/weekly/monthly bonuses and level-up rewards" },
+    { ok: true, text: "Third-party testing measured roughly 29.5% rakeback on theoretical losses" },
+    { ok: false, text: "KYC checks apply as an anti-fraud/AML measure, with no fixed dollar threshold published" },
+    { ok: true, text: "Reviewed as \"instant\" payouts with no stated withdrawal cap" }
+  ],
+  "Chips.gg": [
+    { ok: false, text: "No traditional deposit-match welcome bonus" },
+    { ok: true, text: "Rakeback tiers (4-9.5% level-up, 5% weekly/monthly, 2-3% lossback) plus a ~$100,000 leaderboard/raffle pool" },
+    { ok: false, text: "Marketed as \"no KYC,\" but verification is reportedly mandatory from roughly $1 BTC / $2,000 in withdrawals" },
+    { ok: false, text: "One reviewer reported ~$4+ BTC withdrawal fees despite fee-free marketing, and a rakeback-calculation bug unresolved for over a week" }
+  ],
+  "Acebet": [
+    { ok: false, text: "Welcome offer terms reportedly weren't disclosed until after signup and a deposit had been made, per one reviewer" },
+    { ok: true, text: "Fiat deposits reported crediting within about 5 minutes" },
+    { ok: false, text: "KYC policy not clearly disclosed; several AskGamblers complaints describe accounts banned or frozen after weeks/months of verified play" },
+    { ok: false, text: "5 of 6 AskGamblers complaints found remain unresolved, with disputed amounts from $426 to €1,859" }
   ]
 };
 const PROFILE_SIDEBAR = {
@@ -1916,6 +1956,38 @@ const PROFILE_SIDEBAR = {
     minDeposit: "",
     cryptocurrencies: "BTC, ETH, LTC, USDT, XRP, ADA, BNB, LINK, SOL",
     source: "cryptoslate.com; casino.guru (third-party — official terms weren't independently fetched)", checked: "2026-08-24"
+  },
+  "Yeet": {
+    license: "Anjouan, Union of Comoros (licence ALSI-202410037-FI2)",
+    launched: "2024",
+    welcomeBonus: "No traditional match bonus; $15,000 weekly leaderboard + rakeback + VIP tier-matching",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, SOL, TON, TRX, XRP, BNB, LTC, plus DOGE/SHIB/PEPE/BONK (availability varies by region)",
+    source: "bitcoinchaser.com; vip-grinders.com; sigma.world (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Goated": {
+    license: "Anjouan, Union of Comoros (licence ALSI-202411063-FI2)",
+    launched: "2024",
+    welcomeBonus: "No deposit-match bonus; VIP tier system (Bronze-Diamond) with rakeback and an estimated $175,000 leaderboard/raffle pool",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, SOL, BNB, TRX, XRP, LTC, USDT, USDC across 7 chains, plus SHFL and the platform's own GOATED token",
+    source: "fairgambling.com; thespike.gg (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Chips.gg": {
+    license: "Anjouan, Union of Comoros",
+    launched: "2020",
+    welcomeBonus: "No deposit-match bonus; rakeback tiers (~23.5% combined) plus a ~$100,000 leaderboard/raffle pool",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, BNB, USDT, USDC, SOL, TRX, XRP, LTC, SHIB, DAI across 7 chains",
+    source: "fairgambling.com; gamblingbro.com (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Acebet": {
+    license: "Anjouan, Union of Comoros (licence #15831)",
+    launched: "2025",
+    welcomeBonus: "Varies by region; one reviewer received $1 free plus a 100% deposit match at 10x wagering, with terms undisclosed until after signup/deposit",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, BCH, ETH, LTC, XRP, TRX, plus fiat via card/regional methods through a third-party converter",
+    source: "thespike.gg (third-party — official terms not independently fetched)", checked: "2026-08-31"
   }
 };
 const PROFILE_STATS = {
@@ -2174,6 +2246,38 @@ const PROFILE_STATS = {
     support: null,
     mobileApp: null,
     source: "cryptoslate.com; casino.guru (third-party)", checked: "2026-08-24"
+  },
+  "Yeet": {
+    markets: "Casino + sportsbook",
+    oddsFormat: null,
+    maxWin: null,
+    support: null,
+    mobileApp: null,
+    source: "bitcoinchaser.com; vip-grinders.com (third-party)", checked: "2026-08-31"
+  },
+  "Goated": {
+    markets: "Casino only — no sportsbook or esports betting found",
+    oddsFormat: null,
+    maxWin: "No withdrawal cap stated",
+    support: null,
+    mobileApp: null,
+    source: "fairgambling.com; thespike.gg (third-party)", checked: "2026-08-31"
+  },
+  "Chips.gg": {
+    markets: "Casino + sportsbook (powered by BETBY, ~6.21% average house edge per one reviewer)",
+    oddsFormat: null,
+    maxWin: null,
+    support: null,
+    mobileApp: null,
+    source: "fairgambling.com (third-party)", checked: "2026-08-31"
+  },
+  "Acebet": {
+    markets: "Casino (2,065+ games) + sportsbook (25+ sports) + esports (CS2, Dota 2, Valorant, FIFA/FC 25, Mobile Legends, Rainbow Six, PUBG, Tekken, World of Warcraft and others)",
+    oddsFormat: null,
+    maxWin: null,
+    support: "24/7 live chat",
+    mobileApp: "Web-only — no dedicated mobile app per one reviewer",
+    source: "thespike.gg (third-party)", checked: "2026-08-31"
   }
 };
 
@@ -2283,6 +2387,10 @@ const RESTRICTED_COUNTRIES = {
   // codes here lists only Lithuania (directly confirmed) rather than trying to enumerate every one of
   // the ~190 non-US countries this US-only model implies — see the note for the fuller picture.
   "StakeUS": { codes:["LT"], confidence:"partial", note:"StakeUS runs a US-only sweepstakes-style model rather than Stake.com's internationally-available real-money product — its own Help Center describes it as built for US players and lists 21 restricted US states, and a third-party review (tribalfootball.com) states it's simply not available outside the United States at all. In practice that means it's blocked for essentially every non-US visitor, Lithuania included (directly confirmed) — this codes list only names Lithuania rather than exhaustively listing every other non-US country." },
+  "Yeet": { codes:["US"], confidence:"partial", note:"Yeet excludes US residents due to licensing constraints per its own funding-announcement coverage (sigma.world). A third-party 'allowed countries' page lists a long set of accepted territories including Lithuania, but names no explicit blocked-country list beyond the US exclusion and a general 'restricted in your area' geoblock message — treated as unconfirmed beyond the US exclusion." },
+  "Goated": { codes:["US"], confidence:"partial", note:"fairgambling.com's review states Goated restricts \"United States, European Union\" without naming individual EU member states — codes here list only the US explicitly; the EU-wide claim isn't broken out country-by-country by the source." },
+  "Chips.gg": { codes:["US","AU","BE"], confidence:"partial", note:"fairgambling.com names the United States, Australia and Belgium explicitly but says the full restricted list runs to \"22 additional nations\" without naming them — this codes list only the three explicitly named countries." },
+  "Acebet": { codes:["US","NL","CH","GB","CY","KY","PL"], confidence:"partial", note:"thespike.gg names the US, Netherlands, Switzerland, UK, Cyprus, the Cayman Islands and Poland as restricted; the operator's own terms weren't independently readable to confirm or expand this list." },
 };
 
 // Real player-reported complaint case files, built from two research passes:
@@ -2564,6 +2672,22 @@ const COMPLAINT_REPORTS = {
     { id:"csu1", title:"$6,117 redeemed from account without authorization after a phishing scam", category:"Account", issueTag:"Account compromised / unauthorized redemption", priority:"B", amount:"$6,117", status:"Rejected", verified:true, source:"Better Business Bureau (BBB)", sourceUrl:"https://www.bbb.org/us/tx/dallas/profile/online-casino/stakeus-0875-91339580/complaints", whatHappened:"The complainant told BBB that $6,117 was redeemed from their StakeUS account without authorization after they followed what was described as a bonus link and entered their login details.", operatorReason:"StakeUS said the user had used an unauthorized link and had been the victim of a Telegram scam, that account credentials are the user's own responsibility, and declined to refund the funds." },
     { id:"csu2", title:"Approved $200 redemption reversed and made subject to new playthrough requirements", category:"Account", issueTag:"Winning bets voided after settlement", priority:"B", amount:"$200", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/gambling/comments/1pcstvw/i_officially_hate_stake_us/", whatHappened:"Player reported that an approved $200 redemption was returned to the Stake.US balance and subsequently became subject to playthrough requirements following later purchases.", operatorReason:"" },
     { id:"csu3", title:"Game displayed ~$6,349 balance before account showed $1.17; payout declined", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"~$6,349 displayed balance", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/onlinegambling/comments/1ufztqe/stakeus_did_me_so_dirty/", whatHappened:"Player alleged a game displayed a balance around $6,349 before the account balance showed $1.17. Support reportedly said the game display could lag and declined to pay the displayed amount. This is an allegation about a display/game-balance dispute, not a confirmed confiscation.", operatorReason:"Cited a display/game-balance lag, per the player's account of support's response" }
+  ]},
+  // Chips.gg and Acebet added 2026-08-31. Yeet and Goated (added same pass)
+  // had no complaints found on AskGamblers, Casino Guru or Trustpilot in this
+  // research — not included here rather than left ambiguous; see their
+  // COMPANY_INFO overview for that note.
+  "Chips.gg": { items: [
+    { id:"cchg1", title:"Account blocked over disputed age-verification during signup", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"~$2,000-$3,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://de.casino.guru/beschwerden/chips-gg-casino-das-konto-des-spielers-wurde-gesperrt", whatHappened:"Player said the account was blocked after successfully withdrawing $10,000 and accumulating a further $2,000-$3,000, and reported no response from support via email, Discord or Telegram. Chips.gg told Casino Guru the account had been registered using a false birthdate indicating the player was a minor at signup. Casino Guru sided with the operator and closed the complaint as unjustified.", operatorReason:"Account registered as a minor with false registration information, per the operator" },
+    { id:"cchg2", title:"$148 balance stuck after an incorrect email address at signup", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"$148", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://de.casino.guru/chips-gg-casino-die-auszahlung-des-spielers-hat-sich", whatHappened:"Player said a $148 balance had been stuck for two weeks because an incorrect email address entered at registration blocked account verification for withdrawal, despite still being able to log in. Casino Guru found the player had breached the casino's terms by submitting inaccurate registration details and closed the complaint as unjustified.", operatorReason:"Accurate registration details are required for verification, per the casino's Terms and Conditions" }
+  ]},
+  "Acebet": { items: [
+    { id:"cace1", title:"Account banned; €1,859 withheld, support unreachable", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€1,859", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-account-banned-and-1859-euros-withheld-unable-to-contact-support", whatHappened:"Player reported a permanent account ban with €1,859 withheld despite having a verified profile, and said they were unable to reach support to get an explanation. The complaint is recorded as unresolved.", operatorReason:"" },
+    { id:"cace2", title:"Account banned after months of verified play; $1,500 withdrawal blocked", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$1,500", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-withdrawal-issue-banned-account", whatHappened:"Player said the account was banned after several months of verified play, blocking access to a $1,500 withdrawal. The complaint is recorded as unresolved.", operatorReason:"" },
+    { id:"cace3", title:"Account blocked and ~$1,300 in winnings taken with no reason given", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"~$1,300", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-blocked-my-account-and-took-my-winnings-for-no-reason", whatHappened:"Player said a $400 deposit grew to about $1,300 in winnings, after which the account was blocked and the winnings confiscated without an explanation given.", operatorReason:"" },
+    { id:"cace4", title:"Account banned for \"TOS violation\"; $426 withheld, support unreachable", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$426", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-account-banned-and-426-usd-withheld-unable-to-contact-support", whatHappened:"Player reported a permanent ban cited only as a \"TOS violation,\" with $426 withheld and no further explanation. The player said the casino had become unreachable for support.", operatorReason:"Cited only as a \"TOS violation,\" per the player — no further detail given" },
+    { id:"cace5", title:"Account frozen with no reason given; $968 disputed", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$968", status:"Rejected", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-unfair-and-unreasonable-freezing-of-accounts", whatHappened:"Player said the account was frozen without explanation after only a few days of play. AskGamblers's review of the case sided with the operator and closed the complaint as rejected.", operatorReason:"" },
+    { id:"cace6", title:"Account frozen; $986 USDT trapped", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$986 USDT", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-unreasonable-freezing-of-my-account", whatHappened:"Player said the account was frozen without explanation, leaving $986 in USDT inaccessible. The complaint is recorded as unresolved.", operatorReason:"" }
   ]}
 };
 /* AUTO-GENERATED:COMPLAINT_SLUGS:START — regenerate with tools/patch-dashboard.mjs, do not hand-edit */
@@ -2734,6 +2858,22 @@ const COMPANY_INFO = {
   "Sportsbet.io": {
     overview: "Sportsbet.io is a crypto sportsbook and casino founded in 2016, operated by mBet Solutions N.V. under a Curaçao Gaming Authority licence (OGL/2023/110/0072). Independent coverage in late 2025 reported mBet Solutions' parent group was considering consolidating or winding down some of its legacy betting sites — worth monitoring, though Sportsbet.io itself remains active as of this review.",
     ownership: { parent: "mBet Solutions N.V.", jurisdiction: "Curaçao (Gaming Authority licence OGL/2023/110/0072)", related: "" }
+  },
+  "Yeet": {
+    overview: "Yeet (yeet.com) is a crypto casino and sportsbook that launched in 2024, positioned by its founders as \"Crypto's Casino — built by crypto people, for crypto people.\" It was co-founded by pseudonymous crypto personalities Mando and Keyboard Monkey alongside professional poker player Ben Lamb, and raised $7.75 million in a round led by crypto venture fund Dragonfly, with angel backing from Pudgy Penguins CEO Luca Netz and LayerZero CEO Bryan Pellegrino. The operator is Pao Chai Ventures B.V. Rather than a traditional deposit-match welcome bonus, Yeet runs ongoing rewards — a $15,000 weekly \"Chairman's Cup\" leaderboard, instant rakeback, and a program that lets new users transfer VIP status earned at other casinos. US residents are excluded due to licensing constraints. No complaints were found for Yeet on AskGamblers, Casino Guru or Trustpilot in this research pass — plausibly reflecting its short track record rather than a confirmed clean record.",
+    ownership: { parent: "Pao Chai Ventures B.V.", jurisdiction: "Anjouan, Union of Comoros — gaming licence ALSI-202410037-FI2", related: "" }
+  },
+  "Goated": {
+    overview: "Goated (goated.com) is a crypto casino — no sportsbook or esports betting was found on the platform — operated by Mirai Kaze Ltd (Anjouan registration ANJ 901) and launched in 2024. It runs a VIP tier system (Bronze through Diamond, based on XP) with daily, weekly and monthly bonuses, a level-up rakeback program measured by one third-party reviewer at roughly 29.5% on theoretical losses, and an estimated $175,000 leaderboard/raffle pool. SHFL (Shuffle.com's token) is accepted as a deposit currency alongside Goated's own GOATED token — reviewers note this doesn't indicate any ownership relationship to Shuffle.com, just an accepted asset. No complaints were found for Goated on AskGamblers, Casino Guru or Trustpilot in this research pass.",
+    ownership: { parent: "Mirai Kaze Ltd (Anjouan, registration ANJ 901)", jurisdiction: "Anjouan, Union of Comoros — gaming licence ALSI-202411063-FI2", related: "" }
+  },
+  "Chips.gg": {
+    overview: "Chips.gg (chips.gg) is a crypto casino and sportsbook operated by Notyarg Ltd, live since 2020 — the oldest of the operators added in this pass. Its sportsbook runs on the BETBY odds-provider platform (the same provider whose flagging of sports bets shows up repeatedly in this database's Betpanda complaint history), advertised with roughly a 6.21% average house edge by one reviewer. Chips.gg markets itself as \"no KYC,\" but one reviewer found verification mandatory from roughly $1 BTC or $2,000 in withdrawals, and reported withdrawal fees (~$4+ in BTC) that contradicted the platform's fee-free marketing, plus a rakeback-calculation bug that went unresolved for over a week. Two real complaints were found on Casino Guru, both involving account-verification disputes (a disputed minor-registration finding and an incorrect-email lockout) that Casino Guru resolved in the operator's favor after finding the player had breached the casino's terms.",
+    ownership: { parent: "Notyarg Ltd", jurisdiction: "Anjouan, Union of Comoros", related: "" }
+  },
+  "Acebet": {
+    overview: "Acebet (acebet.com, also seen at acebet.co) is a crypto casino and sportsbook operated by Golden Frog Inc, launched in 2025 under an Anjouan gaming licence (#15831 per one reviewer). It's the newest and smallest of the operators added here, and already carries a real complaint record: AskGamblers lists six complaints, five of them unresolved as of this check, describing a recurring pattern — accounts banned or frozen, often after weeks or months of what players describe as verified play, with balances from $426 to €1,859 withheld and, in several cases, players reporting no working way to reach support. One further complaint was rejected after AskGamblers sided with the operator. A reviewer also noted the welcome-bonus terms weren't disclosed until after signup and a deposit was made. Given the short track record and this complaint pattern, this profile should be treated as an early read rather than a settled assessment.",
+    ownership: { parent: "Golden Frog Inc", jurisdiction: "Anjouan, Union of Comoros — gaming licence #15831 (third-party sourced, not independently confirmed against an official registry)", related: "" }
   }
 };
 
@@ -2774,7 +2914,11 @@ const JURISDICTION_SHORT = {
   "BetFury": "Curaçao",
   "bet105.ag": "Curaçao",
   "Rollbit": "Curaçao",
-  "Sportsbet.io": "Curaçao"
+  "Sportsbet.io": "Curaçao",
+  "Yeet": "Anjouan",
+  "Goated": "Anjouan",
+  "Chips.gg": "Anjouan",
+  "Acebet": "Anjouan"
 };
 function jurisdictionShort(op){
   return JURISDICTION_SHORT[op.name] || op.ownership?.jurisdiction || "";
@@ -2952,6 +3096,26 @@ const TERMS_INFO = {
     bonus: { text: "Welcome offer is 100% up to $300 USDT (availability varies by region). Sportsbook wagering requires 10x the bonus amount at minimum 1.50 odds within 7 days; the standard deposit-turnover requirement is 1x before withdrawal, but that can rise to as much as 5x if anti-abuse checks flag the account.", source: "cryptoslate.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-24" },
     withdrawal: { text: "Sources disagree: Casino.Guru's review describes crypto withdrawals as effectively instant, while CryptoSlate reports crypto withdrawals taking up to about 24 hours after approval, e-wallet withdrawals same-day, and bank transfers 1–3 business days.", source: "casino.guru; cryptoslate.com (third-party, conflicting on crypto speed)", checked: "2026-08-24" },
     kyc: { text: "Described as risk-based: standard verification (photo ID, proof of address) plus enhanced due diligence (source-of-funds documentation, selfie) for larger withdrawals. KYC is reportedly triggered from around €2,500 in deposits or when anti-money-laundering flags occur.", source: "cryptoslate.com (third-party — figure not confirmed in official terms)", checked: "2026-08-24" }
+  },
+  "Yeet": {
+    bonus: { text: "No traditional deposit-match welcome bonus. Instead, Yeet runs a $15,000 weekly leaderboard competition (\"Chairman's Cup\"), instant rakeback, and a VIP tier-matching program that carries over status earned at other casinos.", source: "bitcoinchaser.com; vip-grinders.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Crypto-only withdrawals, reported by multiple third-party reviews as arriving within minutes once approved; larger amounts may take longer depending on blockchain congestion. No internal withdrawal fee stated beyond standard network costs.", source: "bitcoinchaser.com; vip-grinders.com (third-party — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "No routine KYC required for standard crypto play, per third-party reviews. Verification becomes mandatory above roughly $10,000 in withdrawals or for VIP-tier perks, and is separately triggered when buying crypto through the built-in MoonPay on-ramp.", source: "bitcoinchaser.com (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Goated": {
+    bonus: { text: "No traditional deposit-match welcome bonus. A VIP tier system (Bronze through Diamond, based on XP) pays daily, weekly and monthly bonuses plus level-up rewards; one third-party tester measured roughly 29.5% rakeback on theoretical losses, and the source cites an estimated $175,000 leaderboard/raffle pool.", source: "fairgambling.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Reviewed as offering instant payouts with no withdrawal cap; minimums vary by coin (e.g. ~0.0011 ETH, ~$3.01+ USDT) with fees around the same size as the minimum.", source: "fairgambling.com (third-party — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "Marketed with no ID verification required for standard play, but the operator's compliance framework includes KYC/AML checks that a reviewer says may be triggered at withdrawal, particularly for larger amounts or unusual patterns. No fixed dollar threshold is published.", source: "fairgambling.com; thespike.gg (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Chips.gg": {
+    bonus: { text: "No traditional deposit-match welcome bonus. Rakeback tiers combine to an estimated 23.5%: 4-9.5% level-up bonus, 5% weekly/monthly bonuses, and 2-3% lossback on losses, plus an estimated $100,000 leaderboard/raffle pool.", source: "fairgambling.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Sources disagree: fairgambling.com describes withdrawal fees as free with a 10,000-unit daily limit but marks speed as \"delayed\"; a separate reviewer (gamblingbro.com) reported real-world Bitcoin withdrawal fees of roughly $4+ against an $0.85 deposit fee, contradicting the fee-free marketing.", source: "fairgambling.com; gamblingbro.com (third-party, conflicting — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "Marketed as \"no KYC\" with ID verification listed as \"never\" required for standard play, but a reviewer found verification mandatory once withdrawals reach roughly $1 BTC or $2,000 in value, with additional checks possible for large withdrawals or suspicious activity.", source: "fairgambling.com; gamblingbro.com (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Acebet": {
+    bonus: { text: "Welcome offer varies by region; one reviewer received $1 free plus a 100% deposit-match bonus at 10x wagering, but says the exact terms weren't shown until after signup and a deposit had already been made.", source: "thespike.gg (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Fiat deposits reported crediting within about 5 minutes; withdrawal-specific timing wasn't detailed by the source. Six AskGamblers complaints (checked 2026-08-31) describe delayed or blocked withdrawals tied to account bans/freezes, five of them unresolved, with disputed amounts from $426 to €1,859.", source: "thespike.gg; askgamblers.com (third-party — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "Account creation is required but a specific KYC policy/threshold isn't clearly disclosed on official pages found. Several AskGamblers complaints describe accounts being banned or frozen — in one case cited only as a \"TOS violation\" with no further explanation — after weeks or months of what players describe as verified play.", source: "thespike.gg; askgamblers.com (third-party — official terms not independently fetched)", checked: "2026-08-31" }
   }
 };
 
@@ -3064,7 +3228,42 @@ const TRUST_BREAKDOWN = {
   // AML flags), though the threshold itself is third-party-sourced, not pulled
   // from Sportsbet.io's own official terms. tc:8 — Casino.guru's T&C review
   // found no unfair or predatory clauses. Weighted score ≈7.5/10.
-  "Sportsbet.io":  { licence:9, payout:7, complaintsRec:6, kyc:8, tc:8 }
+  "Sportsbet.io":  { licence:9, payout:7, complaintsRec:6, kyc:8, tc:8 },
+  // Yeet, Goated, Chips.gg, Acebet — added 2026-08-31, independently researched
+  // (third-party sources only; none of the four have JS-readable official
+  // terms pages that could be fetched directly).
+  // licence:9 for Yeet/Goated/Chips.gg — each has a real, currently-valid
+  // Anjouan licence with no reported lapse or scope dispute found. Acebet gets
+  // licence:8 instead — a licence number was found (#15831) but only via one
+  // reviewer, not cross-checked against a registry, and it's a brand-new 2025
+  // operator with no independent track record yet.
+  // payout:6 for Yeet/Goated — third-party reviews consistently describe fast
+  // ("instant"/"minutes") payouts and no complaints were found, but that's
+  // unverified against official terms and could reflect low sample size more
+  // than confirmed reliability. Chips.gg payout:6 too, for conflicting
+  // fee/speed reports (fee-free + delayed vs. real ~$4+ BTC fees found by a
+  // reviewer). Acebet payout:3 — the clear outlier: AskGamblers logs six
+  // complaints describing withheld balances tied to account bans/freezes.
+  // complaintsRec stays at the neutral 5/10 default for Yeet/Goated (no
+  // complaints found, but too new/small a track record to credit further).
+  // Chips.gg gets 7/10 — the two complaints found were both resolved in the
+  // operator's favor over genuine player-side terms breaches (false minor
+  // registration, incorrect email), a mild positive signal rather than a
+  // concern. Acebet gets 3/10 — six AskGamblers complaints for a brand-new,
+  // low-volume 2025 operator is a high rate, and five of six are unresolved.
+  // kyc: Yeet 7 (disclosed ~$10K threshold, third-party only), Goated 8
+  // (light-touch, AML-only framing), Chips.gg 6 ("no KYC" marketing conflicts
+  // with a disclosed $2K trigger found by a reviewer), Acebet 5 (no clear
+  // policy found; complaint pattern suggests inconsistent/discretionary
+  // enforcement).
+  // tc: Yeet 6 and Goated 6 (no red flags found, but not deeply reviewed).
+  // Chips.gg 6 (no major clause issues found; rakeback-dispute friction noted
+  // instead). Acebet 4 — a reviewer's finding that bonus terms were withheld
+  // until after signup and deposit is a real T&C-transparency concern.
+  "Yeet":          { licence:9, payout:6, complaintsRec:5, kyc:7, tc:6 },
+  "Goated":        { licence:9, payout:6, complaintsRec:5, kyc:8, tc:6 },
+  "Chips.gg":      { licence:9, payout:6, complaintsRec:7, kyc:6, tc:6 },
+  "Acebet":        { licence:8, payout:3, complaintsRec:3, kyc:5, tc:4 }
 };
 
 // Short "typical payout time" label per operator for the sportsbooks list page —
@@ -3079,7 +3278,8 @@ const PAYOUT_TIME_SHORT = {
   "Rakebit":"~1h","Fresh Casino":"Varies","SolCasino.io":"~1h","Sol Casino":"Varies","Jet Casino":"Varies",
   "Starda Casino":"Varies","1Go Casino":"Varies","Legzo Casino":"Varies","Irwin Casino":"Varies","Shuffle":"Varies",
   "Duel":"~15m","1win":"~30m","BetFury":"Varies","bet105.ag":"~1h","Rollbit":"Varies",
-  "StakeUS":"~1h","Sportsbet.io":"Varies"
+  "StakeUS":"~1h","Sportsbet.io":"Varies",
+  "Yeet":"Varies","Goated":"Instant","Chips.gg":"Varies","Acebet":"Varies"
 };
 
 function computeTrustScore(name){
@@ -3153,7 +3353,18 @@ function seedOperators(){
     // rest of this list uses, which we don't have for these two) — their real
     // FairGambling market-analytics numbers live on analytics.html instead.
     ["StakeUS","stake.us", null, null, null, null],
-    ["Sportsbet.io","sportsbet.io", null, null, null, null]
+    ["Sportsbet.io","sportsbet.io", null, null, null, null],
+    // Added 2026-08-31 — picked from businessofigaming.com's "Largest Crypto
+    // Casinos by Deposit Volume 2026" ranking (same source as ANNUAL_VOLUME
+    // above) as meaningfully-sized operators not yet in this database. No
+    // on-chain 24h figure is set here for the same reason as StakeUS/
+    // Sportsbet.io above (not tracked under these names on 99bitcoins.com's
+    // live table in this pass) — their real annual-volume figures are in
+    // ANNUAL_VOLUME instead.
+    ["Yeet","yeet.com", null, null, null, null],
+    ["Goated","goated.com", null, null, null, null],
+    ["Chips.gg","chips.gg", null, null, null, null],
+    ["Acebet","acebet.com", null, null, null, null]
   ];
   return seed.map(([name,domain,deposits24h,uaw24h,balance,rank]) => {
     const av = ANNUAL_VOLUME[name];
