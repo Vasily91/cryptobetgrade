@@ -2176,7 +2176,7 @@ function renderExplorer(){
         <div class="explorer-bar"><i style="width:${width}%"></i></div>
         <div class="explorer-value">
           <b>${metricMeta[metric].fmt(val)}</b>
-          <small class="${changeClass}">${metric==="change" ? "" : (x.change>0?"+":"")+x.change.toFixed(1)+"% 30D"}</small>
+          <small class="${changeClass}">${metric==="change" || x.change==null ? "" : (x.change>0?"+":"")+x.change.toFixed(1)+"% 30D"}</small>
         </div>
       </div>`;
   }).join("");
