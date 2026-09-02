@@ -73,6 +73,8 @@
   <url><loc>https://cryptobetgrade.com/sportsbooks/razed/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/razed-18000-usd-deposit-only-returned</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/razed-deposit-only-returned</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/razed-6200-usd-account-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/razed-1870-usdt-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/thrill</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/thrill/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/thrill-20000-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -196,7 +198,11 @@
   <url><loc>https://cryptobetgrade.com/sportsbooks/shuffle</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/shuffle/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/shuffle-940-usd-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/shuffle-400-eur-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/shuffle-12859-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/duel</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/duel/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/duel-self-exclusion-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/1win</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/1win/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/1win-13300-usdt-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -242,6 +248,8 @@
   <url><loc>https://cryptobetgrade.com/complaints/sportsbet-io-bets-voided</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/sportsbet-io-9725-usdc-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/yeet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/yeet/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/yeet-8947-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/goated</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/goated/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/goated-2000-usdc-account-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
