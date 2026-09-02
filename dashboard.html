@@ -1506,7 +1506,7 @@ const KEY_PROS = {
   "Chips.gg": ["Established since 2020","No-fee withdrawals advertised"],
   "Acebet": ["Sportsbook covers 25+ sports plus major esports titles","Fiat deposits reported crediting in ~5 minutes"],
   "Wild.io": ["Casino.Guru Safety Index 8.3/10 (\"High\")","Fast crypto withdrawals, generally 5-15 minutes"],
-  "Degen Casino": ["Rakeback-based rewards instead of a traditional deposit-match bonus","No complaints found on any major complaint-tracking platform (Casino.Guru/AskGamblers don't yet list it)"],
+  "Degen Casino": ["Rakeback-based rewards instead of a traditional deposit-match bonus"],
   "Sportbet.one": ["Explicitly stated no-ID-verification policy at any stage, per official FAQ","Casino.Guru Safety Index 9.2/10 and AskGamblers 9.8/10 — among the highest of any operator reviewed here"],
   "Lucky Block": ["Large game library (4,000+ titles from ~80 providers)","No KYC required at signup — email/wallet only to register and play"]
 };
@@ -2879,12 +2879,14 @@ const COMPLAINT_REPORTS = {
     { id:"cgo5", title:"Responsible-gambling refund dispute rejected", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"C", amount:"$955", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/goated-casino-player-claims-unfair-refund-process", whatHappened:"A Canadian player alleged an agent had been told about a gambling problem before further deposits were made, and disputed the amount later refunded. Casino Guru concluded the player wasn't eligible for additional refunds, noting the absence of an explicit self-exclusion request, and rejected the complaint as unjustified.", operatorReason:"No explicit self-exclusion request was made, per Casino Guru's review" },
     { id:"cgo6", title:"~$450 withheld after alleged Crash exploit (unverified review)", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"~$450", status:"Community/scam report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/goated.com", whatHappened:"In an August 2026 Trustpilot review, a user claimed to have won roughly $6,000 on Goated but said the final ~$450 wasn't paid after the operator allegedly identified exploitative activity in the Crash game; the reviewer said insufficient evidence was provided. This is a user review rather than an adjudicated complaint.", operatorReason:"Alleged exploitative activity identified in Crash, per the operator (unverified)" }
   ]},
-  // Wild.io, Degen Casino, Sportbet.one and Lucky Block added 2026-09-02.
-  // Wild.io, Degen Casino and Sportbet.one had no logged complaints found on
-  // an adjudicated complaint-tracking platform (Casino.Guru/AskGamblers) in
-  // this research pass — not included here rather than left ambiguous; see
-  // their COMPANY_INFO overview / TERMS_INFO withdrawal note for the primary-
-  // source forum disputes found for Sportbet.one instead.
+  // Wild.io, Degen Casino, Sportbet.one and Lucky Block added 2026-09-02;
+  // Bitcointalk-sourced complaint leads added for all four 2026-09-02/03.
+  // None of the four currently have a logged complaint on an adjudicated
+  // complaint-tracking platform (Casino.Guru/AskGamblers) — every item below
+  // for these four is a forum-sourced allegation (verified:false) instead,
+  // except Lucky Block's clb1 (AskGamblers) and clb2-clb4 (Casino Guru forum,
+  // not the adjudicated database). See COMPANY_INFO overview / TERMS_INFO
+  // withdrawal notes for further context.
   "Wild.io": { items: [
     { id:"cwi1", title:"452 USDT balance confiscated after a sportsbook verification review — Wild.io publicly defended the decision", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"452 USDT", status:"Operator position upheld", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5584765.0", whatHappened:"Player said three pre-match football bets were placed on the same Under 2.5 second-half goals market, funded by a 298.1033 USDT deposit. A 451.39 USDT withdrawal request triggered a video-verification review, after which the account was closed and the 452 USDT balance retained. The player disputed allegations of arbitrage/correlated wagers and argued the operator had cited different, seemingly contradictory clauses across its communications. Wild.io later replied publicly on the same Bitcointalk thread: it said its review found breaches of both General Clause 20.51 and Sportsbook Rule 2.22, rejected the claim that the two cited clauses were contradictory, and said completing a video-verification call does not itself mean identity verification was successfully passed or override a sportsbook-rule breach. Wild.io said it would not reverse the decision. This is one of the few cases in this database with direct, sustained public operator participation on both the initial and follow-up allegations.", operatorReason:"Breaches of General Clause 20.51 and Sportsbook Rule 2.22, per Wild.io's own public reply; the operator said the two clauses were not contradictory and declined to reverse the decision (a related discussion also appears at bitcointalk.org/index.php?topic=5436238.440)" }
   ] },
