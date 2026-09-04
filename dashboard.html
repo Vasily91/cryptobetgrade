@@ -3729,7 +3729,16 @@ const TRUST_BREAKDOWN = {
   // volume/severity no longer supports the prior top-tier 9/10 complaintsRec
   // or the 10/10 "cleanest on file" KYC score. payout trimmed one point too
   // for the newly surfaced payment-channel/bank-hold friction points.
-  "BC.Game":       { licence:9, payout:8, complaintsRec:7, kyc:9, tc:8 },
+  // Revised again same day at the site owner's direction: complaintsRec and
+  // kyc nudged back up one point each (7->8, 9->8 — note kyc actually moves
+  // down here versus the same-day revision above, landing at a
+  // still-cautious middle ground rather than the old 10/10) to land at 8.3 —
+  // just below Stake (8.4) — reflecting that none of the newly added
+  // community reports were adjudicated findings against the operator (the
+  // $1.5m case remains contested/unresolved, not proven) while still
+  // keeping BC.Game below the operators with a cleaner, fully-adjudicated
+  // complaint record.
+  "BC.Game":       { licence:9, payout:8, complaintsRec:8, kyc:8, tc:8 },
   "Rainbet":       { licence:9, payout:9, complaintsRec:9, kyc:10, tc:8 },
   "Roobet":        { licence:9, payout:8, complaintsRec:9, kyc:6, tc:8 },
   "500Casino":     { licence:9, payout:10, complaintsRec:8, kyc:9, tc:8 },
