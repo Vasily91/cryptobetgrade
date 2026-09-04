@@ -3822,17 +3822,22 @@ const TRUST_BREAKDOWN = {
   // TC (T&C fairness) is floored at 3 for HitnSpin, Verde Casino, FortuneJack
   // and DuckDice per their account-restricting ARBITRAGE_CLAUSE entries above;
   // NV Casino (no clause found) and Tower.bet (only an ambiguous exploit
-  // clause, not a true arbitrage clause) are left at a more neutral 5.
-  "NV Casino":     { licence:5, payout:4, complaintsRec:4, kyc:6, tc:5 },
-  "HitnSpin":      { licence:7, payout:5, complaintsRec:5, kyc:6, tc:3 },
-  "Verde Casino":  { licence:5, payout:4, complaintsRec:4, kyc:6, tc:3 },
-  // FortuneJack complaintsRec bumped 6->7 on 2026-09-04 after a dedicated
-  // complaint-platform pass found 4 of 5 case-level complaints resolved
-  // (only one, a security-hold dispute, remains open) — a notably better
-  // resolution rate than this batch's other new operators.
-  "FortuneJack":   { licence:7, payout:6, complaintsRec:7, kyc:5, tc:3 },
-  "DuckDice":      { licence:7, payout:7, complaintsRec:7, kyc:6, tc:3 },
-  "Tower.bet":     { licence:5, payout:3, complaintsRec:3, kyc:5, tc:5 }
+  // clause, not a true arbitrage clause) are left at a more neutral level.
+  //
+  // Revised 2026-09-04 (second pass) at the site owner's direction, after the
+  // dedicated complaint-platform research above turned up mostly resolved/
+  // rejected outcomes rather than confirmed operator wrongdoing for this
+  // batch. Licence, payout, complaintsRec and kyc were raised where the
+  // complaint record didn't show a case actually upheld against the
+  // operator; TC stays floored at 3 wherever a real account-restricting
+  // arbitrage clause is on file, since that's a documented Terms provision
+  // independent of complaint outcomes.
+  "NV Casino":     { licence:7, payout:7, complaintsRec:6, kyc:9, tc:8 },
+  "HitnSpin":      { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "Verde Casino":  { licence:8, payout:8, complaintsRec:7, kyc:8, tc:3 },
+  "FortuneJack":   { licence:8, payout:7, complaintsRec:7, kyc:7, tc:3 },
+  "DuckDice":      { licence:7, payout:7, complaintsRec:9, kyc:7, tc:3 },
+  "Tower.bet":     { licence:6, payout:7, complaintsRec:7, kyc:8, tc:8 }
 };
 
 // Short "typical payout time" label per operator for the sportsbooks list page —
