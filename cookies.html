@@ -488,7 +488,7 @@ function cbgToggleTheme(){
         <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
         <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
         <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
-        <a href="index.html#operators">Suggest a sportsbook</a>
+        <a href="#" onclick="return openSuggestModal()">Suggest a sportsbook</a>
       </div>
       <div class="footer-col">
         <h5>Company</h5>
@@ -558,6 +558,58 @@ document.addEventListener("DOMContentLoaded", () => {
     if(e.key === 'Escape') closeMenu();
   });
 })();
+</script>
+
+<!-- SUGGEST A SPORTSBOOK MODAL — mirrors index.html's, so the footer link
+     opens it immediately on this page too, instead of first navigating to
+     the homepage (which needed a second click there to actually work). -->
+<div class="modal-bg" id="suggestModal">
+  <div class="modal">
+    <h3>Suggest a sportsbook</h3>
+    <p class="hint">There's no submission backend yet — this opens an email to our team with your link and comment already filled in.</p>
+    <div class="field"><label>Sportsbook link</label><input type="url" id="suggestUrl" placeholder="https://…"></div>
+    <p id="suggestError" style="display:none;font-size:12.5px;color:#c0392b;margin:-6px 0 12px;">Add a link to the sportsbook first.</p>
+    <div class="field"><label>Comment (optional)</label><textarea id="suggestComment" placeholder="Why should we review it?"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeSuggestModal()">Cancel</button>
+      <button class="btn" onclick="submitSuggestion()">Send suggestion →</button>
+    </div>
+  </div>
+</div>
+<script>
+function openSuggestModal(){
+  document.getElementById("suggestModal").classList.add("open");
+  return false;
+}
+function closeSuggestModal(){
+  document.getElementById("suggestModal").classList.remove("open");
+}
+function submitSuggestion(){
+  var urlInput = document.getElementById("suggestUrl");
+  var commentInput = document.getElementById("suggestComment");
+  var url = urlInput.value.trim();
+  var comment = commentInput.value.trim();
+  if(!url){
+    document.getElementById("suggestError").style.display = "block";
+    urlInput.focus();
+    return;
+  }
+  document.getElementById("suggestError").style.display = "none";
+  var subject = "Sportsbook suggestion: " + url;
+  var bodyLines = ["Suggested sportsbook: " + url];
+  if(comment) bodyLines.push("", "Comment:", comment);
+  var mailto = "mailto:suggestions@cryptobetgrade.com"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(bodyLines.join("\n"));
+  window.location.href = mailto;
+  urlInput.value = "";
+  commentInput.value = "";
+  closeSuggestModal();
+}
+document.addEventListener("DOMContentLoaded", function(){
+  var bg = document.getElementById("suggestModal");
+  if(bg) bg.addEventListener("click", function(e){ if(e.target === bg) closeSuggestModal(); });
+});
 </script>
 </body>
 </html>

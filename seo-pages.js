@@ -29,9 +29,11 @@
 // inline script output (see tools/extract-data.mjs, which runs the real
 // script in a sandboxed Node vm and reads back its computed rendering) —
 // this never drifts into hand-maintained duplicate data. IMPORTANT:
-// whenever dashboard.html's operator/complaint data changes, re-run
-// `node tools/extract-data.mjs` and redeploy the refreshed data.json
-// alongside it, or these pages will show stale content.
+// whenever dashboard.html's operator/complaint data changes, run the full
+// pipeline in tools/README.md (extract-data.mjs -> data.json ->
+// patch-dashboard.mjs -> gen-sitemap.mjs if URLs changed -> gen-hero.mjs for
+// the homepage hero card) and redeploy the refreshed files, or these pages
+// (and the homepage hero card) will show stale content.
 
 import DATA from "./data.json";
 
