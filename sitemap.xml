@@ -291,4 +291,10 @@
   <url><loc>https://cryptobetgrade.com/complaints/lucky-block-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/lucky-block-1300-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/lucky-block-1100-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/nv-casino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/hitnspin</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/verde-casino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/fortunejack</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/duckdice</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/tower-bet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>

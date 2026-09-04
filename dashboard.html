@@ -1239,7 +1239,13 @@ const KYC_STANCE = {
   "Wild.io":        "conditional",
   "Degen Casino":   "conditional",
   "Sportbet.one":   "conditional",
-  "Lucky Block":    "conditional"
+  "Lucky Block":    "conditional",
+  "NV Casino":      "conditional",
+  "HitnSpin":       "conditional",
+  "Verde Casino":   "conditional",
+  "FortuneJack":    "conditional",
+  "DuckDice":       "conditional",
+  "Tower.bet":      "conditional"
 };
 const KYC_STANCE_LABEL = {
   conditional: "KYC conditional",
@@ -1328,6 +1334,30 @@ const ARBITRAGE_CLAUSE = {
     text: "Lucky Block's Terms don't appear to name arbitrage/surebetting specifically, but include a broad \"unfair advantage\"/abusive-pattern clause — found via a regional (India) Terms mirror and independently paraphrased by a second reviewer — under which an account can be closed and funds forfeited, not merely bets voided.",
     source: "luckyblockindia.com terms mirror (regional, not confirmed identical to the main global luckyblock.com Terms); cryptomaniaks.com (third-party paraphrase)",
     checked: "2026-09-02",
+    verified: false
+  },
+  "HitnSpin": {
+    text: "HitnSpin's sportsbook terms prohibit arbitrage/surebetting — bets identified as arbitrage face voiding and the account may be restricted or closed, with winnings from the flagged activity forfeited.",
+    source: "hitnspin.com terms (sportsbook-specific arbitrage clause reviewed; full verbatim section not independently quotable from an automated fetch)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "Verde Casino": {
+    text: "Verde Casino's sportsbook terms prohibit arbitrage/surebetting — bets identified as arbitrage face voiding and the account may be restricted or closed, with winnings from the flagged activity forfeited.",
+    source: "verde.bet terms (sportsbook-specific arbitrage clause reviewed; full verbatim section not independently quotable from an automated fetch)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "FortuneJack": {
+    text: "FortuneJack's general Terms & Conditions include a broad clause against \"bonus abuse\" and \"unfair play\" that has reportedly been invoked to void bets and restrict accounts flagged for arbitrage-style betting patterns, though the Terms don't name arbitrage explicitly.",
+    source: "fortunejack.com terms (general unfair-play clause; arbitrage not named explicitly in the text an automated fetch could read)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "DuckDice": {
+    text: "DuckDice's Terms include a general \"unfair advantage\"/abusive-pattern clause under which an account can be restricted and funds withheld, though the Terms don't name arbitrage or surebetting explicitly. Notably, DuckDice's Terms name the same operating entity — Zentari Limitada (Costa Rica) — as Tower.bet's, suggesting the two run on shared back-office infrastructure.",
+    source: "duckdice.io terms (general unfair-advantage clause; arbitrage not named explicitly in the text an automated fetch could read)",
+    checked: "2026-09-04",
     verified: false
   }
 };
@@ -1508,7 +1538,13 @@ const KEY_PROS = {
   "Wild.io": ["Casino.Guru Safety Index 8.3/10 (\"High\")","Fast crypto withdrawals, generally 5-15 minutes"],
   "Degen Casino": ["Rakeback-based rewards instead of a traditional deposit-match bonus"],
   "Sportbet.one": ["Explicitly stated no-ID-verification policy at any stage, per official FAQ","Casino.Guru Safety Index 9.2/10 and AskGamblers 9.8/10 — among the highest of any operator reviewed here"],
-  "Lucky Block": ["Large game library (4,000+ titles from ~80 providers)","No KYC required at signup — email/wallet only to register and play"]
+  "Lucky Block": ["Large game library (4,000+ titles from ~80 providers)","No KYC required at signup — email/wallet only to register and play"],
+  "NV Casino": ["No KYC required for standard play up to disclosed thresholds"],
+  "HitnSpin": ["Curaçao licence held (2018-launched, longer track record than most peers)"],
+  "Verde Casino": ["Wide crypto selection accepted"],
+  "FortuneJack": ["Long-running operator (2014 launch) with an established, multi-year track record"],
+  "DuckDice": ["Long-running operator (2016 launch) with a large, active player base and provably-fair dice focus"],
+  "Tower.bet": ["Simple, dice/crash-style game selection with fast round turnover"]
 };
 const KEY_CONS = {
   "SolCasino.io": ["No live chat support","Account may be closed for arbitrage betting"],
@@ -1550,7 +1586,13 @@ const KEY_CONS = {
   "Wild.io": ["Licensing details disputed across sources (official site names Anjouan; other reviewers cite Curaçao and a different operator entity)","\"No-KYC\" marketing conflicts with conditional verification, especially after large wins","Account may be closed and funds confiscated for arbitrage betting"],
   "Degen Casino": ["Brand-new operator (2025 launch, reported closed beta) with no established payout track record","No Casino.Guru or AskGamblers listing exists yet to independently verify trust signals","Licensing details (Anjouan licence, Costa Rica-registered operator) sourced only to third-party review blogs, not cross-checked against a registry"],
   "Sportbet.one": ["Regulator (Mwali/MISA) is widely characterized by industry watchdogs, including reported statements from the Central Bank of Comoros, as not a genuine licensing authority","Primary-source forum disputes (2024-2026) document account restrictions and full balance confiscation over undisclosed \"fraud detection\" findings, with evidence withheld from the player each time","One documented case describes a failed self-exclusion request followed by a real financial loss during the requested cooling-off period","AskGamblers lists the operator's status as \"closed, no longer accepting players\" — conflicting with other 2026 evidence of an active site"],
-  "Lucky Block": ["Licensing is unusually unclear: at least five different operator-entity names and four different licence numbers appear across review sites, and Casino.Guru states it currently operates without a licence","Casino.Guru Safety Index only 2.1/10 (\"Very low\"), though AskGamblers rates it considerably higher (6.4-7.5/10) — reviewers sharply disagree","Recurring complaints describe large balances frozen or confiscated after KYC was already completed","Broad \"unfair advantage\" clause allows account closure and fund forfeiture, not just voided bets (arbitrage not explicitly named)","No native mobile app despite some marketing pages claiming otherwise"]
+  "Lucky Block": ["Licensing is unusually unclear: at least five different operator-entity names and four different licence numbers appear across review sites, and Casino.Guru states it currently operates without a licence","Casino.Guru Safety Index only 2.1/10 (\"Very low\"), though AskGamblers rates it considerably higher (6.4-7.5/10) — reviewers sharply disagree","Recurring complaints describe large balances frozen or confiscated after KYC was already completed","Broad \"unfair advantage\" clause allows account closure and fund forfeiture, not just voided bets (arbitrage not explicitly named)","No native mobile app despite some marketing pages claiming otherwise"],
+  "NV Casino": ["Limited independent track record; review coverage is thin relative to larger peers","Licensing details not consistently confirmed across sources","No fixed KYC threshold published"],
+  "HitnSpin": ["\"No-KYC\" marketing conflicts with a disclosed verification threshold for larger withdrawals","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
+  "Verde Casino": ["Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence","Runs a Lithuania-facing \"Verde Lietuva\" mirror domain without disclosed local licensing","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
+  "FortuneJack": ["Licensing/Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions","Recurring complaints describe withdrawal delays and account verification disputes","General \"unfair play\" clause has reportedly been invoked against arbitrage-style patterns without naming arbitrage explicitly"],
+  "DuckDice": ["Shares its operating entity (Zentari Limitada, Costa Rica) with Tower.bet, raising shared-infrastructure/shared-risk questions for a trust assessment","General \"unfair advantage\" clause allows account restriction without naming arbitrage explicitly"],
+  "Tower.bet": ["Not to be confused with the unrelated site towerbet.com — use tower.bet","Shares its operating entity (Zentari Limitada, Costa Rica) with DuckDice, raising shared-infrastructure/shared-risk questions for a trust assessment","Thinnest independent review coverage of this batch — few tracked complaint-platform listings either way","Costa Rica registration rather than a recognized gambling licence"]
 };
 // Distilled from the same TERMS_INFO bonus/withdrawal/kyc text already on this
 // profile — see below for the full prose these summarize.
@@ -1794,6 +1836,42 @@ const BONUS_KYC_CHECKLIST = {
     { ok: true, text: "No KYC required to register, deposit or play" },
     { ok: false, text: "Casino.Guru Safety Index only 2.1/10 (\"Very low\"); 74 total logged complaints, only 17 resolved" },
     { ok: false, text: "Multiple documented cases of large balances frozen/denied at withdrawal despite completed KYC" }
+  ],
+  "NV Casino": [
+    { ok: true, text: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed" },
+    { ok: true, text: "No KYC required for standard play under disclosed thresholds" },
+    { ok: false, text: "Limited independent complaint-platform history to verify payout reliability" },
+    { ok: false, text: "No fixed KYC threshold published" }
+  ],
+  "HitnSpin": [
+    { ok: true, text: "Deposit-match welcome bonus advertised across a multi-deposit package" },
+    { ok: false, text: "\"No-KYC\" marketing conflicts with a disclosed verification threshold for larger withdrawals" },
+    { ok: false, text: "Casino.Guru Safety Index in the \"Below Average\" range" },
+    { ok: false, text: "Account may be closed and funds forfeited for arbitrage betting" }
+  ],
+  "Verde Casino": [
+    { ok: true, text: "Deposit-match welcome bonus advertised; exact wagering terms not independently confirmed" },
+    { ok: false, text: "KYC threshold not clearly disclosed" },
+    { ok: false, text: "Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence, alongside a Lithuania-facing \"Verde Lietuva\" mirror domain" },
+    { ok: false, text: "Casino.Guru Safety Index in the \"Below Average\" range" }
+  ],
+  "FortuneJack": [
+    { ok: true, text: "Long-running welcome package across first several deposits; exact current terms not independently confirmed" },
+    { ok: false, text: "KYC threshold not consistently disclosed across sources" },
+    { ok: false, text: "Licensing/Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions" },
+    { ok: false, text: "Recurring complaints describe withdrawal delays and verification disputes" }
+  ],
+  "DuckDice": [
+    { ok: true, text: "Rakeback/leaderboard-driven rewards rather than a large deposit-match bonus" },
+    { ok: true, text: "No KYC required for standard dice play" },
+    { ok: false, text: "Shares its operating entity (Zentari Limitada, Costa Rica) with Tower.bet" },
+    { ok: false, text: "KYC threshold for larger withdrawals not clearly published" }
+  ],
+  "Tower.bet": [
+    { ok: false, text: "Welcome-bonus terms not independently confirmed" },
+    { ok: false, text: "KYC threshold not clearly disclosed" },
+    { ok: false, text: "Shares its operating entity (Zentari Limitada, Costa Rica) with DuckDice" },
+    { ok: false, text: "Thin independent complaint-platform history either way — payout reliability not well established" }
   ]
 };
 const PROFILE_SIDEBAR = {
@@ -2122,6 +2200,54 @@ const PROFILE_SIDEBAR = {
     minDeposit: "€20/$20",
     cryptocurrencies: "20+ incl. BTC, ETH, USDT, USDC, LTC, DOGE, XRP, BNB, SOL, ADA, TRX, TON, MATIC, AVAX, BCH, plus native LBLOCK token",
     source: "casino.guru; askgamblers.com; cryptomaniaks.com; coincentral.com (third-party, conflicting on licensing)", checked: "2026-09-02"
+  },
+  "NV Casino": {
+    license: "Not consistently confirmed across sources reviewed",
+    launched: "Not independently confirmed",
+    welcomeBonus: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru (third-party — official terms not independently fetched in this pass)", checked: "2026-09-04"
+  },
+  "HitnSpin": {
+    license: "Curaçao (2018 launch per operator-side sources; licence number not independently cross-checked against the registry)",
+    launched: "2018",
+    welcomeBonus: "Multi-deposit welcome package advertised; exact current tiers/wagering not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; hitnspin.com (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "Verde Casino": {
+    license: "Not consistently confirmed across sources reviewed; no Lithuanian licence held despite running a Lithuania-facing \"Verde Lietuva\" mirror domain",
+    launched: "Not independently confirmed",
+    welcomeBonus: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; verde.bet (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "FortuneJack": {
+    license: "Curaçao (per operator-side sources; not independently cross-checked against the registry); Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions",
+    launched: "2014",
+    welcomeBonus: "Multi-deposit welcome package advertised across a long-running brand; exact current tiers/wagering not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, LTC, USDT and other major cryptocurrencies (exact current list not independently confirmed)",
+    source: "casino.guru; fortunejack.com help center (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "DuckDice": {
+    license: "Costa Rica registration under Zentari Limitada, registration number 9845000OAF4456CVB467 — not a licensed-gambling-jurisdiction registry",
+    launched: "2016",
+    welcomeBonus: "Rakeback/leaderboard-driven rewards rather than a large deposit-match bonus",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, LTC, DOGE, USDT and other major cryptocurrencies (exact current list not independently confirmed)",
+    source: "casino.guru; duckdice.io terms (operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "Tower.bet": {
+    license: "Costa Rica registration under Zentari Limitada, registration number 9845000OAF4456CVB467 — not a licensed-gambling-jurisdiction registry; the unrelated site towerbet.com is a different operator entirely",
+    launched: "Not independently confirmed",
+    welcomeBonus: "Not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; tower.bet terms (operator site — full terms not independently fetched)", checked: "2026-09-04"
   }
 };
 const PROFILE_STATS = {
@@ -2560,6 +2686,12 @@ const RESTRICTED_COUNTRIES = {
   "Wild.io": { codes:["US","GB","PT","SK","ES","IL","FR","BE","RO","RU","KE","VN","PK","ID","CN","HK","MT","NL","AU"], confidence:"partial", note:"Wild.io's own Terms of Service list a longer restricted-country block this pass could only partially retrieve (\"numerous others\" not individually enumerated in the fetched excerpt) — Lithuania was initially thought to be on it, but was separately confirmed via direct site testing to actually be accepted, so it's excluded from the list here. The same Terms also state Wild.io \"cannot guarantee successful processing of withdrawals\" for players from restricted jurisdictions — implying soft geo-restriction with payout risk rather than a hard geoblock in every case." },
   "Sportbet.one": { codes:["GB"], confidence:"partial", note:"Sportbet.one's own site states it does not accept players from jurisdictions where online gambling is prohibited, without an enumerated list in the portion this pass could access (the page appears JavaScript-rendered). Third-party sources disagree sharply on specifics — one says there are effectively no restricted countries beyond a general disclaimer, another names only the UK as banned, a less-corroborated source lists the UK, Germany, Australia, Ukraine and North Korea. Lithuania was not named as restricted or as accepted in any source found — its status could not be confirmed either way." },
   "Lucky Block": { codes:["LT","US","GB","AT","AU","BY","BE","CO","CI","CU","CZ","DE","GR","IR","IQ","IL","IT","LR","LY","MT","NL","KP","PK","PT","RS","SK","ES","SD","SY","SE","CH","ZW"], confidence:"partial", note:"The only source giving an explicit country list was a regional (India-facing) mirror of Lucky Block's Terms of Service, which is not confirmed to be identical to the main global luckyblock.com terms — Lithuania appears on that regional list. Other third-party sources give shorter, different partial lists (some naming only the US and UK). Given the mirror-vs-global uncertainty, treat this list as indicative rather than confirmed against the operator's own primary Terms." },
+  "NV Casino": { codes:["US"], confidence:"unknown", note:"No enumerated restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way." },
+  "HitnSpin": { codes:["US","GB"], confidence:"partial", note:"Third-party review coverage names the US and UK as restricted, but the operator's own Terms weren't independently readable in full to confirm or expand this list. Lithuania's status could not be confirmed either way." },
+  "Verde Casino": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass. Unconfirmed forum allegations describe Lithuanian players being blacklisted, but this could not be corroborated against an official source — and is in tension with Verde Casino separately running a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no Lithuanian licence. Lithuania's true status is unresolved and should be treated as uncertain rather than confirmed either way." },
+  "FortuneJack": { codes:["US","GB"], confidence:"partial", note:"FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania specifically — one source describes Lithuania as accepted, the other implies it's restricted — and this pass could not resolve the discrepancy. The US and UK are consistently named as restricted across sources." },
+  "DuckDice": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way." },
+  "Tower.bet": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way. Note: the unrelated site towerbet.com is a different operator and was not the subject of this research." },
 };
 
 // Real player-reported complaint case files, built from two research passes:
@@ -2914,7 +3046,22 @@ const COMPLAINT_REPORTS = {
     { id:"clb2", title:"Sportsbook-only account closed; funds voided after full KYC — Casino Guru declined to adjudicate", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/complaints/luckyblock-casino-player-s-account-has-been-closed-10", whatHappened:"German player said the account was used solely for sports betting, no bonuses were used, and full KYC had been completed — including repeated identity checks and proof of address — before the account was closed and funds voided by an internal decision. Casino Guru explicitly closed the case citing a lack of expertise/tools to assess sports-betting disputes specifically. This is a non-adjudication, not a ruling in the operator's favor.", operatorReason:"Not stated in the reviewed source; case closed by Casino Guru without assessing the operator's reasoning" },
     { id:"clb3", title:"$1,300 sportsbook balance (deposits and winnings) confiscated after limits cut to zero", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$1,300", status:"Community report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/complaints/luckyblock-casino-player-s-account-has-been-closed-12", whatHappened:"Georgian player reported three deposits and eventual winnings, after which betting limits were reduced to zero. A $1,300 withdrawal attempt triggered ID/selfie and address verification, following which the player says the account was closed and all funds — both deposits and winnings — were confiscated. Casino Guru closed the complaint, again citing an inability to fairly assess LuckyBlock's internal sports-betting investigation.", operatorReason:"Not stated in the reviewed source; case closed by Casino Guru without assessing the operator's reasoning" },
     { id:"clb4", title:"Account closed and access cut after a sports-bet win; unspecified term violation cited", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"~$1,100 win ($3,000 USDT deposited, per the player)", status:"Community report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/complaints/luckyblock-casino-player-s-account-has-been-closed-11", whatHappened:"Norwegian player reported winning a sports bet, then completing ID and proof-of-address verification, before being logged out and told the account's terms had been violated. The player said the operator would not identify the specific term. Casino Guru noted the account mainly involved sports betting and slots with no active bonus in play, but closed the case after the player stopped responding — so no confiscation outcome or operator reasoning was independently confirmed.", operatorReason:"Unspecified \"terms violated,\" per the player's account — the operator reportedly declined to name the specific term" }
-  ]}
+  ]},
+  // NV Casino, HitnSpin, Verde Casino, FortuneJack, DuckDice, Tower.bet: added
+  // 2026-09-04 alongside these six new operator profiles. This research pass
+  // covered licensing/ownership/KYC/T&Cs/reputation generally but did not
+  // pull specific case-level complaint citations (source URL + amount +
+  // operator response) to the same standard as the rest of this file — left
+  // as empty arrays rather than populated with unsourced claims. A dedicated
+  // complaint-platform pass (AskGamblers/Casino.Guru complaint databases,
+  // forum search) should populate these the same way it did for the
+  // Wild.io/Sportbet.one/Lucky Block/Degen Casino batch.
+  "NV Casino": { items: [] },
+  "HitnSpin": { items: [] },
+  "Verde Casino": { items: [] },
+  "FortuneJack": { items: [] },
+  "DuckDice": { items: [] },
+  "Tower.bet": { items: [] }
 };
 /* AUTO-GENERATED:COMPLAINT_SLUGS:START — regenerate with tools/patch-dashboard.mjs, do not hand-edit */
 const COMPLAINT_SLUGS = {"cst1":"stake-3000-usd-balance-confiscated","cst2":"stake-72000-usd-funds-locked-review","cst3":"stake-2025-eur-balance-confiscated","cbc1":"bc-game-88-mbtc-bets-voided","cbc2":"bc-game-deposit-only-returned","cbc3":"bc-game-42060-usd-winnings-confiscated","cbc4":"bc-game-228457-usd-winnings-confiscated","cbc5":"bc-game-2600-usd-funds-locked-review","crb1":"rainbet-1500-usd-balance-confiscated","crt1":"roobet-deposit-only-returned","crt2":"roobet-1400-usd-balance-confiscated","crt3":"roobet-6000-eur-winnings-confiscated","crt4":"roobet-2218-eur-bets-voided","c5001":"500casino-33300-eur-funds-locked-review","c5002":"500casino-24000-eur-winnings-confiscated","c5003":"500casino-2300-usd-account-closed","c5004":"500casino-10000-usd-multi-account-sportsbook-limits-dispute","cbp1":"betpanda-4000-usd-account-closed","cbp2":"betpanda-1005-usd-deposit-only-returned","cbp3":"betpanda-2944-usd-account-closed","cbp4":"betpanda-1050-usd-account-closed","cbp5":"betpanda-336-usd-bets-voided","cbp6":"betpanda-5000-usd-balance-confiscated","cbp7":"betpanda-641-usd-account-closed","cbp8":"betpanda-600-usd-account-closed","cbp9":"betpanda-1155-usd-funds-locked-review","cbp10":"betpanda-3300-usd-balance-confiscated","cbp11":"betpanda-500-usd-account-closed","cbp12":"betpanda-19000-usd-balance-confiscated","cbp13":"betpanda-390-usd-funds-locked-review","cgd1":"gamdom-1105-usd-winnings-confiscated","cgd2":"gamdom-2595-usd-winnings-confiscated","cgd3":"gamdom-1700-usd-balance-confiscated","cdb1":"duelbits-500-usd-funds-locked-review","cdb2":"duelbits-3000-eur-balance-confiscated","cdb3":"duelbits-8500-usdt-balance-confiscated","cdb4":"duelbits-5719-usd-winnings-confiscated","cdb5":"duelbits-250000-usd-funds-locked-review","cdb6":"duelbits-9975-usd-winnings-confiscated","cwn1":"winna-538-usd-balance-confiscated","cwn2":"winna-800-usd-winnings-confiscated","cwn3":"winna-2293-usd-funds-locked-review","cwn4":"winna-236-usdt-funds-locked-review","cwn5":"winna-winnings-confiscated","crz1":"razed-18000-usd-deposit-only-returned","crz2":"razed-deposit-only-returned","crz3":"razed-6200-usd-account-closed","crz4":"razed-1870-usdt-funds-locked-review","cth1":"thrill-20000-usd-winnings-confiscated","cth2":"thrill-22000-usdc-winnings-confiscated","cth3":"thrill-300000-aud-self-exclusion-dispute","cth4":"thrill-71544-usdt-self-exclusion-dispute","ccr1":"cryptorino-1500-usdt-account-closed","ccr2":"cryptorino-123-usd-balance-confiscated","ccr3":"cryptorino-balance-confiscated","cbi1":"bets-io-869-usd-balance-confiscated","cbi2":"bets-io-14000-usd-balance-confiscated","cbi3":"bets-io-balance-confiscated","cbi4":"bets-io-4-btc-funds-locked-review","cbi5":"bets-io-5900-usd-funds-locked-review","cnb1":"nitrobetting-20000-usd-funds-locked-review","cnb2":"nitrobetting-1121-eur-funds-locked-review","cnb3":"nitrobetting-737-eur-funds-locked-review","cnb4":"nitrobetting-400-cad-funds-locked-review","cnb5":"nitrobetting-4800-eur-funds-locked-review","cnb6":"nitrobetting-2133-cad-winnings-confiscated","cnb7":"nitrobetting-653-eur-winnings-confiscated","cnb8":"nitrobetting-10000-eur-funds-locked-review","cnb9":"nitrobetting-1104-eur-funds-locked-review","cnb10":"nitrobetting-9113-nok-winnings-confiscated","cnb11":"nitrobetting-7800-eur-funds-locked-review","ccb1":"cloudbet-6000-usd-funds-locked-review","ccb2":"cloudbet-2500-eur-funds-locked-review","ccb3":"cloudbet-3247-usd-balance-confiscated","ccb4":"cloudbet-3427-usdt-funds-locked-review","ccb5":"cloudbet-150-usd-funds-locked-review","ccb6":"cloudbet-funds-locked-review","cr1":"rakebit-873-usd-winnings-confiscated","cr2":"rakebit-2404-usd-winnings-confiscated","cr3":"rakebit-18000-usd-winnings-confiscated","cr4":"rakebit-12000-usd-deposit-only-returned","cr5":"rakebit-27000-usd-winnings-confiscated","cr6":"rakebit-1500-usd-winnings-confiscated","cr7":"rakebit-162-usd-balance-confiscated","cr8":"rakebit-500-usd-winnings-confiscated","cr9":"rakebit-1000-usd-winnings-confiscated","cr10":"rakebit-55-usd-balance-confiscated","cr11":"rakebit-2300-eur-self-exclusion-dispute","cr12":"rakebit-4170-usd-self-exclusion-dispute","cr13":"rakebit-1000-usd-funds-locked-review","cr14":"rakebit-73-usd-balance-confiscated","cr15":"rakebit-9606-usd-self-exclusion-dispute","cr16":"rakebit-20000-usd-self-exclusion-dispute","cfc1":"fresh-casino-6600-eur-winnings-confiscated","cfc2":"fresh-casino-510-usdt-funds-locked-review","cfc3":"fresh-casino-9000-rub-funds-locked-review","csc1":"solcasino-io-1500-usdt-bets-voided","csc2":"solcasino-io-360000-usd-funds-locked-review","csc3":"solcasino-io-2849-sol-funds-locked-review","csc4":"solcasino-io-183100-usdc-funds-locked-review","csl1":"sol-casino-600-eur-funds-locked-review","csl3":"sol-casino-6342-usd-funds-locked-review","csl4":"sol-casino-3257-pen-funds-locked-review","csl5":"sol-casino-407-eur-funds-locked-review","csl6":"sol-casino-2000-eur-funds-locked-review","csl7":"sol-casino-80-eur-funds-locked-review","cjt1":"jet-casino-5000-eur-funds-locked-review","cjt2":"jet-casino-909-eur-funds-locked-review","cjt3":"jet-casino-28000-eur-winnings-confiscated","cjt4":"jet-casino-259797-eur-winnings-confiscated","cjt5":"jet-casino-20766-uah-funds-locked-review","cjt6":"jet-casino-18500-eur-funds-locked-review","cjt7":"jet-casino-470-eur-funds-locked-review","cst-2":"starda-casino-800-eur-funds-locked-review","cst-3":"starda-casino-5600-eur-winnings-confiscated","cst-4":"starda-casino-bets-voided","cst-5":"starda-casino-850-eur-funds-locked-review","cst-6":"starda-casino-1300-pln-funds-locked-review","cst-7":"starda-casino-219-eur-funds-locked-review","cst-8":"starda-casino-423-usd-funds-locked-review","c1go1":"1go-casino-600-usd-funds-locked-review","c1go2":"1go-casino-4000-eur-funds-locked-review","c1go3":"1go-casino-700-eur-winnings-confiscated","c1go4":"1go-casino-30000-uah-winnings-confiscated","c1go5":"1go-casino-funds-locked-review","clg1":"legzo-casino-1389-eur-funds-locked-review","clg2":"legzo-casino-5162-eur-funds-locked-review","clg3":"legzo-casino-50-eur-funds-locked-review","clg4":"legzo-casino-80-eur-winnings-confiscated","clg5":"legzo-casino-100-eur-funds-locked-review","clg6":"legzo-casino-750-eur-funds-locked-review","clg7":"legzo-casino-50-eur-funds-locked-review-2","clg8":"legzo-casino-300-eur-funds-locked-review","clg9":"legzo-casino-5162-eur-funds-locked-review-2","clg10":"legzo-casino-65-eur-funds-locked-review","cir1":"irwin-casino-3200-eur-balance-confiscated","cir3":"irwin-casino-6133-usd-winnings-confiscated","cir4":"irwin-casino-6868467-kzt-balance-confiscated","cir5":"irwin-casino-500-eur-funds-locked-review","cir6":"irwin-casino-105-eur-funds-locked-review","csh1":"shuffle-940-usd-funds-locked-review","csh2":"shuffle-400-eur-balance-confiscated","csh3":"shuffle-12859-usd-winnings-confiscated","cdu1":"duel-self-exclusion-dispute","c1w1":"1win-13300-usdt-balance-confiscated","c1w2":"1win-account-blocked-after-kyc-video-review","c1w3":"1win-8000-balance-confiscated","c1w4":"1win-account-closed-after-winning-streak","c1w5":"1win-37000-multi-account-arbitrage-betting-dispute","c1w6":"1win-346-usd-sports-bets-not-accepted-wagering-method-dispute","c1w7":"1win-crypto-withdrawal-method-removed","c1w8":"1win-20620-withdrawal-withheld-pending-verification-dispute","c1w9":"1win-17000-usdt-balance-confiscated","c1w10":"1win-5000-winnings-confiscated","cbf1":"betfury-5000-usd-funds-locked-review","cbf2":"betfury-25-usd-account-closed","cbf3":"betfury-460-usdt-account-closed","cb105-1":"bet105-ag-165-usd-funds-locked-review","cb105-4":"bet105-ag-bets-voided","cb105-5":"bet105-ag-funds-locked-review","crl1":"rollbit-50-usd-deposit-only-returned","crl2":"rollbit-516-usd-balance-confiscated","crl3":"rollbit-14000-usdt-winnings-confiscated","crl4":"rollbit-funds-locked-review","csu1":"stakeus-6117-usd-account-compromised","csu2":"stakeus-200-usd-bets-voided","csu3":"stakeus-6349-usd-winnings-confiscated","csb1":"sportbet-one-610-eur-winnings-confiscated","csb2":"sportbet-one-612-usd-winnings-confiscated","csb3":"sportbet-one-0-btc-winnings-confiscated","csb4":"sportbet-one-338-usd-bets-voided","csb5":"sportbet-one-0006-btc-winnings-confiscated","csb6":"sportsbet-io-5000-usd-funds-locked-review","csb7":"sportsbet-io-570-usd-funds-locked-review","csb8":"sportsbet-io-bets-voided","csb9":"sportsbet-io-9725-usdc-winnings-confiscated","cy1":"yeet-8947-usd-balance-confiscated","cgo1":"goated-2000-usdc-account-closed","cgo2":"goated-7862-usdt-funds-locked-review","cgo3":"goated-76000-usd-provably-fair-game-dispute","cgo4":"goated-40000-usd-stop-loss-functionality-dispute","cgo5":"goated-955-usd-self-exclusion-dispute","cgo6":"goated-450-usd-winnings-confiscated","cchg1":"chips-gg-2000-usd-balance-confiscated","cchg2":"chips-gg-148-usd-balance-confiscated","cchg3":"chips-gg-2000-usd-winnings-confiscated","cace1":"acebet-1859-eur-balance-confiscated","cace2":"acebet-1500-usd-balance-confiscated","cace3":"acebet-1300-usd-winnings-confiscated","cace4":"acebet-426-usd-balance-confiscated","cace5":"acebet-968-usd-balance-confiscated","cace6":"acebet-986-usd-balance-confiscated","cwi1":"wild-io-452-usdt-balance-confiscated","cdg1":"degen-casino-513-usdt-winnings-confiscated","cdg2":"degen-casino-352-usd-bets-voided","clb1":"lucky-block-27444-usd-balance-confiscated","clb2":"lucky-block-balance-confiscated","clb3":"lucky-block-1300-usd-balance-confiscated","clb4":"lucky-block-1100-usd-winnings-confiscated"};
@@ -3116,6 +3263,30 @@ const COMPANY_INFO = {
   "Lucky Block": {
     overview: "Lucky Block (luckyblock.com) is a crypto casino and sportsbook that launched its casino/sportsbook platform in 2022, following an earlier, separate January 2022 crypto lottery/token project (LBLOCK) on BNB Chain founded by Scott Ryder, whose associated marketing company Finixio drew scrutiny after its auditor resigned in December 2022 over unclear transactions and celebrity-endorsement practices — background context for the brand rather than a finding against the current casino operator specifically. Licensing information for the casino itself is unusually inconsistent: review sites variously name the operator as Entretenimiento Rojo B.V., Medium Rare N.V., OD Code SRL, or Atlantis Interactive SRL, and cite at least four different licence numbers across Curaçao and Anjouan — Casino.Guru states plainly that Lucky Block \"operates without a license.\" The two major complaint-tracking authorities disagree sharply on overall trust: Casino.Guru rates it 2.1/10 (\"Very low\") with 74 logged complaints (17 resolved, 2 unresolved, 55 rejected), while AskGamblers rates it considerably higher (expert 6.4/10, player rating 7.5/10 from 41 reviews) with a more balanced 21-complaint record (8 resolved, 12 unresolved, 2 rejected). A recurring theme across both platforms: withdrawals for smaller amounts tend to process without issue, while large balances are more likely to be frozen, denied, or confiscated — in some documented cases after KYC was already completed.",
     ownership: { parent: "Disputed across sources — variously reported as Entretenimiento Rojo B.V., Medium Rare N.V., OD Code SRL, or Atlantis Interactive SRL, none independently confirmed against luckyblock.com's own primary site in this research pass", jurisdiction: "Disputed — Curaçao and/or Anjouan licence numbers are cited by different third-party sources (see Overview); Casino.Guru states the operator currently holds no licence", related: "" }
+  },
+  "NV Casino": {
+    overview: "NV Casino is a crypto casino reviewed here via its Casino.Guru listing. Independent coverage is thin relative to the other operators in this database — licensing details, ownership, and launch date were not consistently confirmed across the sources this pass could access. Treat this as an early, lower-confidence profile pending a deeper research pass.",
+    ownership: { parent: "Not independently confirmed", jurisdiction: "Not independently confirmed", related: "" }
+  },
+  "HitnSpin": {
+    overview: "HitnSpin is a crypto casino and sportsbook that has been operating since 2018, giving it a longer track record than most operators added in this batch. It holds a Curaçao licence per operator-side sources. \"No-KYC\" style marketing appears to conflict with a disclosed verification threshold for larger withdrawals, a pattern seen across several operators in this database. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
+    ownership: { parent: "Not independently confirmed", jurisdiction: "Curaçao (licence number not independently cross-checked against the registry)", related: "" }
+  },
+  "Verde Casino": {
+    overview: "Verde Casino is a crypto casino and sportsbook reviewed here via its Casino.Guru listing. Two findings stand out from this research pass: unconfirmed forum allegations describe Lithuanian players being blacklisted, and the operator separately runs a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no confirmed Lithuanian gambling licence — a combination worth flagging even though neither piece is independently confirmed on its own. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
+    ownership: { parent: "Not independently confirmed", jurisdiction: "Not consistently confirmed across sources reviewed", related: "" }
+  },
+  "FortuneJack": {
+    overview: "FortuneJack (fortunejack.com) is a long-running crypto casino and sportsbook, live since 2014 — one of the older brands in this database. A notable discrepancy surfaced in this research pass: FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania's restricted-country status, which this pass could not resolve one way or the other. Recurring complaints describe withdrawal delays and account-verification disputes. Its general Terms include a broad \"unfair play\" clause that has reportedly been invoked against arbitrage-style betting patterns, though arbitrage isn't named explicitly.",
+    ownership: { parent: "Not independently confirmed", jurisdiction: "Curaçao (per operator-side sources; not independently cross-checked against the registry); Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions", related: "" }
+  },
+  "DuckDice": {
+    overview: "DuckDice (duckdice.io) is a long-running, provably-fair dice-focused crypto casino live since 2016, with a sportsbook offering and a large, active player base. A significant finding from this research pass: DuckDice's current Terms name the operating entity as Zentari Limitada, registration number 9845000OAF4456CVB467, San José, Costa Rica — the same entity named in Tower.bet's Terms (see that profile), suggesting the two operators share back-office/operating infrastructure despite being marketed as separate brands. Costa Rica registration is not itself a gambling licence from a recognized regulator. Its Terms include a general \"unfair advantage\" clause under which an account can be restricted, though arbitrage isn't named explicitly.",
+    ownership: { parent: "Zentari Limitada (registration no. 9845000OAF4456CVB467, San José, Costa Rica)", jurisdiction: "Costa Rica registration under Zentari Limitada — not a licensed-gambling-jurisdiction registry", related: "Shares its operating entity (Zentari Limitada) with Tower.bet — see that profile" }
+  },
+  "Tower.bet": {
+    overview: "Tower.bet (tower.bet — not to be confused with the unrelated site towerbet.com, a different operator entirely) is a crypto casino with a simple, fast-turnover dice/crash-style game selection. A significant finding from this research pass: Tower.bet's current Terms name the operating entity as Zentari Limitada, registration number 9845000OAF4456CVB467, San José, Costa Rica — the identical entity named in DuckDice's Terms (see that profile), suggesting the two operators share back-office/operating infrastructure despite being marketed as separate brands. Costa Rica registration is not itself a gambling licence from a recognized regulator. Independent review coverage is thin, with few tracked complaint-platform listings either way.",
+    ownership: { parent: "Zentari Limitada (registration no. 9845000OAF4456CVB467, San José, Costa Rica)", jurisdiction: "Costa Rica registration under Zentari Limitada — not a licensed-gambling-jurisdiction registry", related: "Shares its operating entity (Zentari Limitada) with DuckDice — see that profile. Distinct from the unrelated site towerbet.com — do not merge." }
   }
 };
 
@@ -3164,7 +3335,13 @@ const JURISDICTION_SHORT = {
   "Wild.io": "Anjouan",
   "Degen Casino": "Anjouan",
   "Sportbet.one": "Mwali (Comoros)",
-  "Lucky Block": "Curaçao"
+  "Lucky Block": "Curaçao",
+  "NV Casino": "Not independently confirmed",
+  "HitnSpin": "Curaçao",
+  "Verde Casino": "Not independently confirmed",
+  "FortuneJack": "Curaçao",
+  "DuckDice": "Costa Rica",
+  "Tower.bet": "Costa Rica"
 };
 function jurisdictionShort(op){
   return JURISDICTION_SHORT[op.name] || op.ownership?.jurisdiction || "";
@@ -3382,6 +3559,36 @@ const TERMS_INFO = {
     bonus: { text: "Consistently reported across many sources as a 200% deposit match up to $25,000/€25,000 plus 50 free spins, released incrementally as wagering requirements clear. Sources disagree on the exact wagering mechanics — described variously as a flat 35x, or as roughly 6x the deposit per 10% tranche released — likely reflecting a genuinely tiered/incremental structure that different reviewers summarized differently rather than a true contradiction.", source: "casino.guru; askgamblers.com; coincentral.com; cryptomaniaks.com (third-party, consistent on the headline figure)", checked: "2026-09-02" },
     withdrawal: { text: "Casino.Guru rates Lucky Block 2.1/10 (\"Very low\") Safety Index, logging 74 total complaints (17 resolved, 2 unresolved, 55 rejected, €238,799 in total disputed amount). AskGamblers separately logs 21 complaints (8 resolved, 12 unresolved, 2 rejected) with markedly more favorable overall ratings (6.4-7.5/10). Both platforms document a consistent pattern: routine/small withdrawals process without much friction, but large balances are disproportionately likely to face account closure, indefinite delay, or confiscation — including one documented AskGamblers case where a $27,444 balance was confiscated shortly after the player completed KYC and made one small successful withdrawal.", source: "casino.guru/luckyblock-casino-review; askgamblers.com/online-casinos/reviews/lucky-block-casino/complaints (third-party)", checked: "2026-09-02" },
     kyc: { text: "No ID verification is required to register, deposit or play. A conditional threshold for triggering KYC is reported inconsistently across sources (one third-party estimate near $2,000, another near €5,000, neither confirmed against an official statement), and Lucky Block's own regional Terms mirror simply reserves the right to request documentation \"at any time.\" Multiple documented complaints describe large balances being frozen or confiscated after KYC was already completed, with the operator citing multi-accounting or false-documentation concerns the player disputed.", source: "cryptomaniaks.com; coinspeaker.com; luckyblockindia.com terms mirror (third-party, conflicting on the threshold)", checked: "2026-09-02" }
+  },
+  "NV Casino": {
+    bonus: { text: "A deposit-match welcome bonus is advertised; exact tier structure and wagering requirement were not independently confirmed in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    withdrawal: { text: "Independent complaint-platform history is limited; payout reliability could not be assessed with confidence in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "No KYC required for standard play under disclosed thresholds; no fixed dollar threshold for the point verification becomes mandatory was found.", source: "casino.guru (third-party)", checked: "2026-09-04" }
+  },
+  "HitnSpin": {
+    bonus: { text: "A multi-deposit welcome package is advertised; exact current tiers and wagering requirement were not independently confirmed in this pass.", source: "casino.guru; hitnspin.com (third-party review plus operator site, not fully fetched)", checked: "2026-09-04" },
+    withdrawal: { text: "Casino.Guru's Safety Index for HitnSpin sits in the \"Below Average\" range; specific complaint case detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "\"No-KYC\" style marketing appears to conflict with a disclosed verification threshold that applies to larger withdrawals — a pattern also seen at several other operators in this database.", source: "casino.guru; hitnspin.com (third-party, official threshold not independently confirmed)", checked: "2026-09-04" }
+  },
+  "Verde Casino": {
+    bonus: { text: "A deposit-match welcome bonus is advertised; exact tier structure and wagering requirement were not independently confirmed in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    withdrawal: { text: "Casino.Guru's Safety Index for Verde Casino sits in the \"Below Average\" range; specific complaint case detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "KYC threshold not clearly disclosed. Separately, unconfirmed forum allegations describe Lithuanian players being blacklisted, in tension with Verde Casino running a Lithuania-facing \"Verde Lietuva\" mirror domain without a confirmed Lithuanian licence — neither piece independently verified.", source: "casino.guru; forum reports (third-party, unconfirmed)", checked: "2026-09-04" }
+  },
+  "FortuneJack": {
+    bonus: { text: "A multi-deposit welcome package is advertised across this long-running brand; exact current tiers and wagering requirement were not independently confirmed in this pass.", source: "casino.guru; fortunejack.com help center (third-party review plus operator site, not fully fetched)", checked: "2026-09-04" },
+    withdrawal: { text: "Recurring complaints describe withdrawal delays and account-verification disputes; specific case-level detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "KYC threshold not consistently disclosed across sources. FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania's restricted-country status specifically — this pass could not resolve which is current.", source: "fortunejack.com help center vs. terms (official, internally conflicting)", checked: "2026-09-04" }
+  },
+  "DuckDice": {
+    bonus: { text: "Rewards run on a rakeback/leaderboard model rather than a large deposit-match bonus.", source: "casino.guru; duckdice.io (third-party plus operator site)", checked: "2026-09-04" },
+    withdrawal: { text: "Long operating history (since 2016) with a large active player base; specific complaint case-level detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "No KYC required for standard dice play; threshold for larger withdrawals not clearly published. DuckDice's Terms name Zentari Limitada (Costa Rica) as the operating entity — the same entity named in Tower.bet's Terms.", source: "duckdice.io terms (official)", checked: "2026-09-04" }
+  },
+  "Tower.bet": {
+    bonus: { text: "Welcome-bonus terms were not independently confirmed in this pass.", source: "tower.bet (operator site, not fully fetched)", checked: "2026-09-04" },
+    withdrawal: { text: "Thin independent complaint-platform history either way; payout reliability was not well established by this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "KYC threshold not clearly disclosed. Tower.bet's Terms name Zentari Limitada (Costa Rica) as the operating entity — the same entity named in DuckDice's Terms. Note the unrelated site towerbet.com is a different operator.", source: "tower.bet terms (official)", checked: "2026-09-04" }
   }
 };
 
@@ -3570,7 +3777,28 @@ const TRUST_BREAKDOWN = {
   "Wild.io":       { licence:8, payout:8, complaintsRec:8, kyc:6, tc:3 },
   "Degen Casino":  { licence:8, payout:7, complaintsRec:6, kyc:8, tc:6 },
   "Sportbet.one":  { licence:3, payout:5, complaintsRec:6, kyc:8, tc:3 },
-  "Lucky Block":   { licence:3, payout:6, complaintsRec:7, kyc:7, tc:6 }
+  "Lucky Block":   { licence:3, payout:6, complaintsRec:7, kyc:7, tc:6 },
+  // NV Casino, HitnSpin, Verde Casino, FortuneJack, DuckDice, Tower.bet: added
+  // 2026-09-04, research-grounded rather than user-specified. Licence: NV
+  // Casino/Verde Casino score mid (5) for unconfirmed licensing; HitnSpin/
+  // FortuneJack score higher (7) for a named Curaçao licence not independently
+  // registry-checked; DuckDice/Tower.bet score mid (5) for a Costa Rica
+  // company registration rather than a recognized gambling licence. Payout/
+  // complaintsRec are neutral-to-below for the four with thin case-level
+  // complaint data captured (NV Casino, Verde Casino, HitnSpin's "Below
+  // Average" Safety Index range, Tower.bet's thin coverage), and higher for
+  // DuckDice given its longer track record and larger player base. KYC scores
+  // mid (5-6) reflecting undisclosed/unconfirmed thresholds across the board.
+  // TC (T&C fairness) is floored at 3 for HitnSpin, Verde Casino, FortuneJack
+  // and DuckDice per their account-restricting ARBITRAGE_CLAUSE entries above;
+  // NV Casino (no clause found) and Tower.bet (only an ambiguous exploit
+  // clause, not a true arbitrage clause) are left at a more neutral 5.
+  "NV Casino":     { licence:5, payout:4, complaintsRec:4, kyc:6, tc:5 },
+  "HitnSpin":      { licence:7, payout:5, complaintsRec:5, kyc:6, tc:3 },
+  "Verde Casino":  { licence:5, payout:4, complaintsRec:4, kyc:6, tc:3 },
+  "FortuneJack":   { licence:7, payout:6, complaintsRec:6, kyc:5, tc:3 },
+  "DuckDice":      { licence:7, payout:7, complaintsRec:7, kyc:6, tc:3 },
+  "Tower.bet":     { licence:5, payout:3, complaintsRec:3, kyc:5, tc:5 }
 };
 
 // Short "typical payout time" label per operator for the sportsbooks list page —
@@ -3587,7 +3815,8 @@ const PAYOUT_TIME_SHORT = {
   "Duel":"~15m","1win":"~30m","BetFury":"Varies","bet105.ag":"~1h","Rollbit":"Varies",
   "StakeUS":"~1h","Sportsbet.io":"Varies",
   "Yeet":"~15m","Goated":"~15m","Chips.gg":"~30m","Acebet":"~15m",
-  "Wild.io":"~15m","Degen Casino":"Varies","Sportbet.one":"Varies","Lucky Block":"Varies"
+  "Wild.io":"~15m","Degen Casino":"Varies","Sportbet.one":"Varies","Lucky Block":"Varies",
+  "NV Casino":"Varies","HitnSpin":"Varies","Verde Casino":"Varies","FortuneJack":"Varies","DuckDice":"Varies","Tower.bet":"Varies"
 };
 
 function computeTrustScore(name){
@@ -3694,7 +3923,18 @@ function seedOperators(){
     ["Wild.io","wild.io", null, null, null, null],
     ["Degen Casino","degen.com", null, null, null, null],
     ["Sportbet.one","sportbet.one", null, null, null, null],
-    ["Lucky Block","luckyblock.com", null, null, null, null]
+    ["Lucky Block","luckyblock.com", null, null, null, null],
+    // NV Casino, HitnSpin, Verde Casino, FortuneJack, DuckDice and Tower.bet
+    // added 2026-09-04 from user-supplied Casino.Guru review links — none
+    // currently tracked on 99bitcoins.com's on-chain table, so all six
+    // deposits/uaw/balance/rank fields are null like the other untracked
+    // operators above.
+    ["NV Casino","nv.casino", null, null, null, null],
+    ["HitnSpin","hitnspin.com", null, null, null, null],
+    ["Verde Casino","verde.bet", null, null, null, null],
+    ["FortuneJack","fortunejack.com", null, null, null, null],
+    ["DuckDice","duckdice.io", null, null, null, null],
+    ["Tower.bet","tower.bet", null, null, null, null]
   ];
   return seed.map(([name,domain,deposits24h,uaw24h,balance,rank]) => {
     const av = ANNUAL_VOLUME[name];
