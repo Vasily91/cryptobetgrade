@@ -1758,12 +1758,12 @@ function handleLogoError(img){
         <h1>Know the sportsbook <span>before you deposit.</span></h1>
         <div class="mobile-mini-card" aria-hidden="true">
           <div class="mm-top">
-            <span class="mm-logo"><img src="https://bc.game/favicon.ico" data-domain="bc.game" data-stage="direct" data-initials="BC" alt="" decoding="async" onerror="handleLogoError(this)"></span>
-            <div class="mm-name"><b>BC.Game</b><small>Trust Score</small></div>
-            <strong>8.3</strong>
+            <span class="mm-logo"><img id="heroMiniLogo" src="https://rainbet.com/favicon.ico" data-domain="rainbet.com" data-stage="direct" data-initials="RB" alt="" decoding="async" onerror="handleLogoError(this)"></span>
+            <div class="mm-name"><b id="heroMiniName">Rainbet</b><small>Trust Score</small></div>
+            <strong id="heroMiniScore">9.0</strong>
           </div>
-          <div class="mm-line"><i style="width:83%"></i></div>
-          <div class="mm-meta"><span>$1.63M · 24h</span><span>30+ sports</span></div>
+          <div class="mm-line"><i id="heroMiniBar" style="width:90%"></i></div>
+          <div class="mm-meta"><span id="heroMiniDeposits">$7.38M · 24h</span><span id="heroMiniSports">45+ sports</span></div>
         </div>
       </div>
       <p class="sub">Independent profiles focused on complaints, sportsbook rules and on-chain activity — not casino marketing.</p>
@@ -1788,51 +1788,51 @@ function handleLogoError(img){
         <div class="visual-main-card visual-main-card-3d">
           <div class="vm-top">
             <span class="vm-logo-img">
-              <img src="https://bc.game/favicon.ico" data-domain="bc.game" data-stage="direct" data-initials="BC" alt="BC.Game logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)">
+              <img id="heroLogo" src="https://rainbet.com/favicon.ico" data-domain="rainbet.com" data-stage="direct" data-initials="RB" alt="Rainbet logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)">
             </span>
             <div>
-              <b>BC.Game</b>
-              <small>Crypto sportsbook · Anjouan</small>
+              <b id="heroName">Rainbet</b>
+              <small>Crypto sportsbook · <span id="heroJurisdiction">Anjouan</span></small>
             </div>
             <div class="vm-trust">
               <span>TRUST SCORE</span>
-              <strong>8.3</strong>
+              <strong id="heroScore">9.0</strong>
             </div>
           </div>
 
           <div class="vm-summary">
-            <span class="vm-status-good">Highly rated</span>
+            <span class="vm-status-good" id="heroStatusBadge">Highly rated</span>
             <small>CryptoBetGrade weighted score</small>
           </div>
 
           <div class="vm-metrics vm-metrics-real">
             <div>
               <span>24h deposits</span>
-              <b>$1.63M</b>
-              <small>rank 9 of 32</small>
+              <b id="heroDeposits24h">$7.38M</b>
+              <small id="heroDepositsRank">rank 4 of 43</small>
             </div>
             <div>
               <span>Annual deposits</span>
-              <b>$2.28B</b>
-              <small>+7% YoY</small>
+              <b id="heroAnnualDeposits">$1.76B</b>
+              <small id="heroAnnualYoy">&nbsp;</small>
             </div>
             <div>
               <span>Typical payout</span>
-              <b>~10 min</b>
+              <b id="heroPayout">~15 min</b>
               <small>crypto</small>
             </div>
           </div>
 
           <div class="vm-facts">
-            <div><span>Sportsbook</span><b>30+ sports</b></div>
-            <div><span>Crypto</span><b>170+ coins</b></div>
-            <div><span>KYC</span><b>Conditional</b></div>
+            <div><span>Sportsbook</span><b id="heroSports">45+ sports</b></div>
+            <div><span>Crypto</span><b id="heroCrypto">8+ coins</b></div>
+            <div><span>KYC</span><b id="heroKyc">Conditional</b></div>
           </div>
 
           <div class="vm-breakdown">
-            <div><span>Licence</span><i><em style="width:90%"></em></i><b>9</b></div>
-            <div><span>Payout</span><i><em style="width:80%"></em></i><b>8</b></div>
-            <div><span>Complaints</span><i><em style="width:80%"></em></i><b>8</b></div>
+            <div><span>Licence</span><i><em id="heroLicenceBar" style="width:90%"></em></i><b id="heroLicenceVal">9</b></div>
+            <div><span>Payout</span><i><em id="heroPayoutBar" style="width:90%"></em></i><b id="heroPayoutVal">9</b></div>
+            <div><span>Complaints</span><i><em id="heroComplaintsBar" style="width:90%"></em></i><b id="heroComplaintsVal">9</b></div>
           </div>
         </div>
 
@@ -2163,6 +2163,76 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeMenu();
   });
+})();
+</script>
+
+<script>
+// Homepage hero card — loads whichever operator currently has the highest
+// Trust Score from hero-operator.json (regenerated by tools/gen-hero.mjs
+// every time scores change, see that file's header comment). The markup
+// above ships a same-day static snapshot as a no-JS/fetch-failure
+// fallback; this script overwrites it with the live value on every page
+// load, so the card can't silently go stale the way the old hardcoded
+// BC.Game version did.
+(function(){
+  function setText(id, text){
+    const el = document.getElementById(id);
+    if(el) el.textContent = (text === null || text === undefined) ? "" : text;
+  }
+  function setWidth(id, pct){
+    const el = document.getElementById(id);
+    if(el) el.style.width = pct + "%";
+  }
+  function initialsOf(name){
+    const words = (name || "").trim().split(/\s+/).filter(Boolean);
+    if(words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+    return (name || "").replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase() || "?";
+  }
+
+  fetch("/hero-operator.json", { cache: "no-store" })
+    .then(r => r.ok ? r.json() : null)
+    .then(hero => {
+      if(!hero || typeof hero.score !== "number") return;
+
+      const domain = hero.logoDomain || "";
+      const initials = initialsOf(hero.name);
+      ["heroMiniLogo", "heroLogo"].forEach(id => {
+        const img = document.getElementById(id);
+        if(!img) return;
+        img.dataset.stage = "direct";
+        img.dataset.domain = domain;
+        img.dataset.initials = initials;
+        img.alt = hero.name + " logo";
+        if(domain) img.src = "https://" + domain + "/favicon.ico";
+      });
+
+      setText("heroMiniName", hero.name);
+      setText("heroMiniScore", hero.score.toFixed(1));
+      setWidth("heroMiniBar", hero.score * 10);
+      setText("heroMiniDeposits", (hero.deposits24hShort || "—") + " · 24h");
+      setText("heroMiniSports", hero.sportsShort || "");
+
+      setText("heroName", hero.name);
+      setText("heroJurisdiction", hero.jurisdictionShort || "");
+      setText("heroScore", hero.score.toFixed(1));
+      setText("heroStatusBadge", hero.gradeLabel === "Trusted" ? "Highly rated" : (hero.gradeLabel || "Rated"));
+
+      setText("heroDeposits24h", hero.deposits24hShort || "—");
+      setText("heroDepositsRank", hero.depositsRank ? "rank " + hero.depositsRank : "");
+      setText("heroAnnualDeposits", hero.annualVolumeShort || "—");
+      setText("heroAnnualYoy", hero.annualVolumeYoy || " ");
+      setText("heroPayout", hero.payoutShort || "—");
+
+      setText("heroSports", hero.sportsShort || "—");
+      setText("heroCrypto", hero.cryptoShort || "—");
+      setText("heroKyc", hero.kycLabelShort || "Unclear");
+
+      const b = hero.breakdown || {};
+      if(typeof b.licence === "number"){ setWidth("heroLicenceBar", b.licence * 10); setText("heroLicenceVal", b.licence); }
+      if(typeof b.payout === "number"){ setWidth("heroPayoutBar", b.payout * 10); setText("heroPayoutVal", b.payout); }
+      if(typeof b.complaintsRec === "number"){ setWidth("heroComplaintsBar", b.complaintsRec * 10); setText("heroComplaintsVal", b.complaintsRec); }
+    })
+    .catch(() => { /* fetch failed — keep the static fallback already in the HTML */ });
 })();
 </script>
 </body>

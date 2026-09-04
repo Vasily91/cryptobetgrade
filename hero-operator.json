@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-08-27",
+  "id": "rainbet",
+  "name": "Rainbet",
+  "logoDomain": "rainbet.com",
+  "jurisdictionShort": "Anjouan",
+  "score": 9,
+  "gradeLabel": "Trusted",
+  "breakdown": {
+    "licence": 9,
+    "payout": 9,
+    "complaintsRec": 9,
+    "kyc": 10,
+    "tc": 8
+  },
+  "deposits24hShort": "$7.38M",
+  "depositsRank": "4 of 43",
+  "annualVolumeShort": "$1.76B",
+  "annualVolumeYoy": null,
+  "payoutShort": "~15 min",
+  "sportsShort": "45+ sports",
+  "cryptoShort": "8+ coins",
+  "kycLabelShort": "Conditional"
+}
