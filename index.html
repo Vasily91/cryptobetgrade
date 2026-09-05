@@ -2016,16 +2016,26 @@ document.addEventListener("DOMContentLoaded", () => {
 // e.g. typing "due" surfaces both Duel and Duelbits.
 const HERO_SEARCH_OPERATORS = [
   {name:"Stake", id:"stake"}, {name:"BC.Game", id:"bc-game"}, {name:"Rainbet", id:"rainbet"},
-  {name:"Roobet", id:"roobet"}, {name:"500Casino", id:"500casino"}, {name:"Betpanda", id:"betpanda"},
-  {name:"Gamdom", id:"gamdom"}, {name:"Duelbits", id:"duelbits"}, {name:"Winna", id:"winna"},
-  {name:"Razed", id:"razed"}, {name:"Thrill", id:"thrill"}, {name:"Cryptorino", id:"cryptorino"},
-  {name:"Bets.io", id:"bets-io"}, {name:"Nitrobetting", id:"nitrobetting"}, {name:"Cloudbet", id:"cloudbet"},
-  {name:"Rakebit", id:"rakebit"}, {name:"Fresh Casino", id:"fresh-casino"}, {name:"SolCasino.io", id:"solcasino-io"},
-  {name:"Sol Casino", id:"sol-casino"}, {name:"Jet Casino", id:"jet-casino"}, {name:"Starda Casino", id:"starda-casino"},
-  {name:"1Go Casino", id:"1go-casino"}, {name:"Legzo Casino", id:"legzo-casino"}, {name:"Irwin Casino", id:"irwin-casino"},
-  {name:"Shuffle", id:"shuffle"}, {name:"Duel", id:"duel"}, {name:"1win", id:"1win"},
-  {name:"BetFury", id:"betfury"}, {name:"bet105.ag", id:"bet105-ag"}, {name:"Rollbit", id:"rollbit"},
-  {name:"StakeUS", id:"stakeus"}, {name:"Sportsbet.io", id:"sportsbet-io"}
+  {name:"Roobet", id:"roobet"}, {name:"500Casino", id:"500casino"},
+  {name:"Betpanda", id:"betpanda"}, {name:"Gamdom", id:"gamdom"}, {name:"Duelbits", id:"duelbits"},
+  {name:"Winna", id:"winna"}, {name:"Razed", id:"razed"}, {name:"Thrill", id:"thrill"},
+  {name:"Cryptorino", id:"cryptorino"}, {name:"Bets.io", id:"bets-io"},
+  {name:"Nitrobetting", id:"nitrobetting"}, {name:"Cloudbet", id:"cloudbet"},
+  {name:"Rakebit", id:"rakebit"}, {name:"Fresh Casino", id:"fresh-casino"},
+  {name:"SolCasino.io", id:"solcasino-io"}, {name:"Sol Casino", id:"sol-casino"},
+  {name:"Jet Casino", id:"jet-casino"}, {name:"Starda Casino", id:"starda-casino"},
+  {name:"1Go Casino", id:"1go-casino"}, {name:"Legzo Casino", id:"legzo-casino"},
+  {name:"Irwin Casino", id:"irwin-casino"}, {name:"Shuffle", id:"shuffle"},
+  {name:"Duel", id:"duel"}, {name:"1win", id:"1win"}, {name:"BetFury", id:"betfury"},
+  {name:"bet105.ag", id:"bet105-ag"}, {name:"Rollbit", id:"rollbit"},
+  {name:"StakeUS", id:"stakeus"}, {name:"Sportsbet.io", id:"sportsbet-io"},
+  {name:"Yeet", id:"yeet"}, {name:"Goated", id:"goated"}, {name:"Chips.gg", id:"chips-gg"},
+  {name:"Acebet", id:"acebet"}, {name:"Wild.io", id:"wild-io"},
+  {name:"Degen Casino", id:"degen-casino"}, {name:"Sportbet.one", id:"sportbet-one"},
+  {name:"Lucky Block", id:"lucky-block"}, {name:"NV Casino", id:"nv-casino"},
+  {name:"HitnSpin", id:"hitnspin"}, {name:"Verde Casino", id:"verde-casino"},
+  {name:"FortuneJack", id:"fortunejack"}, {name:"DuckDice", id:"duckdice"},
+  {name:"Tower.bet", id:"tower-bet"}, {name:"Whale.io", id:"whale-io"}
 ];
 const HERO_SEARCH_MIN_CHARS = 3;
 let heroSearchActiveIndex = -1;
