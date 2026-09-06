@@ -1307,9 +1307,16 @@ const SPORTSBOOK_PROVIDER = {
   "FortuneJack": "BetBy",
   "DuckDice": "BetBy",
   "Tower.bet": "BetBy",
-  "Lucky Block": "BetBy"
+  "Lucky Block": "BetBy",
+  "Fresh Casino": "Digitain",
+  "Starda Casino": "Digitain",
+  "Jet Casino": "Digitain",
+  "1Go Casino": "Digitain",
+  "Legzo Casino": "Digitain",
+  "Irwin Casino": "Digitain",
+  "Sol Casino": "Digitain"
 };
-const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy" };
+const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy", "Digitain": "Digitain" };
 function sportsbookProviderOf(name){ return SPORTSBOOK_PROVIDER[name] || null; }
 
 // Arbitrage-betting clause — whether an operator's own official Terms
@@ -1574,13 +1581,13 @@ const KEY_PROS = {
   "Nitrobetting": ["No KYC required at signup, email only"],
   "Cloudbet": ["Operating since 2013, established track record","Fast crypto withdrawals for verified accounts"],
   "Rakebit": ["20+ cryptocurrencies accepted","No stated maximum win limit","Generous rakeback","Sportsbook powered by BetBy"],
-  "Fresh Casino": ["In-house sportsbook included"],
-  "Sol Casino": ["Loyalty program (SolCoins) for ongoing rewards"],
-  "Jet Casino": ["No stated maximum win limit","Wide crypto selection (8+ coins)"],
-  "Starda Casino": ["Higher-tier withdrawal limits up to €450,000/month","Dedicated in-house sportsbook"],
-  "1Go Casino": ["10+ cryptocurrencies accepted","Weekly cashback up to 10%"],
-  "Legzo Casino": ["Native Android app"],
-  "Irwin Casino": ["Native iOS & Android apps","Welcome package up to $900 + 400 spins"],
+  "Fresh Casino": ["Sportsbook powered by Digitain"],
+  "Sol Casino": ["Loyalty program (SolCoins) for ongoing rewards","Sportsbook powered by Digitain"],
+  "Jet Casino": ["No stated maximum win limit","Wide crypto selection (8+ coins)","Sportsbook powered by Digitain"],
+  "Starda Casino": ["Higher-tier withdrawal limits up to €450,000/month","Sportsbook powered by Digitain"],
+  "1Go Casino": ["10+ cryptocurrencies accepted","Weekly cashback up to 10%","Sportsbook powered by Digitain"],
+  "Legzo Casino": ["Native Android app","Sportsbook powered by Digitain"],
+  "Irwin Casino": ["Native iOS & Android apps","Welcome package up to $900 + 400 spins","Sportsbook powered by Digitain"],
   "Shuffle": ["17+ cryptocurrencies accepted"],
   "Duel": ["No mandatory KYC for standard play","Fast withdrawals: 1-15 minutes typical"],
   "1win": ["11+ cryptocurrencies accepted","Native iOS, Android, Windows apps"],
@@ -1631,7 +1638,7 @@ const KEY_CONS = {
   "Cloudbet": ["KYC becomes mandatory after $2,200 in cumulative deposits"],
   "Rakebit": ["Account may be closed for arbitrage betting"],
   "Fresh Casino": ["Some games/withdrawal methods restricted by country"],
-  "Sol Casino": ["No sportsbook, casino games only"],
+  "Sol Casino": ["$125,000/month max-win cap unless otherwise agreed with the operator"],
   "Jet Casino": ["Crypto withdrawal delays of up to 31 days reported, tied to a repeatedly-invoked account-review clause (Sports rules section 10.4) across multiple documented complaints","45x wagering requirement on its larger welcome offer"],
   "Starda Casino": ["Bonus winnings capped at 10x"],
   "1Go Casino": ["Licence registry status disputed"],
@@ -2574,7 +2581,7 @@ const PROFILE_STATS = {
     source: "rakebit.com, ccn.com, bitcoin.com, casinosblockchain.io", checked: "2026-08-22"
   },
   "Fresh Casino": {
-    markets: "Casino (slots, table, live dealer) + in-house sportsbook (40+ sports)",
+    markets: "Casino (slots, table, live dealer) + sportsbook (40+ sports)",
     oddsFormat: null,
     maxWin: "No published max-win cap; only stated withdrawal limits apply",
     support: "24/7 live chat + email",
