@@ -1281,6 +1281,37 @@ const KYC_STANCE_LABEL = {
 };
 function kycStanceOf(name){ return KYC_STANCE[name] || "unclear"; }
 
+// Sportsbook software/tech provider — who powers the actual sportsbook
+// product behind the operator's own brand. Currently only tracking BetBy
+// (a known widely-used white-label sportsbook provider); other providers
+// will be added here as they're confirmed. Operators not listed either use
+// an in-house/unconfirmed provider or haven't been checked yet — they are
+// simply absent from this map rather than given a placeholder value.
+const SPORTSBOOK_PROVIDER = {
+  "Rakebit": "BetBy",
+  "BC.Game": "BetBy",
+  "Razed": "BetBy",
+  "Rainbet": "BetBy",
+  "500Casino": "BetBy",
+  "SolCasino.io": "BetBy",
+  "Roobet": "BetBy",
+  "Thrill": "BetBy",
+  "Winna": "BetBy",
+  "Betpanda": "BetBy",
+  "Cryptorino": "BetBy",
+  "BetFury": "BetBy",
+  "Rollbit": "BetBy",
+  "Acebet": "BetBy",
+  "Chips.gg": "BetBy",
+  "Degen Casino": "BetBy",
+  "FortuneJack": "BetBy",
+  "DuckDice": "BetBy",
+  "Tower.bet": "BetBy",
+  "Lucky Block": "BetBy"
+};
+const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy" };
+function sportsbookProviderOf(name){ return SPORTSBOOK_PROVIDER[name] || null; }
+
 // Arbitrage-betting clause — whether an operator's own official Terms
 // explicitly prohibit arbitrage/surebetting (exploiting odds differences
 // across bookmakers for guaranteed profit) and void bets / restrict the
@@ -1622,7 +1653,7 @@ const KEY_CONS = {
   "Degen Casino": ["Brand-new operator (2025 launch, reported closed beta) with no established payout track record","No Casino.Guru or AskGamblers listing exists yet to independently verify trust signals","Licensing details (Anjouan licence, Costa Rica-registered operator) sourced only to third-party review blogs, not cross-checked against a registry"],
   "Sportbet.one": ["Regulator (Mwali/MISA) is widely characterized by industry watchdogs, including reported statements from the Central Bank of Comoros, as not a genuine licensing authority","Primary-source forum disputes (2024-2026) document account restrictions and full balance confiscation over undisclosed \"fraud detection\" findings, with evidence withheld from the player each time","One documented case describes a failed self-exclusion request followed by a real financial loss during the requested cooling-off period","AskGamblers lists the operator's status as \"closed, no longer accepting players\" — conflicting with other 2026 evidence of an active site"],
   "Lucky Block": ["Licensing is unusually unclear: at least five different operator-entity names and four different licence numbers appear across review sites, and Casino.Guru states it currently operates without a licence","Casino.Guru Safety Index only 2.1/10 (\"Very low\"), though AskGamblers rates it considerably higher (6.4-7.5/10) — reviewers sharply disagree","Recurring complaints describe large balances frozen or confiscated after KYC was already completed","Broad \"unfair advantage\" clause allows account closure and fund forfeiture, not just voided bets (arbitrage not explicitly named)","No native mobile app despite some marketing pages claiming otherwise"],
-  "NV Casino": ["Limited independent track record; review coverage is thin relative to larger peers","Licensing details not consistently confirmed across sources","No fixed KYC threshold published"],
+  "NV Casino": ["Limited independent track record; review coverage is thin relative to larger peers — launched in 2024","No fixed KYC threshold published"],
   "HitnSpin": ["\"No-KYC\" marketing conflicts with a disclosed verification threshold for larger withdrawals","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
   "Verde Casino": ["Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence","Runs a Lithuania-facing \"Verde Lietuva\" mirror domain without disclosed local licensing","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
   "FortuneJack": ["Licensing/Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions","Recurring complaints describe withdrawal delays and account verification disputes","General \"unfair play\" clause has reportedly been invoked against arbitrage-style patterns without naming arbitrage explicitly"],
@@ -2293,12 +2324,12 @@ const PROFILE_SIDEBAR = {
     source: "casino.guru; askgamblers.com; cryptomaniaks.com; coincentral.com (third-party, conflicting on licensing)", checked: "2026-09-02"
   },
   "NV Casino": {
-    license: "Not consistently confirmed across sources reviewed",
-    launched: "Not independently confirmed",
+    license: "Curaçao Gaming Control Board, licence No. 8048/JAZ, per slotcatalog.com; not independently cross-checked against the registry",
+    launched: "2024",
     welcomeBonus: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed",
     minDeposit: "Not independently confirmed",
     cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
-    source: "casino.guru (third-party — official terms not independently fetched in this pass)", checked: "2026-09-04"
+    source: "casino.guru; gamblescope.com; slotcatalog.com (third-party — official terms not independently fetched in this pass)", checked: "2026-09-06"
   },
   "HitnSpin": {
     license: "Curaçao (2018 launch per operator-side sources; licence number not independently cross-checked against the registry)",
@@ -2309,12 +2340,12 @@ const PROFILE_SIDEBAR = {
     source: "casino.guru; hitnspin.com (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
   },
   "Verde Casino": {
-    license: "Not consistently confirmed across sources reviewed; no Lithuanian licence held despite running a Lithuania-facing \"Verde Lietuva\" mirror domain",
-    launched: "Not independently confirmed",
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183 (renewed April 2025), held by Wiraon B.V. (Willemstad, Curaçao) per casino.org; no Lithuanian licence held despite running a Lithuania-facing \"Verde Lietuva\" mirror domain",
+    launched: "2022 (casino.org cites a November 2022 launch; verdeloro.com instead cites July 2022 — sources disagree on the exact month)",
     welcomeBonus: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed",
     minDeposit: "Not independently confirmed",
     cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
-    source: "casino.guru; verde.bet (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
+    source: "casino.guru; verde.bet; casino.org (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-06"
   },
   "FortuneJack": {
     license: "Curaçao (per operator-side sources; not independently cross-checked against the registry); Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions",
@@ -2334,7 +2365,7 @@ const PROFILE_SIDEBAR = {
   },
   "Tower.bet": {
     license: "Costa Rica registration under Zentari Limitada, registration number 9845000OAF4456CVB467 — not a licensed-gambling-jurisdiction registry; the unrelated site towerbet.com is a different operator entirely",
-    launched: "Not independently confirmed",
+    launched: "2019",
     welcomeBonus: "Not independently confirmed",
     minDeposit: "Not independently confirmed",
     cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
@@ -3533,16 +3564,16 @@ const COMPANY_INFO = {
     ownership: { parent: "Disputed across sources — variously reported as Entretenimiento Rojo B.V., Medium Rare N.V., OD Code SRL, or Atlantis Interactive SRL, none independently confirmed against luckyblock.com's own primary site in this research pass", jurisdiction: "Disputed — Curaçao and/or Anjouan licence numbers are cited by different third-party sources (see Overview); Casino.Guru states the operator currently holds no licence", related: "" }
   },
   "NV Casino": {
-    overview: "NV Casino is a crypto casino reviewed here via its Casino.Guru listing. Independent coverage is thin relative to the other operators in this database — licensing details, ownership, and launch date were not consistently confirmed across the sources this pass could access. Treat this as an early, lower-confidence profile pending a deeper research pass.",
-    ownership: { parent: "Not independently confirmed", jurisdiction: "Not independently confirmed", related: "" }
+    overview: "NV Casino is a crypto casino launched in 2024, per gamblescope.com and slotcatalog.com (the latter naming the operating entity as Kaurum Limited, under a Curaçao Gaming Control Board licence No. 8048/JAZ — not independently cross-checked against the registry). Independent coverage is otherwise thin relative to the other operators in this database — further ownership detail was not consistently confirmed across the sources this pass could access. Treat this as an early, lower-confidence profile pending a deeper research pass.",
+    ownership: { parent: "Kaurum Limited, per slotcatalog.com — not independently cross-checked", jurisdiction: "Curaçao Gaming Control Board, licence No. 8048/JAZ, per slotcatalog.com; not independently cross-checked against the registry", related: "" }
   },
   "HitnSpin": {
     overview: "HitnSpin is a crypto casino and sportsbook that has been operating since 2018, giving it a longer track record than most operators added in this batch. It holds a Curaçao licence per operator-side sources. \"No-KYC\" style marketing appears to conflict with a disclosed verification threshold for larger withdrawals, a pattern seen across several operators in this database. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
     ownership: { parent: "Not independently confirmed", jurisdiction: "Curaçao (licence number not independently cross-checked against the registry)", related: "" }
   },
   "Verde Casino": {
-    overview: "Verde Casino is a crypto casino and sportsbook reviewed here via its Casino.Guru listing. Two findings stand out from this research pass: unconfirmed forum allegations describe Lithuanian players being blacklisted, and the operator separately runs a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no confirmed Lithuanian gambling licence — a combination worth flagging even though neither piece is independently confirmed on its own. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
-    ownership: { parent: "Not independently confirmed", jurisdiction: "Not consistently confirmed across sources reviewed", related: "" }
+    overview: "Verde Casino is a crypto casino and sportsbook that launched in 2022 (casino.org cites November 2022; verdeloro.com cites July 2022), operated by Wiraon B.V. (Willemstad, Curaçao) under Curaçao Gaming Control Board licence No. OGL/2024/686/0183, renewed April 2025, per casino.org. Two findings stand out from this research pass: unconfirmed forum allegations describe Lithuanian players being blacklisted, and the operator separately runs a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no confirmed Lithuanian gambling licence — a combination worth flagging even though neither piece is independently confirmed on its own. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
+    ownership: { parent: "Wiraon B.V. (Willemstad, Curaçao), per casino.org", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183 (renewed April 2025), per casino.org", related: "" }
   },
   "FortuneJack": {
     overview: "FortuneJack (fortunejack.com) is a long-running crypto casino and sportsbook, live since 2014 — one of the older brands in this database. A notable discrepancy surfaced in this research pass: FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania's restricted-country status, which this pass could not resolve one way or the other. Recurring complaints describe withdrawal delays and account-verification disputes. Its general Terms include a broad \"unfair play\" clause that has reportedly been invoked against arbitrage-style betting patterns, though arbitrage isn't named explicitly.",
@@ -3636,9 +3667,9 @@ const JURISDICTION_SHORT = {
   "Degen Casino": "Anjouan",
   "Sportbet.one": "Mwali (Comoros)",
   "Lucky Block": "Curaçao",
-  "NV Casino": "Not independently confirmed",
+  "NV Casino": "Curaçao",
   "HitnSpin": "Curaçao",
-  "Verde Casino": "Not independently confirmed",
+  "Verde Casino": "Curaçao",
   "FortuneJack": "Curaçao",
   "DuckDice": "Costa Rica",
   "Tower.bet": "Costa Rica",
@@ -4406,7 +4437,7 @@ let state = {
   operators: seedOperators(),
   listSort: { key: "trust", dir: "desc" },
   listPage: 1,
-  listFilters: { kyc: [] },
+  listFilters: { kyc: [], provider: [] },
   filterPanelOpen: false
 };
 let isAdmin = false;
@@ -4633,7 +4664,7 @@ function toggleFilter(dim, val){
   renderList();
 }
 function clearFilters(){
-  state.listFilters = { kyc:[] };
+  state.listFilters = { kyc:[], provider:[] };
   state.listPage = 1;
   renderList();
 }
@@ -4674,6 +4705,7 @@ function renderList(){
 
   const f = state.listFilters;
   if(f.kyc.length) rows = rows.filter(o => f.kyc.includes(kycStanceOf(o.name)));
+  if(f.provider && f.provider.length) rows = rows.filter(o => f.provider.includes(sportsbookProviderOf(o.name)));
 
   const sortKey = state.listSort.key, sortDir = state.listSort.dir;
   rows = rows.slice().sort((a,b) => {
@@ -4687,7 +4719,7 @@ function renderList(){
   if(state.listPage < 1) state.listPage = 1;
   const page = state.listPage;
   const pageRows = rows.slice((page-1)*pageSize, page*pageSize);
-  const activeFilterCount = f.kyc.length;
+  const activeFilterCount = f.kyc.length + (f.provider ? f.provider.length : 0);
 
   const view = document.getElementById("view");
   view.innerHTML = `
@@ -4703,6 +4735,8 @@ function renderList(){
           <div class="filter-panel ${state.filterPanelOpen?"open":""}">
             <div class="fp-title">KYC stance</div>
             ${Object.keys(KYC_STANCE_LABEL).filter(k => k !== "unclear").map(k => `<label><input type="checkbox" ${f.kyc.includes(k)?"checked":""} onchange="toggleFilter('kyc','${k}')"> ${KYC_STANCE_LABEL[k]}</label>`).join("")}
+            <div class="fp-title">Sportsbook provider</div>
+            ${Object.keys(SPORTSBOOK_PROVIDER_LABEL).map(k => `<label><input type="checkbox" ${(f.provider||[]).includes(k)?"checked":""} onchange="toggleFilter('provider','${k}')"> ${SPORTSBOOK_PROVIDER_LABEL[k]}</label>`).join("")}
             ${activeFilterCount ? `<div style="margin-top:10px;"><a href="javascript:void(0)" onclick="clearFilters()" style="font-size:12px;font-weight:700;color:var(--brand-dark);">Clear filters</a></div>` : ""}
           </div>
         </div>
