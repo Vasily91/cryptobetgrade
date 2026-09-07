@@ -1508,6 +1508,27 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
 </style>
 
 <style>
+/* ===== Dark theme for the mobile mini hero card ===== */
+/* .mobile-mini-card (the small floating "Trust Score" card shown on phones
+   in place of the big desktop 3D card) never had a dark-theme override —
+   it stayed on its light-mode background/text colors even with dark theme
+   active everywhere else on the page. Mirrors the equivalent desktop
+   .visual-main-card-3d / .vm-* dark colors above for visual consistency. */
+html[data-theme="dark"] .mobile-mini-card{
+  background:linear-gradient(145deg,rgba(23,31,27,.98),rgba(14,20,17,.98))!important;
+  border-color:#314038!important;
+  box-shadow:10px 14px 28px rgba(0,0,0,.35)!important;
+}
+html[data-theme="dark"] .mm-logo{background:#0A0F0D!important;border:1px solid #2C3C33!important;}
+html[data-theme="dark"] .mm-name b{color:#F3F7F4!important;}
+html[data-theme="dark"] .mm-name small{color:#819087!important;}
+html[data-theme="dark"] .mm-top strong{color:var(--brand)!important;}
+html[data-theme="dark"] .mm-line{background:#26342D!important;}
+html[data-theme="dark"] .mm-line i{background:linear-gradient(90deg,#2C8F5A,var(--brand))!important;}
+html[data-theme="dark"] .mm-meta{color:#819087!important;}
+</style>
+
+<style>
 /* THEME TOGGLE / DARK MODE */
 .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:transparent;color:inherit;cursor:pointer;flex:none;padding:0;transition:.15s ease;}
 .theme-toggle:hover{background:rgba(11,11,11,0.08);}
