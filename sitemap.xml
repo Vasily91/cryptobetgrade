@@ -402,4 +402,8 @@
   <url><loc>https://cryptobetgrade.com/complaints/thunderpick-io-787-usd-withdrawal-repeatedly-failed-payment-processing-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/thunderpick-io-sportsbook-arbitrage-value-betting-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/thunderpick-io-multi-account-arbitrage-betting-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/bookmaker-eu</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/bookmaker-eu/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/bookmaker-eu-7858-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/bookmaker-eu-40000-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
