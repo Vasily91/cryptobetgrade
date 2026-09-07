@@ -209,10 +209,12 @@
   .detail-head h2{margin:0 0 6px;font-size:24px;letter-spacing:-0.4px;}
   .tags{display:flex;gap:8px;flex-wrap:wrap;}
   .tag{font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--page);border:1px solid var(--line);padding:3px 10px;border-radius:999px;}
-  .kyc-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;}
+  .kyc-tag{display:inline-block;position:relative;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;cursor:default;}
   .kyc-conditional{background:var(--gold-bg);color:var(--gold-ink);}
   .kyc-required{background:#eee;color:#555;}
   .kyc-unclear{background:#eee;color:#888;}
+  .kyc-tag .arb-tooltip{display:none;position:absolute;top:calc(100% + 8px);left:0;width:300px;max-width:80vw;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(11,11,11,0.14);z-index:20;font-size:12px;color:var(--ink-2);line-height:1.55;font-weight:400;white-space:normal;}
+  .kyc-tag:hover .arb-tooltip,.kyc-tag:focus-within .arb-tooltip{display:block;}
   .warning-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
   .arb-warning{position:relative;display:inline-flex;align-items:center;gap:7px;background:var(--critical-bg);border:1px solid #f0b4b4;border-radius:999px;padding:7px 14px 7px 12px;cursor:default;}
   .arb-warning svg{flex:none;width:16px;height:16px;color:var(--critical);}
@@ -1281,6 +1283,19 @@ const KYC_STANCE_LABEL = {
   unclear: "KYC unclear"
 };
 function kycStanceOf(name){ return KYC_STANCE[name] || "unclear"; }
+// Renders the small KYC-stance badge (Required/Conditional/Unclear) used in
+// the list-row cards, the profile header tags row, and the Bonus/Withdrawal/
+// KYC checklist section. "Conditional" gets a hover/focus tooltip explaining
+// what that actually means in practice, since the word alone is ambiguous —
+// it means no KYC is required just to sign up and play; verification is only
+// requested in some cases, most commonly when withdrawing.
+function kycTagHtml(op){
+  const stance = kycStanceOf(op.name);
+  const tooltip = stance === "conditional"
+    ? `<div class="arb-tooltip">"Conditional" means no KYC is required just to sign up and play. Verification is only requested in some cases — most commonly when withdrawing, or if suspicious activity is flagged.</div>`
+    : "";
+  return `<span class="kyc-tag kyc-${stance}" tabindex="0">${KYC_STANCE_LABEL[stance]}${tooltip}</span>`;
+}
 
 // Sportsbook software/tech provider — who powers the actual sportsbook
 // product behind the operator's own brand. Currently only tracking BetBy
@@ -1581,21 +1596,21 @@ const ARBITRAGE_VOID_ONLY = {
 // shows "—" for those. Any operator missing from these objects entirely
 // falls back to the original prose-only layout untouched.
 const KEY_PROS = {
-  "SolCasino.io": ["Accepts 25+ cryptocurrencies","No KYC required upfront","Sportsbook powered by BetBy"],
+  "SolCasino.io": ["Accepts 25+ cryptocurrencies","Sportsbook powered by BetBy"],
   "Stake": ["No maximum withdrawal limit","20+ cryptocurrencies accepted","Generous rakeback"],
   "BC.Game": ["170+ cryptocurrencies accepted","Generous rakeback","Sportsbook powered by BetBy"],
   "Rainbet": ["Withdrawals processed in 5-15 minutes","Generous rakeback","Sportsbook powered by BetBy"],
   "Roobet": ["Rakeback program","Sportsbook powered by BetBy"],
   "500Casino": ["Generous rakeback","Sportsbook powered by BetBy"],
-  "Betpanda": ["Markets itself as no-KYC for normal play","Sportsbook powered by BetBy"],
+  "Betpanda": ["Sportsbook powered by BetBy"],
   "Gamdom": ["Supports 12 cryptocurrencies"],
   "Duelbits": ["No stated withdrawal cap"],
   "Winna": ["Supports 13 cryptocurrencies","Sportsbook powered by BetBy"],
   "Razed": ["Generous rakeback","Sportsbook powered by BetBy"],
   "Thrill": ["No deposit/withdrawal limits stated","Sportsbook powered by BetBy"],
-  "Cryptorino": ["No mandatory KYC for normal play","Withdrawals typically instant to a few hours","Sportsbook powered by BetBy"],
+  "Cryptorino": ["Withdrawals typically instant to a few hours","Sportsbook powered by BetBy"],
   "Bets.io": ["No deposit/withdrawal fees"],
-  "Nitrobetting": ["No KYC required at signup, email only"],
+  "Nitrobetting": [],
   "Cloudbet": ["Operating since 2013, established track record","Fast crypto withdrawals for verified accounts"],
   "Rakebit": ["20+ cryptocurrencies accepted","No stated maximum win limit","Generous rakeback","Sportsbook powered by BetBy"],
   "Fresh Casino": ["Sportsbook powered by Digitain"],
@@ -1606,7 +1621,7 @@ const KEY_PROS = {
   "Legzo Casino": ["Native Android app","Sportsbook powered by Digitain"],
   "Irwin Casino": ["Native iOS & Android apps","Welcome package up to $900 + 400 spins","Sportsbook powered by Digitain"],
   "Shuffle": ["17+ cryptocurrencies accepted"],
-  "Duel": ["No mandatory KYC for standard play","Fast withdrawals: 1-15 minutes typical"],
+  "Duel": ["Fast withdrawals: 1-15 minutes typical"],
   "1win": ["11+ cryptocurrencies accepted","Native iOS, Android, Windows apps"],
   "BetFury": ["55+ cryptocurrencies across 18 networks","Sportsbook powered by BetBy"],
   "bet105.ag": ["No stated country restrictions"],
@@ -1620,8 +1635,8 @@ const KEY_PROS = {
   "Wild.io": ["Fast crypto withdrawals, generally 5-15 minutes"],
   "Degen Casino": ["Rakeback-based rewards instead of a traditional deposit-match bonus","Sportsbook powered by BetBy"],
   "Sportbet.one": ["Explicitly stated no-ID-verification policy at any stage, per official FAQ"],
-  "Lucky Block": ["No KYC required at signup — email/wallet only to register and play","Sportsbook powered by BetBy"],
-  "NV Casino": ["No KYC required for standard play up to disclosed thresholds","Sportsbook powered by Data.bet"],
+  "Lucky Block": ["Sportsbook powered by BetBy"],
+  "NV Casino": ["Sportsbook powered by Data.bet"],
   "HitnSpin": ["Curaçao licence held (2018-launched, longer track record than most peers)","Sportsbook powered by Data.bet"],
   "Verde Casino": ["Wide crypto selection accepted","Sportsbook powered by Data.bet"],
   "FortuneJack": ["Long-running operator (2014 launch) with an established, multi-year track record","Sportsbook powered by BetBy"],
@@ -1629,10 +1644,10 @@ const KEY_PROS = {
   "Tower.bet": ["Sportsbook powered by BetBy"],
   "Whale.io": ["Only 1x wagering on its 200% welcome bonus","11 cryptocurrencies accepted"],
   "Dicey.com": [],
-  "Chancer": ["No KYC required to deposit or play"],
+  "Chancer": [],
   "RioBet": [],
   "Betcoin.ag": ["Operating since 2013","Sportsbook powered by BetBy"],
-  "Bspin.io": ["No KYC required for deposits","Same operator and Anjouan licence since 2018"],
+  "Bspin.io": ["Same operator and Anjouan licence since 2018"],
   "Megapari": ["Broad crypto support (12-20+ coins) plus a genuine fiat/card on-ramp","Low minimum deposit — as little as €1 for crypto or e-wallet deposits"],
   "WinTomato": ["20+ cryptocurrencies accepted, including major stablecoins","KYC only triggered by a withdrawal or lifetime deposits over €5,000 — not required upfront"],
   "Thunderpick.io": ["Wide esports offer — 25+ titles (CS2, Dota 2, League of Legends, Valorant) with deep pre-match and live markets","Operating since 2017, among the longer-running crypto esports books"]
@@ -4927,7 +4942,7 @@ function renderList(){
               <div class="op-title"><a class="name" href="/sportsbooks/${op.id}">${op.name}</a></div>
               <div class="op-meta">
                 <span>${op.type}</span>
-                <span class="kyc-tag kyc-${kycStanceOf(op.name)}">${KYC_STANCE_LABEL[kycStanceOf(op.name)]}</span>
+                ${kycTagHtml(op)}
                 ${year!=="—" ? `<span>Est. ${year}</span>` : ""}
               </div>
               <div class="op-tagrow">
@@ -5009,6 +5024,7 @@ function renderDetail(id){
                 <span class="tag">${op.type||"Unclassified"}</span>
                 ${op.ownership.jurisdiction ? `<span class="tag">${jurisdictionShort(op)}</span>` : ""}
                 <div id="geo-status-${id}" class="geo-status geo-neutral" tabindex="0"><span class="h">Checking your country…</span></div>
+                ${kycTagHtml(op)}
                 ${op.complaints.length ? `<span class="tag warn-tag" onclick="setDetailTab('${id}','complaints')">⚠ ${op.complaints.length} complaint${op.complaints.length===1?"":"s"}</span>` : ""}
               `}
             </div>
@@ -5295,7 +5311,7 @@ function renderOverviewTab(op, id, editing, ctx){
               const label = k==="bonus" ? "Bonus policy" : k==="withdrawal" ? "Withdrawal timeframe" : "KYC / verification";
               return `
               <div style="margin-bottom:14px;">
-                <div style="font-weight:700;font-size:13px;margin-bottom:4px;display:flex;align-items:center;gap:8px;">${label}${k==="kyc" ? `<span class="kyc-tag kyc-${kycStanceOf(op.name)}">${KYC_STANCE_LABEL[kycStanceOf(op.name)]}</span>` : ""}</div>
+                <div style="font-weight:700;font-size:13px;margin-bottom:4px;display:flex;align-items:center;gap:8px;">${label}${k==="kyc" ? kycTagHtml(op) : ""}</div>
                 <div class="overview-text">${t.text ? t.text : '<span class="empty-note">Not yet researched.</span>'}</div>
               </div>
             `;
