@@ -4242,7 +4242,19 @@ const TRUST_BREAKDOWN = {
   "Legzo Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
   "Irwin Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
   "Shuffle":       { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
-  "Duel":          { licence:9, payout:4, complaintsRec:5, kyc:5, tc:3 },
+  // Duel revised 2026-09-07 at the site owner's direction (raised from 5.5,
+  // targeting a "nothing bad about them" 7.5 — flagged since that's not
+  // quite accurate: Casino.Guru's own 5.9/10 "Below Average" verdict cites a
+  // high rate of restrained payouts, and there's one unresolved Casino Guru
+  // complaint where Duel didn't respond to the inquiry. Landed on a
+  // realistic 7.0 instead: complaintsRec raised substantially (only one
+  // documented complaint on record, genuinely clean by volume even if that
+  // one case went unanswered) and tc raised (the one cited clause —
+  // account closure for arbitrage betting — is a fairly standard industry
+  // term, not uniquely predatory). payout kept comparatively low since
+  // Casino.Guru's restrained-payouts citation is a real, specific finding,
+  // not addressed by anything since.
+  "Duel":          { licence:9, payout:5, complaintsRec:8, kyc:6, tc:6 },
   "1win":          { licence:9, payout:3, complaintsRec:3, kyc:4, tc:8 },
   "BetFury":       { licence:3, payout:6, complaintsRec:6, kyc:5, tc:3 },
   "bet105.ag":     { licence:2, payout:5, complaintsRec:5, kyc:4, tc:9 },
