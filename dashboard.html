@@ -939,7 +939,6 @@ html[data-theme="dark"] #cbgPickOperatorSearch{background:#0C1210;color:#EDF3EF;
 
 <div class="subbar">
   <div class="wrap subbar-inner">
-    <div class="search"><span>🔍</span>&nbsp;<input id="searchBox" placeholder="Search crypto sportsbooks…" oninput="renderList()"></div>
     <div class="adminbar" id="adminBar"></div>
   </div>
 </div>
@@ -4901,8 +4900,14 @@ function render(){
 /* ================= ADMIN BAR ================= */
 function renderAdminBar(){
   const bar = document.getElementById("adminBar");
+  const subbarEl = document.querySelector(".subbar");
   const disclaimer = document.getElementById("demoDisclaimer");
   if(disclaimer) disclaimer.style.display = (isAdmin || ADMIN_URL_FLAG) ? "" : "none";
+  // The subbar now holds only the admin controls (the search box moved down
+  // into the sportsbooks list page's own header row, next to "N shown" /
+  // Filters) — so hide the whole bar rather than leave an empty strip when
+  // there's no admin content to show.
+  if(subbarEl) subbarEl.style.display = (isAdmin || ADMIN_URL_FLAG) ? "" : "none";
   if(isAdmin){
     bar.innerHTML = `
       <span class="admin-pill">● Admin mode</span>
@@ -4964,7 +4969,18 @@ function renderPagination(page, totalPages){
   return `<div class="pagination">${btns}</div>`;
 }
 function renderList(){
-  const q = (document.getElementById("searchBox")?.value || "").toLowerCase();
+  const searchEl = document.getElementById("searchBox");
+  const rawQ = searchEl?.value || "";
+  const q = rawQ.toLowerCase();
+  // The search box now lives inside this function's own re-rendered HTML
+  // (moved down from the old always-on subbar into the list header row, next
+  // to "N shown" / Filters) — so every keystroke destroys and recreates the
+  // <input> along with the rest of the list. Capture focus/cursor position
+  // beforehand and restore it after, or typing would lose focus after each
+  // character.
+  const hadFocus = document.activeElement === searchEl;
+  const selStart = searchEl ? searchEl.selectionStart : null;
+  const selEnd = searchEl ? searchEl.selectionEnd : null;
   let rows = state.operators.filter(o => o.name.toLowerCase().includes(q));
 
   const f = state.listFilters;
@@ -4990,6 +5006,7 @@ function renderList(){
     <div class="page-head">
       <div><h1>Crypto sportsbooks</h1><p>Click any crypto sportsbook to see the full profile.</p></div>
       <div class="list-controls">
+        <div class="search"><span>🔍</span>&nbsp;<input id="searchBox" placeholder="Search crypto sportsbooks…" value="${(rawQ||"").replace(/"/g,"&quot;")}" oninput="renderList()"></div>
         <span class="result-count">${rows.length} of ${state.operators.length} shown</span>
         <div style="position:relative;">
           <button class="filter-btn ${activeFilterCount?"has-active":""}" onclick="toggleFilterPanel()">
@@ -5018,7 +5035,8 @@ function renderList(){
       ${pageRows.map(op => {
         const g = gradeInfo(op.score);
         const rel = reliabilityInfo(op);
-        const pros = (op.keyPros||[]).slice(0,2);
+        const winnersPill = WINNERS_WELCOME[op.name] ? "Winners welcome" : null;
+        const pros = winnersPill ? [(op.keyPros||[])[0], winnersPill].filter(Boolean).slice(0,2) : (op.keyPros||[]).slice(0,2);
         const sevCon = severityConTag(op);
         const year = estYearShort(op);
         const url = visitUrl(op);
@@ -5068,6 +5086,13 @@ function renderList(){
     </div>
     ${renderPagination(page, totalPages)}
   `;
+  if(hadFocus){
+    const newSearchEl = document.getElementById("searchBox");
+    if(newSearchEl){
+      newSearchEl.focus();
+      if(selStart!=null) newSearchEl.setSelectionRange(selStart, selEnd);
+    }
+  }
 }
 
 /* ================= DETAIL VIEW ================= */
