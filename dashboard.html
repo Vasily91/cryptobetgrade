@@ -4435,7 +4435,24 @@ const TRUST_BREAKDOWN = {
   "Dicey.com":     { licence:7, payout:7, complaintsRec:7, kyc:6, tc:6 },
   "Chancer":       { licence:6, payout:6, complaintsRec:7, kyc:7, tc:6 },
   "RioBet":        { licence:7, payout:7, complaintsRec:9, kyc:6, tc:6 },
-  "Betcoin.ag":    { licence:3, payout:4, complaintsRec:5, kyc:4, tc:4 },
+  // Betcoin.ag raised 2026-09-07 at the site owner's direction ("isn't that
+  // bad"). Checked against the evidence already on file: complaintsRec was
+  // sitting at a neutral 5 despite Casino Guru's own live index showing 40
+  // complaints with ZERO marked unresolved (8 resolved, 32 rejected) — a
+  // genuinely strong resolution record, stronger than several operators
+  // scored higher elsewhere in this file — so complaintsRec moves 5->8.
+  // licence stays at 3: this isn't a low-quality-but-clear licence like a
+  // plain Anjouan registration, it's an unresolved THREE-WAY inconsistency
+  // (Anjouan per its own current Terms, Curaçao per AskGamblers, Costa Rica
+  // per LCB.org) with no licence number independently verifiable anywhere —
+  // a transparency problem the complaint record doesn't offset. kyc (4) and
+  // tc (4) also stay: KYC friction (a 180-minute document-upload window) and
+  // an account-restricting arbitrage clause with a confirmed real-world
+  // enforcement case are both still on file. Total = 3*.25+4*.25+8*.25+
+  // 4*.125+4*.125 = 4.8 (was 4.0) — moves off the bottom of "Below average"
+  // without crossing into "Above average", since the licence/KYC/arbitrage
+  // issues are real and unaddressed by this change.
+  "Betcoin.ag":    { licence:3, payout:4, complaintsRec:8, kyc:4, tc:4 },
   "Bspin.io":      { licence:7, payout:6, complaintsRec:7, kyc:6, tc:5 },
   "Megapari":      { licence:7, payout:5, complaintsRec:5, kyc:4, tc:5 },
   "WinTomato":     { licence:7, payout:7, complaintsRec:7, kyc:7, tc:6 },
