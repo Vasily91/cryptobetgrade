@@ -92,6 +92,8 @@
   .btn-ghost:hover{border-color:var(--brand);color:var(--brand-dark);}
   .btn-danger{background:#fff;color:var(--critical-ink);border:1.5px solid var(--critical-bg);}
   .btn-danger:hover{background:var(--critical-bg);}
+  .btn-critical{background:var(--critical);color:#fff;border:1.5px solid var(--critical);}
+  .btn-critical:hover{background:var(--critical-ink);border-color:var(--critical-ink);}
   .btn-sm{padding:6px 12px;font-size:12px;}
 
   .admin-pill{background:var(--good-bg);color:var(--good-ink);font-weight:800;font-size:11.5px;padding:5px 12px;border-radius:999px;}
@@ -5909,7 +5911,7 @@ function renderComplaintsTab(op, id){
         <span>Complaints</span>
         <span style="display:flex;gap:8px;flex-wrap:wrap;">
           ${isAdmin ? `<button class="btn btn-outline btn-sm" onclick="openComplaintModal('${id}')">+ Add complaint</button>` : ""}
-          <button class="btn btn-danger btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
+          <button class="btn btn-critical btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
         </span>
       </div>
       <div class="stat-tiles">
