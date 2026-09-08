@@ -1475,6 +1475,12 @@ const ARBITRAGE_CLAUSE = {
     source: "casino.guru (automated Terms clause scan/summary); Betski's own Terms page not independently fetched (JavaScript-rendered)",
     checked: "2026-09-08",
     verified: false
+  },
+  "Degen Casino": {
+    text: "Degen Casino's own support has confirmed, in a live chat, that the site owner's account is under active investigation for suspected \"abuse/arbitrage\" — support representative Brian Fox stated a separate team \"investigating for abuse/arbitrage work\" would follow up once they had an update, without disclosing what specifically triggered the review. This isn't a quote from Degen's published Terms & Conditions (no separate, independently-readable arbitrage clause was found on the site), but it is direct, first-hand confirmation that Degen actively investigates and flags accounts for suspected arbitrage betting in practice.",
+    source: "Direct Degen Casino live-support chat transcript (support agent \"Brian Fox\"), site owner's own account",
+    checked: "2026-09-08",
+    verified: false
   }
 };
 // Note: BetFury's, Cryptorino's and Winna's clauses are worded almost
@@ -4617,7 +4623,12 @@ const AFFILIATE_URLS = {
   "Irwin Casino": "https://irwinway65.com/c7e37fb44",
   "Sol Casino": "https://solway68.com/cda21febf",
   "Rollbit": "https://rollbit.com/referral/Crptobetgrade",
-  "Degen Casino": "https://degen.com/r/cryptobetgrade",
+  // Degen Casino affiliate link pulled 2026-09-08 at the site owner's
+  // direction, at least for now, after Degen's own support confirmed the
+  // site owner's account is under active investigation for suspected
+  // abuse/arbitrage (see the ARBITRAGE_CLAUSE entry above) — no affiliate
+  // link entry means visitUrl() falls back to the plain https://degen.com
+  // homepage instead of the tracked referral link.
   "Sportbet.one": "https://sbetp.com/dlleouuhw",
   "Whale.io": "https://whale.io/?start=8743fa6a1a6b9263",
   "Betcoin.ag": "https://earn.cgn.co/visit/?bta=35294&brand=betcoin",
