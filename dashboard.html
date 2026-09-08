@@ -5184,6 +5184,7 @@ function renderDetail(id){
             }
           </div>
           ${!editing && visitUrl(op) ? `<a href="${visitUrl(op)}" target="_blank" rel="noopener sponsored nofollow" class="btn profile-visit-btn">Visit sportsbook ↗</a>` : ""}
+          ${!editing ? `<button type="button" class="btn btn-outline profile-visit-btn" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>` : ""}
         </div>
       </div>
 
