@@ -5270,7 +5270,6 @@ function renderDetail(id){
             }
           </div>
           ${!editing && visitUrl(op) ? `<a href="${visitUrl(op)}" target="_blank" rel="noopener sponsored nofollow" class="btn profile-visit-btn">Visit sportsbook ↗</a>` : ""}
-          ${!editing ? `<button type="button" class="btn btn-outline profile-visit-btn" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>` : ""}
         </div>
       </div>
 
@@ -5646,7 +5645,7 @@ function renderComplaintsTab(op, id){
         <span>Complaints</span>
         <span style="display:flex;gap:8px;flex-wrap:wrap;">
           ${isAdmin ? `<button class="btn btn-outline btn-sm" onclick="openComplaintModal('${id}')">+ Add complaint</button>` : ""}
-          <button class="btn btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
+          <button class="btn btn-danger btn-sm" onclick="cbgOpenFileComplaint('${id}','${(op.name||"").replace(/'/g,"\\'")}')">File a complaint</button>
         </span>
       </div>
       <div class="stat-tiles">
