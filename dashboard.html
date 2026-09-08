@@ -1263,6 +1263,18 @@ const KYC_STANCE = {
   "NV Casino":      "conditional",
   "HitnSpin":       "conditional",
   "Verde Casino":   "conditional",
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets distributed via the
+  // V.Partners affiliate program (GGbet via its own ggbetaff.com program) —
+  // none state an explicit upfront-vs-no-KYC policy, only withdrawal-size
+  // tiers, so set to "conditional" matching the HitnSpin/NV Casino/Verde
+  // Casino cluster above.
+  "V.Vegas":        "conditional",
+  "FS.Casino":      "conditional",
+  "IceCasino":      "conditional",
+  "FieryPlay Casino": "conditional",
+  "GGbet":          "conditional",
+  "Slotoro":        "conditional",
   "FortuneJack":    "conditional",
   "DuckDice":       "conditional",
   "Tower.bet":      "conditional",
@@ -1678,6 +1690,12 @@ const KEY_PROS = {
   "NV Casino": ["Sportsbook powered by Data.bet"],
   "HitnSpin": ["Curaçao licence held (2018-launched, longer track record than most peers)","Sportsbook powered by Data.bet"],
   "Verde Casino": ["Wide crypto selection accepted","Sportsbook powered by Data.bet"],
+  "V.Vegas": ["Long track record — operating since 2015 (as the Vulkan Vegas rebrand)","13,750+ games from 174 providers, per the operator's own spec sheet"],
+  "FS.Casino": ["Operating since 2019 — longer track record than most peers in this batch","Combined casino + sports betting welcome bonuses offered"],
+  "IceCasino": ["14,100+ games from 167 providers, per the operator's own spec sheet","Native iOS & Android apps"],
+  "FieryPlay Casino": ["Combined casino + sports/esports betting welcome bonuses offered"],
+  "GGbet": ["Operating since 2016 — established esports-focused betting brand","Sizeable dedicated betting bonus offering alongside casino"],
+  "Slotoro": ["Combined casino + sportsbook/betting welcome bonuses offered","8,000+ games from 90+ providers, per the operator's own spec sheet"],
   "FortuneJack": ["Long-running operator (2014 launch) with an established, multi-year track record","Sportsbook powered by BetBy"],
   "DuckDice": ["Long-running operator (2016 launch) with a large, active player base","Sportsbook powered by BetBy"],
   "Tower.bet": ["Sportsbook powered by BetBy"],
@@ -1737,6 +1755,12 @@ const KEY_CONS = {
   "NV Casino": ["Limited independent track record; review coverage is thin relative to larger peers — launched in 2024","No fixed KYC threshold published"],
   "HitnSpin": ["\"No-KYC\" marketing conflicts with a disclosed verification threshold for larger withdrawals","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
   "Verde Casino": ["Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence","Runs a Lithuania-facing \"Verde Lietuva\" mirror domain without disclosed local licensing","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
+  "V.Vegas": ["Shares its operating entity, Curaçao registration and licence number with IceCasino (Whitebox B.V.) — effectively the same operation under two brand names","No independent complaint-platform history assessed in this pass"],
+  "FS.Casino": ["No independent complaint-platform history assessed in this pass — data sourced to the operator's own affiliate-program spec sheet"],
+  "IceCasino": ["Shares its operating entity, Curaçao registration and licence number with V.Vegas (Whitebox B.V.) — effectively the same operation under two brand names","No independent complaint-platform history assessed in this pass"],
+  "FieryPlay Casino": ["Very new — launched September 2024, no established independent track record yet","No independent complaint-platform history assessed in this pass"],
+  "GGbet": ["No independent complaint-platform history assessed in this pass — data sourced to the operator's own affiliate-program spec sheet"],
+  "Slotoro": ["Very new — launched 2025, no established independent track record yet","Shares its operating entity and licence number with Verde Casino (Wiraon B.V.) — see that profile"],
   "FortuneJack": ["Licensing/Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions","Recurring complaints describe withdrawal delays and account verification disputes","General \"unfair play\" clause has reportedly been invoked against arbitrage-style patterns without naming arbitrage explicitly"],
   "DuckDice": ["Shares its operating entity (Zentari Limitada, Costa Rica) with Tower.bet, raising shared-infrastructure/shared-risk questions for a trust assessment","General \"unfair advantage\" clause allows account restriction without naming arbitrage explicitly"],
   "Tower.bet": ["Not to be confused with the unrelated site towerbet.com — use tower.bet","Shares its operating entity (Zentari Limitada, Costa Rica) with DuckDice, raising shared-infrastructure/shared-risk questions for a trust assessment","Thinnest independent review coverage of this batch — few tracked complaint-platform listings either way","Costa Rica registration rather than a recognized gambling licence"],
@@ -2012,6 +2036,41 @@ const BONUS_KYC_CHECKLIST = {
     { ok: false, text: "KYC threshold not clearly disclosed" },
     { ok: false, text: "Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence, alongside a Lithuania-facing \"Verde Lietuva\" mirror domain" },
     { ok: false, text: "Casino.Guru Safety Index in the \"Below Average\" range" }
+  ],
+  "V.Vegas": [
+    { ok: true, text: "$1,500 + 150 free spins welcome bonus advertised, per the operator's own spec sheet" },
+    { ok: true, text: "Weekly cashback offered" },
+    { ok: false, text: "KYC verification threshold not independently confirmed beyond withdrawal-size tiers" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "FS.Casino": [
+    { ok: true, text: "€1,000 + 400 free spins casino welcome bonus, plus a separate up-to-$500 betting welcome bonus, per the operator's own spec sheet" },
+    { ok: true, text: "200% live-casino bonus and weekly cashback also advertised" },
+    { ok: false, text: "KYC verification threshold not independently confirmed beyond withdrawal-size tiers" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "IceCasino": [
+    { ok: true, text: "$1,500 + 270 free spins welcome bonus advertised, per the operator's own spec sheet" },
+    { ok: true, text: "Weekly cash bonus up to 90% plus cashback up to €2,000" },
+    { ok: false, text: "KYC verification threshold not independently confirmed beyond withdrawal-size tiers" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "FieryPlay Casino": [
+    { ok: true, text: "€2,500 + 525 free spins casino welcome bonus, plus a separate up-to-€1,000 sports/esports betting welcome bonus, per the operator's own spec sheet" },
+    { ok: false, text: "Very new — launched September 2024, no established independent track record" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "GGbet": [
+    { ok: true, text: "Up to 3,000 + 900 free spins casino welcome bonus, plus a separate 1,000 EUR + 250 EUR freebet betting welcome bonus, per the operator's own spec sheet" },
+    { ok: true, text: "Frequent weekly betting-specific bonuses advertised" },
+    { ok: false, text: "KYC verification threshold not independently confirmed" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "Slotoro": [
+    { ok: true, text: "€2,500 + 250 free spins casino welcome bonus, plus a separate up-to-€700 betting welcome bonus, per the operator's own spec sheet" },
+    { ok: false, text: "Very new — launched 2025, no established independent track record" },
+    { ok: false, text: "Shares its operating entity and licence number with Verde Casino (Wiraon B.V.)" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
   ],
   "FortuneJack": [
     { ok: true, text: "Long-running welcome package across first several deposits; exact current terms not independently confirmed" },
@@ -2442,6 +2501,59 @@ const PROFILE_SIDEBAR = {
     minDeposit: "Not independently confirmed",
     cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
     source: "casino.guru; verde.bet; casino.org (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-06"
+  },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets distributed via each
+  // operator's own affiliate program (V.Partners for all but GGbet, which
+  // runs ggbetaff.com) — first-party but not independently cross-checked
+  // against the Curaçao registry or each operator's own live Terms page.
+  "V.Vegas": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, held by Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet. The identical entity, registration number and licence number are also listed for IceCasino (see that profile) — indicating V.Vegas and IceCasino are the same underlying operation running under two brand names.",
+    launched: "August 2015, as the Vulkan Vegas rebrand, per the operator's own spec sheet",
+    welcomeBonus: "$1,500 + 150 free spins",
+    minDeposit: "€10 / $10 (varies by currency)",
+    cryptocurrencies: "BTC usable for all deposits; ETH, LTC, TRX, TON, BNB, USDC and USDT also listed depending on country, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FS.Casino": {
+    license: "Curaçao Gaming Control Authority, licence No. OGL/2024/767/0360, held by Intelligent Innovations N.V. (Curaçao, reg. no. 142065), per the operator's own spec sheet",
+    launched: "October 2019, per the operator's own spec sheet",
+    welcomeBonus: "€1,000 + 400 free spins (casino), plus a separate up-to-$500 betting welcome bonus",
+    minDeposit: "€5 / $10 (varies by currency)",
+    cryptocurrencies: "BTC, ETH, USDT (ERC20/TRC20) listed among deposit methods, alongside a large country-dependent local-payment-method list, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "IceCasino": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, held by Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet. The identical entity, registration number and licence number are also listed for V.Vegas (see that profile) — indicating IceCasino and V.Vegas are the same underlying operation running under two brand names.",
+    launched: "2021, per the operator's own spec sheet",
+    welcomeBonus: "$1,500 + 270 free spins",
+    minDeposit: "€10 / $10 (varies by currency)",
+    cryptocurrencies: "BTC, ETH, LTC, TRX, TON, dogecoin, USDC and USDT listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FieryPlay Casino": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/1363/0705, held by NIXXE B.V. (Curaçao, reg. no. 147116), per the operator's own spec sheet",
+    launched: "September 2024, per the operator's own spec sheet",
+    welcomeBonus: "€2,500 + 525 free spins (casino), plus a separate up-to-€1,000 sports/esports betting welcome bonus",
+    minDeposit: "Roughly €5-10 (varies by currency)",
+    cryptocurrencies: "Bitcoin, Ethereum, Litecoin, USDT (ERC20/TRC20), USDC, TON, BNB and dogecoin listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "GGbet": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/688/0234, held by River Entertainment B.V. (Willemstad, Curaçao, reg. no. 158146), per the operator's own spec sheet",
+    launched: "2016, per the operator's own spec sheet",
+    welcomeBonus: "Up to 3,000 + 900 free spins (casino), plus a separate 1,000 EUR + 250 EUR freebet betting welcome bonus",
+    minDeposit: "Varies by payment method and currency (roughly €10 / $11 for card deposits)",
+    cryptocurrencies: "Bitcoin, Ethereum, USDT (ERC20/TRC20) listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via GGbet's own ggbetaff.com affiliate program", checked: "2026-09-08"
+  },
+  "Slotoro": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183, held by Wiraon B.V. (Willemstad, Curaçao, reg. no. 146886), per the operator's own spec sheet. The identical entity and licence number are also listed for Verde Casino (see that profile) — indicating Slotoro and Verde Casino share the same underlying operator/licence.",
+    launched: "2025, per the operator's own spec sheet",
+    welcomeBonus: "€2,500 + 250 free spins (casino), plus a separate up-to-€700 betting welcome bonus",
+    minDeposit: "€10 / $10 (varies by currency)",
+    cryptocurrencies: "Bitcoin, Ethereum, Litecoin, BNB, dogecoin, TON, TRX, USDC and USDT listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
   },
   "FortuneJack": {
     license: "Curaçao (per operator-side sources; not independently cross-checked against the registry); Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions",
@@ -2892,6 +3004,52 @@ const PROFILE_STATS = {
     oddsFormat: null, maxWin: null, support: null, mobileApp: null,
     source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
   },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets — none state a sport
+  // count, so sportsTierInfo() falls through to "—" for the four with a
+  // real sportsbook rather than guessing a tier.
+  "V.Vegas": {
+    markets: "Casino, live casino — no sportsbook",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@v.vegas); no phone",
+    mobileApp: "Native iOS & Android apps",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FS.Casino": {
+    markets: "Casino, live casino, sportsbook/betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@fs.casino) + Telegram; phone support listed (Polish locale only)",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "IceCasino": {
+    markets: "Casino, live casino — no sportsbook",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@icecasino.com); no phone",
+    mobileApp: "Native iOS & Android apps",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FieryPlay Casino": {
+    markets: "Casino, live casino, sports/esports betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "Email (support@fieryplay.com) + Messenger, 24 hours a day; no live-chat field or ticket system listed on the spec sheet",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "GGbet": {
+    markets: "Casino, live casino, esports-focused sportsbook (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@gg.bet) + country-specific phone numbers",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "Operator-supplied spec sheet distributed via GGbet's own ggbetaff.com affiliate program", checked: "2026-09-08"
+  },
+  "Slotoro": {
+    markets: "Casino, live casino, sportsbook/betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "Live chat + email (support@slotoro.bet); no phone",
+    mobileApp: "Native iOS & Android apps",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
   "RioBet": {
     markets: "Casino, live casino, sportsbook (40+ sports)",
     oddsFormat: null, maxWin: null, support: null, mobileApp: null,
@@ -3085,6 +3243,17 @@ const RESTRICTED_COUNTRIES = {
   "NV Casino": { codes:["US"], confidence:"unknown", note:"No enumerated restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way." },
   "HitnSpin": { codes:["US","GB"], confidence:"partial", note:"Third-party review coverage names the US and UK as restricted, but the operator's own Terms weren't independently readable in full to confirm or expand this list. Lithuania's status could not be confirmed either way." },
   "Verde Casino": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass. Unconfirmed forum allegations describe Lithuanian players being blacklisted, but this could not be corroborated against an official source — and is in tension with Verde Casino separately running a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no Lithuanian licence. Lithuania's true status is unresolved and should be treated as uncertain rather than confirmed either way." },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 — each restricted-country list is the operator's own full
+  // enumerated list, per its affiliate-program spec sheet (a first-party
+  // source, though not independently cross-checked against each operator's
+  // own live Terms page). Lithuania does not appear on any of the six lists.
+  "V.Vegas": { codes:["AF","AS","AW","AU","BY","BE","BQ","BR","CZ","CY","CW","KP","ET","FR","GB","GY","GU","IQ","IR","IT","IL","MT","NL","LA","WS","SA","PS","PK","RU","SG","ES","SX","SY","LK","UG","US","VU","VE","TT","TR","UA","YE"], confidence:"high", note:"Full restricted-country list per the operator's own affiliate-program spec sheet. Lithuania does not appear on it." },
+  "FS.Casino": { codes:["AF","AS","AW","AU","BQ","CY","CW","CZ","KP","ET","FR","CH","DE","GB","GY","GU","IQ","IR","IT","IL","MT","NL","CA-ON","RU","SE","LA","WS","SA","RS","SG","ES","SX","SY","LK","UG","US","VU","TT","TR","UA","YE"], confidence:"high", note:"Full restricted-country list per the operator's own affiliate-program spec sheet. Lithuania does not appear on it. \"CA-ON\" denotes Ontario, Canada specifically, not all of Canada." },
+  "IceCasino": { codes:["AF","AS","AW","AU","BE","BQ","CY","CW","CZ","KP","ET","FR","CH","DE","GB","GY","GU","IQ","IR","IT","IL","MT","NL","LA","WS","SA","PS","PK","RU","RS","SG","ES","SX","SY","LK","UG","US","UA","VU","VE","TT","TR","YE"], confidence:"high", note:"Full restricted-country list per the operator's own affiliate-program spec sheet. Lithuania does not appear on it." },
+  "FieryPlay Casino": { codes:["AF","AS","AW","AU","BQ","CY","CW","CZ","KP","ET","FR","CH","GB","GY","GU","IQ","IR","IT","IL","MT","NL","CA-ON","RU","SE","LA","WS","SA","RS","SG","ES","SX","SY","LK","UG","US","VU","TT","TR","UA","YE"], confidence:"high", note:"Full restricted-country list per the operator's own affiliate-program spec sheet. Lithuania does not appear on it. \"CA-ON\" denotes Ontario, Canada specifically, not all of Canada." },
+  "GGbet": { codes:["AF","AS","AW","AU","BE","BQ","CW","CY","CZ","KP","ET","FR","GF","PF","GB","GU","GY","IR","IQ","IL","IT","LA","MT","NL","PT","PK","RU","WS","SA","RS","SG","ES","LK","SX","MD","SD","SY","TT","TR","UA","UG","US","VU","YE"], confidence:"high", note:"Full restricted-country list per the operator's own affiliate-program spec sheet. Lithuania does not appear on it." },
+  "Slotoro": { codes:["AF","AS","AW","AU","BY","BQ","BR","CY","CW","KP","ET","FR","GB","GY","GU","IQ","IR","IL","XK","MT","NL","LA","WS","SA","PS","PK","RU","SG","ES","SX","SY","LK","UG","US","VU","VE","TT","TR","UA","YE"], confidence:"high", note:"Full restricted-country list per the operator's own affiliate-program spec sheet. Lithuania does not appear on it." },
   "FortuneJack": { codes:["US","GB"], confidence:"partial", note:"FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania specifically — one source describes Lithuania as accepted, the other implies it's restricted — and this pass could not resolve the discrepancy. The US and UK are consistently named as restricted across sources." },
   "DuckDice": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way." },
   "Tower.bet": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way. Note: the unrelated site towerbet.com is a different operator and was not the subject of this research." },
@@ -3502,6 +3671,12 @@ const COMPLAINT_REPORTS = {
     { id:"cvd3", title:"€1,516 confiscated over alleged multi-outcome betting pattern", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€1,516", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/verde-casino/complaints", whatHappened:"The casino allegedly cited betting on more than one outcome within the same event as grounds for confiscating €1,516. The player requested the exact bets/logs used as evidence; the source doesn't indicate this was provided.", operatorReason:"Betting on multiple outcomes within the same event, per the operator's allegation — specific evidence not shown to have been shared with the player" },
     { id:"cvd4", title:"$750 balance blocked over disputed document authenticity — rejected", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"$750", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/verde-casino-player-s-account-is-blocked-with-winnings", whatHappened:"Player alleged genuine verification documents were incorrectly treated as edited or falsified, resulting in a $750 balance being blocked. Casino Guru reviewed the case and rejected the complaint, upholding the operator's verification procedures.", operatorReason:"Submitted documents were assessed by the operator as edited, per Casino Guru's review of the operator's evidence" }
   ] },
+  "V.Vegas": { items: [], note:"No logged complaints found on Casino Guru, AskGamblers or Trustpilot in this pass. Note V.Vegas shares its operating entity and licence with IceCasino (see that profile) — worth reading both profiles together." },
+  "FS.Casino": { items: [], note:"No logged complaints found on Casino Guru, AskGamblers or Trustpilot in this pass." },
+  "IceCasino": { items: [], note:"No logged complaints found on Casino Guru, AskGamblers or Trustpilot in this pass. Note IceCasino shares its operating entity and licence with V.Vegas (see that profile) — worth reading both profiles together." },
+  "FieryPlay Casino": { items: [], note:"No logged complaints found on Casino Guru, AskGamblers or Trustpilot in this pass — consistent with a very new operator (launched September 2024) rather than a confirmed clean record." },
+  "GGbet": { items: [], note:"No logged complaints found on Casino Guru, AskGamblers or Trustpilot in this pass." },
+  "Slotoro": { items: [], note:"No logged complaints found on Casino Guru, AskGamblers or Trustpilot in this pass — consistent with a very new operator (launched 2025) rather than a confirmed clean record. Note Slotoro shares its operating entity and licence with Verde Casino (see that profile) — worth reading both profiles together." },
   "FortuneJack": { items: [
     { id:"cfj1", title:"$152 account cancelled after two winning sports bets", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"C", amount:"$152", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/fortunejack-casino-review/complaints?page=1", whatHappened:"A fully verified player said the account was cancelled after placing two sports bets totaling $152, both of which won. AskGamblers lists the case as resolved.", operatorReason:"Not stated in the reviewed source" },
     { id:"cfj2", title:"Four winning sports bets voided", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"Not stated", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/fortunejack-casino-review/complaints?page=1", whatHappened:"A long-time FortuneJack user said four winning sports bets were voided after settlement. AskGamblers lists the case as resolved.", operatorReason:"Not stated in the reviewed source" },
@@ -3806,7 +3981,39 @@ const COMPANY_INFO = {
   },
   "Verde Casino": {
     overview: "Verde Casino is a crypto casino and sportsbook that launched in 2022 (casino.org cites November 2022; verdeloro.com cites July 2022), operated by Wiraon B.V. (Willemstad, Curaçao) under Curaçao Gaming Control Board licence No. OGL/2024/686/0183, renewed April 2025, per casino.org. Two findings stand out from this research pass: unconfirmed forum allegations describe Lithuanian players being blacklisted, and the operator separately runs a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no confirmed Lithuanian gambling licence — a combination worth flagging even though neither piece is independently confirmed on its own. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
-    ownership: { parent: "Wiraon B.V. (Willemstad, Curaçao), per casino.org", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183 (renewed April 2025), per casino.org", related: "" }
+    ownership: { parent: "Wiraon B.V. (Willemstad, Curaçao), per casino.org", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183 (renewed April 2025), per casino.org", related: "Shares its operating entity and licence number with Slotoro (added 2026-09-08), per Slotoro's own operator spec sheet — see that profile" }
+  },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets distributed via each
+  // operator's own affiliate program, at the site owner's direction —
+  // TRUST_BREAKDOWN below is set identical to HitnSpin's for all six, per
+  // direct site-owner instruction, rather than independently rederived
+  // per-operator (none of the six had documentable red flags in this pass,
+  // but none had an independent complaint history to score confidently
+  // high either).
+  "V.Vegas": {
+    overview: "V.Vegas (v.vegas) is a crypto-friendly online casino, a rebrand of the earlier Vulkan Vegas brand dating back to August 2015 — a longer track record than most operators in this batch. It's operated by Whitebox B.V. under Curaçao Gaming Control Board licence No. OGL/2024/822/0338; the identical registered entity, company number (155412) and licence number are also listed for IceCasino, a separate consumer-facing brand in this database, indicating the two are the same underlying operation running under two different names. It's a casino-only product with no sportsbook. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, per the operator's own spec sheet", related: "Shares its operating entity, registration number and licence number with IceCasino — see that profile" }
+  },
+  "FS.Casino": {
+    overview: "FS.Casino (fs.casino) is a crypto-friendly online casino and sportsbook operating since October 2019, operated by Intelligent Innovations N.V. under Curaçao Gaming Control Authority licence No. OGL/2024/767/0360. Unlike several other operators added alongside it in this batch, FS.Casino runs a real sports betting product — a separate betting welcome bonus is advertised — rather than casino-only. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "Intelligent Innovations N.V. (Curaçao, reg. no. 142065), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Authority, licence No. OGL/2024/767/0360, per the operator's own spec sheet", related: "" }
+  },
+  "IceCasino": {
+    overview: "IceCasino (icecasino.com) is a crypto-friendly online casino that launched in 2021, operated by Whitebox B.V. under Curaçao Gaming Control Board licence No. OGL/2024/822/0338; the identical registered entity, company number (155412) and licence number are also listed for V.Vegas, a separate consumer-facing brand in this database, indicating the two are the same underlying operation running under two different names. It's a casino-only product with no sportsbook. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, per the operator's own spec sheet", related: "Shares its operating entity, registration number and licence number with V.Vegas — see that profile" }
+  },
+  "FieryPlay Casino": {
+    overview: "FieryPlay Casino (fieryplay.com) is a very new crypto-friendly online casino and sportsbook, launched September 2024, operated by NIXXE B.V. under Curaçao Gaming Control Board licence No. OGL/2024/1363/0705. It runs both a casino and a sports/esports betting product, each with its own welcome bonus. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass — read as \"too new for a track record\" rather than a confirmed clean record.",
+    ownership: { parent: "NIXXE B.V. (Curaçao, reg. no. 147116), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/1363/0705, per the operator's own spec sheet", related: "" }
+  },
+  "GGbet": {
+    overview: "GGbet (gg.bet) is an esports-focused crypto-friendly online casino and sportsbook operating since 2016, operated by River Entertainment B.V. under Curaçao Gaming Control Board licence No. OGL/2024/688/0234. It runs its own dedicated affiliate program (ggbetaff.com), separate from the V.Partners program used by most other operators added alongside it in this batch. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "River Entertainment B.V. (Willemstad, Curaçao, reg. no. 158146), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/688/0234, per the operator's own spec sheet", related: "" }
+  },
+  "Slotoro": {
+    overview: "Slotoro (slotoro.bet) is a very new crypto-friendly online casino and sportsbook, launched 2025, operated by Wiraon B.V. under Curaçao Gaming Control Board licence No. OGL/2024/686/0183; the identical registered entity, company number (146886) and licence number are also listed for Verde Casino, a separate consumer-facing brand already in this database (see that profile), indicating the two share the same underlying operator/licence. Slotoro runs both a casino and a real betting product — a separate betting welcome bonus is advertised. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass — read as \"too new for a track record\" rather than a confirmed clean record.",
+    ownership: { parent: "Wiraon B.V. (Willemstad, Curaçao, reg. no. 146886), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183, per the operator's own spec sheet", related: "Shares its operating entity and licence number with Verde Casino — see that profile" }
   },
   "FortuneJack": {
     overview: "FortuneJack (fortunejack.com) is a long-running crypto casino and sportsbook, live since 2014 — one of the older brands in this database. A notable discrepancy surfaced in this research pass: FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania's restricted-country status, which this pass could not resolve one way or the other. Recurring complaints describe withdrawal delays and account-verification disputes. Its general Terms include a broad \"unfair play\" clause that has reportedly been invoked against arbitrage-style betting patterns, though arbitrage isn't named explicitly.",
@@ -3915,6 +4122,12 @@ const JURISDICTION_SHORT = {
   "NV Casino": "Curaçao",
   "HitnSpin": "Curaçao",
   "Verde Casino": "Curaçao",
+  "V.Vegas": "Curaçao",
+  "FS.Casino": "Curaçao",
+  "IceCasino": "Curaçao",
+  "FieryPlay Casino": "Curaçao",
+  "GGbet": "Curaçao",
+  "Slotoro": "Curaçao",
   "FortuneJack": "Curaçao",
   "DuckDice": "Costa Rica",
   "Tower.bet": "Costa Rica",
@@ -4161,6 +4374,36 @@ const TERMS_INFO = {
     bonus: { text: "A deposit-match welcome bonus is advertised; exact tier structure and wagering requirement were not independently confirmed in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
     withdrawal: { text: "Casino.Guru's Safety Index for Verde Casino sits in the \"Below Average\" range; specific complaint case detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
     kyc: { text: "KYC threshold not clearly disclosed. Separately, unconfirmed forum allegations describe Lithuanian players being blacklisted, in tension with Verde Casino running a Lithuania-facing \"Verde Lietuva\" mirror domain without a confirmed Lithuanian licence — neither piece independently verified.", source: "casino.guru; forum reports (third-party, unconfirmed)", checked: "2026-09-04" }
+  },
+  "V.Vegas": {
+    bonus: { text: "$1,500 + 150 free spins welcome bonus advertised, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply (table/live/instant games contribute less or not at all).", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days); €500-5,000 within 48 hours (max 5 working days); €5,000-30,000 within 96 hours (max 14 working days); above €30,000 within 96 hours (max 30 working days). A further cap can apply if lifetime withdrawal requests reach 20x total deposits.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "FS.Casino": {
+    bonus: { text: "€1,000 + 400 free spins casino welcome bonus, plus a separate up-to-$500 betting welcome bonus, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "A single withdrawal is capped at $500, with a further $5,000 (or currency equivalent) cap across a rolling 30-day window. Bank-transfer withdrawals are tiered by amount: up to $300 within 2 working days, $301-1,500 within 5 working days, $1,501-15,000 within 14 working days, above $15,001 within 30 working days.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "IceCasino": {
+    bonus: { text: "$1,500 + 270 free spins welcome bonus advertised, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days); €500-5,000 within 48 hours (max 5 working days); €5,000-30,000 within 96 hours (max 14 working days); above €30,000 within 96 hours (max 30 working days). A further cap can apply if lifetime withdrawal requests reach 20x total deposits.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "FieryPlay Casino": {
+    bonus: { text: "€2,500 + 525 free spins casino welcome bonus, plus a separate up-to-€1,000 sports/esports betting welcome bonus, per the operator's own spec sheet; live/table games contribute only 15% toward wagering, with a few slot exceptions.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to $300 within 2 working days, $301-1,500 within 5 working days, $1,501-15,000 within 14 working days, $15,001+ within 30 working days. The operator states it does not process withdrawals by cheque.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "GGbet": {
+    bonus: { text: "Up to 3,000 + 900 free spins casino welcome bonus, plus a separate 1,000 EUR + 250 EUR freebet betting welcome bonus, per the operator's own spec sheet.", source: "Operator-supplied spec sheet (GGbet's own ggbetaff.com affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days), €500-5,000 within 48 hours (max 5 working days), €5,000-30,000 within 96 hours (max 14 working days).", source: "Operator-supplied spec sheet (GGbet's own ggbetaff.com affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (GGbet's own ggbetaff.com affiliate program)", checked: "2026-09-08" }
+  },
+  "Slotoro": {
+    bonus: { text: "€2,500 + 250 free spins casino welcome bonus, plus a separate up-to-€700 betting welcome bonus, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days), €500-5,000 within 48 hours (max 5 working days), €5,000-30,000 within 96 hours (max 14 working days), above €30,000 within 96 hours (max 30 working days).", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
   },
   "FortuneJack": {
     bonus: { text: "A multi-deposit welcome package is advertised across this long-running brand; exact current tiers and wagering requirement were not independently confirmed in this pass.", source: "casino.guru; fortunejack.com help center (third-party review plus operator site, not fully fetched)", checked: "2026-09-04" },
@@ -4485,6 +4728,15 @@ const TRUST_BREAKDOWN = {
   "NV Casino":     { licence:7, payout:7, complaintsRec:6, kyc:9, tc:8 },
   "HitnSpin":      { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
   "Verde Casino":  { licence:8, payout:8, complaintsRec:7, kyc:8, tc:3 },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08: set identical to HitnSpin's breakdown above, per direct
+  // site-owner instruction, rather than independently rederived per operator.
+  "V.Vegas":         { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "FS.Casino":       { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "IceCasino":       { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "FieryPlay Casino":{ licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "GGbet":           { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "Slotoro":         { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
   "FortuneJack":   { licence:8, payout:7, complaintsRec:7, kyc:7, tc:3 },
   "DuckDice":      { licence:7, payout:7, complaintsRec:9, kyc:7, tc:3 },
   "Tower.bet":     { licence:6, payout:7, complaintsRec:7, kyc:8, tc:8 },
@@ -4568,6 +4820,7 @@ const PAYOUT_TIME_SHORT = {
   "Yeet":"~15m","Goated":"~15m","Chips.gg":"~30m","Acebet":"~15m",
   "Wild.io":"~15m","Degen Casino":"Varies","Sportbet.one":"Varies","Lucky Block":"Varies",
   "NV Casino":"Varies","HitnSpin":"Varies","Verde Casino":"Varies","FortuneJack":"Varies","DuckDice":"Varies","Tower.bet":"Varies",
+  "V.Vegas":"Varies","FS.Casino":"Varies","IceCasino":"Varies","FieryPlay Casino":"Varies","GGbet":"Varies","Slotoro":"Varies",
   "Whale.io":"Varies","Dicey.com":"Varies",
   "Chancer":"Varies","RioBet":"Varies","Betcoin.ag":"Varies","Bspin.io":"Varies","Megapari":"Varies","WinTomato":"Varies",
   "Thunderpick.io":"Varies","BookMaker.eu":"Same-day (crypto)","Betski":"Varies"
@@ -4702,6 +4955,17 @@ function seedOperators(){
     ["FortuneJack","fortunejack.com", null, null, null, null],
     ["DuckDice","duckdice.io", null, null, null, null],
     ["Tower.bet","tower.bet", null, null, null, null],
+    // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro
+    // added 2026-09-08 from operator-supplied affiliate spec sheets — not
+    // currently tracked on 99bitcoins.com's on-chain table, so all six
+    // deposits/uaw/balance/rank fields are null like the other untracked
+    // operators above.
+    ["V.Vegas","v.vegas", null, null, null, null],
+    ["FS.Casino","fs.casino", null, null, null, null],
+    ["IceCasino","icecasino.com", null, null, null, null],
+    ["FieryPlay Casino","fieryplay.com", null, null, null, null],
+    ["GGbet","gg.bet", null, null, null, null],
+    ["Slotoro","slotoro.bet", null, null, null, null],
     // Whale.io added 2026-09-05 — not currently tracked on 99bitcoins.com's
     // on-chain table, so all four deposits/uaw/balance/rank fields are null
     // like the other untracked operators above.
