@@ -1361,7 +1361,17 @@ const SPORTSBOOK_PROVIDER = {
   "Betcoin.ag": "BetBy",
   "NV Casino": "Data.bet",
   "HitnSpin": "Data.bet",
-  "Verde Casino": "Data.bet"
+  "Verde Casino": "Data.bet",
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro
+  // confirmed 2026-09-08 as Data.bet-powered too, per the site owner
+  // directly (matches the affiliate spec sheets sharing the same operator
+  // cluster as NV Casino/HitnSpin/Verde Casino).
+  "V.Vegas": "Data.bet",
+  "FS.Casino": "Data.bet",
+  "IceCasino": "Data.bet",
+  "FieryPlay Casino": "Data.bet",
+  "GGbet": "Data.bet",
+  "Slotoro": "Data.bet"
 };
 const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy", "Digitain": "Digitain", "Data.bet": "Data.bet" };
 function sportsbookProviderOf(name){ return SPORTSBOOK_PROVIDER[name] || null; }
@@ -1692,12 +1702,12 @@ const KEY_PROS = {
   "NV Casino": ["Sportsbook powered by Data.bet"],
   "HitnSpin": ["Curaçao licence held (2018-launched, longer track record than most peers)","Sportsbook powered by Data.bet"],
   "Verde Casino": ["Wide crypto selection accepted","Sportsbook powered by Data.bet"],
-  "V.Vegas": ["Long track record — operating since 2015 (as the Vulkan Vegas rebrand)","13,750+ games from 174 providers, per the operator's own spec sheet"],
-  "FS.Casino": ["Operating since 2019 — longer track record than most peers in this batch","Combined casino + sports betting welcome bonuses offered"],
-  "IceCasino": ["14,100+ games from 167 providers, per the operator's own spec sheet","Native iOS & Android apps"],
-  "FieryPlay Casino": ["Combined casino + sports/esports betting welcome bonuses offered"],
-  "GGbet": ["Operating since 2016 — established esports-focused betting brand","Sizeable dedicated betting bonus offering alongside casino"],
-  "Slotoro": ["Combined casino + sportsbook/betting welcome bonuses offered","8,000+ games from 90+ providers, per the operator's own spec sheet"],
+  "V.Vegas": ["Long track record — operating since 2015 (as the Vulkan Vegas rebrand)","13,750+ games from 174 providers, per the operator's own spec sheet","Sportsbook powered by Data.bet"],
+  "FS.Casino": ["Operating since 2019 — longer track record than most peers in this batch","Combined casino + sports betting welcome bonuses offered","Sportsbook powered by Data.bet"],
+  "IceCasino": ["14,100+ games from 167 providers, per the operator's own spec sheet","Native iOS & Android apps","Sportsbook powered by Data.bet"],
+  "FieryPlay Casino": ["Combined casino + sports/esports betting welcome bonuses offered","Sportsbook powered by Data.bet"],
+  "GGbet": ["Operating since 2016 — established esports-focused betting brand","Sizeable dedicated betting bonus offering alongside casino","Sportsbook powered by Data.bet"],
+  "Slotoro": ["Combined casino + sportsbook/betting welcome bonuses offered","8,000+ games from 90+ providers, per the operator's own spec sheet","Sportsbook powered by Data.bet"],
   "FortuneJack": ["Long-running operator (2014 launch) with an established, multi-year track record","Sportsbook powered by BetBy"],
   "DuckDice": ["Long-running operator (2016 launch) with a large, active player base","Sportsbook powered by BetBy"],
   "Tower.bet": ["Sportsbook powered by BetBy"],
