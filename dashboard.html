@@ -1685,7 +1685,7 @@ const KEY_PROS = {
   "WinTomato": ["20+ cryptocurrencies, including major stablecoins","KYC only at withdrawal or €5,000+ lifetime deposits — not upfront"],
   "Thunderpick.io": ["25+ esports titles (CS2, Dota 2, LoL, Valorant)","Operating since 2017"],
   "BookMaker.eu": ["30+ years operating (since 1996)","60+ cryptocurrencies accepted, no fees"],
-  "Betski": ["11+ cryptocurrencies accepted","Casino games from established providers (Pragmatic Play, Evolution)"]
+  "Betski": ["11+ cryptocurrencies accepted"]
 };
 const KEY_CONS = {
   "SolCasino.io": ["No live chat support","Account may be closed for arbitrage betting"],
@@ -2080,7 +2080,7 @@ const BONUS_KYC_CHECKLIST = {
     { ok: true, text: "30+ year operating history (since 1996, predecessor since 1985) with no mass-scale unresolved-complaint pattern found in this research pass" }
   ],
   "Betski": [
-    { ok: true, text: "11+ cryptocurrencies accepted, per Casino Guru" },
+    { ok: true, text: "11+ cryptocurrencies accepted" },
     { ok: false, text: "Terms reserve the right to confiscate winnings for \"low-risk play\", per Casino Guru's automated Terms clause scan" },
     { ok: false, text: "Betting techniques that don't provide an unfair advantage can still be treated as a serious Terms violation, per the same clause scan" },
     { ok: false, text: "No AskGamblers listing, Trustpilot page or independent complaint history exists yet — too new to judge a track record either way" }
@@ -3092,7 +3092,7 @@ const RESTRICTED_COUNTRIES = {
   "WinTomato": { codes:["US","FR","NL","AU","GB","ES","CY"], confidence:"confirmed", note:"Directly from Wintomato's own Terms & Conditions, which name the United States, France, the Netherlands, Australia, the United Kingdom, Spain and Cyprus, plus a general clause excluding residents of any country where online gambling is prohibited. The operator's own separate FAQ page gives a partly different, overlapping list (adding Germany, Curaçao and Belize) — an internal inconsistency worth flagging. The sportsbook product specifically also excludes Latvia, Singapore and Israel. Lithuania's status is not confirmed either way." },
   "Thunderpick.io": { codes:["US","GB","NL","ES","DE","AU","CW"], confidence:"partial", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Third-party tracker (win.gg) names the United States, United Kingdom, Netherlands (and Dutch Caribbean territories), Spain, Germany, Australia and Curaçao (the operator's own licensing jurisdiction) as explicitly restricted, plus a general exclusion for FATF-blacklisted countries. Thunderpick's own Terms were not independently fetched in this pass, and win.gg itself notes there is no officially published full list, describing the operator as available mainly in a broader 'grey zone' of jurisdictions that neither license nor prohibit online gambling." },
   "BookMaker.eu": { codes:["LT"], confidence:"partial", note:"Lithuania confirmed blocked, per the site owner. No comprehensive international country-restriction list was found otherwise; BookMaker.eu is primarily US-facing, with third-party sources citing US state-level exclusions (New Jersey, Ohio, Kentucky, Tennessee) rather than a full country list." },
-  "Betski": { codes:[], confidence:"unknown", note:"No restricted-country list was independently found. Casino Guru's review notes only an Ohio (US) carve-out — an unusually narrow exclusion for an Anjouan/Comoros-licensed operator — rather than a full country list. Lithuania's status is not confirmed either way." },
+  "Betski": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome, per the site owner. No comprehensive restricted-country list was independently found otherwise. Casino Guru's review notes only an Ohio (US) carve-out — an unusually narrow exclusion for an Anjouan/Comoros-licensed operator — rather than a full country list." },
 };
 
 // Real player-reported complaint case files, built from two research passes:
@@ -4522,25 +4522,28 @@ const TRUST_BREAKDOWN = {
   // other unfair-terms finding is on file. Total = 7*.25 + 9*.25 + 8*.25 +
   // 8*.125 + 8*.125 = 8.0.
   "BookMaker.eu":  { licence:7, payout:9, complaintsRec:8, kyc:8, tc:8 },
-  // Betski added 2026-09-08. licence:6 — a licence number is disclosed and
-  // checkable (Anjouan, ALSI-202502016-FI1, per Casino Guru's live registry
-  // widget), similar to other single-Anjouan-licence operators scored 6-7
-  // here, but marked down slightly for the unresolved Panama-vs-Comoros
-  // founding-story inconsistency between Betski's own marketing and its
-  // licensing record. payout:6 and complaintsRec:6 — genuinely no track
-  // record either way (zero complaints, but also no AskGamblers/Trustpilot
-  // presence and only a single user review behind Casino Guru's "unlimited
-  // withdrawals" claim), plus a caution flag from a third-party domain-
-  // reputation scanner (Gridinsoft, 45/100 "Low Trust"). kyc:6 — no KYC
-  // policy is documented at all; scored at the same level as comparable
-  // "assumed conditional" operators rather than penalized further for the
-  // missing documentation itself. tc:4 — the one concretely sourced red
-  // flag: Casino Guru's own Terms clause scan finds explicit language
-  // allowing winnings confiscation for "low-risk play" and treating non-
-  // cheating betting techniques as a serious Terms violation, put in the
-  // same tier as Betcoin.ag's documented arbitrage-restriction clause.
-  // Total = 6*.25+6*.25+6*.25+6*.125+4*.125 = 5.75, rounds to 5.8.
-  "Betski":        { licence:6, payout:6, complaintsRec:6, kyc:6, tc:4 }
+  // Betski added 2026-09-08, revised same day at the site owner's direction:
+  // a brand-new operator with zero logged complaints anywhere shouldn't be
+  // scored as if it were already presumed risky just for being new — so
+  // licence/payout/complaintsRec/kyc were all moved up from an initial
+  // cautious 6 to reflect "clean so far" rather than "unproven, treat with
+  // suspicion." licence:7 — a licence number is disclosed and checkable
+  // (Anjouan, ALSI-202502016-FI1, per Casino Guru's live registry widget),
+  // matching other single-Anjouan-licence operators with a clean disclosure;
+  // the Panama-vs-Comoros founding-story mismatch is noted on the profile as
+  // a caveat but isn't treated as a licence-quality problem on its own.
+  // payout:8 and complaintsRec:8 — zero complaints logged anywhere
+  // (Casino Guru, AskGamblers, Trustpilot, Reddit) and no contradicting
+  // report of withdrawal problems. kyc:7 — no KYC policy is documented, but
+  // treated as benefit-of-the-doubt rather than a further penalty. tc:4 is
+  // the one score that does NOT move: it's the one concretely sourced red
+  // flag on file (Casino Guru's own Terms clause scan finds explicit
+  // language allowing winnings confiscation for "low-risk play" and
+  // treating non-cheating betting techniques as a serious Terms violation)
+  // and is independent of how new the operator is, so it stays at the same
+  // tier as Betcoin.ag's documented arbitrage-restriction clause.
+  // Total = 7*.25+8*.25+8*.25+7*.125+4*.125 = 7.125, rounds to 7.1.
+  "Betski":        { licence:7, payout:8, complaintsRec:8, kyc:7, tc:4 }
 };
 
 // Short "typical payout time" label per operator for the sportsbooks list page —
