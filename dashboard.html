@@ -4830,7 +4830,11 @@ const SPORTS_RANGE_OVERRIDE = {
   // the opposite situation from Degen Casino above. Its esports coverage is
   // separately called out as "Wide" via a dedicated pro pill instead, since
   // that's a genuinely different, much deeper product line.
-  "Thunderpick.io": { label: "Narrow", cls: "bad" }
+  "Thunderpick.io": { label: "Narrow", cls: "bad" },
+  // BookMaker.eu's markets text ("major US/global leagues plus niche and
+  // esports") never states a sport count, so the raw heuristic falls through
+  // to "—". Set directly to Medium per site-admin judgment (2026-09-08).
+  "BookMaker.eu": { label: "Medium", cls: "warn" }
 };
 function sportsTierInfo(op){
   if(SPORTS_RANGE_OVERRIDE[op.name]) return SPORTS_RANGE_OVERRIDE[op.name];
