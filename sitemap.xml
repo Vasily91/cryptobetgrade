@@ -315,6 +315,9 @@
   <url><loc>https://cryptobetgrade.com/complaints/verde-casino-17200-eur-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/verde-casino-1516-eur-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/verde-casino-750-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/verde-casino-100000-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/verde-casino-4000-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/verde-casino-3500-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/fortunejack</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/fortunejack/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/fortunejack-152-usd-account-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -333,11 +336,44 @@
   <url><loc>https://cryptobetgrade.com/complaints/tower-bet-165-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/tower-bet-300-usdt-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/v-vegas</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/v-vegas/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/v-vegas-25000-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/v-vegas-5000-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/v-vegas-1600-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/v-vegas-300-pln-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/v-vegas-self-exclusion-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/fs-casino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/fs-casino/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fs-casino-2500-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fs-casino-400-eur-duplicate-account-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fs-casino-399-eur-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fs-casino-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/icecasino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/icecasino/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/icecasino-100-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/icecasino-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/fieryplay-casino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/fieryplay-casino/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fieryplay-casino-1000-eur-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fieryplay-casino-1000-cad-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fieryplay-casino-700-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fieryplay-casino-4500-eur-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/fieryplay-casino-120-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/ggbet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/ggbet/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/ggbet-6942-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/ggbet-2210-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/ggbet-1525-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/ggbet-1050-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/ggbet-3000-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/ggbet-70-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/slotoro</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/slotoro/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/slotoro-1050-eur-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/slotoro-6799-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/slotoro-2000-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/slotoro-600-eur-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/slotoro-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/whale-io</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/whale-io/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/whale-io-36128-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
