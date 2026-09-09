@@ -1658,6 +1658,14 @@ const ARBITRAGE_VOID_ONLY = {
 // fact couldn't be found, it's left null rather than guessed — renderDetail()
 // shows "—" for those. Any operator missing from these objects entirely
 // falls back to the original prose-only layout untouched.
+//
+// Standing rule (site owner, 2026-09-08/09): this is a sportsbetting-focused
+// site, not a casino review site. Casino-only perks — game/slot counts,
+// game-provider counts, jackpot/table-game features, and similar — do not
+// belong in KEY_PROS by default, even when factually true and sourced. Only
+// add a casino-related fact here if it's genuinely relevant to a bettor
+// (e.g. a combined casino+sportsbook welcome bonus, or the sportsbook
+// platform itself). When in doubt, leave it out.
 const KEY_PROS = {
   "SolCasino.io": ["Accepts 25+ cryptocurrencies","Sportsbook powered by BetBy"],
   "Stake": ["No maximum withdrawal limit","20+ cryptocurrencies accepted","Generous rakeback"],
@@ -1702,12 +1710,12 @@ const KEY_PROS = {
   "NV Casino": ["Sportsbook powered by Data.bet"],
   "HitnSpin": ["Curaçao licence held (2018-launched, longer track record than most peers)","Sportsbook powered by Data.bet"],
   "Verde Casino": ["Wide crypto selection accepted","Sportsbook powered by Data.bet"],
-  "V.Vegas": ["Long track record — operating since 2015 (as the Vulkan Vegas rebrand)","13,750+ games from 174 providers, per the operator's own spec sheet","Sportsbook powered by Data.bet"],
+  "V.Vegas": ["Long track record — operating since 2015 (as the Vulkan Vegas rebrand)","Sportsbook powered by Data.bet"],
   "FS.Casino": ["Operating since 2019 — longer track record than most peers in this batch","Combined casino + sports betting welcome bonuses offered","Sportsbook powered by Data.bet"],
-  "IceCasino": ["14,100+ games from 167 providers, per the operator's own spec sheet","Native iOS & Android apps","Sportsbook powered by Data.bet"],
+  "IceCasino": ["Native iOS & Android apps","Sportsbook powered by Data.bet"],
   "FieryPlay Casino": ["Combined casino + sports/esports betting welcome bonuses offered","Sportsbook powered by Data.bet"],
   "GGbet": ["Operating since 2016 — established esports-focused betting brand","Sizeable dedicated betting bonus offering alongside casino","Sportsbook powered by Data.bet"],
-  "Slotoro": ["Combined casino + sportsbook/betting welcome bonuses offered","8,000+ games from 90+ providers, per the operator's own spec sheet","Sportsbook powered by Data.bet"],
+  "Slotoro": ["Combined casino + sportsbook/betting welcome bonuses offered","Sportsbook powered by Data.bet"],
   "FortuneJack": ["Long-running operator (2014 launch) with an established, multi-year track record","Sportsbook powered by BetBy"],
   "DuckDice": ["Long-running operator (2016 launch) with a large, active player base","Sportsbook powered by BetBy"],
   "Tower.bet": ["Sportsbook powered by BetBy"],
