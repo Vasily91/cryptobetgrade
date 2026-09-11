@@ -1676,6 +1676,290 @@ function cbgToggleTheme(){
 .nav-user-menu-item svg{width:16px;height:16px;flex:none;color:var(--ink-muted);}
 .nav-user-menu-item:hover{background:var(--brand-lighter);}
 </style>
+
+<style>
+/* ===== Top 5 Trust Score redesign ===== */
+#top-operators{
+  position:relative;
+  overflow:hidden;
+}
+#top-operators:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(520px 220px at 18% 0%, rgba(70,215,134,.08), transparent 72%),
+    radial-gradient(460px 220px at 88% 100%, rgba(70,215,134,.045), transparent 75%);
+}
+#top-operators .wrap{position:relative;z-index:1;}
+
+#top-operators .section-head{
+  align-items:flex-end;
+  margin-bottom:28px;
+}
+#top-operators .section-head .eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+#top-operators .section-head .eyebrow:before{
+  content:"";
+  width:7px;height:7px;border-radius:50%;
+  background:#4bdc88;
+  box-shadow:0 0 0 5px rgba(75,220,136,.09);
+}
+#top-operators .ranking-note{
+  max-width:350px;
+  font-size:12px;
+  line-height:1.55;
+  color:var(--ink-muted);
+  margin:0;
+}
+#top-operators .ranking-note b{color:var(--ink-2);}
+
+#top-operators .top5-grid{
+  gap:13px;
+  align-items:stretch;
+}
+#top-operators .top5-card{
+  min-height:326px;
+  padding:18px 16px 16px;
+  display:flex;
+  flex-direction:column;
+  border:1px solid var(--line);
+  border-left:none;
+  border-radius:18px;
+  box-shadow:0 8px 24px rgba(11,11,11,.045);
+  overflow:hidden;
+}
+#top-operators .top5-card:after{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:3px;
+  background:linear-gradient(90deg,#0b6e4f,#55da8b);
+  opacity:.58;
+}
+#top-operators .top5-card.rank-1{
+  transform:translateY(-4px);
+  border-color:#b9dcca;
+  box-shadow:0 16px 36px rgba(11,110,79,.11);
+}
+#top-operators .top5-card.rank-1:after{
+  height:4px;
+  opacity:1;
+}
+#top-operators .top5-card.rank-1:hover{transform:translateY(-7px);}
+#top-operators .top5-card:not(.rank-1):hover{transform:translateY(-4px);}
+
+#top-operators .top5-rank{
+  background:#edf7f1;
+  color:#0b6e4f;
+  width:auto;
+  min-width:28px;
+  height:26px;
+  padding:0 7px;
+  border-radius:8px;
+  font-size:10px;
+  letter-spacing:.01em;
+}
+#top-operators .leader-badge{
+  position:absolute;
+  top:11px;right:11px;
+  font-size:8.5px;
+  font-weight:800;
+  letter-spacing:.045em;
+  text-transform:uppercase;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#e8f7ed;
+  color:#137444;
+  border:1px solid #c9ead6;
+}
+#top-operators .top5-card .op-logo{
+  width:62px;height:62px;
+  margin:12px auto 11px;
+  border-radius:17px;
+  background:linear-gradient(145deg,#fff,#f4f7f5);
+  border:1px solid #e5ebe7;
+}
+#top-operators .top5-card .op-logo img{
+  width:36px;height:36px;
+}
+#top-operators .top5-card .name{
+  font-size:14.5px;
+  margin-bottom:8px;
+}
+#top-operators .trust-score-main{
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  gap:4px;
+  margin-top:1px;
+}
+#top-operators .trust-score-main strong{
+  font-family:'Poppins',system-ui,sans-serif;
+  font-size:30px;
+  line-height:1;
+  color:var(--brand-dark);
+  letter-spacing:-1px;
+}
+#top-operators .trust-score-main span{
+  font-size:11px;
+  color:var(--ink-muted);
+  font-weight:700;
+}
+#top-operators .trust-label{
+  font-size:10px;
+  color:var(--ink-muted);
+  text-transform:uppercase;
+  letter-spacing:.075em;
+  font-weight:800;
+  margin-top:4px;
+}
+#top-operators .score-track{
+  width:100%;
+  height:6px;
+  border-radius:999px;
+  background:#edf1ee;
+  overflow:hidden;
+  margin:13px 0 13px;
+}
+#top-operators .score-track i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#0b6e4f,#55d98b);
+  box-shadow:0 0 12px rgba(85,217,139,.18);
+}
+#top-operators .secondary-stat{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:9px 10px;
+  margin-bottom:13px;
+  border:1px solid #ecefeb;
+  border-radius:10px;
+  background:#fafcfb;
+}
+#top-operators .secondary-stat span{
+  font-size:9.5px;
+  color:var(--ink-muted);
+  text-align:left;
+  line-height:1.3;
+}
+#top-operators .secondary-stat b{
+  font-size:11.5px;
+  color:var(--ink-2);
+  white-space:nowrap;
+}
+#top-operators .card-actions{
+  margin-top:auto;
+}
+#top-operators .btn-mini{
+  transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+#top-operators .btn-mini-primary{
+  background:linear-gradient(180deg,#60c879,#55b96b);
+  color:#07160d;
+  border:1px solid rgba(0,0,0,.05);
+}
+#top-operators .btn-mini-primary:hover{
+  background:linear-gradient(180deg,#69d382,#5fc674);
+  transform:scale(1.07);
+  box-shadow:0 10px 22px rgba(11,110,79,.30);
+}
+#top-operators .btn-mini-secondary{
+  background:transparent;
+}
+#top-operators .btn-mini-secondary:hover{
+  transform:scale(1.07);
+  background:var(--brand-lighter);
+  border-color:#b9d3c5;
+  color:var(--brand-dark);
+  box-shadow:0 8px 18px rgba(11,11,11,.12);
+}
+#top-operators .method-line{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  align-items:center;
+  margin-top:20px;
+  font-size:10.5px;
+  color:var(--ink-muted);
+}
+#top-operators .method-line:before{
+  content:"i";
+  display:grid;
+  place-items:center;
+  width:17px;height:17px;
+  border-radius:50%;
+  background:var(--brand-lighter);
+  color:var(--brand-dark);
+  border:1px solid var(--brand-light);
+  font-weight:800;
+  font-size:10px;
+}
+
+html[data-theme="dark"] #top-operators .top5-card{
+  background:#101713!important;
+  border-color:#26342c!important;
+  box-shadow:none!important;
+}
+html[data-theme="dark"] #top-operators .top5-card.rank-1{
+  border-color:#315d43!important;
+  background:linear-gradient(180deg,#111c16,#0f1713)!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.22)!important;
+}
+html[data-theme="dark"] #top-operators .top5-card .op-logo{
+  background:#0b110e!important;
+  border-color:#26352c!important;
+}
+html[data-theme="dark"] #top-operators .trust-score-main strong{color:#65d88e!important;}
+html[data-theme="dark"] #top-operators .score-track{background:#202c25!important;}
+html[data-theme="dark"] #top-operators .secondary-stat{
+  background:#0c120f!important;
+  border-color:#243129!important;
+}
+html[data-theme="dark"] #top-operators .secondary-stat b{color:#dfe7e2!important;}
+html[data-theme="dark"] #top-operators .leader-badge{
+  background:#10271a!important;
+  color:#6ee99e!important;
+  border-color:#28563b!important;
+}
+html[data-theme="dark"] #top-operators .top5-rank{
+  background:#15271d!important;
+  color:#6ee99e!important;
+}
+html[data-theme="dark"] #top-operators .btn-mini-secondary{
+  background:#0d1410!important;
+  border-color:#29372e!important;
+  color:#aebbb3!important;
+}
+html[data-theme="dark"] #top-operators .btn-mini-secondary:hover{
+  background:#15211a!important;
+  border-color:#3a5a48!important;
+  color:#dbe7e0!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.32)!important;
+}
+html[data-theme="dark"] #top-operators .btn-mini-primary:hover{
+  box-shadow:0 10px 24px rgba(0,0,0,.4)!important;
+}
+
+@media(max-width:920px){
+  #top-operators .top5-card.rank-1{transform:none}
+}
+@media(max-width:620px){
+  #top-operators .top5-card{min-height:310px;padding:16px 12px 13px}
+  #top-operators .trust-score-main strong{font-size:27px}
+  #top-operators .secondary-stat{display:block;text-align:center}
+  #top-operators .secondary-stat span,#top-operators .secondary-stat b{display:block;text-align:center}
+  #top-operators .secondary-stat b{margin-top:3px}
+}
+</style>
+
 </head>
 <body>
 <script>
@@ -1871,65 +2155,86 @@ function handleLogoError(img){
   <div class="wrap">
     <div class="section-head split-head">
       <div>
-        <div class="eyebrow">Live market snapshot</div>
-        <h2>Biggest crypto sportsbooks by 24h deposits</h2>
+        <div class="eyebrow">Trust Score leaderboard</div>
+        <h2>Highest-rated crypto sportsbooks</h2>
       </div>
-      <p>Directional on-chain data from tracked operator wallets.</p>
+      <p class="ranking-note">Ranked by <b>CryptoBetGrade Trust Score</b>. 24h deposits are shown only as market context and do not affect the ranking.</p>
     </div>
+
     <div class="top5-grid" id="top5Grid">
-      <div class="top5-card">
-        <div class="top5-rank">1</div>
-        <div class="op-logo"><img src="https://stake.com/favicon.ico" data-domain="stake.com" data-stage="direct" data-initials="ST" alt="Stake logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
-        <span class="name">Stake</span>
-        <div class="stat-n">$26.3M</div><div class="stat-l">24h deposits</div>
-        <div class="card-actions">
-          <a href="dashboard.html#/operator/stake" class="btn-mini btn-mini-primary">View profile</a>
-          <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
-        </div>
-      </div>
-      <div class="top5-card">
-        <div class="top5-rank">2</div>
-        <div class="op-logo"><img src="https://duel.com/favicon.ico" data-domain="duel.com" data-stage="direct" data-initials="DU" alt="Duel logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
-        <span class="name">Duel</span>
-        <div class="stat-n">$8.6M</div><div class="stat-l">24h deposits</div>
-        <div class="card-actions">
-          <a href="dashboard.html#/operator/duel" class="btn-mini btn-mini-primary">View profile</a>
-          <a href="https://duel.com" target="_blank" rel="noopener" class="btn-mini btn-mini-secondary">View website</a>
-        </div>
-      </div>
-      <div class="top5-card">
-        <div class="top5-rank">3</div>
-        <div class="op-logo"><img src="https://shuffle.com/favicon.ico" data-domain="shuffle.com" data-stage="direct" data-initials="SH" alt="Shuffle logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
-        <span class="name">Shuffle</span>
-        <div class="stat-n">$8.2M</div><div class="stat-l">24h deposits</div>
-        <div class="card-actions">
-          <a href="dashboard.html#/operator/shuffle" class="btn-mini btn-mini-primary">View profile</a>
-          <a href="https://shuffle.com" target="_blank" rel="noopener" class="btn-mini btn-mini-secondary">View website</a>
-        </div>
-      </div>
-      <div class="top5-card">
-        <div class="top5-rank">4</div>
-        <div class="op-logo"><img src="https://roobet.com/favicon.ico" data-domain="roobet.com" data-stage="direct" data-initials="RO" alt="Roobet logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
-        <span class="name">Roobet</span>
-        <div class="stat-n">$8.1M</div><div class="stat-l">24h deposits</div>
-        <div class="card-actions">
-          <a href="dashboard.html#/operator/roobet" class="btn-mini btn-mini-primary">View profile</a>
-          <a href="https://roobet.com/?ref=akgamble" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
-        </div>
-      </div>
-      <div class="top5-card">
-        <div class="top5-rank">5</div>
+
+      <div class="top5-card rank-1">
+        <div class="leader-badge">Highest rated</div>
         <div class="op-logo"><img src="https://rainbet.com/favicon.ico" data-domain="rainbet.com" data-stage="direct" data-initials="RA" alt="Rainbet logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
         <span class="name">Rainbet</span>
-        <div class="stat-n">$6.1M</div><div class="stat-l">24h deposits</div>
+        <div class="trust-score-main"><strong>9.0</strong><span>/10</span></div>
+        <div class="trust-label">Trust Score</div>
+        <div class="score-track"><i style="width:90%"></i></div>
+        <div class="secondary-stat"><span>24h deposits</span><b>$7.38M</b></div>
         <div class="card-actions">
           <a href="dashboard.html#/operator/rainbet" class="btn-mini btn-mini-primary">View profile</a>
-          <a href="https://rainbet.com?r=crptobetgrade" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View website</a>
+          <a href="https://rainbet.com?r=crptobetgrade" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View sportsbook</a>
         </div>
       </div>
+
+      <div class="top5-card">
+        <div class="op-logo"><img src="https://500.casino/favicon.ico" data-domain="500.casino" data-stage="direct" data-initials="50" alt="500Casino logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">500Casino</span>
+        <div class="trust-score-main"><strong>8.9</strong><span>/10</span></div>
+        <div class="trust-label">Trust Score</div>
+        <div class="score-track"><i style="width:89%"></i></div>
+        <div class="secondary-stat"><span>24h deposits</span><b>$388.46K</b></div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/500casino" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View sportsbook</a>
+        </div>
+      </div>
+
+      <div class="top5-card">
+        <div class="op-logo"><img src="https://duelbits.com/favicon.ico" data-domain="duelbits.com" data-stage="direct" data-initials="DB" alt="Duelbits logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Duelbits</span>
+        <div class="trust-score-main"><strong>8.9</strong><span>/10</span></div>
+        <div class="trust-label">Trust Score</div>
+        <div class="score-track"><i style="width:89%"></i></div>
+        <div class="secondary-stat"><span>24h deposits</span><b>$868.49K</b></div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/duelbits" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://duelbits.com/?a=Cryptobetgr" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View sportsbook</a>
+        </div>
+      </div>
+
+      <div class="top5-card">
+        <div class="op-logo"><img src="https://cloudbet.com/favicon.ico" data-domain="cloudbet.com" data-stage="direct" data-initials="CL" alt="Cloudbet logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Cloudbet</span>
+        <div class="trust-score-main"><strong>8.9</strong><span>/10</span></div>
+        <div class="trust-label">Trust Score</div>
+        <div class="score-track"><i style="width:89%"></i></div>
+        <div class="secondary-stat"><span>24h deposits</span><b>$0</b></div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/cloudbet" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://cldbt.cloud/r/kebabjoo" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View sportsbook</a>
+        </div>
+      </div>
+
+      <div class="top5-card">
+        <div class="op-logo"><img src="https://shuffle.com/favicon.ico" data-domain="shuffle.com" data-stage="direct" data-initials="SH" alt="Shuffle logo" decoding="async" fetchpriority="high" onerror="handleLogoError(this)"></div>
+        <span class="name">Shuffle</span>
+        <div class="trust-score-main"><strong>8.9</strong><span>/10</span></div>
+        <div class="trust-label">Trust Score</div>
+        <div class="score-track"><i style="width:89%"></i></div>
+        <div class="secondary-stat"><span>24h deposits</span><b>$5.57M</b></div>
+        <div class="card-actions">
+          <a href="dashboard.html#/operator/shuffle" class="btn-mini btn-mini-primary">View profile</a>
+          <a href="https://shuffle.com?r=gzIFMFUVhJ" target="_blank" rel="noopener sponsored" class="btn-mini btn-mini-secondary">View sportsbook</a>
+        </div>
+      </div>
+
     </div>
+
+    <div class="method-line">Trust Scores use the same methodology across every operator.</div>
+
     <div class="top5-cta">
-      <a href="dashboard.html" class="btn btn-outline">Full list →</a>
+      <a href="dashboard.html" class="btn btn-outline">View full leaderboard →</a>
     </div>
   </div>
 </section>
