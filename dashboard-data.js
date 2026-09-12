@@ -1,0 +1,2988 @@
+// dashboard-data.js — the static operator/complaint/company/terms data for
+// CryptoBetGrade, extracted out of dashboard.html's main inline <script> so
+// this (large, identical-on-every-page) payload can be cached by the
+// browser across page navigations instead of being re-downloaded inside
+// every single dynamic HTML page (previously ~90% of each /sportsbooks/{id}
+// and /complaints/{slug} page's weight was this exact same data, repeated).
+//
+// Loaded via a plain synchronous <script src="/dashboard-data.js"> tag
+// placed immediately before dashboard.html's main inline <script>, so these
+// top-level consts are already defined (same shared global scope — separate
+// <script> tags on one page see each other's top-level let/const) by the
+// time the app code that reads them runs. Purely mechanical extraction, no
+// logic changes — see tools/extract-dashboard-data.mjs if this ever needs
+// to be regenerated after a manual edit (in practice, edit the data here
+// directly; this file is not auto-generated from anything else).
+
+const ARBITRAGE_CLAUSE = {
+  "SolCasino.io": {
+    text: "SolCasino.io's Sportsbook Terms explicitly prohibit arbitrage betting: “The use of arbitrage strategy, which involves exploiting differences in odds across different bookmakers/sportsbooks to guarantee profit, is strictly prohibited on our Sportsbook.” Bets found to be arbitrage face “immediate cancellation,” and disputes are resolved “at the discretion of the Sportsbook,” with decisions “final.”",
+    source: "docs.solcasino.io official Sportsbook Terms, Section 7.10",
+    checked: "2026-08-22"
+  },
+  "BetFury": {
+    text: "BetFury's Sports Betting Terms explicitly prohibit arbitrage betting: “The use of arbitrage strategy, which involves exploiting differences in Odds across different bookmakers/sportsbooks to guarantee profit, is strictly prohibited on the Sportsbook.” Bets found to be arbitrage face “immediate cancellation of the Bets and permanent restrictions” on the account.",
+    source: "docs.betfury.com official Sports Betting Terms, Section 7.4.4",
+    checked: "2026-08-22"
+  },
+  "Cryptorino": {
+    text: "Cryptorino's Sports Rules explicitly prohibit arbitrage betting: “The use of arbitrage strategy, which involves exploiting differences in Odds across different bookmakers/sportsbooks to guarantee profit, is strictly prohibited on the Sportsbook.” Bets found to be arbitrage face “immediate cancellation of the Bets and permanent restrictions.”",
+    source: "cryptorino.com official Sports Rules, Section 7.4.4",
+    checked: "2026-08-22"
+  },
+  "Winna": {
+    text: "Winna's Sports Terms explicitly prohibit arbitrage betting: “The use of arbitrage strategy, which involves exploiting differences in Odds across different bookmakers/sportsbooks to guarantee profit, is strictly prohibited on the Sportsbook.” Bets found to be arbitrage face “immediate cancellation of the Bets and permanent restrictions.”",
+    source: "winna.com official Sports Terms, Section 7.4.4",
+    checked: "2026-08-22"
+  },
+  "Betpanda": {
+    text: "Betpanda's Sportsbook Terms prohibit arbitrage betting — bets found to be arbitrage are voided and the account restricted.",
+    source: "betpandacasino.io/en/info/sportsbook-terms (page located, not independently readable)",
+    checked: "2026-08-22",
+    verified: false
+  },
+  "Rakebit": {
+    text: "Rakebit's sportsbook terms prohibit arbitrage betting — bets found to be arbitrage are voided and the account restricted.",
+    source: "rakebit.com sportsbook terms (page not independently readable); general T&Cs at raakebit.com/terms-conditions/ read in full and do not mention arbitrage",
+    checked: "2026-08-22",
+    verified: false
+  },
+  "Duel": {
+    text: "Duel prohibits arbitrage betting — bets found to be arbitrage are cancelled and the account is closed.",
+    verified: false
+  },
+  "Acebet": {
+    text: "Acebet's Rules & Regulations reserve the right to close or suspend an account that uses the site \"in an unfair manner\" or takes \"unfair advantage\" — a general clause of the kind commonly invoked against arbitrage/surebetting, though the page found doesn't name arbitrage by name. Flagged as arbitrage-restricted based on direct site review.",
+    source: "acebet.io/rules-regulations (general unfair-advantage clause; arbitrage not explicitly named in the page text an automated fetch could read)",
+    checked: "2026-08-31",
+    verified: false
+  },
+  "Chips.gg": {
+    text: "Chips.gg's sportsbook terms prohibit arbitrage betting — bets found to be arbitrage are voided and the account restricted. Flagged based on direct site review.",
+    source: "chips.gg/terms (full sportsbook-terms text not independently readable by automated fetch)",
+    checked: "2026-08-31",
+    verified: false
+  },
+  "Goated": {
+    text: "Goated's sportsbook rules prohibit arbitrage betting — bets found to be arbitrage are voided and the account restricted. Flagged based on direct site review.",
+    source: "goated.com/policies/sports (an automated fetch reviewed the page and did not locate an explicit arbitrage clause in the text it could read)",
+    checked: "2026-08-31",
+    verified: false
+  },
+  "Wild.io": {
+    text: "Wild.io's own Terms of Service explicitly prohibit arbitrage betting: \"Opposite betting or arbitrage betting is prohibited and may result in account termination and confiscation of funds.\" Unlike many operators' void-only clauses, this one extends the stated consequence to full account closure and balance forfeiture.",
+    source: "wild.io/terms (official)",
+    checked: "2026-09-02",
+    verified: false
+  },
+  "Sportbet.one": {
+    text: "Sportbet.one's Terms could not be independently retrieved in full (the page appears JavaScript-rendered), so no verbatim arbitrage clause could be quoted. Real-world enforcement, however, is well documented: primary-source forum disputes from May 2024 through April 2026 describe the operator's internal \"fraud detection\" system flagging accounts for suspected arbitrage betting or multi-accounting, with the account restricted and the full balance confiscated rather than only the flagged bets voided — and the operator declining in each case to disclose which specific bets or evidence triggered the decision.",
+    source: "bitcointalk.org and sportsbookreview.com forum threads (primary-source disputes, not the operator's own Terms text)",
+    checked: "2026-09-02",
+    verified: false
+  },
+  "Lucky Block": {
+    text: "Lucky Block's Terms don't appear to name arbitrage/surebetting specifically, but include a broad \"unfair advantage\"/abusive-pattern clause — found via a regional (India) Terms mirror and independently paraphrased by a second reviewer — under which an account can be closed and funds forfeited, not merely bets voided.",
+    source: "luckyblockindia.com terms mirror (regional, not confirmed identical to the main global luckyblock.com Terms); cryptomaniaks.com (third-party paraphrase)",
+    checked: "2026-09-02",
+    verified: false
+  },
+  "HitnSpin": {
+    text: "HitnSpin's sportsbook terms prohibit arbitrage/surebetting — bets identified as arbitrage face voiding and the account may be restricted or closed, with winnings from the flagged activity forfeited.",
+    source: "hitnspin.com terms (sportsbook-specific arbitrage clause reviewed; full verbatim section not independently quotable from an automated fetch)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "Verde Casino": {
+    text: "Verde Casino's sportsbook terms prohibit arbitrage/surebetting — bets identified as arbitrage face voiding and the account may be restricted or closed, with winnings from the flagged activity forfeited.",
+    source: "verde.bet terms (sportsbook-specific arbitrage clause reviewed; full verbatim section not independently quotable from an automated fetch)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "FortuneJack": {
+    text: "FortuneJack's general Terms & Conditions include a broad clause against \"bonus abuse\" and \"unfair play\" that has reportedly been invoked to void bets and restrict accounts flagged for arbitrage-style betting patterns, though the Terms don't name arbitrage explicitly.",
+    source: "fortunejack.com terms (general unfair-play clause; arbitrage not named explicitly in the text an automated fetch could read)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "DuckDice": {
+    text: "DuckDice's Terms include a general \"unfair advantage\"/abusive-pattern clause under which an account can be restricted and funds withheld, though the Terms don't name arbitrage or surebetting explicitly. Notably, DuckDice's Terms name the same operating entity — Zentari Limitada (Costa Rica) — as Tower.bet's, suggesting the two run on shared back-office infrastructure.",
+    source: "duckdice.io terms (general unfair-advantage clause; arbitrage not named explicitly in the text an automated fetch could read)",
+    checked: "2026-09-04",
+    verified: false
+  },
+  "Betcoin.ag": {
+    text: "Betcoin.ag's own Terms could not be independently retrieved in full, so no verbatim arbitrage clause could be quoted. Real-world enforcement is documented, however: in an AskGamblers case, Betcoin blocked a roughly $900 balance and supplied evidence of prohibited arbitrage-betting, value-betting and alert-service conduct \"under its sportsbook terms,\" and AskGamblers closed the complaint resolved on that basis — confirming a sportsbook-terms arbitrage restriction exists even though the exact wording isn't independently quotable here.",
+    source: "AskGamblers complaint case (askgamblers.com/casino-complaints/betcoin-casino-withdrawal-blocked-and-account-blocked); Betcoin's own Terms not independently readable by automated fetch",
+    checked: "2026-09-07",
+    verified: false
+  },
+  "Rollbit": {
+    text: "Rollbit's Sports Policy (rollbit.com/sports-policy) is JavaScript-rendered and could not be independently retrieved by an automated fetch, so no verbatim clause is quoted here. Rollbit's sportsbook runs on the same BetBy white-label platform as SolCasino.io, BetFury, Cryptorino, Winna, Betpanda and Rakebit, all six of which carry a near-identical \"arbitrage strategy... strictly prohibited\" clause at the same Section 7.4.4 of the shared template — flagged for Rollbit on that pattern-match basis, not from independently reading Rollbit's own copy of the text.",
+    source: "Inferred from shared BetBy white-label sportsbook terms template (see SolCasino.io, BetFury, Cryptorino, Winna, Betpanda, Rakebit entries above); Rollbit's own sports-policy page not independently readable by automated fetch",
+    checked: "2026-09-07",
+    verified: false
+  },
+  "Betski": {
+    text: "Casino Guru's automated Terms & Conditions clause scan flags language reserving the right to treat certain betting techniques as a serious Terms violation even when they don't provide any unfair advantage — the same scan separately flags winnings being confiscated for \"low-risk play,\" plus common bonus-hunting strategies as a possible violation too. Betski's own Terms page is JavaScript-rendered and could not be independently fetched to quote verbatim, so this is sourced to Casino Guru's clause paraphrase rather than a direct quote from the operator's own text — worth re-checking against the live Terms before treating as gospel, but the pattern (a broad, discretionary restriction on hedging/professional betting styles rather than just literal arbitrage) matches several other operators in this database.",
+    source: "casino.guru (automated Terms clause scan/summary); Betski's own Terms page not independently fetched (JavaScript-rendered)",
+    checked: "2026-09-08",
+    verified: false
+  },
+  "Degen Casino": {
+    text: "Degen Casino's own support has confirmed, in a live chat, that the site owner's account is under active investigation for suspected \"abuse/arbitrage\" — support representative Brian Fox stated a separate team \"investigating for abuse/arbitrage work\" would follow up once they had an update, without disclosing what specifically triggered the review. This isn't a quote from Degen's published Terms & Conditions (no separate, independently-readable arbitrage clause was found on the site), but it is direct, first-hand confirmation that Degen actively investigates and flags accounts for suspected arbitrage betting in practice.",
+    source: "Direct Degen Casino live-support chat transcript (support agent \"Brian Fox\"), site owner's own account",
+    checked: "2026-09-08",
+    verified: false
+  }
+};
+
+const KEY_CONS = {
+  "SolCasino.io": ["No live chat support","Account may be closed for arbitrage betting"],
+  "Stake": ["KYC can be demanded at any time, with no published threshold","Multiple verified AskGamblers complaints over KYC-related balance holds, though the disclosed cases were closed in Stake's favor"],
+  "BC.Game": ["Arbitrage bets may be voided"],
+  "Rainbet": ["$30 minimum deposit required","Arbitrage bets may be voided"],
+  "Roobet": ["Arbitrage bets may be voided"],
+  "500Casino": ["Arbitrage bets may be voided"],
+  "Betpanda": ["Account may be closed for arbitrage betting"],
+  "Gamdom": ["Deposits and free-spin winnings must be wagered 1x before withdrawal, even without claiming a bonus","Two AskGamblers complaints describe balances confiscated after KYC over alleged rule breaches — one later restored as goodwill"],
+  "Duelbits": ["Arbitrage bets may be voided"],
+  "Winna": ["$10,000/day withdrawal cap","Account may be closed for arbitrage betting"],
+  "Razed": ["Arbitrage bets may be voided"],
+  "Thrill": ["Arbitrage bets may be voided"],
+  "Cryptorino": ["Wagering multiplier disputed across sources","Account may be closed for arbitrage betting"],
+  "Bets.io": ["Fiat withdrawals can take up to 10 banking days","KYC (ID plus proof of address) required before any payout"],
+  "Nitrobetting": ["History of severe withdrawal delays"],
+  "Cloudbet": ["KYC becomes mandatory after $2,200 in cumulative deposits"],
+  "Rakebit": ["Account may be closed for arbitrage betting"],
+  "Fresh Casino": ["Some games/withdrawal methods restricted by country"],
+  "Sol Casino": ["$125,000/month max-win cap unless otherwise agreed with the operator"],
+  "Jet Casino": ["Crypto withdrawal delays of up to 31 days reported, tied to a repeatedly-invoked account-review clause (Sports rules section 10.4) across multiple documented complaints","45x wagering requirement on its larger welcome offer"],
+  "Starda Casino": ["Bonus winnings capped at 10x"],
+  "1Go Casino": ["Licence registry status disputed"],
+  "Legzo Casino": ["No phone support channel"],
+  "Irwin Casino": ["Bonus funds apply to slots only","40x wagering requirement (35-45x range across sources)"],
+  "Shuffle": ["No confirmed standard welcome bonus"],
+  "Duel": ["Casino.Guru Safety Index only 5.9/10 (\"Below Average\")","Account may be closed for arbitrage betting"],
+  "1win": ["Review sites sharply disagree on trust","\"No-KYC\" claim conflicts with practice"],
+  "BetFury": ["No confirmed minimum deposit published","Licence validity window reportedly lapsed","Account may be closed for arbitrage betting"],
+  "bet105.ag": ["Licence status unverified — markets itself as Curaçao-licensed, but one third-party reviewer describes it as unlicensed and Costa Rica-based, and official terms are JS-gated and inaccessible to confirm either way","\"No-KYC\" marketing conflicts with verification checks expected on larger withdrawals"],
+  "Rollbit": ["KYC tiers undisclosed upfront — a higher level is only revealed after clearing the one before it","No stated SLA for withdrawal processing time in official documentation","Multiple verified Casino Guru complaints over confiscated balances/winnings, most closed unresolved"],
+  "StakeUS": ["KYC can be demanded at any time, with no published threshold","One BBB complaint describes $6,117 redeemed without authorization after a phishing scam; StakeUS declined to refund, citing account-credential responsibility"],
+  "Sportsbet.io": ["Casino.Guru Safety Index only 5.9/10 (\"Below Average\")"],
+  "Yeet": ["No traditional welcome bonus","US residents excluded","Restricted-country list not independently confirmed beyond the US"],
+  "Goated": ["Sportsbook is newly launched — limited track record so far","Restricted in the US and EU","No fixed KYC threshold published","Account may be closed for arbitrage betting"],
+  "Chips.gg": ["\"No KYC\" marketing conflicts with a disclosed ~$2,000 verification trigger","One reviewer reported ~$4+ BTC withdrawal fees despite fee-free marketing","Restricted in 25+ countries including the US, Australia and Belgium","Account may be closed for arbitrage betting"],
+  "Acebet": ["Newest operator here (2025 launch), little track record","Bonus terms reportedly undisclosed until after signup and deposit","Multiple 2026 complaints describe accounts banned/frozen with funds withheld, mostly unresolved","Restricted in 7+ countries including the UK, Switzerland and Poland","Account may be closed for arbitrage betting"],
+  "Wild.io": ["Licensing details disputed across sources (official site names Anjouan; other reviewers cite Curaçao and a different operator entity)","\"No-KYC\" marketing conflicts with conditional verification, especially after large wins","Account may be closed and funds confiscated for arbitrage betting"],
+  "Degen Casino": ["Brand-new operator (2025 launch, reported closed beta) with no established payout track record","No Casino.Guru or AskGamblers listing exists yet to independently verify trust signals","Licensing details (Anjouan licence, Costa Rica-registered operator) sourced only to third-party review blogs, not cross-checked against a registry"],
+  "Sportbet.one": ["Regulator (Mwali/MISA) is widely characterized by industry watchdogs, including reported statements from the Central Bank of Comoros, as not a genuine licensing authority","Primary-source forum disputes (2024-2026) document account restrictions and full balance confiscation over undisclosed \"fraud detection\" findings, with evidence withheld from the player each time","One documented case describes a failed self-exclusion request followed by a real financial loss during the requested cooling-off period","AskGamblers lists the operator's status as \"closed, no longer accepting players\" — conflicting with other 2026 evidence of an active site"],
+  "Lucky Block": ["Licensing is unusually unclear: at least five different operator-entity names and four different licence numbers appear across review sites, and Casino.Guru states it currently operates without a licence","Casino.Guru Safety Index only 2.1/10 (\"Very low\"), though AskGamblers rates it considerably higher (6.4-7.5/10) — reviewers sharply disagree","Recurring complaints describe large balances frozen or confiscated after KYC was already completed","Broad \"unfair advantage\" clause allows account closure and fund forfeiture, not just voided bets (arbitrage not explicitly named)","No native mobile app despite some marketing pages claiming otherwise"],
+  "NV Casino": ["Limited independent track record; review coverage is thin relative to larger peers — launched in 2024","No fixed KYC threshold published"],
+  "HitnSpin": ["\"No-KYC\" marketing conflicts with a disclosed verification threshold for larger withdrawals","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
+  "Verde Casino": ["Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence","Runs a Lithuania-facing \"Verde Lietuva\" mirror domain without disclosed local licensing","Casino.Guru Safety Index in the \"Below Average\" range","Account may be closed and funds forfeited for arbitrage betting"],
+  "V.Vegas": ["Shares its operating entity, Curaçao registration and licence number with IceCasino (Whitebox B.V.) — effectively the same operation under two brand names","No independent complaint-platform history assessed in this pass"],
+  "FS.Casino": ["No independent complaint-platform history assessed in this pass — data sourced to the operator's own affiliate-program spec sheet"],
+  "IceCasino": ["Shares its operating entity, Curaçao registration and licence number with V.Vegas (Whitebox B.V.) — effectively the same operation under two brand names","No independent complaint-platform history assessed in this pass"],
+  "FieryPlay Casino": ["Very new — launched September 2024, no established independent track record yet","No independent complaint-platform history assessed in this pass"],
+  "GGbet": ["Reportedly delayed withdrawals — a very frequent, recurring pattern across dozens of AskGamblers complaints (sportsbook and casino side alike), most citing vague \"technical reasons\" and funds stuck in \"New\" status; the large majority were eventually resolved but the pattern itself is persistent"],
+  "Slotoro": ["Very new — launched 2025, no established independent track record yet","Shares its operating entity and licence number with Verde Casino (Wiraon B.V.) — see that profile"],
+  "FortuneJack": ["Licensing/Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions","Recurring complaints describe withdrawal delays and account verification disputes","General \"unfair play\" clause has reportedly been invoked against arbitrage-style patterns without naming arbitrage explicitly"],
+  "DuckDice": ["Shares its operating entity (Zentari Limitada, Costa Rica) with Tower.bet, raising shared-infrastructure/shared-risk questions for a trust assessment","General \"unfair advantage\" clause allows account restriction without naming arbitrage explicitly"],
+  "Tower.bet": ["Not to be confused with the unrelated site towerbet.com — use tower.bet","Shares its operating entity (Zentari Limitada, Costa Rica) with DuckDice, raising shared-infrastructure/shared-risk questions for a trust assessment","Thinnest independent review coverage of this batch — few tracked complaint-platform listings either way","Costa Rica registration rather than a recognized gambling licence"],
+  "Whale.io": ["Licence claim is internally inconsistent — its own Terms & Conditions page cites a Curaçao licence in one place and an Anjouan (Comoros) licence elsewhere, and AskGamblers separately lists Curaçao while Casino Guru and Whale's own FAQ cite Anjouan licence ALSI-202503012-FI1","Markets withdrawals as \"instant and fee-free,\" but multiple 2026 AskGamblers complaints describe delays of 7-9+ days after full KYC, including a $36,128 case left unresolved with no documented operator response","No published KYC threshold — verification is discretionary and can be re-triggered even after being previously completed","Trustpilot reviewers describe sportsbook winning bets voided after settlement, including allegations tied to disputed live-stream timing"],
+  "Dicey.com": ["Very new operator (launched 2025, with some 2026 coverage still describing it as in beta) — too little independent track record yet to establish payout reliability either way","No welcome bonus is currently published, unlike most competitors","A Trustpilot reviewer describes two separate KYC verification attempts each rejected over a disputed reason, allegedly blocking access to funds; no final outcome is publicly documented"],
+  "Chancer": ["Corporate identity is inconsistently documented — reviewers name it both \"Chancer Group Ltd.\" (Belize) and \"Chancer Group N.V.\" (Curaçao-style), with one source calling the operator name \"not public\"","Restricted-country list varies wildly by source, from a narrow \"Ohio only\" claim to a broader 15+-country list including the US, UK and EU","Anjouan (Comoros) licensing is a lower-tier jurisdiction with materially less oversight than MGA or UKGC","Domain-reputation scanners (ScamAdviser, Gridinsoft) flag chancer1.xyz with a low automated trust score — a domain-risk signal, not a confirmed player complaint, but worth disclosing"],
+  "RioBet": ["Dual Curaçao + Anjouan licensing (unusual)","High complaint volume (73 logged)"],
+  "Betcoin.ag": ["Governing-law and licensing claims are inconsistent across its own materials — Curaçao, Costa Rica and Anjouan (Comoros) have all been cited at different times, with no licence number independently verified against a regulator","Its own Terms of Service formally ban the entire United States, yet third-party geo-block listings name only Ohio — a discrepancy consistent with continued informal accessibility to US bettors","Recurring pattern of post-win account suspensions over discretionary fraud, collusion or arbitrage accusations that the operator did not always substantiate with evidence when the player asked","Large wins (25+ BTC) are reportedly paid out over ten monthly installments rather than as a lump sum, per LCB's own testing","Account may be closed for arbitrage betting"],
+  "Bspin.io": ["Restricted-country information conflicts across third-party sources — one review excludes the US and UK, another does not, and Bspin's own Terms could not be directly retrieved to resolve it","Bonus wagering requirements are reported inconsistently (10x/35x/45x depending on source and date)","A 13.7 BTC balance lockout after a large win remains unresolved on AskGamblers, alongside a separate KYC-triggered withdrawal delay with no firm timeframe given to the player"],
+  "Megapari": ["Licensing entity is ambiguous — most sources cite an Anjouan (Comoros) licence, but some list a conflicting Curaçao reference and a third, unverifiable operator name","35x wagering requirement on the welcome bonus, with a bonus-forfeiture clause tied to incomplete profile or phone verification","The largest share of sourced complaints describe repetitive, contradictory KYC document requests specifically once a withdrawal is requested, stretching 12-50+ days in several documented cases"],
+  "WinTomato": ["Licensing information is inconsistent across sources — the operator's own Terms and Casino Guru cite an Anjouan licence, while AskGamblers and Wizard of Odds list a conflicting Curaçao reference","Recurring pattern of withdrawal-triggered account restrictions over alleged multi-accounting or \"value betting,\" in some documented cases later reversed by the operator itself after mediation","Trustpilot has flagged the operator's own review page for a guideline breach and removed fake reviews, so its otherwise strong rating should be read with some caution","Arbitrage bets may be voided"],
+  "Thunderpick.io": ["Casino Guru rates it \"Very low\" safety (2.9/10) — one of the lowest scores in this database — and states the operator does not cooperate with its complaint-mediation process","Traditional sportsbook leans narrow in practice: solid on major leagues but comparatively shallow on lower-tier/niche competitions despite naming 20+ sports","Multiple 2026 AskGamblers complaints describe repeated KYC document rejection and withdrawals delayed or funds confiscated after wins, including two cases ($8,725 and $12,000) with no resolution on record","Sportsbook/esports-specific complaints exist too — a disputed 4,900 USDT esports (Dota 2/CS2) account-closure case, a Trustpilot arbitrage dispute where Thunderpick's own reply cites Terms 5.1/15.1, and a separate Trustpilot sports-betting case where the reviewer says a complaint was filed with the Curaçao regulator"],
+  "BookMaker.eu": ["Licensed only under a Costa Rica \"eGaming\" operating permit — reviewers describe this as effectively minimal/no real regulatory oversight (\"there's no licensing involved at all,\" one reviewer rates its regulatory standing 3.8/10), with no independent complaint-resolution body and no licence number publicly disclosed","KYC (name, date of birth, address) is collected immediately at signup, not just at withdrawal","Its own \"winners welcome\" reputation is not stated on the operator's own official pages — it rests on third-party reviewer claims, some of which describe real bet-size/market limits on consistent winners, especially in lower-liquidity sports like boxing and MMA","A $600 bank-wire withdrawal fee is flagged by one reviewer as unusually steep for players not using crypto"],
+  "Betski": ["Terms allow confiscating winnings for \"low-risk play\"","Very new — no independent track record yet"]
+};
+
+const BONUS_KYC_CHECKLIST = {
+  "SolCasino.io": [
+    { ok: true,  text: "Welcome bonus: up to 360% deposit bonus (tiered), 50x wagering requirement" },
+    { ok: true,  text: "No KYC required upfront — verification is only triggered by large withdrawals or suspicious activity" },
+    { ok: true,  text: "Operator aims to pay out withdrawals within 1 hour; most crypto withdrawals complete within minutes" },
+    { ok: false, text: "Large withdrawals (reportedly above roughly €1,250) trigger ID verification via third-party provider Sumsub" }
+  ],
+  "Stake": [
+    { ok: false, text: "No traditional deposit-match welcome bonus" },
+    { ok: true, text: "VIP Club offers rakeback and reload bonuses" },
+    { ok: true, text: "Crypto withdrawals typically arrive within about an hour" },
+    { ok: false, text: "KYC can be demanded any time, no threshold published" }
+  ],
+  "BC.Game": [
+    { ok: false, text: "Bonus funds release gradually as wagered" },
+    { ok: true, text: "Wagering requirements roughly 20x-40x depending on promo" },
+    { ok: true, text: "Crypto withdrawals often under 10 minutes" },
+    { ok: false, text: "No KYC at signup, but triggered at first withdrawal" }
+  ],
+  "Rainbet": [
+    { ok: false, text: "40x wagering on the first deposit bonus" },
+    { ok: true, text: "Alternative No Wager Lock bonus option available" },
+    { ok: true, text: "Withdrawals processed internally within 5-15 minutes" },
+    { ok: false, text: "Unverified accounts capped at €500 deposits, no withdrawals" }
+  ],
+  "Roobet": [
+    { ok: true, text: "Rewards program pays ongoing rakeback via \"The Vault\", claimable every 30 minutes" },
+    { ok: false, text: "100% of deposit must be wagered before withdrawal" },
+    { ok: true, text: "Withdrawals sent instantly; ~15 min-24 hr on-chain arrival" },
+    { ok: false, text: "4-tier KYC system with no published dollar thresholds" }
+  ],
+  "500Casino": [
+    { ok: false, text: "40x wagering on the casino welcome bonus" },
+    { ok: true, text: "Sportsbook freebet winnings need only 1x wagering" },
+    { ok: true, text: "Crypto withdrawals instant once approved" },
+    { ok: false, text: "KYC required within 7 days if requested" }
+  ],
+  "Betpanda": [
+    { ok: true, text: "Welcome bonus: 100% match up to 1 BTC + 15% cashback" },
+    { ok: false, text: "Wagering requirement disputed across sources (40x-80x)" },
+    { ok: true, text: "Markets itself as no-KYC for normal play" },
+    { ok: false, text: "No gambling licence actually covers this brand" }
+  ],
+  "Gamdom": [
+    { ok: true, text: "Welcome offer: 15% rakeback, first week, no separate wagering" },
+    { ok: false, text: "Deposits/free-spin wins must be wagered 1x before withdrawal" },
+    { ok: true, text: "No KYC required unless specifically triggered" },
+    { ok: true, text: "Crypto withdrawals usually 5 min-1 hr" }
+  ],
+  "Duelbits": [
+    { ok: true, text: "Welcome package: up to 500 free spins + sportsbook free bet" },
+    { ok: false, text: "Full unlock needs $1,000 wagered in tight 24h windows" },
+    { ok: true, text: "No KYC needed to sign up (email only)" },
+    { ok: true, text: "Withdrawals sent instantly; on-chain arrival ~5-30 min" }
+  ],
+  "Winna": [
+    { ok: true, text: "Instant Rakeback accrues per wager, claimable every 7 min" },
+    { ok: false, text: "Third-party source cites steep 250x wagering req (unconfirmed)" },
+    { ok: true, text: "Markets itself as no-KYC for standard play" },
+    { ok: true, text: "Withdrawals typically process within minutes (~$20 min)" }
+  ],
+  "Razed": [
+    { ok: true, text: "Official bonus: 100% match up to $300 + spins over 7 days" },
+    { ok: false, text: "Bonus wagering usually 40x, RTP-tiered contribution" },
+    { ok: false, text: "KYC (ID + utility bill) required at onboarding, not just withdrawal" },
+    { ok: true, text: "Withdrawals 'as soon as approved'; tests show ~0-24 hrs" }
+  ],
+  "Thrill": [
+    { ok: true, text: "Instant rakeback, no wagering requirement" },
+    { ok: true, text: "Withdrawals described as instant" },
+    { ok: true, text: "No KYC required at signup" },
+    { ok: false, text: "Official bonus terms page not independently verifiable" }
+  ],
+  "Cryptorino": [
+    { ok: true, text: "100% welcome bonus up to ~€90,000" },
+    { ok: false, text: "Wagering multiplier disputed: 40x-66x cited" },
+    { ok: true, text: "Withdrawals typically instant to a few hours" },
+    { ok: true, text: "No mandatory KYC for normal play" }
+  ],
+  "Bets.io": [
+    { ok: true, text: "100% deposit match up to 30,000 USDT" },
+    { ok: false, text: "40x wagering requirement on bonus" },
+    { ok: false, text: "Fiat withdrawals take up to 10 banking days" },
+    { ok: false, text: "KYC required before payout: ID plus proof of address" }
+  ],
+  "Nitrobetting": [
+    { ok: true, text: "250% free play bonus up to $2,500" },
+    { ok: false, text: "Wagering multiplier unclear, ~10x-40x cited" },
+    { ok: false, text: "Some withdrawals delayed 6-8 months (2026 reports)" },
+    { ok: true, text: "No KYC required at signup, email only" }
+  ],
+  "Cloudbet": [
+    { ok: true, text: "Up to $2,500 rakeback welcome package" },
+    { ok: true, text: "No wagering requirement on rakeback bonus" },
+    { ok: true, text: "Most crypto withdrawals process instantly" },
+    { ok: false, text: "KYC mandatory once deposits reach $2,200" }
+  ],
+  "Rakebit": [
+    { ok: true, text: "Welcome rakeback: 100% of house edge on first $1,000 wagered" },
+    { ok: false, text: "Separate deposit-match bonus terms unconfirmed/disputed" },
+    { ok: true, text: "Withdrawals typically instant to ~1 hour" },
+    { ok: false, text: "Wins over $50,000 paid in installments, up to 90 days" }
+  ],
+  "Fresh Casino": [
+    { ok: true, text: "Welcome bonus: 100% match + spins from €20 deposit" },
+    { ok: false, text: "40x wagering; cashout capped at 10x bonus" },
+    { ok: true, text: "Crypto/e-wallet withdrawals often within minutes-24 hours" },
+    { ok: false, text: "ID verification required before any payout" }
+  ],
+  "Sol Casino": [
+    { ok: true, text: "Welcome offer: up to 100-200% match across 5 deposits" },
+    { ok: false, text: "~40-45x wagering requirement reported" },
+    { ok: true, text: "Crypto withdrawals often near-instant (0-24 hrs)" },
+    { ok: false, text: "KYC triggered at withdrawal, ~€1,250-$2,000 threshold" }
+  ],
+  "Jet Casino": [
+    { ok: true, text: "Welcome bonus: 100% up to €300-€600 + spins" },
+    { ok: false, text: "45x wagering requirement on larger offer" },
+    { ok: true, text: "Crypto deposits are instant" },
+    { ok: false, text: "Crypto withdrawal delays up to 31 days reported" }
+  ],
+  "Starda Casino": [
+    { ok: true, text: "Welcome bonus: 100% up to $600/€600 + 500 spins" },
+    { ok: false, text: "40-45x wagering requirement reported" },
+    { ok: true, text: "Crypto withdrawals reported 20 min-few hours once approved" },
+    { ok: false, text: "Source-of-funds check required above €10,000" }
+  ],
+  "1Go Casino": [
+    { ok: true, text: "Welcome bonus: 50-150% match up to €600" },
+    { ok: false, text: "40-45x wagering requirement on deposit bonus" },
+    { ok: false, text: "No weekend cashouts" },
+    { ok: false, text: "Account verification required before first withdrawal" }
+  ],
+  "Legzo Casino": [
+    { ok: true, text: "Welcome bonus: 50-100% up to €600 + spins" },
+    { ok: false, text: "40-45x wagering requirement" },
+    { ok: false, text: "Standard withdrawal pending time up to 48 hours" },
+    { ok: false, text: "ID docs or video call may be required for KYC" }
+  ],
+  "Irwin Casino": [
+    { ok: true, text: "Welcome bonus: up to $900 + 400 spins over 3 deposits" },
+    { ok: false, text: "40x wagering requirement on bonus funds" },
+    { ok: false, text: "KYC required before first withdrawal, up to 48h" },
+    { ok: true, text: "Crypto/e-wallet withdrawals typically 0-24 hours" }
+  ],
+  "Shuffle": [
+    { ok: false, text: "No confirmed standard welcome bonus (sources conflict)" },
+    { ok: true, text: "Routine crypto withdrawals often settle in under a minute" },
+    { ok: false, text: "KYC-triggered withdrawals can take days to weeks" },
+    { ok: false, text: "Trustpilot 3.0/5 citing withdrawal delays" }
+  ],
+  "Duel": [
+    { ok: true, text: "50% instant rakeback on slots, no wagering requirement" },
+    { ok: true, text: "Withdrawals typically process in 1-15 minutes" },
+    { ok: false, text: "KYC discretionary, sometimes triggered on small bets" },
+    { ok: false, text: "Documented disputes over voided balances/blocked withdrawals" }
+  ],
+  "1win": [
+    { ok: true, text: "Welcome bonus: widely advertised as a '500%' multi-deposit package" },
+    { ok: false, text: "Exact bonus structure and wagering requirement unconfirmed on 1win's own terms page" },
+    { ok: false, text: "Withdrawal-timing claims are third-party only; 1win's own terms page returned no readable text" },
+    { ok: false, text: "\"No-KYC\" marketing conflicts with mandatory ID checks once withdrawals exceed €500" }
+  ],
+  "BetFury": [
+    { ok: true, text: "Welcome bonus advertised up to 590% + free spins (exact terms vary by source)" },
+    { ok: false, text: "Standard withdrawals can take up to 7 days per BetFury's own Terms & Conditions" },
+    { ok: false, text: "Wins over $50,000 are paid in installments over up to 30 days" },
+    { ok: false, text: "No fixed KYC threshold disclosed; often triggered by first use of a payment method" }
+  ],
+  "bet105.ag": [
+    { ok: true, text: "Welcome bonus: $50 free bet on a $100 deposit, 5x rollover" },
+    { ok: true, text: "Crypto withdrawals reported clearing in under 2 hours in live tests" },
+    { ok: true, text: "A test withdrawal just under $400 cleared with no ID verification" },
+    { ok: false, text: "Larger withdrawals should expect verification checks despite the 'no-KYC' marketing" }
+  ],
+  "Rollbit": [
+    { ok: false, text: "No deposit-match bonus; bonuses only via lottery/Discord giveaways, 5x wagering to convert" },
+    { ok: true, text: "Just $10 deposited and $10 wagered unlocks withdrawals" },
+    { ok: false, text: "KYC tiers undisclosed upfront; a higher level is only revealed after clearing the one before it" },
+    { ok: false, text: "No stated SLA for withdrawal processing time in official documentation" }
+  ],
+  "StakeUS": [
+    { ok: false, text: "No traditional deposit-match welcome bonus" },
+    { ok: true, text: "VIP Club offers rakeback and reload bonuses" },
+    { ok: true, text: "Crypto withdrawals typically arrive within about an hour" },
+    { ok: false, text: "KYC can be demanded any time, no threshold published" }
+  ],
+  "Sportsbet.io": [
+    { ok: true, text: "Welcome bonus: 100% up to $300 USDT where available (varies by region)" },
+    { ok: false, text: "Sportsbook wagering: 10x at minimum 1.50 odds within 7 days; can rise to 5x deposit turnover if anti-abuse checks trigger" },
+    { ok: true, text: "Crypto withdrawals reported from near-instant up to about 24 hours after approval" },
+    { ok: false, text: "KYC can be triggered from roughly €2,500 in deposits or on AML flags, per third-party sources" }
+  ],
+  "Yeet": [
+    { ok: false, text: "No traditional deposit-match welcome bonus — rewards instead come from a $15,000 weekly \"Chairman's Cup\" leaderboard and rakeback" },
+    { ok: true, text: "No routine KYC for standard play" },
+    { ok: false, text: "KYC becomes mandatory above roughly $10,000 in withdrawals, or for VIP-tier perks" },
+    { ok: true, text: "Crypto withdrawals reported arriving within minutes" }
+  ],
+  "Goated": [
+    { ok: true, text: "VIP tier system (Bronze through Diamond) with daily/weekly/monthly bonuses and level-up rewards" },
+    { ok: true, text: "Third-party testing measured roughly 29.5% rakeback on theoretical losses" },
+    { ok: false, text: "KYC checks apply as an anti-fraud/AML measure, with no fixed dollar threshold published" },
+    { ok: true, text: "Reviewed as \"instant\" payouts with no stated withdrawal cap" }
+  ],
+  "Chips.gg": [
+    { ok: false, text: "No traditional deposit-match welcome bonus" },
+    { ok: true, text: "Rakeback tiers (4-9.5% level-up, 5% weekly/monthly, 2-3% lossback) plus a ~$100,000 leaderboard/raffle pool" },
+    { ok: false, text: "Marketed as \"no KYC,\" but verification is reportedly mandatory from roughly $1 BTC / $2,000 in withdrawals" },
+    { ok: false, text: "One reviewer reported ~$4+ BTC withdrawal fees despite fee-free marketing, and a rakeback-calculation bug unresolved for over a week" }
+  ],
+  "Acebet": [
+    { ok: false, text: "Welcome offer terms reportedly weren't disclosed until after signup and a deposit had been made, per one reviewer" },
+    { ok: true, text: "Fiat deposits reported crediting within about 5 minutes" },
+    { ok: false, text: "KYC policy not clearly disclosed; several AskGamblers complaints describe accounts banned or frozen after weeks/months of verified play" },
+    { ok: false, text: "5 of 6 AskGamblers complaints found remain unresolved, with disputed amounts from $426 to €1,859" }
+  ],
+  "Wild.io": [
+    { ok: true, text: "Welcome package up to 350% across first 3 deposits + 200 free spins (40x wagering on bonus funds)" },
+    { ok: true, text: "Reviewer-reported crypto withdrawals typically 5-15 minutes; Casino.Guru Safety Index 8.3/10 (\"High\")" },
+    { ok: false, text: "KYC not required upfront but can be triggered on large wins/withdrawals, no official threshold published" },
+    { ok: false, text: "Recurring complaints (Casino.Guru, AskGamblers) describe account restrictions/closures tied to KYC after big wins" }
+  ],
+  "Degen Casino": [
+    { ok: true, text: "Reported rakeback/rewards-tier model rather than a traditional deposit-match bonus (sources conflict on exact structure — see Bonus)" },
+    { ok: true, text: "No KYC required to sign up, deposit or play" },
+    { ok: false, text: "No independent (Casino.Guru/AskGamblers) complaint-tracking history exists yet to verify payout reliability" },
+    { ok: false, text: "Bonus terms reported inconsistently across the two reviews found — worth confirming directly before depositing" }
+  ],
+  "Sportbet.one": [
+    { ok: true, text: "Choice of three signup offers: 125% match up to $1,000, 50% \"fast release\" up to $500, or a $50 risk-free bet" },
+    { ok: true, text: "Official FAQ states no identity verification is required at signup, deposit, or withdrawal, at any amount" },
+    { ok: false, text: "Crypto withdrawals reported as fast, but repeated forum disputes describe balances frozen/confiscated by an undisclosed internal \"fraud detection\" process instead" },
+    { ok: false, text: "A documented case describes a failed self-exclusion request followed by real financial loss during the requested cool-off period" }
+  ],
+  "Lucky Block": [
+    { ok: true, text: "Welcome bonus: 200% deposit match up to $25,000/€25,000 + 50 free spins, released in tranches as wagering clears" },
+    { ok: true, text: "No KYC required to register, deposit or play" },
+    { ok: false, text: "Casino.Guru Safety Index only 2.1/10 (\"Very low\"); 74 total logged complaints, only 17 resolved" },
+    { ok: false, text: "Multiple documented cases of large balances frozen/denied at withdrawal despite completed KYC" }
+  ],
+  "NV Casino": [
+    { ok: true, text: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed" },
+    { ok: true, text: "No KYC required for standard play under disclosed thresholds" },
+    { ok: false, text: "Limited independent complaint-platform history to verify payout reliability" },
+    { ok: false, text: "No fixed KYC threshold published" }
+  ],
+  "HitnSpin": [
+    { ok: true, text: "Deposit-match welcome bonus advertised across a multi-deposit package" },
+    { ok: false, text: "\"No-KYC\" marketing conflicts with a disclosed verification threshold for larger withdrawals" },
+    { ok: false, text: "Casino.Guru Safety Index in the \"Below Average\" range" },
+    { ok: false, text: "Account may be closed and funds forfeited for arbitrage betting" }
+  ],
+  "Verde Casino": [
+    { ok: true, text: "Deposit-match welcome bonus advertised; exact wagering terms not independently confirmed" },
+    { ok: false, text: "KYC threshold not clearly disclosed" },
+    { ok: false, text: "Unconfirmed forum allegations of a Lithuania-targeted blacklist despite no Lithuanian licence, alongside a Lithuania-facing \"Verde Lietuva\" mirror domain" },
+    { ok: false, text: "Casino.Guru Safety Index in the \"Below Average\" range" }
+  ],
+  "V.Vegas": [
+    { ok: true, text: "$1,500 + 150 free spins welcome bonus advertised, per the operator's own spec sheet" },
+    { ok: true, text: "Weekly cashback offered" },
+    { ok: false, text: "KYC verification threshold not independently confirmed beyond withdrawal-size tiers" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "FS.Casino": [
+    { ok: true, text: "€1,000 + 400 free spins casino welcome bonus, plus a separate up-to-$500 betting welcome bonus, per the operator's own spec sheet" },
+    { ok: true, text: "200% live-casino bonus and weekly cashback also advertised" },
+    { ok: false, text: "KYC verification threshold not independently confirmed beyond withdrawal-size tiers" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "IceCasino": [
+    { ok: true, text: "$1,500 + 270 free spins welcome bonus advertised, per the operator's own spec sheet" },
+    { ok: true, text: "Weekly cash bonus up to 90% plus cashback up to €2,000" },
+    { ok: false, text: "KYC verification threshold not independently confirmed beyond withdrawal-size tiers" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "FieryPlay Casino": [
+    { ok: true, text: "€2,500 + 525 free spins casino welcome bonus, plus a separate up-to-€1,000 sports/esports betting welcome bonus, per the operator's own spec sheet" },
+    { ok: false, text: "Very new — launched September 2024, no established independent track record" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "GGbet": [
+    { ok: true, text: "Up to 3,000 + 900 free spins casino welcome bonus, plus a separate 1,000 EUR + 250 EUR freebet betting welcome bonus, per the operator's own spec sheet" },
+    { ok: true, text: "Frequent weekly betting-specific bonuses advertised" },
+    { ok: false, text: "KYC verification threshold not independently confirmed" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "Slotoro": [
+    { ok: true, text: "€2,500 + 250 free spins casino welcome bonus, plus a separate up-to-€700 betting welcome bonus, per the operator's own spec sheet" },
+    { ok: false, text: "Very new — launched 2025, no established independent track record" },
+    { ok: false, text: "Shares its operating entity and licence number with Verde Casino (Wiraon B.V.)" },
+    { ok: false, text: "No independent complaint-platform history assessed in this pass" }
+  ],
+  "FortuneJack": [
+    { ok: true, text: "Long-running welcome package across first several deposits; exact current terms not independently confirmed" },
+    { ok: false, text: "KYC threshold not consistently disclosed across sources" },
+    { ok: false, text: "Licensing/Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions" },
+    { ok: false, text: "Recurring complaints describe withdrawal delays and verification disputes" }
+  ],
+  "DuckDice": [
+    { ok: true, text: "Rakeback/leaderboard-driven rewards rather than a large deposit-match bonus" },
+    { ok: true, text: "No KYC required for standard dice play" },
+    { ok: false, text: "Shares its operating entity (Zentari Limitada, Costa Rica) with Tower.bet" },
+    { ok: false, text: "KYC threshold for larger withdrawals not clearly published" }
+  ],
+  "Tower.bet": [
+    { ok: false, text: "Welcome-bonus terms not independently confirmed" },
+    { ok: false, text: "KYC threshold not clearly disclosed" },
+    { ok: false, text: "Shares its operating entity (Zentari Limitada, Costa Rica) with DuckDice" },
+    { ok: false, text: "Thin independent complaint-platform history either way — payout reliability not well established" }
+  ],
+  "Whale.io": [
+    { ok: true, text: "200% welcome bonus on first deposit (min $10), only 1x wagering" },
+    { ok: false, text: "Bonus expires 30 days after crediting if wagering isn't completed" },
+    { ok: false, text: "No published KYC threshold; verification is discretionary per its own Terms (Section 4.4)" },
+    { ok: false, text: "Markets \"instant and fee-free\" withdrawals, but AskGamblers complaints document delays of a week or more after full KYC" }
+  ],
+  "Dicey.com": [
+    { ok: false, text: "No welcome bonus currently published" },
+    { ok: true, text: "No KYC required to sign up, deposit or play" },
+    { ok: false, text: "ID verification is required before withdrawals; a Trustpilot reviewer describes inconsistent outcomes across two separate attempts" },
+    { ok: false, text: "Very limited independent complaint-platform history to judge payout reliability against — the site only launched in 2025/2026" }
+  ],
+  "Chancer": [
+    { ok: false, text: "300% first-deposit match reported with a 40x wagering requirement — on the high end industry-wide" },
+    { ok: true, text: "No verification required to deposit and play" },
+    { ok: false, text: "Verification is triggered before withdrawal, with risk-based document escalation (ID, selfie, proof of address, payment-method check) and review times reported up to 72 hours" },
+    { ok: false, text: "Restricted-country list is reported inconsistently across sources — check current terms before relying on any specific list" }
+  ],
+  "RioBet": [
+    { ok: false, text: "35x wagering requirement is reported on most current welcome-bonus offers" },
+    { ok: false, text: "Registration collects basic personal data upfront (name, address, phone, DOB, email)" },
+    { ok: true, text: "Full document verification is generally requested around deposits/withdrawals rather than at signup" },
+    { ok: false, text: "A Trustpilot reviewer reports $20,000 in winnings confiscated over an alleged card-counting accusation, with only the original deposit refunded" }
+  ],
+  "Betcoin.ag": [
+    { ok: false, text: "No fiat or card on-ramp — crypto-only deposits and withdrawals" },
+    { ok: true, text: "No verification required to register or deposit" },
+    { ok: false, text: "KYC is triggered at withdrawal, sometimes via a third-party vendor link with a short (as little as 180-minute) completion window before it expires" },
+    { ok: false, text: "Multiple documented cases of post-win account suspensions over discretionary fraud, collusion or arbitrage accusations" }
+  ],
+  "Bspin.io": [
+    { ok: false, text: "Wagering requirement reported inconsistently across sources (10x/35x/45x) — confirm current terms before claiming a bonus" },
+    { ok: true, text: "No KYC required for deposits, per the operator's own homepage" },
+    { ok: false, text: "Full identity checks are reserved for withdrawals above roughly $2,000/€2,000, with a 7-day first response and up to 30 days to complete per one third-party source" },
+    { ok: false, text: "A 13.7 BTC account lockout after a big win remains unresolved on AskGamblers" }
+  ],
+  "Megapari": [
+    { ok: false, text: "35x wagering requirement, with a per-spin maximum-bet restriction and a bonus-forfeiture clause tied to incomplete profile/phone verification" },
+    { ok: true, text: "No verification required to register or make a first deposit" },
+    { ok: false, text: "Verification is consistently triggered at withdrawal, and the largest share of sourced complaints describe repetitive, contradictory document requests stretching 12-50+ days" },
+    { ok: false, text: "Restricted-country list is not published as one canonical document — third-party sources broadly agree on the US, UK, France and Netherlands but differ beyond that" }
+  ],
+  "WinTomato": [
+    { ok: false, text: "30x wagering requirement on bonuses; \"Originals\" games (Dice/Crash-style) count only 10% toward it" },
+    { ok: true, text: "No verification required to register, deposit or play under normal use" },
+    { ok: false, text: "KYC is triggered once lifetime deposits exceed €5,000, on any withdrawal, or if suspicious activity is flagged — documents include ID, a selfie with the ID, and a recent bank statement or utility bill" },
+    { ok: false, text: "Several documented cases of withdrawal-triggered account restrictions over alleged multi-accounting or \"value betting\"" }
+  ],
+  "BookMaker.eu": [
+    { ok: false, text: "Sportsbook welcome offer carries a rollover requirement typical of traditional offshore books; wagering terms are comparatively harder to confirm than at newer crypto-native sites" },
+    { ok: false, text: "Registration collects basic personal data upfront (name, surname, date of birth, address), per the site owner's own signup experience" },
+    { ok: false, text: "Costa Rica \"eGaming\" permit only — reviewers describe minimal real regulatory oversight, with no independent complaint-resolution body" },
+    { ok: true, text: "30+ year operating history (since 1996, predecessor since 1985) with no mass-scale unresolved-complaint pattern found in this research pass" }
+  ],
+  "Betski": [
+    { ok: true, text: "11+ cryptocurrencies accepted" },
+    { ok: false, text: "Terms reserve the right to confiscate winnings for \"low-risk play\", per Casino Guru's automated Terms clause scan" },
+    { ok: false, text: "Betting techniques that don't provide an unfair advantage can still be treated as a serious Terms violation, per the same clause scan" },
+    { ok: false, text: "No AskGamblers listing, Trustpilot page or independent complaint history exists yet — too new to judge a track record either way" }
+  ]
+};
+
+const PROFILE_SIDEBAR = {
+  "SolCasino.io": {
+    license: "Tobique Gaming Commission",
+    launched: "December 2021",
+    welcomeBonus: "Up to 360% (tiered), 50x wagering",
+    minDeposit: "~$10 equivalent (per terms, before first withdrawal)",
+    cryptocurrencies: "25+ incl. BTC, ETH, SOL, MATIC, BNB, AVAX",
+    source: "docs.solcasino.io (official); provencrypto.com (third-party)", checked: "2026-08-22"
+  },
+  "Stake": {
+    license: "Curaçao Gaming Authority",
+    launched: "2017",
+    welcomeBonus: "No deposit bonus; VIP Club rakeback and reload perks",
+    minDeposit: "No fixed minimum for crypto (as low as ~$0.01); fiat ~$10-$20 where available",
+    cryptocurrencies: "20+ cryptocurrencies (BTC, ETH, USDT, LTC, DOGE, XRP, etc.); fiat in select regions (Canada, India, Brazil, Argentina, Chile, Japan)",
+    source: "stake.com; thespike.gg; strafe.com; thegamehaus.com", checked: "2026-08-22"
+  },
+  "BC.Game": {
+    license: "Anjouan Gaming Board",
+    launched: "2017",
+    welcomeBonus: "Gradual-release bonus funds, ~20x-40x wagering",
+    minDeposit: "As low as 1 USDT (~$1); most coins under $1 equivalent",
+    cryptocurrencies: "170+ cryptocurrencies (BTC, ETH, USDT, LTC, SOL, XRP, etc.); no direct fiat deposit (fiat via MoonPay/Banxa on-ramps)",
+    source: "bc.game; vip-grinders.com; thespike.gg; cryptoslate.com; win.gg", checked: "2026-08-22"
+  },
+  "Rainbet": {
+    license: "Anjouan Gaming Board",
+    launched: "2023",
+    welcomeBonus: "40x-wagering first deposit bonus or No Wager Lock",
+    minDeposit: "$30",
+    cryptocurrencies: "BTC, ETH, USDT, LTC, TRX, SOL, XRP, TON, and many more",
+    source: "rainbet.com; bitcoin.com; webopedia.com; strafe.com; ccn.com", checked: "2026-08-22"
+  },
+  "Roobet": {
+    license: "Curaçao eGaming",
+    launched: "2019",
+    welcomeBonus: "Rewards program: ongoing rakeback via The Vault",
+    minDeposit: null,
+    cryptocurrencies: "BTC, ETH, LTC, USDT, USDC, DOGE",
+    source: "roobet.com; help.roobet.com; thespike.gg; bitcoin.com; strafe.com; coinstats.app", checked: "2026-08-22"
+  },
+  "500Casino": {
+    license: "Curaçao Gaming Control Board",
+    launched: "2016 (as CSGO500)",
+    welcomeBonus: "Casino match bonus (40x); sportsbook freebet (1x)",
+    minDeposit: "~$0.60 in crypto (varies by coin); ~$3 for real-money methods",
+    cryptocurrencies: "BTC, ETH, LTC, BNB, USDT, USDC, TRX, BCH, XRP, XLM, EOS, SOL, DOGE, AVAX, MATIC, ADA",
+    source: "500.casino; help.500.casino; thespike.gg; strafe.com; sportsgambler.com", checked: "2026-08-22"
+  },
+  "Betpanda": {
+    license: "None (Costa Rica corporate registration only — no gambling licence)",
+    launched: "2023",
+    welcomeBonus: "100% first-deposit match up to 1 BTC + cashback",
+    minDeposit: "$10 per bonus terms (some reviewers triggered offers with as little as $3)",
+    cryptocurrencies: "12-14 coins incl. BTC, ETH, USDT, LTC, DOGE, XRP, SHIB",
+    source: "betpanda.io, bitdegree.org, moneycheck.com, cryptocasinos.com", checked: "2026-08-22"
+  },
+  "Gamdom": {
+    license: "Curaçao (eGaming); one source cites a disputed 2025 move to Anjouan",
+    launched: "2016",
+    welcomeBonus: "15% rakeback on first week's play",
+    minDeposit: "$1",
+    cryptocurrencies: "12 coins incl. BTC, ETH, USDT, LTC, TRX",
+    source: "gamdom.com, thespike.gg, completesports.com", checked: "2026-08-22"
+  },
+  "Duelbits": {
+    license: "Curaçao (licence number cited by one source, unverified)",
+    launched: "February 2020",
+    welcomeBonus: "Up to 500 free spins + sportsbook free bet",
+    minDeposit: "$1 (crypto); $20 qualifying deposit for welcome bonus",
+    cryptocurrencies: "BTC, ETH, LTC, SOL, XRP, DOGE, BNB, TRX, USDC, DAI + more",
+    source: "duelbits.com, cryptoslate.com, duelbits.com/blog", checked: "2026-08-22"
+  },
+  "Winna": {
+    license: "Tobique Gaming Commission (per site); earlier-stated Anjouan licence unconfirmed as finalized",
+    launched: "2024 (summer)",
+    welcomeBonus: "Instant rakeback on wagers; no deposit-match bonus",
+    minDeposit: "$1 (crypto); $10 (fiat)",
+    cryptocurrencies: "13 coins incl. BTC, ETH, USDT, USDC, LTC, SOL, TRX, DOGE",
+    source: "winna.com, cryptoslate.com, ccn.com", checked: "2026-08-22"
+  },
+  "Razed": {
+    license: "Anjouan Gaming Board (Government of Anjouan, Union of Comoros)",
+    launched: "2024",
+    welcomeBonus: "100% deposit match up to $300 + free spins",
+    minDeposit: "Varies by coin (e.g. ~5 USDT/USDC, small BTC fractions)",
+    cryptocurrencies: "BTC, ETH, LTC, XRP, USDT, USDC, TRX + more (SOL, BCH, DOGE cited by some reviews)",
+    source: "razedcasino.com, razedcasino.com/faq, win.gg", checked: "2026-08-22"
+  },
+  "Thrill": {
+    license: "Curaçao Gaming Control Board",
+    launched: "2025",
+    welcomeBonus: "Instant rakeback (5-70%) plus lossback, no wagering",
+    minDeposit: "No minimum or maximum deposit limit (crypto-only)",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, SOL, XRP, LTC, DOGE, TRX, BCH, BNB, MATIC, DAI, LINK, SHIB — no fiat",
+    source: "intercom.help/thrill (official help center), cryptoslate.com, askgamblers.com", checked: "2026-08-22"
+  },
+  "Cryptorino": {
+    license: "Curaçao Gaming Control Board",
+    launched: "2022",
+    welcomeBonus: "100% match up to ~€90,000, wagering disputed",
+    minDeposit: "No minimum deposit stated",
+    cryptocurrencies: "BTC, ETH, USDT, SOL, LTC, DOGE, BNB, USDC, XRP, SHIB, TRX — no fiat",
+    source: "casinosblockchain.io, askgamblers.com", checked: "2026-08-22"
+  },
+  "Bets.io": {
+    license: "Anjouan Gaming Board",
+    launched: "2021",
+    welcomeBonus: "100% match up to 30,000 USDT, 40x wagering",
+    minDeposit: "From 5-20 USDT (varies by product/coin)",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, XRP, TRX, ADA, BNB, BCH, SOL, LTC, DOGE — no direct fiat",
+    source: "cryptoslate.com, askgamblers.com", checked: "2026-08-22"
+  },
+  "Nitrobetting": {
+    license: "None — Costa Rica has no gambling-specific regulator",
+    launched: "2012 (as Nitrogen Sports; exact rebrand date to Nitrobetting not confirmed)",
+    welcomeBonus: "250% free play bonus up to $2,500",
+    minDeposit: "$1 (single third-party source, not confirmed officially)",
+    cryptocurrencies: "BTC primarily; some reviews also list LTC, ETH, USDT, USDC, BNB, TRX (unconfirmed against official site)",
+    source: "cryptocasinos.com, bookmakersreview.com, sbo.net", checked: "2026-08-22"
+  },
+  "Cloudbet": {
+    license: "Curaçao Gaming Authority",
+    launched: "2013",
+    welcomeBonus: "Up to $2,500 via 10% rakeback over 30 days",
+    minDeposit: "As low as 0.00001 BTC / ~$10 USDT (varies by coin)",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, DOGE, LTC, ADA, SOL, XRP, TRX, TON, HBAR + more; fiat (CAD/EUR/JPY/USD) deposit-only via Jeton/Vega",
+    source: "cryptoslate.com, goonersguide.com", checked: "2026-08-22"
+  },
+  "Rakebit": {
+    license: "Anjouan Gaming Board",
+    launched: "2024",
+    welcomeBonus: "100% house-edge rakeback on first $1,000 wagered",
+    minDeposit: "~$5 in crypto (sources cite $3-$20)",
+    cryptocurrencies: "20+ coins incl. BTC, ETH, SOL, USDT, USDC, XRP, ADA; no fiat",
+    source: "rakebit.com, ccn.com, bitcoin.com, casinosblockchain.io", checked: "2026-08-22"
+  },
+  "Fresh Casino": {
+    license: "Curaçao Gaming Authority",
+    launched: "2018",
+    welcomeBonus: "100% match up to €300 + 500 spins",
+    minDeposit: "€5 (€20 to qualify for welcome bonus)",
+    cryptocurrencies: "BTC, LTC, ETH, XRP, BCH + fiat (cards, Skrill, etc.)",
+    source: "fresh.casino, casino.org, askgamblers.com, completesports.com", checked: "2026-08-22"
+  },
+  "Sol Casino": {
+    license: "Curaçao (sub-licensed via Antillephone N.V.)",
+    launched: "2019",
+    welcomeBonus: "Up to 100-200% match + free spins",
+    minDeposit: "$/€300 for bonus; ~0.002 BTC for crypto",
+    cryptocurrencies: "BNB, BTC, BCH, ETH, LTC, XRP, USDT + 17 fiat currencies",
+    source: "sol.casino, casinoslotsguru.com, completesports.com", checked: "2026-08-22"
+  },
+  "Jet Casino": {
+    license: "Curaçao Gaming Authority",
+    launched: "2020",
+    welcomeBonus: "100% up to €300-€600 + free spins",
+    minDeposit: "€20",
+    cryptocurrencies: "BTC, ETH, LTC, XRP, USDT, BCH, TRX, DOGE + fiat cards/e-wallets",
+    source: "jet.casino, askgamblers.com, casino.guru", checked: "2026-08-22"
+  },
+  "Starda Casino": {
+    license: "Curaçao Gaming Authority",
+    launched: "2022",
+    welcomeBonus: "100% up to $600/€600 + 500 spins",
+    minDeposit: "€10",
+    cryptocurrencies: "BTC, BCH, LTC, ETH, USDT, TRX, XRP, DOGE + fiat cards/e-wallets",
+    source: "starda.casino, askgamblers.com, aboutslots.com", checked: "2026-08-22"
+  },
+  "1Go Casino": {
+    license: "Curaçao Gaming Authority",
+    launched: "2024",
+    welcomeBonus: "50-150% deposit match up to €600, 40x wagering",
+    minDeposit: "~€5 (third-party sourced; not stated on official site)",
+    cryptocurrencies: "BTC, ETH, LTC, XRP, DOGE, USDT, TRX, USDC, BNB, BCH; also cards/e-wallets",
+    source: "1go.casino, wayofwager.com, casino-apps.net", checked: "2026-08-22"
+  },
+  "Legzo Casino": {
+    license: "Curaçao Gaming Authority",
+    launched: "2022",
+    welcomeBonus: "50-100% match up to €600 + free spins",
+    minDeposit: "$20 / €20",
+    cryptocurrencies: "BTC, ETH, LTC, XRP, USDT, BCH, TRX, DOGE, TON, BNB, USDC",
+    source: "casino.org, translationroyale.com", checked: "2026-08-22"
+  },
+  "Irwin Casino": {
+    license: "Curaçao Gaming Authority",
+    launched: "2024",
+    welcomeBonus: "3-deposit package up to $900 + 400 spins",
+    minDeposit: "~€10-20 (varies by source/method)",
+    cryptocurrencies: "BTC, ETH, LTC, XRP, USDT, BCH, DOGE, TRX, USDC, BNB, SOL",
+    source: "casino.org, aboutslots.com, askgamblers.com", checked: "2026-08-22"
+  },
+  "Shuffle": {
+    license: "Curaçao Gaming Control Board",
+    launched: "2023",
+    welcomeBonus: "No confirmed standard bonus; only rotating promos",
+    minDeposit: "$20",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, SOL, DOGE, BNB, XRP, LTC, SHFL + 17 total",
+    source: "provencrypto.com, ccn.com", checked: "2026-08-22"
+  },
+  "Duel": {
+    license: "Anjouan Gaming Board",
+    launched: "2025",
+    welcomeBonus: "No deposit bonus - 50% instant rakeback instead",
+    minDeposit: null,
+    cryptocurrencies: "BTC, BCH, ETH, LTC, USDC, USDT, TRX, BNB, SOL, XRP, DOGE + more",
+    source: "thespike.gg, freetips.com, duel.com", checked: "2026-08-22"
+  },
+  "1win": {
+    license: "Curaçao Gaming Authority",
+    launched: "2016 or 2018 (sources disagree)",
+    welcomeBonus: "500% multi-deposit bonus; exact structure disputed",
+    minDeposit: "~$10 via cards; varies by crypto (e.g. ~0.00023 BTC)",
+    cryptocurrencies: "BTC, ETH, USDT, LTC, TRX, DOGE, XRP, XMR, BCH and more (11+), plus cards/e-wallets",
+    source: "1win.com; askgamblers.com; casino.guru; sportsboom.com; sportytrader.com", checked: "2026-08-22"
+  },
+  "BetFury": {
+    license: "Curaçao Gaming Authority",
+    launched: "2019",
+    welcomeBonus: "Up to 590% match + free spins",
+    minDeposit: "No stated minimum; varies by cryptocurrency/network",
+    cryptocurrencies: "55+ coins (BTC, ETH, USDT, BNB, TRX, DOGE, SOL, TON, etc.), plus card/Apple/Google Pay",
+    source: "betfury.io; casino.guru; 99bitcoins.com; nostrabet.com; coinpaper.com", checked: "2026-08-22"
+  },
+  "bet105.ag": {
+    license: "Unverified — markets itself as Curaçao-licensed; one third-party reviewer describes it as unlicensed/Costa Rica-based",
+    launched: "2024 relaunch (possibly an older operation rebranded, per forum reports)",
+    welcomeBonus: "$50 free bet on $100 deposit",
+    minDeposit: "$5 (crypto only)",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, LTC, BCH, BNB, TRX — crypto-only, no fiat",
+    source: "bet105.ag; offshoresportsbooks.com; dratings.com", checked: "2026-08-22"
+  },
+  "Rollbit": {
+    license: "Curaçao Gaming Authority",
+    launched: "2020",
+    welcomeBonus: "No deposit-match; bonuses via lottery/Discord giveaways only",
+    minDeposit: "$10 (tied to the withdrawal-unlock requirement per Rollbit's Help Center)",
+    cryptocurrencies: "25+ coins (BTC, ETH, LTC, SOL, USDT, USDC and various altcoins)",
+    source: "help.rollbit.com; casino.guru; gosubetting.com", checked: "2026-08-22"
+  },
+  // StakeUS: welcomeBonus/minDeposit/cryptocurrencies mirror Stake.com's reviewed
+  // profile per the site owner's direction (same brand family). "license" is left
+  // blank rather than copied — stake.us's own corporate/licensing structure hasn't
+  // been independently verified and, per public reporting, differs from stake.com's
+  // (a US-facing sweepstakes-style model vs. Stake.com's Curaçao-licensed real-money
+  // model) — asserting the same licence here would be a specific, unverified claim.
+  "StakeUS": {
+    license: "",
+    launched: "2017",
+    welcomeBonus: "No deposit bonus; VIP Club rakeback and reload perks",
+    minDeposit: "No fixed minimum for crypto (as low as ~$0.01); fiat ~$10-$20 where available",
+    cryptocurrencies: "20+ cryptocurrencies (BTC, ETH, USDT, LTC, DOGE, XRP, etc.); fiat in select regions (Canada, India, Brazil, Argentina, Chile, Japan)",
+    source: "Mirrors Stake.com's reviewed profile (stake.com; thespike.gg; strafe.com; thegamehaus.com) — not independently re-verified for stake.us", checked: "2026-08-24"
+  },
+  "Sportsbet.io": {
+    license: "Curaçao Gaming Authority (OGL/2023/110/0072)",
+    launched: "2016",
+    welcomeBonus: "100% up to $300 USDT where available (varies by region)",
+    minDeposit: "",
+    cryptocurrencies: "BTC, ETH, LTC, USDT, XRP, ADA, BNB, LINK, SOL",
+    source: "cryptoslate.com; casino.guru (third-party — official terms weren't independently fetched)", checked: "2026-08-24"
+  },
+  "Yeet": {
+    license: "Anjouan, Union of Comoros (licence ALSI-202410037-FI2)",
+    launched: "2024",
+    welcomeBonus: "No traditional match bonus; $15,000 weekly leaderboard + rakeback + VIP tier-matching",
+    minDeposit: "$1 equivalent in any cryptocurrency (per thespike.gg)",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, SOL, TON, TRX, XRP, BNB, LTC, plus DOGE/SHIB/PEPE/BONK (availability varies by region)",
+    source: "bitcoinchaser.com; vip-grinders.com; sigma.world; thespike.gg (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Goated": {
+    license: "Anjouan, Union of Comoros (licence ALSI-202411063-FI2)",
+    launched: "2024",
+    welcomeBonus: "No deposit-match bonus; VIP tier system (Bronze-Diamond) with rakeback and an estimated $175,000 leaderboard/raffle pool",
+    minDeposit: "No fixed minimum publicly stated; reviewers say it varies by token/coin, without a dollar figure given",
+    cryptocurrencies: "BTC, ETH, SOL, BNB, TRX, XRP, LTC, USDT, USDC across 7 chains, plus SHFL and the platform's own GOATED token",
+    source: "fairgambling.com; thespike.gg; win.gg (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Chips.gg": {
+    license: "Anjouan, Union of Comoros",
+    launched: "2020",
+    welcomeBonus: "No deposit-match bonus; rakeback tiers (~23.5% combined) plus a ~$100,000 leaderboard/raffle pool",
+    minDeposit: "$25 USDT, or crypto equivalent (0.0005 BTC / 0.01 ETH / 50 TRX) — per btcgosu.com",
+    cryptocurrencies: "BTC, ETH, BNB, USDT, USDC, SOL, TRX, XRP, LTC, SHIB, DAI across 7 chains",
+    source: "fairgambling.com; gamblingbro.com; btcgosu.com (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Acebet": {
+    license: "Anjouan, Union of Comoros (licence #15831)",
+    launched: "2025",
+    welcomeBonus: "Varies by region; one reviewer received $1 free plus a 100% deposit match at 10x wagering, with terms undisclosed until after signup/deposit",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, BCH, ETH, LTC, XRP, TRX, plus fiat via card/regional methods through a third-party converter",
+    source: "thespike.gg (third-party — official terms not independently fetched)", checked: "2026-08-31"
+  },
+  "Wild.io": {
+    license: "Anjouan Gaming Board (per operator's own site); third-party reviewers separately cite a Curaçao Gaming Authority licence under a different operator name — unresolved discrepancy, see Ownership",
+    launched: "2022",
+    welcomeBonus: "Up to 350% combined across first 3 deposits + 200 free spins",
+    minDeposit: "~$5-7 (general, third-party estimate); $20 for bonus eligibility",
+    cryptocurrencies: "BTC, ETH, BCH, LTC, DOGE, ADA, XRP, TRX, BNB, SOL, USDT, USDC",
+    source: "wild.io (official — terms/about); casino.guru; askgamblers.com; cryptocasinos.ai (third-party, conflicting on licence)", checked: "2026-09-02"
+  },
+  "Degen Casino": {
+    license: "Anjouan Gaming Board, licence ALSI-202509061-FI2 (per third-party review blogs citing the operator's own site; not independently cross-checked against the regulator's registry)",
+    launched: "2025 (reported in closed beta as of the most recent third-party coverage)",
+    welcomeBonus: "Sources disagree: one describes rakeback tiers (3-8%) with no deposit-match bonus; another describes a 100% match up to $1,500 (30x) plus 15% instant rakeback — not resolved by this research pass",
+    minDeposit: "Not officially stated in any source found",
+    cryptocurrencies: "BTC, ETH, USDC, USDT, LTC, DOGE, TRON, XRP, SOL (multi-chain, not Solana-exclusive despite the \"Degen\" branding)",
+    source: "casinorankr.com; burningthedice.com (third-party — degen.com's own site was not independently fetchable in this pass)", checked: "2026-09-02"
+  },
+  "Sportbet.one": {
+    license: "Mwali International Services Authority (M.I.S.A.), licence G20190045, held by Reedll Limited — listed \"Active\" on the registrar's own site, though MISA's legitimacy as a genuine regulator is widely disputed by industry watchdogs (see Ownership)",
+    launched: "Reported as \"since 2018\" on the operator's own FAQ; an operator forum post from 2019 instead describes the project as functional \"from April\" 2019 — sources conflict",
+    welcomeBonus: "Choice of 125% up to $1,000, 50% \"fast release\" up to $500, or a $50 risk-free bet",
+    minDeposit: "~$20 for the bonus; roughly $1 (or equivalent) general minimum on some coins per third-party reviews",
+    cryptocurrencies: "BTC, ETH, USDT, LTC, EOS, SOL, USDC, BCH, DOGE, ADA, TON, XRP, BNB, DAI, TRX, SHIB, plus native token SBET (18+ assets, per the operator's own site footer)",
+    source: "sportbet.one (official footer/FAQ); casino.guru; help.mwaliregistrar.info (third-party/registry)", checked: "2026-09-02"
+  },
+  "Lucky Block": {
+    license: "Unclear/disputed — third-party sources cite at least four different licence numbers (Curaçao and Anjouan) under at least five different operator-entity names; Casino.Guru states Lucky Block currently operates without a licence",
+    launched: "2022",
+    welcomeBonus: "200% deposit match up to $25,000/€25,000 + 50 free spins (tiered release)",
+    minDeposit: "€20/$20",
+    cryptocurrencies: "20+ incl. BTC, ETH, USDT, USDC, LTC, DOGE, XRP, BNB, SOL, ADA, TRX, TON, MATIC, AVAX, BCH, plus native LBLOCK token",
+    source: "casino.guru; askgamblers.com; cryptomaniaks.com; coincentral.com (third-party, conflicting on licensing)", checked: "2026-09-02"
+  },
+  "NV Casino": {
+    license: "Curaçao Gaming Control Board, licence No. 8048/JAZ, per slotcatalog.com; not independently cross-checked against the registry",
+    launched: "2024",
+    welcomeBonus: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; gamblescope.com; slotcatalog.com (third-party — official terms not independently fetched in this pass)", checked: "2026-09-06"
+  },
+  "HitnSpin": {
+    license: "Curaçao (2018 launch per operator-side sources; licence number not independently cross-checked against the registry)",
+    launched: "2018",
+    welcomeBonus: "Multi-deposit welcome package advertised; exact current tiers/wagering not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; hitnspin.com (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "Verde Casino": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183 (renewed April 2025), held by Wiraon B.V. (Willemstad, Curaçao) per casino.org; no Lithuanian licence held despite running a Lithuania-facing \"Verde Lietuva\" mirror domain",
+    launched: "2022 (casino.org cites a November 2022 launch; verdeloro.com instead cites July 2022 — sources disagree on the exact month)",
+    welcomeBonus: "Deposit-match welcome bonus advertised; exact tier/wagering terms not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; verde.bet; casino.org (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-06"
+  },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets distributed via each
+  // operator's own affiliate program (V.Partners for all but GGbet, which
+  // runs ggbetaff.com) — first-party but not independently cross-checked
+  // against the Curaçao registry or each operator's own live Terms page.
+  "V.Vegas": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, held by Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet. The identical entity, registration number and licence number are also listed for IceCasino (see that profile) — indicating V.Vegas and IceCasino are the same underlying operation running under two brand names.",
+    launched: "August 2015, as the Vulkan Vegas rebrand, per the operator's own spec sheet",
+    welcomeBonus: "$1,500 + 150 free spins",
+    minDeposit: "€10 / $10 (varies by currency)",
+    cryptocurrencies: "BTC usable for all deposits; ETH, LTC, TRX, TON, BNB, USDC and USDT also listed depending on country, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FS.Casino": {
+    license: "Curaçao Gaming Control Authority, licence No. OGL/2024/767/0360, held by Intelligent Innovations N.V. (Curaçao, reg. no. 142065), per the operator's own spec sheet",
+    launched: "October 2019, per the operator's own spec sheet",
+    welcomeBonus: "€1,000 + 400 free spins (casino), plus a separate up-to-$500 betting welcome bonus",
+    minDeposit: "€5 / $10 (varies by currency)",
+    cryptocurrencies: "BTC, ETH, USDT (ERC20/TRC20) listed among deposit methods, alongside a large country-dependent local-payment-method list, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "IceCasino": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, held by Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet. The identical entity, registration number and licence number are also listed for V.Vegas (see that profile) — indicating IceCasino and V.Vegas are the same underlying operation running under two brand names.",
+    launched: "2021, per the operator's own spec sheet",
+    welcomeBonus: "$1,500 + 270 free spins",
+    minDeposit: "€10 / $10 (varies by currency)",
+    cryptocurrencies: "BTC, ETH, LTC, TRX, TON, dogecoin, USDC and USDT listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FieryPlay Casino": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/1363/0705, held by NIXXE B.V. (Curaçao, reg. no. 147116), per the operator's own spec sheet",
+    launched: "September 2024, per the operator's own spec sheet",
+    welcomeBonus: "€2,500 + 525 free spins (casino), plus a separate up-to-€1,000 sports/esports betting welcome bonus",
+    minDeposit: "Roughly €5-10 (varies by currency)",
+    cryptocurrencies: "Bitcoin, Ethereum, Litecoin, USDT (ERC20/TRC20), USDC, TON, BNB and dogecoin listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "GGbet": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/688/0234, held by River Entertainment B.V. (Willemstad, Curaçao, reg. no. 158146), per the operator's own spec sheet",
+    launched: "2016, per the operator's own spec sheet",
+    welcomeBonus: "Up to 3,000 + 900 free spins (casino), plus a separate 1,000 EUR + 250 EUR freebet betting welcome bonus",
+    minDeposit: "Varies by payment method and currency (roughly €10 / $11 for card deposits)",
+    cryptocurrencies: "Bitcoin, Ethereum, USDT (ERC20/TRC20) listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via GGbet's own ggbetaff.com affiliate program", checked: "2026-09-08"
+  },
+  "Slotoro": {
+    license: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183, held by Wiraon B.V. (Willemstad, Curaçao, reg. no. 146886), per the operator's own spec sheet. The identical entity and licence number are also listed for Verde Casino (see that profile) — indicating Slotoro and Verde Casino share the same underlying operator/licence.",
+    launched: "2025, per the operator's own spec sheet",
+    welcomeBonus: "€2,500 + 250 free spins (casino), plus a separate up-to-€700 betting welcome bonus",
+    minDeposit: "€10 / $10 (varies by currency)",
+    cryptocurrencies: "Bitcoin, Ethereum, Litecoin, BNB, dogecoin, TON, TRX, USDC and USDT listed among deposit methods, per the operator's own spec sheet",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "FortuneJack": {
+    license: "Curaçao (per operator-side sources; not independently cross-checked against the registry); Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions",
+    launched: "2014",
+    welcomeBonus: "Multi-deposit welcome package advertised across a long-running brand; exact current tiers/wagering not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, LTC, USDT and other major cryptocurrencies (exact current list not independently confirmed)",
+    source: "casino.guru; fortunejack.com help center (third-party review plus operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "DuckDice": {
+    license: "Costa Rica registration under Zentari Limitada, registration number 9845000OAF4456CVB467 — not a licensed-gambling-jurisdiction registry",
+    launched: "2016",
+    welcomeBonus: "Rakeback/leaderboard-driven rewards rather than a large deposit-match bonus",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, LTC, DOGE, USDT and other major cryptocurrencies (exact current list not independently confirmed)",
+    source: "casino.guru; duckdice.io terms (operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "Tower.bet": {
+    license: "Costa Rica registration under Zentari Limitada, registration number 9845000OAF4456CVB467 — not a licensed-gambling-jurisdiction registry; the unrelated site towerbet.com is a different operator entirely",
+    launched: "2019",
+    welcomeBonus: "Not independently confirmed",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "Multiple major cryptocurrencies accepted (exact list not independently confirmed)",
+    source: "casino.guru; tower.bet terms (operator site — full terms not independently fetched)", checked: "2026-09-04"
+  },
+  "Whale.io": {
+    license: "Licence claim is internally inconsistent: Whale.io's own FAQ and Casino Guru cite an Anjouan (Union of Comoros) licence No. ALSI-202503012-FI1, but the operator's own Terms & Conditions page carries a meta-description claiming a Curaçao Gaming Control Board licence (OGL/2024/1254/0648) instead — an unresolved contradiction on the operator's own site. AskGamblers separately lists Curaçao as the regulator.",
+    launched: "2023",
+    welcomeBonus: "200% match on first deposit (min $10), only 1x wagering required",
+    minDeposit: "$10",
+    cryptocurrencies: "BTC, ETH, USDT, USDC, SOL, TON, BNB, NOT, BONK, TRUMP, CUSD (11 cryptocurrencies); fiat card/Apple Pay/Google Pay on-ramp also available",
+    source: "whale.io (official FAQ/terms); casino.guru; askgamblers.com", checked: "2026-09-05"
+  },
+  "Dicey.com": {
+    license: "Licensed by the Anjouan Offshore Finance Authority (Anjouan Gaming, Union of Comoros), licence No. ALSI-202511054-FI2, per Casino Guru; consistent with Dicey's own public Trustpilot reply citing an Anjouan licence.",
+    launched: "2025 (per Casino Guru; some 2026 third-party coverage still describes it as an invite-only beta)",
+    welcomeBonus: "No welcome bonus currently published",
+    minDeposit: "Not independently confirmed (crypto-only deposits; some third-party coverage cites a low, ~$1 entry point, not independently verified)",
+    cryptocurrencies: "BTC, ETH, SOL, USDC, LTC, DOGE, USDT, plus the ME (Magic Eden) token; crypto-only — no card/fiat on-ramp",
+    source: "casino.guru; correctcasinos.com; trustpilot.com/review/dicey.com; programminginsider.com (third-party coverage, not independently fetched from the operator's own Terms)", checked: "2026-09-05"
+  },
+  "Chancer": {
+    license: "Anjouan (Comoros) — Offshore Finance Authority of Anjouan, licence No. ALSI-122405028-FI2, per multiple independent reviews; the operator's own corporate identity is inconsistently documented (see Overview).",
+    launched: "2024 (per CCN, CryptoSlate and Casino Guru)",
+    welcomeBonus: "300% up to €300 on the first deposit, plus further 300% match offers reported on the 2nd/3rd deposit — exact current terms vary by source/region",
+    minDeposit: "Reported inconsistently across sources — €1 to €20 depending on the review and payment method",
+    cryptocurrencies: "BTC, ETH, LTC, SOL, USDC, USDT, TRX, DOGE, XRP, BNB, plus a card/fiat on-ramp via third-party widgets (Wert, MoonPay, Banxa, Transak or Onramper depending on source)",
+    source: "ccn.com; cryptoslate.com; casino.guru; askgamblers.com; lcb.org; rakerace.com (third-party coverage — the operator's own site could not be directly fetched)", checked: "2026-09-06"
+  },
+  "RioBet": {
+    license: "Curaçao Gaming Authority (CGA), certificate No. OGL/2024/552/0560, per Casino Guru's live licence-check widget; the same page also shows a concurrent Anjouan (Comoros) licence, No. ALSI-202507034-FI2 — an unusual dual-licence structure.",
+    launched: "2014 (per Casino Guru and AskGamblers)",
+    welcomeBonus: "100% up to $750 plus bonus spins per AskGamblers' current listing; other sources cite up to €500 or $1,000 — terms vary by source/region, wagering reported around 30x-35x",
+    minDeposit: "$10 / €10",
+    cryptocurrencies: "BTC, ETH, LTC, USDT, TRX, plus fiat cards (Visa, MasterCard) and e-wallets (Neteller, Skrill, QIWI, WebMoney, Yandex Money)",
+    source: "casino.guru; askgamblers.com; gamblescope.com; correctcasinos.com (third-party coverage)", checked: "2026-09-06"
+  },
+  "Betcoin.ag": {
+    license: "Governing-law/licensing claims are inconsistent across sources — Betcoin's own current Terms of Service state it is \"governed exclusively by the law in force in the state of Anjouan in the Union of Comoros,\" while AskGamblers separately lists a Curaçao Gaming Control Board licence and LCB.org notes Costa Rica-governed terms; no licence number could be verified against a regulator's own register.",
+    launched: "~2013 (per Casino Guru, AskGamblers and a 2014 Pokerfuse trade article documenting its Bitcoin-only poker room)",
+    welcomeBonus: "Reported inconsistently — AskGamblers lists 100% up to $25; Casino Guru's live database currently shows no active bonus; larger affiliate-marketed offers (up to 3 BTC) were not independently confirmed",
+    minDeposit: "$5 equivalent, per the operator's own Terms of Service",
+    cryptocurrencies: "BTC, ETH, LTC, BCH, DOGE, DASH, XRP, USDT, USDC, TRX, SOL, BNB, POL, SHIB, plus XMR per some listings; crypto-only, no fiat/card on-ramp found",
+    source: "casino.guru; askgamblers.com; support.betcoin.ag (operator's own Terms of Service); lcb.org; cryptocasinos.com", checked: "2026-09-06"
+  },
+  "Bspin.io": {
+    license: "Anjouan Gaming Board (Government of Anjouan, Union of Comoros), licence No. ALSI-092404013-F12, per the operator's own homepage footer; operating entity Pixel Gaming Limited, Comoros registration No. 15699.",
+    launched: "2018 (per the operator's own homepage: \"a licensed Bitcoin casino operating since 2018\")",
+    welcomeBonus: "Reported inconsistently — the operator's own homepage currently advertises up to 3,500 µBTC + 100 free spins; AskGamblers lists 100% up to 1 BTC + 20 spins; wagering reported at 35x-45x depending on source",
+    minDeposit: "Reported as 2 mBTC (AskGamblers) or a $5 fiat-equivalent (bitcasinosrank) — not independently confirmed to one figure",
+    cryptocurrencies: "BTC, ETH, LTC, BCH, DOGE, USDT, USDC, XRP, ADA, BNB, TRX, SOL, TON, plus ZEC/DASH per some listings; no fiat/card on-ramp found",
+    source: "bspin.io (operator's own homepage); cryptoslate.com; askgamblers.com; casino.guru; bitcasinosrank.com", checked: "2026-09-06"
+  },
+  "Megapari": {
+    license: "Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-112310012-FI5, per Casino Guru, AskGamblers, LCB and Casino.org; one third-party database separately lists a conflicting Curaçao reference and an unverifiable third operator name (Orakum N.V.) — treated as lower-confidence.",
+    launched: "2019 (per Casino Guru, Casino.org and SilentBet)",
+    welcomeBonus: "Reported inconsistently by region — a staged first-four-deposit package up to roughly €1,500-€1,650 in some listings, 35x wagering consistently reported, with a bonus-forfeiture clause tied to incomplete profile/phone verification",
+    minDeposit: "€1 for e-wallets/crypto; €10 for cards, bank transfers or vouchers, per the operator's own help centre",
+    cryptocurrencies: "BTC, ETH, LTC, DOGE, TRX, XRP, USDT, USDC, BNB, ADA, BCH, DASH, XMR, ZEC, AVAX, DAI per combined listings (20+ claimed), plus a full fiat/card on-ramp (Visa, Mastercard, bank transfer)",
+    source: "casino.guru; askgamblers.com; casino.org; lcb.org; academy.megapari.com (operator's own help centre)", checked: "2026-09-06"
+  },
+  "WinTomato": {
+    license: "Anjouan (Anjouan Licensing Services Inc.), licence No. ALSI-042402009-FI4, per the operator's own Terms & Conditions (operating entity: Akkido Limited, Belize company No. 171817), independently corroborated by Casino Guru; AskGamblers and Wizard of Odds separately list a conflicting Curaçao reference, likely outdated.",
+    launched: "2021 (per the operator's own FAQ and Casino Guru)",
+    welcomeBonus: "Reported offers up to 100% up to $500-$1,000 plus spins, depending on promotion; 30x wagering on bonuses per the operator's own Terms & Conditions (Originals/Dice-Crash games count only 10% toward it)",
+    minDeposit: "No stated minimum/maximum per the operator's own FAQ, though a 20 USDT-equivalent minimum applies to qualify for a deposit bonus",
+    cryptocurrencies: "BTC, ETH, USDT, BNB, XRP, DOGE, TRX, LTC, BCH, USDC, BUSD, XLM, SHIB, SOL, TON, LINK, UNI plus several others (20+ claimed), per the operator's own FAQ",
+    source: "wintomato.com/en/terms-and-conditions; wintomato.com/en/faq (operator's own pages); casino.guru; askgamblers.com", checked: "2026-09-06"
+  },
+  "Thunderpick.io": {
+    license: "Curaçao Gaming Authority, licence OGL/2024/677/0722; also lists a Comoros/AOFA licence ALSI-202501018-FI1, per Casino Guru and AskGamblers",
+    launched: "2017",
+    welcomeBonus: "100% match up to €600 (sports/esports) or up to €2,000 (casino), per third-party reviews",
+    minDeposit: "€20 (or crypto equivalent)",
+    cryptocurrencies: "BTC, ETH, USDT, LTC, XRP, BNB, ADA, DOGE, BCH, TRX, USDC",
+    source: "Casino Guru; AskGamblers; Punter2Pro (third-party reviews) — Thunderpick's own site not independently crawled for a full terms page in this pass", checked: "2026-09-07"
+  },
+  "BookMaker.eu": {
+    license: "Costa Rica \"eGaming\" business registration only — no formal remote-gambling licence or independent regulator; no licence number publicly documented",
+    launched: "1996 (predecessor operation dating to 1985)",
+    welcomeBonus: "100% free bet up to $400 (1x rollover, promo code GET100) or 25% cash bonus up to $500 (10x rollover)",
+    minDeposit: "$10 via crypto (BTC deposit max $25,000); ~$50 via credit card",
+    cryptocurrencies: "60+ cryptocurrencies accepted (BTC, ETH, LTC, XRP, USDT and more), no deposit or withdrawal fee",
+    source: "BookMakersReview; Bang The Book; Spooky Express; get.bookmaker.help (official help center)", checked: "2026-09-07"
+  },
+  "Betski": {
+    license: "Anjouan Gaming (Union of Comoros), licence No. ALSI-202502016-FI1, per Casino Guru's live licence-check widget — operator named as PTY Global Fun LLC there, though Betski's own whitepaper and a Dec 2024 funding release instead describe a Panama City-based project",
+    launched: "2025 per Casino Guru's listing; the operator's own whitepaper claims a 2022 origin — an inconsistency, not independently resolved",
+    welcomeBonus: "Not independently confirmed — no AskGamblers listing or independently fetched bonus page found",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "BTC, ETH, LTC, XRP, USDT, TRX, BNB, SOL, ADA, USDC, TON, plus bank transfer/USD, per Casino Guru",
+    source: "casino.guru; gridinsoft.com; betski.com (whitepaper/token page); globenewswire.com (Dec 2024 funding release) — third-party coverage; operator's own Terms page not independently fetched (JavaScript-rendered)", checked: "2026-09-08"
+  }
+};
+
+const PROFILE_STATS = {
+  "SolCasino.io": {
+    markets: "Sportsbook (40+ sports), slots, blackjack, poker, roulette",
+    oddsFormat: "Decimal, Fractional, American + more",
+    maxWin: "~$10,000/day per currency (~$297K/month cap)",
+    support: "Email & Discord only — no live chat",
+    mobileApp: "No native app — browser only",
+    source: "docs.solcasino.io (official — markets/games only); provencrypto.com (third-party — odds format, limits, support, app, geo-blocking)", checked: "2026-08-22"
+  },
+  "Stake": {
+    markets: "Casino, slots, live casino, sportsbook (25+ sports), esports",
+    oddsFormat: "Decimal, American, Fractional",
+    maxWin: "No stated maximum win/withdrawal limit",
+    support: "24/7 live chat (~1-2 min response); email; social media DMs",
+    mobileApp: "iOS native app only; no Android app (mobile web/PWA instead)",
+    source: "stake.com; thespike.gg; strafe.com; thegamehaus.com", checked: "2026-08-22"
+  },
+  "BC.Game": {
+    markets: "Casino, slots, live casino, sportsbook (30+ sports)",
+    oddsFormat: "Decimal, American, Fractional",
+    maxWin: null,
+    support: "Live chat, email, phone",
+    mobileApp: "No native downloadable app; iOS web app + Android APK",
+    source: "bc.game; vip-grinders.com; thespike.gg; cryptoslate.com; win.gg", checked: "2026-08-22"
+  },
+  "Rainbet": {
+    markets: "Casino (8,000+ games), live casino, sportsbook (45+ sports/esports)",
+    oddsFormat: "Decimal, American, Fractional, Hong Kong, Malaysian, Indonesian",
+    maxWin: null,
+    support: "Live chat; email (support@rainbet.com); Telegram/X/Instagram",
+    mobileApp: "No native app (mobile browser only)",
+    source: "rainbet.com; bitcoin.com; webopedia.com; strafe.com; ccn.com", checked: "2026-08-22"
+  },
+  "Roobet": {
+    markets: "Casino (3,700+ slots), live casino, sportsbook (15+ sports)",
+    oddsFormat: "European (decimal), American, Fractional, Indonesian",
+    maxWin: null,
+    support: "Live chat (can take a few hours); email (support@roobet.com)",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "roobet.com; help.roobet.com; thespike.gg; bitcoin.com; strafe.com; coinstats.app", checked: "2026-08-22"
+  },
+  "500Casino": {
+    markets: "Casino (5,000+ slots), live casino, sportsbook (25+ sports)",
+    oddsFormat: null,
+    maxWin: null,
+    support: "Live chat (near-instant); email (support@500.casino)",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "500.casino; help.500.casino; thespike.gg; strafe.com; sportsgambler.com", checked: "2026-08-22"
+  },
+  "Betpanda": {
+    markets: "Casino, live casino, sportsbook (40+ sports + esports), 6,000+ games",
+    oddsFormat: "Decimal, American, Fractional (per one third-party review; not confirmed on official site)",
+    maxWin: "No stated max-win cap; withdrawal limits €5,000/day, €15,000/week, €45,000/month (raisable on request)",
+    support: "24/7 live chat (1-3 min response) + email (support@betpanda.io, ~24hr); no Discord found",
+    mobileApp: "No native app; mobile-optimized browser site (home-screen shortcut only)",
+    source: "betpanda.io, bitdegree.org, moneycheck.com, cryptocasinos.com", checked: "2026-08-22"
+  },
+  "Gamdom": {
+    markets: "Sportsbook (22 sports, 400+ daily events), casino, live casino (5,100+ games)",
+    oddsFormat: null,
+    maxWin: null,
+    support: "24/7 live chat + email (~2hr response); no Discord confirmed",
+    mobileApp: "No native app; browser-based HTML5 site",
+    source: "gamdom.com, thespike.gg, completesports.com", checked: "2026-08-22"
+  },
+  "Duelbits": {
+    markets: "Sportsbook (37 sports, 12 esports), casino, live casino",
+    oddsFormat: "Decimal observed on live markets; other formats/labeling not officially confirmed",
+    maxWin: "No daily/weekly/monthly withdrawal cap published",
+    support: "24/7 live chat (~2 min response via Intercom), email, Telegram; Discord exists but not confirmed as a support channel",
+    mobileApp: "No native app found; browser-based only",
+    source: "duelbits.com, cryptoslate.com, duelbits.com/blog", checked: "2026-08-22"
+  },
+  "Winna": {
+    markets: "Sportsbook (30-40+ sports, esports, racing), casino, live casino (5,900+ slots)",
+    oddsFormat: null,
+    maxWin: "$10,000 per 24-hour period for standard accounts; raisable for VIP tiers via account host",
+    support: "24/7 live chat (~2 min response), email, Telegram",
+    mobileApp: "No verified native app; browser-based only",
+    source: "winna.com, cryptoslate.com, ccn.com", checked: "2026-08-22"
+  },
+  "Razed": {
+    markets: "Casino, live casino, sportsbook (40+ sports, 100+ markets on major games)",
+    oddsFormat: "Decimal by default; switchable to American, Fractional, Hong Kong, Indonesian, Malaysian",
+    maxWin: "No stated max-win limit; daily withdrawal cap ~€25,000 (subject to additional checks)",
+    support: "24/7 live chat (~1 min response) + email (separate inquiry/complaint addresses); no Discord confirmed",
+    mobileApp: "No native app — confirmed on razedcasino.com; mobile-optimized browser site only",
+    source: "razedcasino.com, razedcasino.com/faq, win.gg", checked: "2026-08-22"
+  },
+  "Thrill": {
+    markets: "Sportsbook (40+ sports), esports, racing, casino, virtual sports",
+    oddsFormat: "Decimal, fractional, American, Hong Kong, Indonesian, Malaysian",
+    maxWin: "No maximum withdrawal limit stated",
+    support: "24/7 live chat (~2 min response), email (support@thrill.com)",
+    mobileApp: "No — mobile-optimized website only, no native iOS/Android app",
+    source: "intercom.help/thrill (official help center), cryptoslate.com, askgamblers.com", checked: "2026-08-22"
+  },
+  "Cryptorino": {
+    markets: "Slots, live casino, table games, sportsbook (40+ sports), instant/crash games",
+    oddsFormat: null,
+    maxWin: null,
+    support: "24/7 live chat (sub-1-min response), email (support@cryptorino.io)",
+    mobileApp: "No — instant-play mobile browser only, no native app",
+    source: "casinosblockchain.io, askgamblers.com", checked: "2026-08-22"
+  },
+  "Bets.io": {
+    markets: "Sportsbook (35+ sports), casino (3,000+ games), live casino, slots",
+    oddsFormat: "Decimal, American, fractional",
+    maxWin: "No universal cap; large wins may be paid in tranches; VIP limits up to 1,000,000 USDT on select markets",
+    support: "24/7 live chat (~1 min), email, Discord/Telegram/X",
+    mobileApp: "No native app — PWA (Add to Home Screen) web app only",
+    source: "cryptoslate.com, askgamblers.com", checked: "2026-08-22"
+  },
+  "Nitrobetting": {
+    markets: "Casino (700+ games), live dealer, slots, poker tournaments, sportsbook (15+ sports)",
+    oddsFormat: null,
+    maxWin: null,
+    support: "24/7 live chat and email (help@nitrobetzone.com)",
+    mobileApp: "No native app — responsive mobile website only",
+    source: "cryptocasinos.com, bookmakersreview.com, sbo.net; sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Cloudbet": {
+    markets: "Sportsbook (25+ sports, esports, Bet Builder), casino, live betting",
+    oddsFormat: "Decimal, fractional",
+    maxWin: null,
+    support: "24/7 live chat (~1 min), email (support@cloudbet.com)",
+    mobileApp: "No — no native iOS/Android app, mobile-responsive website only",
+    source: "cryptoslate.com, goonersguide.com", checked: "2026-08-22"
+  },
+  "Rakebit": {
+    markets: "Casino (slots, table, live dealer) + sportsbook (40+ sports incl. soccer, esports, etc.)",
+    oddsFormat: null,
+    maxWin: "No stated cap; wins ≥$50,000 paid in installments (30-90 days, sources vary)",
+    support: "24/7 live chat, email, Discord/Telegram/X",
+    mobileApp: "No native app; installable web app (PWA) only",
+    source: "rakebit.com, ccn.com, bitcoin.com, casinosblockchain.io", checked: "2026-08-22"
+  },
+  "Fresh Casino": {
+    markets: "Casino (slots, table, live dealer) + sportsbook (40+ sports)",
+    oddsFormat: null,
+    maxWin: "No published max-win cap; only stated withdrawal limits apply",
+    support: "24/7 live chat + email",
+    mobileApp: "No official app-store app; mobile-optimized site (unofficial Android APK found by one reviewer)",
+    source: "fresh.casino, casino.org, askgamblers.com, completesports.com", checked: "2026-08-22"
+  },
+  "Sol Casino": {
+    markets: "Casino (slots, live dealer, table games, jackpots) + sportsbook (40+ sports)",
+    oddsFormat: null,
+    maxWin: "$125,000/month cap unless otherwise agreed with operator",
+    support: "24/7 live chat + email",
+    mobileApp: "No native app; mobile-optimized browser only",
+    source: "sol.casino, casinoslotsguru.com, completesports.com", checked: "2026-08-22"
+  },
+  "Jet Casino": {
+    markets: "Casino (slots, live dealer, crash games) + sportsbook (40+ sports)",
+    oddsFormat: null,
+    maxWin: "No stated win limit (per official T&Cs); standard €4,000/day-€80,000/month withdrawal caps apply",
+    support: "24/7 live chat, email, phone",
+    mobileApp: "No confirmed native app; mobile-browser access",
+    source: "jet.casino, askgamblers.com, casino.guru", checked: "2026-08-22"
+  },
+  "Starda Casino": {
+    markets: "Casino (slots, live dealer, table games) + Starda Sportsbook (40+ sports)",
+    oddsFormat: null,
+    maxWin: "Bonus winnings capped at 10x bonus amount; no general max-win limit found",
+    support: "24/7 live chat, email, voice call, Telegram bot",
+    mobileApp: "Official site claims iOS/Android apps; one reviewer describes instant-play only (unconfirmed)",
+    source: "starda.casino, askgamblers.com, aboutslots.com", checked: "2026-08-22"
+  },
+  "1Go Casino": {
+    markets: "Casino, slots, live casino, sportsbook (40+ sports)",
+    oddsFormat: null,
+    maxWin: "No fixed max-win cap found; bonus wins capped at 10x bonus, withdrawal limit €125,000/month",
+    support: "24/7 live chat, email, Telegram",
+    mobileApp: "No true native app - sideloaded Android APK / iOS wrapper app; PWA available",
+    source: "1go.casino, wayofwager.com, casino-apps.net", checked: "2026-08-22"
+  },
+  "Legzo Casino": {
+    markets: "Casino, slots, live casino, sportsbook (40+ sports), esports",
+    oddsFormat: null,
+    maxWin: "No fixed max-win cap found; withdrawal limits ~€80,000/month (fiat), ~$50,000 (crypto)",
+    support: "24/7 live chat, email, Telegram (no phone)",
+    mobileApp: "Native Android APK; no native iOS app (PWA/browser only)",
+    source: "casino.org, translationroyale.com", checked: "2026-08-22"
+  },
+  "Irwin Casino": {
+    markets: "Casino, slots, live casino, sportsbook (40+ sports incl. football, hockey, basketball, tennis, esports)",
+    oddsFormat: null,
+    maxWin: "No fixed max-win cap found; VIP-tier withdrawal limits from €4,000/day up to unlimited",
+    support: "24/7 live chat, email, Telegram, online calls",
+    mobileApp: "Yes - native iOS & Android apps",
+    source: "casino.org, aboutslots.com, askgamblers.com", checked: "2026-08-22"
+  },
+  "Shuffle": {
+    markets: "Casino, slots, live casino, sportsbook (25+ sports), esports",
+    oddsFormat: "Decimal (default), switchable to American, Indonesian, Hong Kong, Malaysian",
+    maxWin: "$500,000/day cited by one third-party review; not confirmed on official terms",
+    support: "24/7 live chat, email",
+    mobileApp: "No native app - responsive mobile web / PWA only",
+    source: "provencrypto.com, ccn.com", checked: "2026-08-22"
+  },
+  "Duel": {
+    markets: "Casino, slots, live casino, sportsbook (50+ sports)",
+    oddsFormat: null,
+    maxWin: "No stated per-transaction cash-out limit, per third-party review",
+    support: "24/7 live chat, email, Discord, Twitter/X",
+    mobileApp: "No native app - mobile-optimized website only",
+    source: "thespike.gg, freetips.com, duel.com", checked: "2026-08-22"
+  },
+  "1win": {
+    markets: "Sportsbook (40+ sports) + casino (10,000+ slots/table/live games), eSports, virtual sports",
+    oddsFormat: "Decimal, fractional, American",
+    maxWin: "No stated cap; one review notes daily limits may apply above €50,000",
+    support: "Live chat 24/7, email",
+    mobileApp: "Yes (iOS, Android, Windows)",
+    source: "1win.com; askgamblers.com; casino.guru; sportsboom.com; sportytrader.com", checked: "2026-08-22"
+  },
+  "BetFury": {
+    markets: "Casino (13,000+ games), sportsbook (30+ sports), live casino, eSports",
+    oddsFormat: null,
+    maxWin: "$300,000/spin cap on casino games; wins over $50,000 paid in installments over up to 30 days",
+    support: "Live chat 24/7, email (support/bugbounty/pr/affiliate addresses)",
+    mobileApp: "Disputed — official site markets an app, but one independent review says no official iOS/Android app exists (mobile web only)",
+    source: "betfury.io; casino.guru; 99bitcoins.com; nostrabet.com; coinpaper.com", checked: "2026-08-22"
+  },
+  "bet105.ag": {
+    markets: "Sportsbook (25+ sports, reduced-juice lines), live betting, limited player props/futures, casino games",
+    oddsFormat: "American (primary, -105 focus); decimal/fractional also reported by one review",
+    maxWin: "$250,000/week withdrawal cap",
+    support: "Live chat (limited hours), email",
+    mobileApp: "No dedicated app; mobile-optimized website only",
+    source: "bet105.ag; offshoresportsbooks.com; dratings.com", checked: "2026-08-22"
+  },
+  "Rollbit": {
+    markets: "Casino, sportsbook (40+ sports), eSports betting, leveraged crypto trading, NFTs",
+    oddsFormat: "American, decimal (European), Malaysian, Indonesian, Hong Kong",
+    maxWin: null,
+    support: "Live chat 24/7, email, help center",
+    mobileApp: "No dedicated app; mobile web only",
+    source: "help.rollbit.com; casino.guru; gosubetting.com", checked: "2026-08-22"
+  },
+  "StakeUS": {
+    markets: "Casino, slots, live casino, sportsbook (25+ sports), esports",
+    oddsFormat: "Decimal, American, Fractional",
+    maxWin: "No stated maximum win/withdrawal limit",
+    support: "24/7 live chat (~1-2 min response); email; social media DMs",
+    mobileApp: "iOS native app only; no Android app (mobile web/PWA instead)",
+    source: "Mirrors Stake.com's reviewed profile (stake.com; thespike.gg; strafe.com; thegamehaus.com) — not independently re-verified for stake.us", checked: "2026-08-24"
+  },
+  "Sportsbet.io": {
+    markets: "Casino, slots, live casino, sportsbook (25+ sports)",
+    oddsFormat: null,
+    maxWin: null,
+    support: null,
+    mobileApp: null,
+    source: "cryptoslate.com; casino.guru (third-party); sports-count tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Yeet": {
+    markets: "Casino + sportsbook (25+ sports — an earlier third-party review found the sportsbook listed as \"Coming Soon\"; confirmed live via direct site testing)",
+    oddsFormat: null,
+    maxWin: null,
+    support: null,
+    mobileApp: null,
+    source: "bitcoinchaser.com; vip-grinders.com; direct site testing (2026-08-31)", checked: "2026-08-31"
+  },
+  "Goated": {
+    markets: "Casino + newly-launched sportsbook (30+ sports — win.gg: \"Goated Casino recently launched a sportsbook\" offering \"30+ betting markets\" spanning football, tennis, basketball, cricket and more, plus esports; earlier reviews from fairgambling.com and thespike.gg predate this launch and found no sportsbook)",
+    oddsFormat: null,
+    maxWin: "No withdrawal cap stated",
+    support: null,
+    mobileApp: null,
+    source: "win.gg; fairgambling.com; thespike.gg (third-party)", checked: "2026-08-31"
+  },
+  "Chips.gg": {
+    markets: "Casino + sportsbook (powered by BETBY, whose own platform lists 125+ sports overall; a third-party reviewer separately named dozens of individual sports live on Chips.gg's book specifically, including niche ones like Kabaddi and Floorball, well above the 40-sport \"Wide\" threshold used on this site; ~6.21% average house edge per one reviewer)",
+    oddsFormat: null,
+    maxWin: null,
+    support: null,
+    mobileApp: null,
+    source: "fairgambling.com; racinginsider.com; betby.com (third-party)", checked: "2026-08-31"
+  },
+  "Acebet": {
+    markets: "Casino (2,065+ games) + sportsbook (48+ sports per one reviewer — gamblersbet.com: \"48 traditional sports plus 13 esports titles\"; a separate reviewer, mightytips.com, cited a narrower 18-sport figure) + esports (CS2, Dota 2, Valorant, FIFA/FC 25, Mobile Legends, Rainbow Six, PUBG, Tekken, World of Warcraft and others)",
+    oddsFormat: null,
+    maxWin: null,
+    support: "24/7 live chat",
+    mobileApp: "Web-only — no dedicated mobile app per one reviewer",
+    source: "thespike.gg; gamblersbet.com; mightytips.com (third-party, conflicting sports-count figures)", checked: "2026-08-31"
+  },
+  "Wild.io": {
+    markets: "Casino, live casino, sportsbook (60+ sports and specials per AskGamblers, incl. football, basketball, tennis, esports)",
+    oddsFormat: "Decimal (European); fractional/American availability reported by one source, not independently confirmed",
+    maxWin: "$50,000 per single bet/accumulator cap stated in official Terms (scope — casino-wide vs. sportsbook-only — not confirmed)",
+    support: "24/7 live chat, email, Discord (promotional)",
+    mobileApp: "No native app — installable Progressive Web App (PWA) via browser",
+    source: "wild.io (official); casino.guru; askgamblers.com (third-party)", checked: "2026-09-02"
+  },
+  "Degen Casino": {
+    markets: "Casino plus a sportsbook covering roughly a dozen sports (football, basketball, esports/CS2 named as examples); exact market count reported inconsistently (11 vs. 13) across the two sources found",
+    oddsFormat: null,
+    maxWin: "Not stated in any source found",
+    support: "Live chat (one source says 24/7), Discord, X/Twitter, Telegram",
+    mobileApp: "No native app found — mobile-responsive website only",
+    source: "casinorankr.com; burningthedice.com (third-party, thin coverage)", checked: "2026-09-02"
+  },
+  "Sportbet.one": {
+    markets: "Sportsbook (13-14 sports incl. football, basketball, tennis, NFL/NBA/MLB/NHL, boxing, MMA, esports) plus a large casino game library (game-count figures vary widely by source, 2,000-5,000+)",
+    oddsFormat: "Not independently confirmed — one third-party source claims decimal and fractional formats are offered",
+    maxWin: "Conflicting figures: one reviewer states no maximum payout limit, another cites $100,000 per transaction/day and $500,000/month",
+    support: "24/7 live chat (English, Russian, some Chinese), email, Telegram",
+    mobileApp: "No native app — mobile-responsive website only",
+    source: "casino.guru; askgamblers.com; multiple third-party sportsbook reviews (conflicting on several figures)", checked: "2026-09-02"
+  },
+  "Lucky Block": {
+    markets: "Casino (4,000+ games, ~80 providers) plus a sportsbook covering 40+ sports incl. football, basketball, tennis, esports, with live betting and cash-out",
+    oddsFormat: "Decimal, fractional and American, selectable (per two independent third-party sources)",
+    maxWin: "Conflicting figures across sources: €500,000/month cited by one reviewer vs. a separate €50,000/month, €5,000/day, €10,000/week figure cited by another from the same operator's own FAQ",
+    support: "24/7 live chat; multiple, inconsistent support emails reported across sources; Discord/Telegram/X community channels (one reviewer flagged a support-impersonation phishing attempt on Discord)",
+    mobileApp: "No official native app per the more detailed reviews — mobile-responsive website only, despite some promotional pages advertising an app",
+    source: "casino.guru; askgamblers.com; cryptomaniaks.com; bitedge.com; nerdbot.com (third-party, several internally conflicting figures)", checked: "2026-09-02"
+  },
+  "HitnSpin": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "NV Casino": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Verde Casino": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets — none state a sport
+  // count, so sportsTierInfo() falls through to "—" for the four with a
+  // real sportsbook rather than guessing a tier.
+  "V.Vegas": {
+    markets: "Casino, live casino, sportsbook/betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@v.vegas); no phone",
+    mobileApp: "Native iOS & Android apps",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program; a separate betting-specific registration link (confirming a real sportsbook product) was supplied via the affiliate tracking-link list, correcting the earlier casino-only read of the spec sheet alone", checked: "2026-09-08"
+  },
+  "FS.Casino": {
+    markets: "Casino, live casino, sportsbook/betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@fs.casino) + Telegram; phone support listed (Polish locale only)",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "IceCasino": {
+    markets: "Casino, live casino, sportsbook/betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@icecasino.com); no phone",
+    mobileApp: "Native iOS & Android apps",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program; a separate betting-specific registration link (confirming a real sportsbook product) was supplied via the affiliate tracking-link list, correcting the earlier casino-only read of the spec sheet alone", checked: "2026-09-08"
+  },
+  "FieryPlay Casino": {
+    markets: "Casino, live casino, sports/esports betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "Email (support@fieryplay.com) + Messenger, 24 hours a day; no live-chat field or ticket system listed on the spec sheet",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "GGbet": {
+    markets: "Casino, live casino, esports-focused sportsbook (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "24/7 live chat + email (support@gg.bet) + country-specific phone numbers",
+    mobileApp: "No native app (mobile-optimized website only)",
+    source: "Operator-supplied spec sheet distributed via GGbet's own ggbetaff.com affiliate program", checked: "2026-09-08"
+  },
+  "Slotoro": {
+    markets: "Casino, live casino, sportsbook/betting (sport count not stated)",
+    oddsFormat: null, maxWin: null,
+    support: "Live chat + email (support@slotoro.bet); no phone",
+    mobileApp: "Native iOS & Android apps",
+    source: "Operator-supplied spec sheet distributed via the V.Partners affiliate program", checked: "2026-09-08"
+  },
+  "RioBet": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "DuckDice": {
+    markets: "Casino, dice games, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Tower.bet": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "FortuneJack": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Bspin.io": {
+    markets: "Casino, live casino, sportsbook (15+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Dicey.com": {
+    markets: "Casino, live casino, sportsbook (25+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "WinTomato": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Megapari": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Whale.io": {
+    markets: "Casino, live casino, sportsbook (25+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Chancer": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Betcoin.ag": {
+    markets: "Casino, live casino, sportsbook (40+ sports)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Thunderpick.io": {
+    markets: "Casino, live casino, and a sportsbook naming over 20 traditional sports (football, basketball, tennis, ice hockey and more) that leans toward major-league depth rather than lower-tier/niche markets; separately, a dedicated esports book spanning 25+ titles (CS2, Dota 2, League of Legends, Valorant) with deep pre-match and live markets",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "Casino Guru, AskGamblers, Punter2Pro (third-party reviews); sports-range tier set directly by site admin — despite naming 20+ traditional sports, real-world depth/liquidity outside major leagues is judged narrow (see also the 'Wide esports offer' pro pill, which reflects genuinely broad esports coverage on a separate axis)", checked: "2026-09-07"
+  },
+  "BookMaker.eu": {
+    markets: "Full sportsbook (major US/global leagues plus niche and esports), racebook (100+ tracks), casino (slots, table games, live dealer), live/in-play betting",
+    oddsFormat: null,
+    maxWin: "No published overall payout cap found; BTC withdrawal limit $50-$50,000 per transaction",
+    support: "24/7 live chat, phone and email",
+    mobileApp: "No native iOS/Android app — mobile-responsive site only",
+    source: "BookMakersReview; Bang The Book (third-party reviews); official odds format not independently confirmed", checked: "2026-09-07"
+  },
+  "Betski": {
+    markets: "Sportsbook, esports, virtual sports, fantasy sports, global lotteries, casino (slots, live dealer, crash games) from providers including Pragmatic Play, Evolution and Playtech",
+    oddsFormat: null,
+    maxWin: "Casino Guru describes \"unlimited\" withdrawal limits and no win limit, based on a single user review — too thin a sample to treat as confirmed",
+    support: null, mobileApp: null,
+    source: "casino.guru (single-review basis for limits); Betski's own site is JavaScript-rendered and could not be independently crawled for a full markets/odds page", checked: "2026-09-08"
+  }
+};
+
+const RESTRICTED_COUNTRIES = {
+  "Stake": { codes:["US","GB","AU","CA","FR","DE","IT","ES","NL","BE","AT","CH","SE","NO","DK","FI","IS","PL","CZ","SK","HU","RO","BG","HR","SI","EE","LV","LT","GR","CY","MT","LU","AL","BA","ME","MK","XK","RS","SM","MC","RU","CI","CD","LR","LY","ZA","SS","SD","ZW","AF","IR","IQ","IL","KP","SY","KY","CU","CW","AR","BR","CO","PE"], confidence:"partial", note:"Stake's own Terms couldn't be fetched directly (bot-protected). Three independent secondary sources (thespike.gg, coinstats.app, sportsgambler.com) converge on this list, which reads as most of Europe plus a standard sanctions/high-risk set. Important nuance: several named markets (UK, Colombia, Italy, Peru, Brazil, Denmark) are blocked only on the main Curaçao-licensed stake.com — Stake serves those players instead through its own separately regulated local entities (per its own company background). Sources also warn the list \"can change at any time.\"" },
+  "BC.Game": { codes:["AW","BQ","CW","FR","NL","SX","US"], confidence:"confirmed", note:"Official Terms & Conditions (Section 5.2, \"Prohibited Jurisdictions\") give this exact closed list with no \"and others\" hedge and no reserved discretion to expand it. Lithuania is not named." },
+  "Rainbet": { codes:["US","FR","NL","BQ","AW","CW","SX","AU","AT","DE","GB","ES"], confidence:"partial", note:"Official Terms (Section 4.1.3 / 20.1) name this list explicitly, but a separate Section 3.3 catch-all also excludes residents of \"any country in which access to online gambling... is prohibited\" — so the true restricted set is larger and not fully enumerable. Lithuania is not on the named list but could fall under the catch-all depending on enforcement." },
+  "Roobet": { codes:["AF","BY","BE","CO","CU","CD","IR","IQ","LR","LY","KP","PL","RO","RU","SK","SD","SY","TR","ZW"], confidence:"partial", confirmedAccepted:["LT"], note:"General ToS is JS-rendered and inaccessible; this list is from Roobet's own Help Center article on account-level regional restrictions (official, but not the full ToS). Lithuania is directly confirmed welcome — though Roobet separately blocks several major slot providers (Big Time Gaming, Red Tiger, NetEnt, Games Global, Quickspin, Playson) for Lithuanian players specifically, so game content may be more limited than elsewhere." },
+  "500Casino": { codes:["US","NL","FR","CW"], confidence:"confirmed", note:"Official Terms of Service PDF's sitewide \"Region Restrictions\" clause states verbatim it's \"not available in United States and its territories, Netherlands, France, Dutch West Indies and Curaçao\" — no hedge. Separately, the sportsbook product carries its own narrower restriction (Israel, Singapore, Latvia) and the casino product a different one (Australia, UK); those are product-level, not full-account, blocks. Lithuania is not named in the sitewide clause — it appears only in a NetEnt game-provider carve-out, not as a general restriction." },
+  "Betpanda": { codes:["US","CR","CY","CU","IR","KP","SY","VE","AU","AO","BD","BJ","BT","BW","BN","BF","BI","CV","CM","CF","TD","KM","CD","CG","DJ","GQ","ER","SZ","ET","GA","GM","GH","GN","GW","CI","KZ","KE","KG","LS","LR","LY","MG","MW","ML","MR","SN","SC","SL","SO","SS","SD","TJ","TZ","TG","TN","TM","UG","UZ","ZM","ZW","FR","SE"], confidence:"partial", confirmedAccepted:["LT"], note:"Official terms are JS-gated and inaccessible. CryptoSlate's review lists this ~61-country set with no hedge, but Casino.Guru's review only flags an Ohio (US state) exclusion and gives no full list — the two secondary sources disagree in scope, so this list is indicative, not verified official policy. Lithuania doesn't appear in either source." },
+  "Gamdom": { codes:["AW","AT","AU","BE","BQ","CW","DK","FR","GF","PF","DE","GG","GI","GR","HU","IR","IM","JE","LI","LT","LU","MT","MQ","YT","MM","NL","KP","PT","PR","RE","RS","SK","SI","ES","SE","US","GB"], confidence:"partial", note:"Official terms are JS-gated and inaccessible. Three independent secondary sources (thespike.gg, coinstats.app, strafe.com) converge on this ~36-country list including Lithuania as blocked; one outlier (silentbet.com, likely outdated) places Lithuania as allowed instead. Majority of sources agree Lithuania is blocked." },
+  "Duelbits": { codes:["AU","AW","BH","AT","BQ","DK","BE","HR","CW","DE","EG","OM","FR","PL","IT","MT","QA","MD","NL","GB","BR","ZA","SI","US","AE","ES","SA","MF","LT","CU","IR","MM","KP","PT","SG","SD","SY","YE"], confidence:"partial", note:"Confirmed directly that Lithuania is blocked. Sources disagree on the rest of the list: this set (including Lithuania) comes from thespike.gg's dedicated country checker; Duelbits' own Help Center article instead lists a different, smaller set that omits Lithuania (possibly an older or narrower restriction tier), and AskGamblers' shorter list is explicitly hedged as incomplete. Official ToS is JS-gated and couldn't be read to resolve the conflict." },
+  "Winna": { codes:["AF","BY","BA","BI","CF","CN","CU","CD","ET","DE","GT","GN","GW","HT","IR","IQ","IL","LB","LY","ML","MM","NL","NI","KP","RU","SO","SS","ES","SY","GB","US","VE","YE","AU"], confidence:"partial", note:"Official terms are JS-gated and inaccessible; this list is from a single secondary source (CryptoSlate) with no second source to cross-check. Ontario (a Canadian province, not coded here) is separately flagged as restricted. Lithuania doesn't appear on this list, but with only one uncorroborated source, that's not a confirmed \"accepted.\"" },
+  "Razed": { codes:["AF","AT","AW","BQ","CW","KM","KP","FR","GF","PF","GP","IR","KZ","IL","MQ","YT","MM","NL","NC","RE","BL","PM","MF","SG","GB","US","WF","VN"], confidence:"confirmed", note:"Official Terms & Conditions (Section 3.5) name this list explicitly, though the clause uses softer language — these countries \"may experience limitations when depositing and playing real money games\" rather than an outright registration block. Lithuania is not on this general list; it appears elsewhere only in a narrower NetEnt game-title availability clause, not as an account-level restriction." },
+  "Thrill": { codes:["US","GB","VG","CW","CY","NL","CN","RU","AU","FR","DE","AW","BQ","SX","VI","AS"], confidence:"partial", note:"Official terms are JS-gated and inaccessible. Two secondary sources (CryptoSlate, Webopedia) give overlapping but non-identical lists; neither mentions Lithuania, but since neither is Thrill's own text and they disagree with each other, Lithuania's status here isn't verified either way." },
+  "Cryptorino": { codes:["US","CY","TN","NP","NG","SY","CR","CU","SD","BD"], confidence:"partial", note:"Official terms are JS-gated and inaccessible. Sources conflict sharply: one lists just these 10 countries; a second (CorrectCasinos) lists ~65 mostly African/Asian countries plus the US and explicitly appends \"(+50 more)\" — a clear incompleteness signal. Neither source names Lithuania, but the true list is almost certainly larger than either shown." },
+  "Bets.io": { codes:["AO","BB","BE","BF","CF","KM","CR","CU","CW","CY","CD","ER","ET","HT","IR","IQ","IL","JM","JE","LB","LR","LY","ML","MM","NI","KP","PK","PA","CG","RU","RW","SL","SO","SS","SX","SD","SY","UG","UA","US","YE","ZW"], confidence:"confirmed", note:"Official Terms & Conditions (\"Who Can Play\", point 6) give this explicit list verbatim, with no \"and others\" hedge next to it (a separate generic clause elsewhere reserves the right to change the list). Lithuania is not named." },
+  "Nitrobetting": { codes:["VE","CN","AZ","CR","GB","MD"], confidence:"confirmed", note:"Nitrobetting has rebranded — nitrobetting.eu now redirects to mynitro.io. The current live Terms & Conditions there state this short list under \"Restrictions of Use\" with no hedge. This is notably shorter than older third-party reviews describing the pre-rebrand \"Nitrobetting\" (which additionally named Bulgaria, Hungary, Belarus, Ukraine, Russia) — treat those older lists as stale. Lithuania is not named in either version." },
+  "Cloudbet": { codes:["AU","AT","BE","CN","MO","HK","CW","CU","FR","DE","IR","LT","MT","MM","NL","KP","SG","SY","ES","GB","US"], confidence:"confirmed", note:"Official Help Center article and Terms & Conditions (Clause 7.1.3) give the identical, explicit list — checked for hedge language and found none. Lithuania is unambiguously named as restricted (plus specific Ukrainian regions Crimea, Donetsk and Luhansk, not coded here as they're sub-national)." },
+  "Rakebit": { codes:["AU","GF","TF","GY","KM","US","VI","VG","PR","GU","IR","IQ","KP","MM","UA","SG","CN","RU","CR","PT","TH"], confidence:"partial", note:"Official terms page 404s. This list is from a single third-party review (CryptoSlate); a separate compliance report (Fintelegram) flags Italy, Germany, UK and the US as markets Rakebit serves without local authorization — a compliance-risk signal, not a formal restriction. Lithuania's status here is unverified." },
+  "Fresh Casino": { codes:["GB","SO","AS","SE","AW","ES","ML","CU","SY","GF","OM","AF","CD","CN","LB","IR","CW","NI","VI","KP","YE","GL","JO","CF","CY","SK","MT","CI","FR","ZW","US","PR","YT","NL","MQ","MO","ET","GP","MM","GU","VE","IQ","RE","LY","BQ","SD","BY","IL","AE","PK"], confidence:"partial", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible; the rest of this 50-country list is from a single third-party tracker (gamblescope.com) nearly identical to sister brands' boilerplate (Galaktika N.V. group) — may be a generic group template rather than Fresh-specific verified geo-blocking." },
+  "SolCasino.io": { codes:["US","GR","GB","JE","GI","ES","FR","GP","MQ","GF","RE","YT","MF","PF","WF","NC","NL","SE","IL","LT","SK","BE","CH","TR","CW"], confidence:"confirmed", note:"Official terms (docs.solcasino.io, Section 3.1.6) name this list verbatim with no hedge, as a distinct clause separate from unrelated game-provider availability restrictions elsewhere in the same document. Lithuania is explicitly and unambiguously named as blocked." },
+  "Sol Casino": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible; two third-party sources materially disagree on the rest of the restricted list — one 52-country boilerplate shared almost verbatim with sister brands (Jet, Fresh) omits Russia entirely, a second shorter 15-country list includes Russia/Italy/Latvia/Estonia/Australia instead. Distinct operator from SolCasino.io above — do not merge." },
+  "Jet Casino": { codes:["GB","SO","AS","UM","SE","AW","ES","ML","CU","SY","GF","OM","MF","AF","CN","LB","IR","CW","NI","VI","KP","YE","GL","JO","CF","CY","SK","MT","CI","FR","ZW","US","PR","YT","NL","MQ","MO","ET","GP","MM","GU","VE","IQ","RE","LY","BQ","SD","BY","IL","AE","PK","CD"], confidence:"partial", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible; the rest of this 52-country list is from a single third-party tracker (gamblescope.com) nearly identical to sister brand Fresh Casino's list (same Galaktika N.V. group) — likely a shared group template rather than Jet-specific verified data." },
+  "Starda Casino": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible, and no reliable restricted-country list was found — a list appearing identical across this operator and its Galaktika N.V. sister brands (1Go, Legzo, Irwin) on one aggregator reads as generic sanctions-style boilerplate, not casino-specific data, and was discarded." },
+  "1Go Casino": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible; reviews note \"multiple country restrictions\" exist but name none. Same Galaktika N.V. group as Starda/Legzo/Irwin." },
+  "Legzo Casino": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible; no restricted-country list was found in research. Same Galaktika N.V. group as Starda/1Go/Irwin." },
+  "Irwin Casino": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Official terms are otherwise JS-gated and inaccessible; no restricted-country list was found in research. Same Galaktika N.V. group as Starda/1Go/Legzo." },
+  "Shuffle": { codes:["AU","KY","CW","DE","NL","PT","SG","ES","SE","GB","US","LT"], confidence:"partial", note:"Lithuania confirmed blocked. Official Terms (Section 7.3) name a shorter list explicitly, then add a broad hedge: \"and any other location... embargoed by the United States, the European Union or the United Kingdom\" — Lithuania likely falls under that hedge rather than the named list itself." },
+  "Duel": { codes:["AF","AU","BY","BE","CI","CU","CW","CZ","CD","FR","DE","GR","IR","IQ","IT","LR","LY","LT","NL","KP","PT","RS","SK","ES","SD","SE","SY","GB","US","ZW"], confidence:"confirmed", note:"Official Terms (Sections 3.3 and 18) give the identical list in both places verbatim, with no \"and others\" hedge on the list itself. Lithuania is explicitly named as blocked, corroborated by a third-party review." },
+  "1win": { codes:["US","CA","GB","ES","LV","LT","NL","FR","IT","CH","AL","BB","PK","SY","SS","KY","HT","JM","KP","MT","PA"], confidence:"partial", note:"Official terms couldn't be loaded directly (JS-rendered). A mirror quoting 1win's own Terms Section 9.4.1 verbatim gives this 21-country list; two other secondary sources give larger, materially different lists (41 and 81+ countries). All three sources agree Lithuania is blocked even though they disagree on the full scope — so Lithuania specifically is high-confidence, the rest of the list less so." },
+  "BetFury": { codes:["AF","AW","DZ","AG","AU","AT","BY","BH","BE","BT","BN","CF","TD","CI","HR","CU","CZ","KP","CD","DK","EE","FR","DE","GR","GW","HU","IR","IQ","IS","IL","IT","JO","KW","LV","LB","LR","LT","ML","MT","MM","NL","NO","OM","PS","PK","PL","PT","QA","RO","RU","BQ","MF","SA","RS","SI","SO","ES","CH","SY","SD","TT","TR","UA","GB","AE","US","VU","YE","ZW"], confidence:"partial", note:"Official Terms (Section 3.3) name this list of 63 territories including Lithuania, but explicitly hedge: \"or other restricted jurisdictions... that are reported by us from time to time\" — so the named list isn't exhaustive. An unofficial fan site's shorter list (which omits Lithuania) is superseded here by the operator's own official terms." },
+  "bet105.ag": { codes:[], confidence:"unknown", note:"Official terms are JS-gated and inaccessible. Sources directly contradict each other: one (citing bet105 support directly) says there are no restrictions and it accepts players worldwide; three others give three different, barely-overlapping partial lists. None of the four mention Lithuania in either direction. Given the contradiction, this is an unresolved gap — recommend confirming directly with bet105 support before trusting any country claim here." },
+  "Rollbit": { codes:["AF","AW","AU","AT","BE","BQ","CW","CY","DK","EE","FR","DE","HU","IR","IQ","IT","NL","KP","SK","ES","SX","SE","TR","UA","AE","US","GB"], confidence:"confirmed", note:"Rollbit's own Help Center article gives this explicit 29-territory list with no scope hedge on the list itself (only a forward-looking clause reserving the right to add more at Rollbit's discretion). Lithuania is not named, corroborated by two independent secondary sources." },
+  // Sportsbet.io — from cryptoslate.com's review, checked 24 Aug 2026.
+  "Sportsbet.io": { codes:["US","GB","AF","AU","AT","BE","FR","DE","JP","NL"], confidence:"partial", note:"CryptoSlate's review names these ten territories explicitly but says the full list runs to \"28+ jurisdictions,\" so this is only the partial named subset, not the complete restriction list. Casino.Guru's review separately confirms an Ohio (US state) exclusion and says the operator excludes \"many\" countries without giving its own list." },
+  // StakeUS is a US-facing sweepstakes-style product, not the same product as Stake.com's
+  // internationally-available real-money casino — its own Help Center (help.stake.us) frames it as
+  // "crafted for the enjoyment of players across the United States" and lists 21 restricted US states,
+  // while a third-party review (tribalfootball.com) states plainly it's "only available in the United
+  // States" and international players can't sign up at all. Lithuania specifically confirmed blocked.
+  // codes here lists only Lithuania (directly confirmed) rather than trying to enumerate every one of
+  // the ~190 non-US countries this US-only model implies — see the note for the fuller picture.
+  "StakeUS": { codes:["LT"], confidence:"partial", note:"StakeUS runs a US-only sweepstakes-style model rather than Stake.com's internationally-available real-money product — its own Help Center describes it as built for US players and lists 21 restricted US states, and a third-party review (tribalfootball.com) states it's simply not available outside the United States at all. In practice that means it's blocked for essentially every non-US visitor, Lithuania included (directly confirmed) — this codes list only names Lithuania rather than exhaustively listing every other non-US country." },
+  "Yeet": { codes:["US"], confidence:"partial", note:"Yeet excludes US residents due to licensing constraints per its own funding-announcement coverage (sigma.world). A third-party 'allowed countries' page lists a long set of accepted territories including Lithuania, but names no explicit blocked-country list beyond the US exclusion and a general 'restricted in your area' geoblock message — treated as unconfirmed beyond the US exclusion. Lithuania's acceptance was separately confirmed via direct site testing." },
+  "Goated": { codes:["US"], confidence:"partial", note:"fairgambling.com's review states Goated restricts \"United States, European Union\" without naming individual EU member states — codes here list only the US explicitly; the EU-wide claim isn't broken out country-by-country by the source. Lithuania's acceptance was separately confirmed via direct site testing (an EU member, seemingly not covered by the stated EU-wide restriction, or that claim itself may be inaccurate/outdated)." },
+  "Chips.gg": { codes:["US","AU","BE"], confidence:"partial", note:"fairgambling.com names the United States, Australia and Belgium explicitly but says the full restricted list runs to \"22 additional nations\" without naming them — this codes list only the three explicitly named countries. Lithuania's acceptance was separately confirmed via direct site testing." },
+  "Acebet": { codes:["US","NL","CH","GB","CY","KY","PL"], confidence:"partial", note:"thespike.gg names the US, Netherlands, Switzerland, UK, Cyprus, the Cayman Islands and Poland as restricted; the operator's own terms weren't independently readable to confirm or expand this list. Lithuania's acceptance was separately confirmed via direct site testing." },
+  "Wild.io": { codes:["US","GB","PT","SK","ES","IL","FR","BE","RO","RU","KE","VN","PK","ID","CN","HK","MT","NL","AU"], confidence:"partial", note:"Wild.io's own Terms of Service list a longer restricted-country block this pass could only partially retrieve (\"numerous others\" not individually enumerated in the fetched excerpt) — Lithuania was initially thought to be on it, but was separately confirmed via direct site testing to actually be accepted, so it's excluded from the list here. The same Terms also state Wild.io \"cannot guarantee successful processing of withdrawals\" for players from restricted jurisdictions — implying soft geo-restriction with payout risk rather than a hard geoblock in every case." },
+  "Sportbet.one": { codes:["GB"], confidence:"partial", note:"Sportbet.one's own site states it does not accept players from jurisdictions where online gambling is prohibited, without an enumerated list in the portion this pass could access (the page appears JavaScript-rendered). Third-party sources disagree sharply on specifics — one says there are effectively no restricted countries beyond a general disclaimer, another names only the UK as banned, a less-corroborated source lists the UK, Germany, Australia, Ukraine and North Korea. Lithuania was not named as restricted or as accepted in any source found — its status could not be confirmed either way." },
+  "Lucky Block": { codes:["LT","US","GB","AT","AU","BY","BE","CO","CI","CU","CZ","DE","GR","IR","IQ","IL","IT","LR","LY","MT","NL","KP","PK","PT","RS","SK","ES","SD","SY","SE","CH","ZW"], confidence:"partial", note:"The only source giving an explicit country list was a regional (India-facing) mirror of Lucky Block's Terms of Service, which is not confirmed to be identical to the main global luckyblock.com terms — Lithuania appears on that regional list. Other third-party sources give shorter, different partial lists (some naming only the US and UK). Given the mirror-vs-global uncertainty, treat this list as indicative rather than confirmed against the operator's own primary Terms." },
+  "NV Casino": { codes:["US"], confidence:"partial", confirmedAccepted:["LT"], note:"No enumerated restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania is confirmed accepted per the operator's Terms & Conditions." },
+  "HitnSpin": { codes:["US","GB"], confidence:"partial", confirmedAccepted:["LT"], note:"Third-party review coverage names the US and UK as restricted, but the operator's own Terms weren't independently readable in full to confirm or expand this list. Lithuania is confirmed accepted per the operator's Terms & Conditions." },
+  "Verde Casino": { codes:["US"], confidence:"partial", confirmedAccepted:["LT"], note:"No enumerated official restricted-country list was found in this pass. Lithuania is confirmed accepted per the operator's Terms & Conditions — this supersedes earlier uncorroborated forum allegations of Lithuanian players being blacklisted, and is consistent with Verde Casino separately running a Lithuania-targeted \"Verde Lietuva\" mirror domain." },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 — each restricted-country list is the operator's own full
+  // enumerated list, per its Terms & Conditions. Lithuania does not appear on
+  // any of the six lists and is confirmed accepted, per the site owner (all
+  // six run on the same Data.bet platform/policy as NV Casino, HitnSpin and
+  // Verde Casino above).
+  "V.Vegas": { codes:["AF","AS","AW","AU","BY","BE","BQ","BR","CZ","CY","CW","KP","ET","FR","GB","GY","GU","IQ","IR","IT","IL","MT","NL","LA","WS","SA","PS","PK","RU","SG","ES","SX","SY","LK","UG","US","VU","VE","TT","TR","UA","YE"], confidence:"high", confirmedAccepted:["LT"], note:"Full restricted-country list per the operator's own Terms & Conditions. Lithuania does not appear on it — confirmed accepted." },
+  "FS.Casino": { codes:["AF","AS","AW","AU","BQ","CY","CW","CZ","KP","ET","FR","CH","DE","GB","GY","GU","IQ","IR","IT","IL","MT","NL","CA-ON","RU","SE","LA","WS","SA","RS","SG","ES","SX","SY","LK","UG","US","VU","TT","TR","UA","YE"], confidence:"high", confirmedAccepted:["LT"], note:"Full restricted-country list per the operator's own Terms & Conditions. Lithuania does not appear on it — confirmed accepted. \"CA-ON\" denotes Ontario, Canada specifically, not all of Canada." },
+  "IceCasino": { codes:["AF","AS","AW","AU","BE","BQ","CY","CW","CZ","KP","ET","FR","CH","DE","GB","GY","GU","IQ","IR","IT","IL","MT","NL","LA","WS","SA","PS","PK","RU","RS","SG","ES","SX","SY","LK","UG","US","UA","VU","VE","TT","TR","YE"], confidence:"high", confirmedAccepted:["LT"], note:"Full restricted-country list per the operator's own Terms & Conditions. Lithuania does not appear on it — confirmed accepted." },
+  "FieryPlay Casino": { codes:["AF","AS","AW","AU","BQ","CY","CW","CZ","KP","ET","FR","CH","GB","GY","GU","IQ","IR","IT","IL","MT","NL","CA-ON","RU","SE","LA","WS","SA","RS","SG","ES","SX","SY","LK","UG","US","VU","TT","TR","UA","YE"], confidence:"high", confirmedAccepted:["LT"], note:"Full restricted-country list per the operator's own Terms & Conditions. Lithuania does not appear on it — confirmed accepted. \"CA-ON\" denotes Ontario, Canada specifically, not all of Canada." },
+  "GGbet": { codes:["AF","AS","AW","AU","BE","BQ","CW","CY","CZ","KP","ET","FR","GF","PF","GB","GU","GY","IR","IQ","IL","IT","LA","MT","NL","PT","PK","RU","WS","SA","RS","SG","ES","LK","SX","MD","SD","SY","TT","TR","UA","UG","US","VU","YE"], confidence:"high", confirmedAccepted:["LT"], note:"Full restricted-country list per the operator's own Terms & Conditions. Lithuania does not appear on it — confirmed accepted." },
+  "Slotoro": { codes:["AF","AS","AW","AU","BY","BQ","BR","CY","CW","KP","ET","FR","GB","GY","GU","IQ","IR","IL","XK","MT","NL","LA","WS","SA","PS","PK","RU","SG","ES","SX","SY","LK","UG","US","VU","VE","TT","TR","UA","YE"], confidence:"high", confirmedAccepted:["LT"], note:"Full restricted-country list per the operator's own Terms & Conditions. Lithuania does not appear on it — confirmed accepted." },
+  "FortuneJack": { codes:["US","GB"], confidence:"partial", note:"FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania specifically — one source describes Lithuania as accepted, the other implies it's restricted — and this pass could not resolve the discrepancy. The US and UK are consistently named as restricted across sources." },
+  "DuckDice": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way." },
+  "Tower.bet": { codes:["US"], confidence:"unknown", note:"No enumerated official restricted-country list was found in this pass beyond a general US exclusion referenced by third-party review coverage. Lithuania's status could not be confirmed either way. Note: the unrelated site towerbet.com is a different operator and was not the subject of this research." },
+  "Whale.io": { codes:["AU","AT","FR","DE","NL","ES","GB","US"], confidence:"partial", note:"Whale.io's own FAQ names Australia, Austria, France, Germany, Netherlands, Spain, UK and USA as \"currently restricted... among others\" — an explicitly non-exhaustive list. Its Terms point to a separate, dedicated \"Restricted Jurisdictions\" page for the full list, which was not independently fetched in this pass. Lithuania's status could not be confirmed either way." },
+  "Dicey.com": { codes:["US","GB","FR","DE","ES","NL","CA","AU"], confidence:"partial", note:"Third-party review coverage (correctcasinos.com) lists the USA, UK, France, Germany, Spain, Netherlands, Canada and Australia among '40+' restricted countries, without an independently fetched authoritative list from Dicey's own Terms. Lithuania's status could not be confirmed either way." },
+  "Chancer": { codes:["US","GB","DE","FR","ES","PT","NL","AU","IN","AT","CN","CY","TR","RU","BY"], confidence:"partial", note:"Sources disagree sharply — some third-party reviews (Casino Guru, LCB, wizardofodds) name only Ohio, US as restricted, while CryptoSlate's fuller review lists a much broader set including the US, UK and most of the EU. The operator's own Terms could not be directly fetched to resolve this. Lithuania's status is not confirmed either way." },
+  "RioBet": { codes:["US","GB","FR","DE","ES","SE","NL","AU","CA","RU"], confidence:"partial", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome, per the site owner. Third-party reviews (Gamblescope, CorrectCasinos) list the US, UK, France, Germany, Spain, Sweden, Netherlands, Australia, Canada and Russia among 30-52 restricted countries, without an independently fetched list from RioBet's own Terms. The inclusion of Russia is notable given that a large share of documented complaint/forum activity comes from Russian-speaking players, so this specific entry should be treated with extra caution." },
+  "Betcoin.ag": { codes:["US","AU","AT","BY","FR","DE","KZ","NL","RU","ES","TR","UA","GB"], confidence:"confirmed", note:"Directly from Betcoin's own Terms of Service, which name the USA (including dependencies, military bases and territories), Australia, Austria, Belarus, France, Germany, Kazakhstan, Netherlands, Russia, Spain, Comoros itself, Turkey, Ukraine and the UK, plus all FATF-blacklisted countries. Despite the blanket US ban, third-party geo-block listings (LCB, Casino Guru) name only Ohio specifically — a discrepancy suggesting continued informal accessibility to US players in practice. Lithuania's status is not confirmed either way." },
+  "Bspin.io": { codes:["US","GB","FR","NL","ES","AU"], confidence:"partial", note:"Sources conflict — CryptoSlate lists the USA, France, Netherlands, UK, Spain and Australia 'and others' as restricted, while a second source (bitcasinosrank) gives a different, narrower list (Bonaire/Sint Eustatius/Saba, Curaçao, France, French Guiana, French Polynesia, French Southern Territories, Netherlands, Spain) that does not include the US or UK, and Casino Guru separately notes only an Ohio-specific carve-out. Bspin's own Terms could not be directly retrieved to resolve this. Lithuania's status is not confirmed either way." },
+  "Megapari": { codes:["US","GB","FR","NL","AU","CY","HU"], confidence:"partial", note:"The operator's own regional mirror pages give partial, non-canonical lists rather than one fixed document — one names France, USA, Netherlands, Curaçao, Australia and the Dutch West Indies; AskGamblers separately lists France, Cyprus, Hungary, Curaçao, Netherlands, UK and the US (marked non-exhaustive by AskGamblers itself). Casino Guru separately notes an Ohio-specific carve-out. Lithuania's status is not confirmed either way." },
+  "WinTomato": { codes:["US","FR","NL","AU","GB","ES","CY"], confidence:"confirmed", note:"Directly from Wintomato's own Terms & Conditions, which name the United States, France, the Netherlands, Australia, the United Kingdom, Spain and Cyprus, plus a general clause excluding residents of any country where online gambling is prohibited. The operator's own separate FAQ page gives a partly different, overlapping list (adding Germany, Curaçao and Belize) — an internal inconsistency worth flagging. The sportsbook product specifically also excludes Latvia, Singapore and Israel. Lithuania's status is not confirmed either way." },
+  "Thunderpick.io": { codes:["US","GB","NL","ES","DE","AU","CW"], confidence:"partial", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Third-party tracker (win.gg) names the United States, United Kingdom, Netherlands (and Dutch Caribbean territories), Spain, Germany, Australia and Curaçao (the operator's own licensing jurisdiction) as explicitly restricted, plus a general exclusion for FATF-blacklisted countries. Thunderpick's own Terms were not independently fetched in this pass, and win.gg itself notes there is no officially published full list, describing the operator as available mainly in a broader 'grey zone' of jurisdictions that neither license nor prohibit online gambling." },
+  "BookMaker.eu": { codes:["LT"], confidence:"partial", note:"Lithuania confirmed blocked, per the site owner. No comprehensive international country-restriction list was found otherwise; BookMaker.eu is primarily US-facing, with third-party sources citing US state-level exclusions (New Jersey, Ohio, Kentucky, Tennessee) rather than a full country list." },
+  "Betski": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome, per the site owner. No comprehensive restricted-country list was independently found otherwise. Casino Guru's review notes only an Ohio (US) carve-out — an unusually narrow exclusion for an Anjouan/Comoros-licensed operator — rather than a full country list." },
+};
+
+const COMPLAINT_REPORTS = {
+  "Rakebit": { items: [
+    { id:"cr1", title:"Account closed; balance confiscated after sports/casino play", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$873", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/rakebit-casino-account-was-closed-all-the-money-was-confiscated", whatHappened:"Player alleged the account was closed roughly an hour after a withdrawal request, with the full $873 balance confiscated under generic anti-fraud/arbitrage wording. Rakebit later reassessed the decision through the AskGamblers process and paid out the full $873, which the player confirmed receiving.", operatorReason:"Generic anti-fraud / arbitrage-betting wording, no specifics given" },
+    { id:"cr2", title:"Account closed; $2,404 in winnings confiscated over linked accounts", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$2,404", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-player-s-account-is-closed--winnings", whatHappened:"Player alleged an arbitrary account closure and confiscation of $2,404 in winnings, with the operator providing only a generic list of possible policy violations at first. Casino Guru later reviewed evidence linking the account to other accounts through a shared device/IP and closed the complaint as unjustified.", operatorReason:"Account linked to other accounts via shared device/IP" },
+    { id:"cr3", title:"$18,000 payout declined and complaint closed in Rakebit's favor", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$18,000", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/rakebit-casino-declined-payout", whatHappened:"Player alleged a legitimate $18,000 payout was withheld after account closure. AskGamblers reviewed both sides' evidence and closed the case in Rakebit's favor.", operatorReason:"" },
+    { id:"cr4", title:"Sportsbook winnings withheld after NHL live betting", category:"Sportsbook", issueTag:"Only original deposit returned", priority:"A", amount:"~$12,000", status:"Closed", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-withdrawal-of-player-s-winnings-has", whatHappened:"Player reported running the balance to about $16,000 through NHL live betting. After the account was limited, a withdrawal was requested; five days later it was declined and the player says Rakebit allowed only the original deposit to be withdrawn. The same allegation was also posted on Bitcointalk. This is a player allegation; the public source does not establish that the operator acted improperly.", operatorReason:"" },
+    { id:"cr5", title:"Account closed after $17,000 deposits and $10,000 winnings", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$27,000", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/rakebit.com?page=2", whatHappened:"Reviewer says the account was closed while a withdrawal was pending after approximately $17,000 in deposits and $10,000 in winnings.", operatorReason:"Account actions taken under Rakebit's Terms and applicable review procedures, no account-specific details given" },
+    { id:"cr6", title:"$1,500 withdrawal followed by account closure", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$1,500", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/rakebit.com", whatHappened:"Reviewer reported making five deposits totalling $800, then winning and requesting a $1,500 withdrawal. The player says an email then informed them the account had been closed.", operatorReason:"Account decisions are based on account-activity and platform-rule checks, not simply on winning" },
+    { id:"cr7", title:"$90 deposit and $162 balance allegedly retained", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$162", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://ie.trustpilot.com/review/rakebit.com", whatHappened:"Reviewer says a $90 deposit was made, the balance increased to $162 without using the offered free bets, and the account was banned when a withdrawal was requested. The reviewer alleges both deposit and winnings were retained.", operatorReason:"Restrictions follow account-activity and platform-rule reviews" },
+    { id:"cr8", title:"Badminton bettor reports account blocked with $500", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$500", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/rakebit.com?page=2", whatHappened:"Reviewer says they had previously completed two withdrawals, later deposited again, bet on badminton and had about $500 remaining when a withdrawal was attempted. The reviewer alleges the account was then blocked without a specific public explanation.", operatorReason:"" },
+    { id:"cr9", title:"$1,000 confiscation after balance reportedly reduced from ~$7,400", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$1,000", status:"Complaint record", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-player-s-account-has-been-closed-with", whatHappened:"Player reported that the balance had first been reduced from roughly $7,400 to $1,000 because of an alleged maximum-cashout rule, after which the remaining $1,000 was confiscated and the account suspended under anti-fraud provisions. The player denied wrongdoing and requested evidence. The source page records the complaint; the allegation should not be presented as an established fact.", operatorReason:"Alleged maximum-cashout rule violation; anti-fraud suspension cited" },
+    { id:"cr10", title:"First withdrawal refused and account blocked", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"$55", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-player-s-account-is-blocked-and-withdrawal", whatHappened:"Player deposited $40 USDC in total, increased the balance to $55 and says the account was permanently blocked when the first $55 withdrawal was requested. Rakebit allegedly cited anti-fraud rules. Casino Guru closed the case because the player stopped responding, so no substantive finding was reached.", operatorReason:"Anti-fraud rules cited; case closed before a substantive finding was reached" },
+    { id:"cr11", title:"Self-exclusion request allegedly ignored", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"€2,300", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/rakebit-casino/complaints", whatHappened:"Player alleged repeatedly asking to close the account because of gambling problems between 6 and 11 April, while the account remained open and further deposits totalling €2,300 were accepted. The AskGamblers listing marks the complaint unresolved.", operatorReason:"" },
+    { id:"cr12", title:"Self-exclusion after addiction declaration", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"$4,170", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/rakebit-casino-self-exclusion-request-ignored-deposits-allowed-after-gambling-addiction-declaration", whatHappened:"Player reported explicitly declaring gambling addiction and requesting immediate self-exclusion on 21 March 2026, but says the account remained active and deposits continued through 25 March. The disputed amount is listed as $4,170 and the complaint as unresolved.", operatorReason:"" },
+    { id:"cr13", title:"$1,000 NBA cash-out pending", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"$1,000", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/rakebit.com?page=3", whatHappened:"Reviewer reported depositing $1,500 without a bonus, betting on NBA, winning more than $500 and requesting a $1,000 withdrawal that had remained pending for five hours at the time of the review.", operatorReason:"Some requests may require additional time for internal verification or security review" },
+    { id:"cr14", title:"Pending withdrawal and remaining balance inaccessible after account closure", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"$73", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-player-s-account-is-closed-and-winnings", whatHappened:"Player reported a 50 USDT pending withdrawal plus about 23 USDT remaining in the account when access was blocked, with an anti-fraud violation reportedly cited. Casino Guru closed the case after the player stopped responding, so it should not be treated as an adjudicated finding against the operator.", operatorReason:"Anti-fraud violation cited; case closed before a substantive finding was reached" },
+    { id:"cr15", title:"Deposit-limit set at €50/month allegedly not enforced; ~$9,606 net loss claimed", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"~$9,606 claimed net loss", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-player-seeks-refund-due-to-account", whatHappened:"Player reported setting a EUR 50 monthly deposit limit but alleged substantially larger deposits were later accepted, totalling about $25,100 over the relevant period with roughly $9,606 in claimed net losses. This is a responsible-gambling / limit-enforcement dispute and should be treated as a claim unless the complaint platform records a final outcome.", operatorReason:"" },
+    { id:"cr16", title:"Self-exclusion request allegedly not effective; ~$20,000 claimed", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"~$20,000 claimed", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rakebit-casino-player-s-account-has-been-self-excluded", whatHappened:"Player alleged that a permanent closure or self-exclusion was requested due to gambling-control concerns, but that the account was not immediately or effectively closed, allowing further gambling activity. The public complaint records a claimed amount of about $20,000 and should be presented as an allegation unless a final adjudicated outcome is available.", operatorReason:"" }
+  ]},
+  "BC.Game": { items: [
+    { id:"cbc1", title:"Winning MLB bet later voided; winnings removed", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"A", amount:"~88 mBTC", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bc-game-casino-they-confiscate-winnings-and-i-never-heard-anything-back", whatHappened:"Player said a fairly settled MLB win (reported as roughly 88 mBTC) was later voided after a withdrawal ran into issues. AskGamblers reviewed BC.Game's evidence and upheld the operator's position.", operatorReason:"Account identified as potentially exploiting unfavourable odds" },
+    { id:"cbc2", title:"KYC rejected twice; only net deposits reportedly withdrawable", category:"Account", issueTag:"Only original deposit returned", priority:"A", amount:"Not stated", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/BCGameWin/comments/1vh3w6h/bcgame_does_not_follow_its_own_kyc_rules/", whatHappened:"Reddit user alleged permanent KYC rejection after two attempts, with BC.Game restricting withdrawals to net deposits while the reported winnings were forfeited. Not independently adjudicated.", operatorReason:"" },
+    { id:"cbc3", title:"Account blocked with $42,060 in winnings unpaid after KYC request", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$42,060", status:"Rejected", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bc-game-casino-withdrawal-suspended-and-kyc-blocked-without-reason", whatHappened:"Player alleged the account was blocked after submitting KYC that followed a large win. The AskGamblers listing records the complaint as rejected.", operatorReason:"" },
+    { id:"cbc4", title:"$228,457 balance unlocked after a complaint over a refused payout", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$228,457", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bc-game-casino-refused-to-pay-winning-and-suspended-my-228457-usd-account", whatHappened:"Player alleged BC.Game suspended the account and refused to pay out a $228,457 balance. The player later confirmed the restriction was lifted and the funds became available for withdrawal.", operatorReason:"" },
+    { id:"cbc5", title:"$2,600 withdrawal blocked for a KYC-verified profit; paid after two weeks", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$2,600", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bc-game-casino-standard-answers-and-ignoring-me-since-december-1st", whatHappened:"KYC-verified player reported a blocked withdrawal on a $2,600 profit with only form-letter replies from support; the player later confirmed the money was received roughly two weeks later.", operatorReason:"" },
+    // cbc6-cbc12 added 4 Sep 2026 from a dedicated Bitcointalk/Trustpilot
+    // community-report pass. Bitcointalk itself displays a forum warning on
+    // BC.Game's own long-running official thread that some users believe the
+    // topic creator is a scammer — Bitcointalk explicitly states it doesn't
+    // verify such claims, so that's recorded as a community-risk signal, not
+    // an adjudicated finding, and isn't itemized as its own complaint row.
+    // Trustpilot separately displays a "Breach of guidelines" notice on
+    // BC.Game's profile and states it has removed a number of fake reviews —
+    // so a raw review count isn't used as evidence here; only individual
+    // Trustpilot reports with identifiable amounts, events and (where
+    // present) an operator response are itemized below, per the same
+    // standard used elsewhere in this file.
+    { id:"cbc6", title:"~$1.5 million balance dispute — contested, high-severity, BC.Game publicly responded", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"A", amount:"~$1.5 million (disputed)", status:"Unresolved", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5543228.0", whatHappened:"A player whose account was used mainly for casino play said a previously-withdrawn balance of over $100,000 was followed by a much larger balance later being locked, and disputed BC.Game's counter-allegations of multiple-account use and bonus abuse; the thread also references litigation and regulatory/corporate-structure issues. This is a genuinely contested, unresolved dispute, not a proven $1.5m theft — and BC.Game did publicly respond in the same thread with specific figures: a company representative stated records showed approximately $57,980 in deposits and approximately $122,000 in successful withdrawals, with the further disputed balance flagged by risk/compliance. BC.Game later said the balance was obtained in violation of its rules, specifically invoking its multiple-account policy, and stated its position would not change after multiple internal reviews and legal consultations.", operatorReason:"Balance allegedly obtained in violation of BC.Game's rules, specifically its multiple-account policy — BC.Game disputes the $1.5m headline figure and cites its own records of ~$57,980 in deposits and ~$122,000 in successful withdrawals; the operator says its position hasn't changed after multiple reviews and legal consultations" },
+    { id:"cbc7", title:"Separate ~6-7 BTC dispute raised at a gambling conference — single-source, low corroboration", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"~6-7 BTC (disputed)", status:"Community report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5543228.140", whatHappened:"A different forum user, posting inside the larger $1.5m dispute thread above, said they personally raised an alleged 6-7 BTC dispute directly with BC.Game staff at a London gambling conference in July 2025, and that BC.Game later refused a refund citing VPN use. This is a separate, single-source allegation from a different claimant — it isn't evidence supporting the $1.5m figure in cbc6, and wasn't independently corroborated in this research pass.", operatorReason:"VPN use cited as the reason for refusing a refund, per the player's account of BC.Game's response — not independently confirmed" },
+    { id:"cbc8", title:"Account locked after a 22 USDT withdrawal over reward-abuse/multi-account findings", category:"Account", issueTag:"Account closed after sportsbook/provider flag", priority:"C", amount:"22 USDT", status:"Operator position upheld", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bc.game", whatHappened:"Player said the account was locked shortly after a 22 USDT withdrawal, and disputed BC.Game's changing explanations for the restriction. BC.Game replied that its internal review found Phone Verification Reward Abuse and multiple-account activity, and said the restriction would not be reversed.", operatorReason:"Phone Verification Reward Abuse and multiple-account activity, per BC.Game's internal review — restriction stated as final" },
+    { id:"cbc9", title:"$5,400 balance blocked after KYC2 documents submitted", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$5,400", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bc.game", whatHappened:"Reviewer alleged a $5,400 balance was blocked after submitting KYC2-level documents. BC.Game replied that it did not yet have the full case details and directed the user to its Recovery Team for review — no further resolution is shown in the indexed extract.", operatorReason:"Not stated; BC.Game said the case needed further review by its Recovery Team" },
+    { id:"cbc10", title:"~$20,000 slot win followed by repeated KYC requests and account deletion", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"~$20,000", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bc.game", whatHappened:"Reviewer said a $1,500 deposit grew to about $20,000 on a slot win, after which repeated KYC was demanded and the account was ultimately deleted. The indexed Trustpilot extract doesn't show a corresponding operator resolution for this specific review.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cbc11", title:"~$28,500 fiat withdrawal caught in a bank/cybercrime hold", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"~$28,500 (currency symbol unclear in the source PDF)", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bc.game", whatHappened:"Reviewer said a BC.Game payment later became subject to a bank/cybercrime hold on the payment-channel side, and alleged inadequate resolution despite providing extensive documentation. BC.Game replied that the documents had been forwarded to its fiat payment team/provider for verification — this reads as a payment-channel dispute with an operator response, not a case of BC.Game withholding funds outright.", operatorReason:"Not stated; BC.Game said the documentation was forwarded to its fiat payment team/provider for verification" },
+    { id:"cbc12", title:"Account permanently closed for rule violations; deposited principal returned as a one-time exception", category:"Account", issueTag:"Only original deposit returned", priority:"C", amount:"Not stated (disputed winnings amount unclear)", status:"Operator position upheld", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bc.game", whatHappened:"In a Trustpilot response, BC.Game said a reviewed account had violated its multiple-account and verification rules; the account was permanently closed, but the eligible deposited principal was returned to the player as a one-time exception. The public extract doesn't make the player's disputed winnings amount clear.", operatorReason:"Multiple-account and verification-rule violations, per BC.Game — principal returned as a goodwill exception despite the closure" },
+    { id:"cbc13", title:"Withdrawal difficulty after a $1 balance grew to $12", category:"Casino", issueTag:"Small-balance withdrawal suspended pending wagering/payment check", priority:"C", amount:"$12", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bc.game", whatHappened:"Reviewer reported difficulty withdrawing after growing a $1 balance to $12. BC.Game asked for the withdrawal order ID/transaction hash and said incomplete wagering requirements or third-party payment delays could be relevant factors — an unresolved but low-value lead with an operator response.", operatorReason:"Possible incomplete wagering requirement or third-party payment delay, per BC.Game's reply — not confirmed either way" }
+  ]},
+  "Razed": { items: [
+    { id:"crz1", title:"Deposit returned, winnings allegedly confiscated over an arbitrage allegation", category:"Sportsbook", issueTag:"Only original deposit returned", priority:"A", amount:"$18,000", status:"Unresolved / sportsbook scope", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/razed-casino-player-s-winnings-were-confiscated-and", whatHappened:"Player alleged repeated KYC/source-of-funds requests followed by account termination and a deposit-only refund. Razed said the player placed arbitrage sports bets and stated a withdrawal had already been made; the player disputed this and said only the deposit was returned.", operatorReason:"Alleged arbitrage sports betting" },
+    { id:"crz2", title:"Profits forfeited; only the initial deposit refunded after an arbitrage finding", category:"Sportsbook", issueTag:"Only original deposit returned", priority:"A", amount:"Not stated", status:"Operator position upheld", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/razed-casino-player-s-account-has-been-closed-with", whatHappened:"Casino Guru concluded the player's profits were generated through arbitrage sportsbook betting and upheld the account closure with a deposit-only refund.", operatorReason:"Arbitrage sportsbook betting" },
+    { id:"crz3", title:"$6,200 account terminated over arbitrage/source-of-wealth mismatch; remaining funds returned within 72 hours", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"B", amount:"$6,200", status:"Operator position upheld", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/razed-casino-player-s-withdrawal-is-delayed-due-to-1", whatHappened:"Player said sports betting preceded a withdrawal request and repeated proof-of-funds requests. A Razed representative publicly replied that the account had been comprehensively reviewed because of repeated \"line falls\" and arbitrage-betting patterns, and that the player's source-of-wealth documents didn't align with their deposit levels. Razed terminated the account but said it would allow withdrawal of the remaining funds within 72 hours — a case with direct, specific operator explanation and a stated (not confiscatory) resolution path.", operatorReason:"Repeated arbitrage-betting patterns and a source-of-wealth/deposit-level mismatch, per Razed's own public reply; account terminated, remaining funds released within 72 hours" },
+    { id:"crz4", title:"1,870 USDT withdrawal blocked for roughly five months during Level 2 verification", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"1,870 USDT", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/razed-casino-formal-complaint-regarding-withheld-withdrawal-and-unresolved-verification-delay", whatHappened:"Player reported a withdrawal blocked for roughly five months while Level 2 verification remained under review, despite repeated document submissions. Not clearly sportsbook-specific from the public complaint summary. AskGamblers records the case as unresolved.", operatorReason:"" }
+  ]},
+  "Rainbet": { items: [
+    { id:"crb1", title:"Account blocked and $1,500 balance confiscated after KYC", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$1,500", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/rainbet-casino-blocked-my-account-and-confiscated-1500-usd", whatHappened:"Player alleged that after completing Levels 1–4 KYC, the account was permanently blocked and the balance confiscated for unspecified suspicious activity.", operatorReason:"" }
+  ]},
+  "500Casino": { items: [
+    { id:"c5001", title:"KYC-verified account frozen with ~€33,300 during a lengthy investigation", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"~€33,300", status:"Rejected after operator evidence", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/500-casino-player-s-account-has-been-frozen", whatHappened:"Player alleged a nearly two-month account freeze with limited explanation. 500Casino later said the remaining winnings were forfeited for fraudulent/malicious practices; Casino Guru reviewed confidential operator evidence and did not uphold the complaint.", operatorReason:"Fraud indicators (evidence reviewed confidentially by Casino Guru)" },
+    { id:"c5002", title:"€24,000 in winnings initially declined, later paid out", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€24,000", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/500-casino-player-s-winnings-are-confiscated", whatHappened:"Player reported that roughly €24,000 in winnings (won without a bonus) were declined outright. Casino Guru later marked the complaint resolved successfully.", operatorReason:"" },
+    { id:"c5003", title:"Sports-betting-group allegation; deposit and casino winnings released", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"$2,300 deposit / $3,900 balance", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/500-casino-player-s-account-is-blocked-and-winnings", whatHappened:"500Casino alleged the player was part of an organized sports-betting group, but agreed to release the initial deposit and casino winnings; the case was later closed because the player stopped responding.", operatorReason:"Alleged organized sports-betting group" },
+    { id:"c5004", title:"Second account grew to $10,000 via tennis bets; withdrawal declined over sportsbook-limits breach", category:"Sportsbook", issueTag:"Multi-account sportsbook-limits dispute", priority:"C", amount:"$10,000.02", status:"Operator position upheld", verified:true, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5481003.0", whatHappened:"Player \"Rioluth\" reported opening a second 500Casino account on 31 December, depositing $185.97 in LTC and growing the balance to $10,000.02 through tennis bets. He said the second account passed KYC verification using the same identity documents as his original account, and that it accepted a deposit and allowed betting before a withdrawal was declined and the account restricted. 500Casino's sportsbook representative (Cossaq) responded that the player's original account already carried betting limits and that opening a second account to keep betting was a serious Terms of Service breach; the operator said the case had been reviewed multiple times and the decision would stand. In a later exchange prompted by CryptoBetGrade, a 500Casino representative clarified that KYC verification is a separate identity/compliance process and does not by itself amount to permission to run a second account — but did not produce the historical account records needed to confirm or rule out what the player says happened. Several images from the original complaint are no longer accessible online, so the central disputed point — whether 500Casino was actually told about and allowed the second account before the disputed betting took place — remains unresolved on the current public record.", operatorReason:"Player's original account was already subject to sportsbook betting limits; 500Casino treated the second account as a breach of its Terms of Service used to evade those limits, not an approved arrangement, and said the decision would not change after multiple internal reviews." }
+  ]},
+  "SolCasino.io": { items: [
+    { id:"csc1", title:"Account closed after alleged arbitrage / failed KYC; winnings withheld", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"A", amount:"~1,500 USDT", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/solcasino-io-player-s-account-has-been-closed", whatHappened:"Player alleged a sportsbook bet was voided as arbitrage and the remaining winnings were lost after account closure. Casino Guru accepted operator evidence that verification failed for legitimate reasons.", operatorReason:"Alleged arbitrage betting; failed verification" },
+    { id:"csc2", title:"KYC completed but a large balance was placed under extended manual review", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"~$360,000 balance", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/solcasino-io-player-s-withdrawal-is-delayed-due-to-1", whatHappened:"Player reported successful KYC and initial withdrawals, followed by another review lasting 20–30 business days. Casino Guru closed the case unresolved after the operator stopped responding.", operatorReason:"" },
+    { id:"csc3", title:"2,849 SOL withdrawal restored after a verification block", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"2,849 SOL", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/solcasino-io-the-player-s-unable-to-withdraw-his-balance", whatHappened:"Player was unable to withdraw a 2,849 SOL balance during a verification review. Access was later reopened and the player confirmed the issue was solved.", operatorReason:"" },
+    { id:"csc4", title:"183,100 USDC account block resolved by agreement", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"183,100 USDC", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/solcasino-io-player-from-israel-was-blocked-abruptly", whatHappened:"Player reported an abrupt account block after substantial winnings (183,100 USDC). After escalation with SolCasino's risk team, the player reported an agreement had been reached and the case closed as resolved.", operatorReason:"" }
+  ]},
+  "Stake": { items: [
+    { id:"cst1", title:"$3,000 withheld after submitted KYC deemed misleading", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$3,000", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/stake-sportsbook-account-suspension-and-withholding-of-funds-username", whatHappened:"Player disputed a suspension and withheld funds tied to KYC. AskGamblers reviewed Stake's evidence and resolved the case in the operator's favor.", operatorReason:"Submitted KYC information deemed misleading" },
+    { id:"cst2", title:"$72,000 balance locked after repeat identity verification", category:"Casino", issueTag:"Funds locked in betting-integrity review", priority:"A", amount:"$72,000", status:"Rejected", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/stake-casino-account-locked-despite-giving-them-kyc", whatHappened:"Player alleged the same ID document was initially accepted, then rejected after a large win. AskGamblers rejected the complaint after reviewing operator material citing suspected fraudulent activity.", operatorReason:"Suspected fraudulent activity" },
+    { id:"cst3", title:"€2,025 deposit-confiscation dispute closed in Stake's favor", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€2,025", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/stake-sportsbook-procedural-unfairness-and-lack-of-transparency-in-decision-making", whatHappened:"Player argued that permanently confiscating €2,025 of their own deposited funds was disproportionate. AskGamblers reviewed the case and closed it based on Stake's evidence/position.", operatorReason:"" }
+  ]},
+  "Gamdom": { items: [
+    { id:"cgd1", title:"Balance confiscated after KYC; $1,104.57 later restored", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$1,105", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/gamdom-casino-withdrawal-delayed-for-11-days-after-successful-kyc-verification", whatHappened:"Gamdom said its review found KYC irregularities and sportsbook terms breaches. The account stayed closed, but the previously confiscated winnings were restored as a goodwill resolution.", operatorReason:"KYC irregularities and alleged sportsbook terms breach" },
+    { id:"cgd2", title:"Profit confiscated after a month-long investigation", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$2,595.79", status:"Resolved/listing", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/gamdom-casino-confiscated-2595-usd-of-legitimate-winnings-after-1-month-of-investigation", whatHappened:"Player alleged net profit was confiscated after a long review that touched both sportsbook and casino activity.", operatorReason:"" },
+    { id:"cgd3", title:"Entire balance reportedly confiscated after a third-party tip", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"~$1,700", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/onlinegambling/comments/1k91yqq", whatHappened:"Reddit user alleged full balance confiscation after passing KYC, because a tip received from another user was linked to rule-breaking activity. Not independently adjudicated.", operatorReason:"" }
+  ]},
+  "Roobet": { items: [
+    { id:"crt1", title:"Winnings confiscated; only the initial deposit returned", category:"Sportsbook", issueTag:"Only original deposit returned", priority:"A", amount:"Not stated", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/roobet-casino-confiscated-my-winnings-and-closed-my-account-without-explanation", whatHappened:"Player alleged account closure and confiscation of all winnings. AskGamblers reviewed Roobet's evidence and concluded the operator acted within its terms.", operatorReason:"" },
+    { id:"crt2", title:"Balance reduced to zero after an address-verification issue", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"~$1,400", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/roobet-casino-confiscated-my-balance-after-requesting-address-verification", whatHappened:"Player said passport KYC was approved, then address documents were rejected and the full balance was confiscated. AskGamblers upheld Roobet after reviewing its evidence.", operatorReason:"" },
+    { id:"crt3", title:"€6,000 sportsbook winnings withheld / confiscated", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€6,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/roobet-sportsbook-roobet-confiscated-6000eur-in-legitimate-winnings-without-valid-reason", whatHappened:"Player alleged verified winnings were confiscated without a valid explanation; AskGamblers later marked the complaint resolved.", operatorReason:"" },
+    { id:"crt4", title:"Winning bets voided and €2,218 removed via an \"Admin Deduct\"", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"A", amount:"€2,218", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/roobet-sportsbook-removed-of-my-funds-without-reason", whatHappened:"Player alleged completed winning bets were later voided and an admin deduction removed €2,218 from the balance; the AskGamblers listing records the case as resolved.", operatorReason:"" }
+  ]},
+  "Thrill": { items: [
+    { id:"cth1", title:"$20,000 winnings-not-received complaint on record, rejected", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$20,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/thrill-casino-review", whatHappened:"Casino Guru currently lists a $20,000 winnings-not-received complaint among Thrill's rejected complaints. This is an operator-favourable outcome and should not be presented as proven non-payment.", operatorReason:"" },
+    { id:"cth2", title:"Lost-funds / account-conduct complaint on record, rejected", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"22,000 USDC", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/thrill-casino-review", whatHappened:"Casino Guru's Thrill complaint index lists a 22,000 USDC complaint concerning lost funds and account conduct, recorded as rejected.", operatorReason:"" },
+    { id:"cth3", title:"High-value responsible-gambling complaint on record, rejected", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"A$300,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/thrill-casino-review", whatHappened:"Casino Guru lists a high-value responsible-gambling complaint against Thrill, recorded as rejected. Included only as historical complaint data, not as an operator-fault finding.", operatorReason:"" },
+    { id:"cth4", title:"Self-exclusion dispute after early account reopening", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"71,544 USDT", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thrill-casino-responsible-gambling-breached", whatHappened:"Player alleged a 3-month restriction was confirmed using self-exclusion language, but the account was reopened early and further losses followed. Thrill said it had been a temporary break, not formal self-exclusion. AskGamblers said the player raised valid concerns and closed it unresolved.", operatorReason:"Said the restriction had been a temporary break, not formal self-exclusion" }
+  ]},
+  "Winna": { items: [
+    { id:"cwn1", title:"Sportsbook balance wiped after KYC approval and a \"fraudulent activity\" allegation", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$538", status:"Forum report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/forum/sports-and-betting/winna-confiscated-my-balance-as--fraud---right-after-approving-my-kyc--with-zero-evidence", whatHappened:"Player alleged sportsbook restriction and successful KYC, followed by the remaining balance being voided and withdrawals limited to amounts already deposited. Posted to Casino Guru's forum, not its adjudicated complaints database.", operatorReason:"Alleged fraudulent activity, no evidence cited per the poster" },
+    { id:"cwn2", title:"Sportsbook winnings confiscated after approved KYC", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"~$800", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5582303.0", whatHappened:"Bitcointalk user alleged around $800 in sportsbook winnings were confiscated after KYC approval, citing generic suspicious-betting / value-arbitrage / fixed-match wording. Not independently adjudicated.", operatorReason:"" },
+    { id:"cwn3", title:"Sports-bet review delayed a payout; later resolved", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"16,000 DKK (~$2,293)", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/winna-casino-player-s-withdrawal-has-been-delayed-1", whatHappened:"Player said an internal team was reviewing sports bets while support stopped responding. The player later confirmed the withdrawal issue was resolved.", operatorReason:"" },
+    { id:"cwn4", title:"Withdrawal delay escalated to finance team; later resolved", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"236 USDT", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/winna-casino-withdrawal-of-player-s-winnings-has-been-1", whatHappened:"Player's first withdrawal was delayed and had to be escalated to Winna's finance team. The player later marked the complaint resolved.", operatorReason:"" },
+    { id:"cwn5", title:"Funds-confiscation complaint later marked resolved", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"Not stated", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/winna-casino-player-s-funds-have-been-confiscated", whatHappened:"Casino Guru's complaint index records a Winna case specifically titled as funds being confiscated; the player later marked the matter resolved.", operatorReason:"" }
+  ]},
+  "Betpanda": { items: [
+    { id:"cbp1", title:"Provider-flagged sports account; balance confiscated after a handful of bets", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"~$4,000", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bedtpanda-io-casino-account-blocked-and-confiscation-of-deposit-and-balance", whatHappened:"Player alleged fewer than five major-league sports bets before the sportsbook's odds provider (BETBY) reportedly flagged the account, after which Betpanda confiscated the balance following KYC.", operatorReason:"BETBY (odds provider) flagged the account" },
+    { id:"cbp2", title:"Two winning bets; winnings confiscated and only part of the deposit returned", category:"Sportsbook", issueTag:"Only original deposit returned", priority:"A", amount:"$1,005", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-failure-to-return-all-deposits-and-confiscation-of-winnings", whatHappened:"Player alleged KYC was requested after two winning bets, the account was closed, and winnings were confiscated with only deposit funds returned.", operatorReason:"" },
+    { id:"cbp3", title:"Syndicate-betting allegation; $2,944 confiscated", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"$2,944", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-unjustified-account-closure-and-confiscation-of-2944-usdt", whatHappened:"Player disputed a syndicate-betting flag raised by the sportsbook provider after completing full KYC/video verification; the account was closed and funds confiscated.", operatorReason:"Alleged syndicate betting (sportsbook provider flag)" },
+    { id:"cbp4", title:"Sportsbook provider flagged suspicious activity; $1,050 withdrawal denied", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"$1,050", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-withdrawal-denied-and-account-closed", whatHappened:"Player alleged the account and a withdrawal were blocked because sportsbook activity was flagged as suspicious, without a detailed explanation given.", operatorReason:"" },
+    { id:"cbp5", title:"Won sportsbook bet manually removed; only the $400 deposit withdrawable", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"A", amount:"$336 winnings", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/gambling/comments/1uqy0wo/got_scammed_by_betpandaio_for_336/", whatHappened:"Reddit user alleged a bet was officially settled as a win by the sportsbook provider, but Betpanda later removed the winnings and allowed only the original $400 deposit to be withdrawn after KYC. Not independently adjudicated.", operatorReason:"" },
+    { id:"cbp6", title:"All funds allegedly seized after a betting-technique allegation", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"~$5,000", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/sportsbetting/comments/1mzpuka", whatHappened:"Reddit user alleged Betpanda closed the account and retained both deposits and winnings, citing betting techniques used to circumvent the house edge. Not independently adjudicated.", operatorReason:"" },
+    { id:"cbp7", title:"Sportsbook profit followed by KYC; only latest deposit released, $641 disputed", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"$641", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-banned-account-and-no-withdrawn-funds", whatHappened:"Player said they mainly used the sportsbook and became profitable, after which KYC was requested. Following verification, Betpanda allegedly permitted withdrawal of only the latest deposit and blocked the account, leaving $641 disputed. Betpanda has publicly described itself as KYC-free/anonymous while its own Terms reserve a right to verify identity, which is why this KYC-triggered case is included despite KYC alone not normally being treated as a complaint.", operatorReason:"" },
+    { id:"cbp8", title:"First withdrawal request triggered KYC, then account blocked without a clear outcome", category:"Account", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"~$600", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-blocked-account-betpanda-without-notice", whatHappened:"Player reported depositing 500 USDT and later requesting a first withdrawal with a balance around $577-$600. KYC was requested at withdrawal; the player says the requested documents were submitted immediately, but the account was subsequently blocked without a clear verification outcome.", operatorReason:"" },
+    { id:"cbp9", title:"Funds frozen, $1,155 disputed", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$1,155", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-funds-are-frozen", whatHappened:"AskGamblers records a separate BetPanda complaint titled 'Funds are frozen' with $1,155 disputed and unresolved status. Indexed narrative is limited.", operatorReason:"" },
+    { id:"cbp10", title:"Funds confiscated, $3,300 disputed", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$3,300", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-confiscated-funds-from-the-account", whatHappened:"AskGamblers records a separate complaint titled 'Confiscated funds from the account' with $3,300 disputed and unresolved status.", operatorReason:"" },
+    { id:"cbp11", title:"Account blocked after a $500 withdrawal request", category:"Account", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"$500", status:"Operator position upheld", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-the-casino-does-not-give-money-away", whatHappened:"Player alleged the account was blocked after requesting a $500 withdrawal. AskGamblers later concluded BetPanda had acted in accordance with its Terms.", operatorReason:"AskGamblers concluded Betpanda had acted in accordance with its Terms" },
+    { id:"cbp12", title:"Account permanently closed after two profitable casino sessions", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"A", amount:"~$19,000", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-played-twice-and-my-account-got-permanently-closed", whatHappened:"Player reported two profitable casino sessions followed by a request for verification documents. According to the complaint, the account was permanently closed after roughly 13 days, leaving about $19,000 disputed. This is a player allegation; the unresolved status does not establish operator wrongdoing.", operatorReason:"" },
+    { id:"cbp13", title:"Sportsbook withdrawal placed under review; account access later blocked", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$390", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betpanda-io-casino-they-not-pay-or-respond-to-me", whatHappened:"Player reported mainly using live sports betting and said a withdrawal entered a routine review. The player later said the account became inaccessible, with $390 remaining disputed. The public complaint is recorded as unresolved.", operatorReason:"" }
+  ]},
+  "Cryptorino": { items: [
+    { id:"ccr1", title:"Tennis bettor's account frozen after KYC; provider cited suspicious behaviour", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"A", amount:"~1,400–1,500 USDT", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/cryptorino-io-casino-player-s-account-is-frozen--delaying", whatHappened:"Player alleged a withdrawal was cancelled and the account frozen after tennis wins and extensive KYC. The operator later cited suspicious sportsbook betting behaviour and a terms breach.", operatorReason:"Alleged suspicious sportsbook betting behaviour" },
+    { id:"ccr2", title:"Sports bettor's account closed after KYC; remaining funds not returned", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$123", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/cryptorino-io-casino-player-s-account-has-been-closed-3", whatHappened:"Player alleged the account was blocked after KYC while attempting to withdraw a remaining balance built up from a mix of sports and slots play.", operatorReason:"" },
+    { id:"ccr3", title:"Account closed and funds made inaccessible after addiction disclosure", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"Not stated", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/cryptorino-io-casino-player-s-account-is-closed-after", whatHappened:"Player said the account was blocked and funds became inaccessible after disclosing a gambling addiction. Casino Guru later found evidence of multiple accounts and closed the complaint as unjustified.", operatorReason:"Evidence of multiple accounts" }
+  ]},
+  "Shuffle": { items: [
+    { id:"csh1", title:"Sportsbook compliance review blocked withdrawals after KYC", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$940.66", status:"Rejected", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/shuffle-casino-blocked-withdrawals-since-may-and-lack-of-response", whatHappened:"Player alleged three withdrawals stayed pending while support referred the case to \"Sports Compliance.\" AskGamblers later found the operator's evidence gave reasonable grounds for suspected fraudulent activity.", operatorReason:"Referred to sports compliance review; suspected fraudulent activity" },
+    { id:"csh2", title:"€400 partial balance confiscation from a ~€1,400 payout — resolved on AskGamblers", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"B", amount:"€400", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/shuffle-casino-balance-confiscation-and-partial-payout", whatHappened:"Player said Shuffle paid out about €1,000 of a roughly €1,400 balance but deducted the remaining €400, citing a Terms of Service breach without a specific explanation. The same allegation appeared separately on Trustpilot, where Shuffle replied that the pending withdrawals had been approved; the player maintained the €400 shortfall was a separate, unresolved issue. AskGamblers lists the complaint as resolved.", operatorReason:"Cited a Terms of Service breach, per the player's account — no specific detail given; Shuffle separately said on Trustpilot that pending withdrawals had been approved" },
+    { id:"csh3", title:"$12,859 sportsbook winnings confiscated after approved verification", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$12,859", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/shuffle-casino-my-winnings-were-confiscated-and-i-am-being-completely-ignored", whatHappened:"Player said several sports bets won, a withdrawal triggered a verification review, the verification was approved, but the winnings were later confiscated anyway without a proper explanation — and that support contacts subsequently stopped responding. AskGamblers records the complaint as unresolved.", operatorReason:"" },
+    { id:"csh4", title:"~$20,000 withdrawal held in compliance review for 14+ days", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"A", amount:"~$20,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/shuffle-casino-withholding-20k-withdrawal-in-compliance-review-for-14-days", whatHappened:"Player said a roughly $20,000 withdrawal was placed under a compliance review starting 31 July 2026, despite having already completed identity and liveness verification. The complaint was later marked resolved.", operatorReason:"" },
+    { id:"csh5", title:"$520 USDT in winnings withheld after full KYC; live support blocked", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"$520 USDT", status:"Open", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/shuffle-casino-withheld-winnings-520-usdt-and-blocked-live-support-after-full-kyc-verification", whatHappened:"Player alleged winnings were withheld even after completing full KYC verification, and that access to live support was blocked afterward. The case was still open at the time of this research.", operatorReason:"Not yet stated — case still open" }
+  ]},
+  "BetFury": { items: [
+    { id:"cbf1", title:"Account blocked after a sportsbook win and withdrawal attempt", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$5,000", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/betfury-sportsbook-account-blocked-after-trying-to-withdraw", whatHappened:"Long-time user said bet limits were reduced after a win, then the account was blocked by risk management when attempting to withdraw, despite prior KYC.", operatorReason:"" },
+    { id:"cbf2", title:"KYC-completed account blocked after a small sportsbook withdrawal", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"B", amount:"$25", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/betfury-sportsbook-few-days-ago-i-tried-to-bet-and-saw-that-i-could-not", whatHappened:"Player alleged confirmed KYC followed by account blocking after a withdrawal, with support citing multiple accounts / collusion.", operatorReason:"Alleged multiple accounts / collusion" },
+    { id:"cbf3", title:"Account closed over alleged value/arbitrage betting; deposit refunded", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"B", amount:"460 USDT", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/betfury-casino-cl-player-s-account-has-been-closed", whatHappened:"BetFury said it had detected value/arbitrage betting on the account and stated the initial deposit had been refunded, with the player having already withdrawn $200 more than that deposit. The case was closed when the player stopped responding.", operatorReason:"Alleged value/arbitrage betting" }
+  ]},
+  "Bets.io": { items: [
+    { id:"cbi1", title:"Account blocked and ~$870 confiscated after full video KYC", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$869.69", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/OnlineBetting/comments/1qhy1in/betsio_how_they_stole_870_usdt_from_me_after_full/", whatHappened:"Reddit user alleged full KYC including video verification, followed by an account block and confiscation over alleged multi-accounting. Not independently adjudicated.", operatorReason:"Alleged multi-accounting" },
+    { id:"cbi2", title:"User alleges $14,000 in funds seized after account closure", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$14,000", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/onlinegambling/comments/1s6ahsx/askgamblers_refusing_to_help_not_what_it_use_to_be/", whatHappened:"Reddit post alleged arbitrary account closure and seizure of funds. No adjudicated complaint outcome was located in the targeted search.", operatorReason:"" },
+    { id:"cbi3", title:"Blocked account and cancelled balance; eligible deposit returned", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"Not stated", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bets-io-casino-my-account-was-blocked-and-my-balance-was-cancelled", whatHappened:"Player alleged a blocked account and cancelled balance. During the complaint process the eligible deposit was returned; AskGamblers closed the case based on Bets.io's terms.", operatorReason:"" },
+    { id:"cbi4", title:"4 BTC withdrawal paid after a non-payment complaint", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"4 BTC", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bets-io-casino-not-paying-winnings", whatHappened:"Player complained that winnings were not being paid. Bets.io processed 4 BTC of withdrawals and the player confirmed receipt.", operatorReason:"" },
+    { id:"cbi5", title:"$5,900 payout completed after an investigation", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$5,900", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bets-io-casino-the-casino-does-not-pay-my-winnings", whatHappened:"Player said winnings were under investigation with a withdrawal left pending. The player later confirmed receipt of roughly 85,000 TRX (about $5,900).", operatorReason:"" }
+  ]},
+  "Rollbit": { items: [
+    { id:"crl1", title:"Sportsbook winnings confiscated; only the deposit amount initially released", category:"Sportsbook", issueTag:"Only original deposit returned", priority:"A", amount:"$50 disputed", status:"Unresolved / sportsbook scope", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rollbit-casino-player-s-account-is-closed--and-winnings", whatHappened:"Player alleged the first withdrawal matched the initial deposit while remaining profits stayed blocked, with the account suspended once KYC was requested. Casino Guru closed the case because it fell within sportsbook scope.", operatorReason:"" },
+    { id:"crl2", title:"Full $516 balance, including the $300 deposit, confiscated after Level 3 KYC", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$516", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rollbit-casino-player-s-winnings-and-deposit-have", whatHappened:"Player alleged Rollbit accused the account of multi-accounting, offered live video KYC, then banned the account and confiscated the entire balance including the original deposit. Casino Guru closed the case unresolved after non-cooperation.", operatorReason:"Alleged multi-accounting" },
+    { id:"crl3", title:"$14,000 in winnings confiscated for alleged betting \"abuse\"", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"14,000 USDT", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rollbit-casino-player-s-winnings-were-confiscated", whatHappened:"Player alleged winnings were confiscated over betting techniques said to circumvent the house edge. Casino Guru closed the case unresolved after no satisfactory outcome was reached.", operatorReason:"Alleged use of betting techniques to circumvent house edge" },
+    { id:"crl4", title:"Account restored and full balance withdrawn after a 2.5-month freeze", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"Not stated", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/rollbit-casino-player-s-withdrawal-is-delayed-due-5", whatHappened:"After Level 3 KYC, the player's account and withdrawals were frozen. Roughly 2.5 months later Rollbit restored access and allowed withdrawal of the entire balance.", operatorReason:"" },
+    { id:"crl5", title:"$3,386.52 sportsbook balance seized from a Level 3 account, no reason given", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$3,386.52", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5578228.0", whatHappened:"Bitcointalk user (Level 3 KYC, self-described professional pre-match football bettor) said Rollbit disabled the account on 27 February 2026 and seized the full balance of $3,386.52 without a stated technical reason. The player filed complaints with Gaming Curaçao and Casino Guru (case ID 200873); as of the thread's last update Rollbit had not issued a public response and the case remained unresolved. Not independently adjudicated.", operatorReason:"" }
+  ]},
+  "Cloudbet": { items: [
+    { id:"ccb1", title:"Sportsbook integrity review locked a balance; later released", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$6,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/cloudbet-casino-betting-integrity-review-6-months", whatHappened:"Sports bettor alleged account restriction and a withheld balance during a betting-integrity review that could take up to six months. Cloudbet later reopened the account and the player confirmed the full amount was returned.", operatorReason:"" },
+    { id:"ccb2", title:"Verified sports bettor locked with over €2,500 after winning slips", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"~€2,500+", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/cloudbet-casino-account-restriction-for-over-a-month", whatHappened:"Player alleged a long-running, verified account was suddenly restricted for a six-month integrity review shortly after basketball wins.", operatorReason:"" },
+    { id:"ccb3", title:"Account frozen after KYC; $3,247 balance withheld over alleged multi-accounting", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$3,247.53", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/cloudbet-casino-account-frozen-but-i-didn-t-have-multiple-accounts", whatHappened:"Player alleged a balance lock after KYC. AskGamblers reviewed Cloudbet's evidence and upheld the operator's terms-based action.", operatorReason:"Alleged multiple accounts" },
+    { id:"ccb4", title:"KYC-verified account frozen with 3,427 USDT during a six-month investigation", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"3,427 USDT", status:"Resolved/listing", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/cloudbet-casino-account-frozen-for-6-months-with-3427-usdt-without-explanation", whatHappened:"Player alleged only normal sports bets were placed and no terms breach was communicated, yet the account remained frozen for a long investigation.", operatorReason:"" },
+    { id:"ccb5", title:"$150 integrity-review restriction lifted", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$150", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/cloudbet-casino-account-closed-for-betting-integrity-review", whatHappened:"Player complained about a potential six-month integrity review. Cloudbet reopened the account and the player confirmed the issue was resolved.", operatorReason:"" },
+    { id:"ccb6", title:"Betting-integrity review resolved for a verified sports bettor", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"Not stated", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/cloudbet-casino-they-say-i-need-to-wait-6-months-for-investigation", whatHappened:"Verified sports bettor was told an integrity investigation could take up to six months. AskGamblers later recorded the case as resolved.", operatorReason:"" }
+  ]},
+  "1win": { items: [
+    { id:"c1w1", title:"Deposits and winnings confiscated in a sports-betting / KYC dispute", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"13,300 USDT", status:"Closed - sportsbook scope", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-s-winnings-are-confiscated-and", whatHappened:"Player alleged account closure and confiscation of all deposits and winnings after KYC, tied to accusations involving shared IP address and sports knowledge. Casino Guru could not adjudicate the sportsbook-specific aspect of the case.", operatorReason:"Accusations relating to IP address / sports knowledge" },
+    { id:"c1w2", title:"Sports betting account blocked after verification and an additional video review", category:"Sportsbook", issueTag:"Account blocked after KYC video review", priority:"C", amount:"Not specified", status:"Closed - sportsbook scope", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-s-account-is-blocked-after-verification", whatHappened:"Player reported completing standard KYC, then being asked for an additional video interview before the account was blocked. The disputed winnings originated from sports betting, and Casino Guru's team said it could not substantively adjudicate the sportsbook-specific investigation behind the block.", operatorReason:"" },
+    { id:"c1w3", title:"8,000 AZN in winnings allegedly confiscated after a face-verification request", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"8,000 AZN", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/1win-casino-illegal-8000-azn-confiscation", whatHappened:"Player alleged a previously verified account was blocked after withdrawal requests, with funds remaining withheld after an additional face-verification request.", operatorReason:"AskGamblers reviewed both sides and concluded 1win acted in accordance with its Terms and Conditions." },
+    { id:"c1w4", title:"Account closed following a winning period and a withdrawal attempt", category:"Account", issueTag:"Account closed after winning streak", priority:"A", amount:"Not specified", status:"Rejected after operator evidence", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-s-account-is-closed-after-winning", whatHappened:"Player reported the account was closed following a winning period, coinciding with a withdrawal attempt and a VIP-related dispute.", operatorReason:"Complaint was rejected after operator evidence was reviewed — an operator-favourable outcome rather than an unresolved confiscation case." },
+    { id:"c1w5", title:"Withdrawal blocked over an arbitrage allegation and multiple-account claim", category:"Sportsbook", issueTag:"Multi-account arbitrage-betting dispute", priority:"C", amount:"37,000 ARS", status:"Rejected after operator evidence", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-s-withdrawal-has-been-blocked", whatHappened:"Player disputed an account block that followed document submission, and challenged an arbitrage-related allegation tied to the block.", operatorReason:"Rejected after Casino Guru reviewed evidence of multiple-account connections presented by the operator." },
+    { id:"c1w6", title:"Account blocked after sports bets went unaccepted and balance moved to casino wagering", category:"Sportsbook", issueTag:"Sports bets not accepted / wagering-method dispute", priority:"C", amount:"Approx. $346", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/1win-casino-account-blocked-after-withdrawal-request", whatHappened:"Player reported depositing about $145 in USDT, having sports bets rejected, wagering the balance through casino games instead, and reaching about $346 before the account was blocked at withdrawal.", operatorReason:"AskGamblers ultimately considered the operator to have acted according to its own rules." },
+    { id:"c1w7", title:"Crypto withdrawal method removed after prior KYC; card withdrawals also cancelled", category:"Account", issueTag:"Crypto withdrawal method removed", priority:"B", amount:"Not specified", status:"Public complaint", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/1win-casino-withdrawal-blocked-after-removal-of-cryptocurrency-method", whatHappened:"Player reported that a cryptocurrency withdrawal option previously used successfully disappeared, while card withdrawals were also cancelled despite prior KYC having been completed. Primarily a payment-method and withdrawal complaint rather than a confiscation allegation.", operatorReason:"" },
+    { id:"c1w8", title:"20,620 INR withheld after document verification under account rule 9.7", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"20,620 INR", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-s-withdrawal-is-withheld-and-account", whatHappened:"After document verification, the account was blocked under the operator's rule 9.7. 1win later agreed to refund the balance and stated the funds had been sent, but the player never confirmed receipt.", operatorReason:"Operator agreed to refund the balance and said funds had been sent; complaint closed after the player stopped responding to confirm." },
+    { id:"c1w9", title:"17,000 USDT account block following a withdrawal and KYC review", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"17,000 USDT", status:"Rejected after operator evidence", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-s-account-has-been-blocked--withdrawal", whatHappened:"Player alleged a withdrawal request led to identity verification and later account closure, with about 17,000 USDT left disputed.", operatorReason:"Casino Guru upheld the operator's position based on evidence concerning multiple accounts and KYC-related breaches." },
+    { id:"c1w10", title:"Over 5,000 AZN in winnings reported missing after an account block and reopening", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"Over 5,000 AZN", status:"Resolved by player", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1win-casino-player-reports-confiscated-winnings", whatHappened:"Player reported an account block and later reopening with more than 5,000 AZN missing from the balance, while support allegedly gave differing explanations for what happened.", operatorReason:"Complaint was later marked resolved by the player; the underlying discrepancy in support's explanations was not independently adjudicated." }
+  ]},
+  "Duelbits": { items: [
+    { id:"cdb1", title:"Sportsbook access limited; $500 withdrawal then triggered a KYC delay", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$500", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/duelbits-casino-casino-don-t-let-me-withdraw-my-funds", whatHappened:"Player alleged sportsbook access was limited and a subsequent withdrawal remained blocked after KYC documents were submitted.", operatorReason:"" },
+    { id:"cdb2", title:"Account closed after KYC; balance allegedly zeroed", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€3,000 disputed", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/duelbits-casino-scammed-out-of-15000-in-deposits-and-3000-in-winnings", whatHappened:"Player alleged the account was suspended, KYC was completed, then the account was permanently closed with the balance removed.", operatorReason:"" },
+    { id:"cdb3", title:"Account closed after substantial winnings; multiple-account evidence cited", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"8,500 USDT", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/duelbits-casino-player-s-account-has-been-closed-without-clear-reason", whatHappened:"Player alleged repeated account closure after substantial winnings. Casino Guru ultimately said the operator provided evidence of multiple accounts and closed the complaint as unjustified.", operatorReason:"Evidence of multiple accounts" },
+    { id:"cdb4", title:"$5,719 in winnings allegedly confiscated after account closure", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$5,719", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/duelbits-casino-they-won-t-tell-me-why-tehy-closed-my-account", whatHappened:"Player alleged $5,719 in winnings were removed and the account closed without a meaningful explanation. AskGamblers records the complaint as unresolved.", operatorReason:"" },
+    { id:"cdb5", title:"$250,000+ withdrawal held during an extended review", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$250,000+", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/duelbits-casino-250-000-dollars-held-hostage", whatHappened:"Player alleged full cooperation with verification but no substantive progress or timeline on a withdrawal exceeding $250,000. AskGamblers records the complaint as unresolved.", operatorReason:"" },
+    { id:"cdb6", title:"$9,975 in sportsbook winnings confiscated after enhanced verification on two NBA bets", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"$9,975", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5568122.0", whatHappened:"Player said two NBA bets won, after which a withdrawal request triggered enhanced verification — ID/liveness checks, Binance account statements and a tax declaration. The deposit was reportedly eventually returned, but the winnings were confiscated after Duelbits cited rules violations, fraud and money laundering without a specific public explanation. As of August 2026 the case was still contested publicly, with a forum member attempting to reach a Duelbits representative for clarification. No direct Duelbits forum response was located.", operatorReason:"Cited rules violations, fraud and money laundering, per the player's account — no specific public explanation located" }
+  ]},
+  "Nitrobetting": { items: [
+    { id:"cnb1", title:"More than $20,000 reportedly locked during a security review", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$20,000+", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/sportsbook/comments/yk915r/over_20k_frozenlocked_up_avoid_nitrobettingeu_at/", whatHappened:"Reddit thread alleged withdrawals were locked during a security review and further KYC demands. The original poster later said the cashout was eventually processed, making this a funds-freeze rather than a confiscation signal.", operatorReason:"" },
+    { id:"cnb2", title:"Sportsbook withdrawal left pending for over a week", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€1,121", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/nitrobet-sportsbook-1-week-being-ignored", whatHappened:"Verified sportsbook player reported a pending withdrawal and no meaningful response for more than a week. AskGamblers closed the complaint unresolved.", operatorReason:"" },
+    { id:"cnb3", title:"Sportsbook withdrawal unpaid despite completed verification", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€737", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/nitrobet-sportsbook-delayed-withdrawal", whatHappened:"Player completed the available verification process and additional document checks, but the sportsbook withdrawal remained unpaid. AskGamblers records the complaint as unresolved.", operatorReason:"" },
+    { id:"cnb4", title:"CAD 400 in winnings unavailable for withdrawal despite verification", category:"Casino", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"CAD 400", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/nitrobet-casino", whatHappened:"Verified player reported that CAD 400 in winnings could not be selected for withdrawal despite confirmation that verification was complete. AskGamblers records the case as resolved.", operatorReason:"" },
+    { id:"cnb5", title:"€4,800 withdrawal pending beyond the stated processing period", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€4,800", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/nitrobet-casino", whatHappened:"Player reported an approximately €4,800 withdrawal remaining pending beyond the stated processing period. AskGamblers records the complaint as resolved.", operatorReason:"" },
+    { id:"cnb6", title:"C$2,133 in winnings confiscated, per Casino Guru's complaint overview", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"C$2,133", status:"Complaint listing", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/nitro-casino-review", whatHappened:"Casino Guru's complaint overview for this operator lists a case involving C$2,133 in confiscated winnings. The overview should be used as the source unless the individual case URL is separately retained.", operatorReason:"" },
+    { id:"cnb7", title:"€653 in winnings confiscated, a separate case in Casino Guru's overview", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€653", status:"Complaint listing", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/nitro-casino-review", whatHappened:"Casino Guru's complaint overview lists a separate case in which €653 in winnings were confiscated, distinct from the C$2,133 case.", operatorReason:"" },
+    { id:"cnb8", title:"€10,000 withdrawal dispute over an alleged account-rule violation", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€10,000", status:"Complaint listing", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/nitro-casino-review", whatHappened:"Casino Guru's complaint overview lists a €10,000 withdrawal dispute associated with an alleged account-rule violation.", operatorReason:"Alleged account-rule violation" },
+    { id:"cnb9", title:"€1,104 withdrawal dispute over an alleged rule violation; operator did not respond", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€1,104", status:"Unresolved in complaint overview", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/nitro-casino-review", whatHappened:"Casino Guru's overview describes a separate €1,104 withdrawal dispute tied to an alleged rule violation and notes that the operator did not respond to repeated enquiries.", operatorReason:"Alleged rule violation; operator did not respond to enquiries" },
+    { id:"cnb10", title:"9,113 NOK confiscated over alleged bonus misuse; operator later called it an error", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"9,113 NOK", status:"Complaint listing", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/nitro-casino-review", whatHappened:"Casino Guru's overview lists a case involving 9,113 NOK in confiscated winnings connected to alleged bonus misuse. Its summary says the casino later stated the confiscation resulted from an error and the winnings would be restored.", operatorReason:"Alleged bonus misuse; operator later said the confiscation was an error and winnings would be restored" },
+    { id:"cnb11", title:"Withdrawal delayed about a week", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€7,800", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/nitro-casino-withdrawal-issues-for-a-week", whatHappened:"Verified player reported a €7,800 withdrawal outstanding for about a week. AskGamblers later marked the case resolved.", operatorReason:"" }
+  ]},
+  "bet105.ag": { items: [
+    { id:"cb105-1", title:"Withdrawal left pending; user alleges a $165 loss", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"$165", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/onlinegambling/comments/1sp4g59/everygame_bet105_sportsbooks/", whatHappened:"Reddit user alleged a withdrawal remained pending with unanswered emails. Weak evidence overall, and not a confiscation finding.", operatorReason:"" },
+    { id:"cb105-4", title:"Voided bets and payout avoidance alleged; disputed by operator", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://uk.trustpilot.com/review/bet105.ag?page=2", whatHappened:"A Trustpilot reviewer alleged voided bets and payout avoidance. Bet105 publicly disputed parts of the review and asked for account details; this is not an adjudicated complaint.", operatorReason:"Operator publicly disputed the allegation" },
+    { id:"cb105-5", title:"Repeat verification and a 72-hour withdrawal delay after wins", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/bet105.ag?page=3", whatHappened:"A Trustpilot reviewer alleged repeated verification requests and a 72-hour withdrawal delay after several winning bets. The signal here is payout friction after wins, not the KYC request itself.", operatorReason:"" }
+  ]},
+  "Fresh Casino": { items: [
+    { id:"cfc1", title:"Account closed, €6,600 in winnings confiscated", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€6,600", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/Fresh-Casino-review", whatHappened:"Casino Guru's complaint index lists a Fresh Casino case described as account closure with €6,600 in winnings confiscated. The individual case detail should be checked before treating it as a confirmed operator fault.", operatorReason:"" },
+    { id:"cfc2", title:"510 USDT withdrawal frozen for 31 days; paid on day 31", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"510 USDT", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/fresh-casino-casino-has-frozen-my-510usdt-withdrawl-for-31days", whatHappened:"KYC-verified player alleged Fresh froze a 510 USDT withdrawal for a 31-day fairness review. Fresh later said the check was complete and approved the withdrawal; the player confirmed receipt on day 31.", operatorReason:"Fairness/unfair-play review" },
+    { id:"cfc3", title:"Repeated withdrawal rejections during ongoing verification", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"9,000 RUB", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/fresh-casino-casino-all-my-withdrawal-requests-were-rejected", whatHappened:"Player alleged multiple withdrawals were rejected while the casino repeatedly requested further card-ownership verification.", operatorReason:"" }
+  ]},
+  "Sol Casino": { items: [
+    { id:"csl1", title:"€600 withdrawal blocked over an unmet wagering requirement", category:"Casino", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€600", status:"Closed — player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/solcasino-withdrawal-of-player-s-winnings-has-been", whatHappened:"Player won €600 and requested a withdrawal; the casino said its internal Responsible Gaming and Anti-Money Laundering policy required deposited funds to be wagered before a withdrawal could be processed. The player disputed this, saying they had already wagered well over €600. Casino Guru closed the complaint after its standard 14-day waiting period passed with no further response, noting it can be reopened if the player gets back in touch.", operatorReason:"Cited an internal Responsible Gaming / AML policy requiring deposited funds to be wagered before withdrawal" },
+    { id:"csl3", title:"$6,342.22 payment delay resolved", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$6,342.22", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sol-casino-delayed-payment-of-usd6300", whatHappened:"Player said a previously verified account with successful past withdrawals had a large withdrawal pending for an extended period. Sol Casino later approved it and AskGamblers closed the complaint as resolved.", operatorReason:"" },
+    { id:"csl4", title:"S/.3,257 withdrawal delayed despite successful verification", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"S/.3,257", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/sol-casino/complaints", whatHappened:"Player alleged the casino's stated processing and verification timeframes had passed without a clear answer. AskGamblers lists the case as resolved.", operatorReason:"" },
+    { id:"csl5", title:"€407 cashout delay resolved", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"€407", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sol-casino-cashout-pending-very-long", whatHappened:"AskGamblers records a Sol Casino cashout-delay complaint as resolved; useful mainly as a historical payment-delay case rather than a confiscation signal.", operatorReason:"" },
+    { id:"csl6", title:"€2,000 allegedly unpaid while verification pending", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"€2,000 alleged", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/sol.casino", whatHappened:"A 2026 Trustpilot reviewer alleged roughly €2,000 remained unpaid while verification was still pending. Not an adjudicated complaint.", operatorReason:"" },
+    { id:"csl7", title:"€80 withdrawal returned to balance over a technical issue", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"€80", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sol-casino-no-pay-great-delay-of-80-euros", whatHappened:"Verified player alleged an €80 withdrawal was returned to the casino balance because of a technical problem and was not paid. AskGamblers records it unresolved.", operatorReason:"" }
+  ]},
+  "Jet Casino": { items: [
+    { id:"cjt1", title:"€5,000 withdrawal delayed a month under a verification clause", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€5,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/jet-casino-delaying-withdrawal-by-1-month-without-reason", whatHappened:"Player deposited €2,000 and won €5,000 on slots, then hit a payment delay the casino attributed to its terms of service, calling the wait \"unacceptable behaviour.\" Jet Casino cited its rule allowing it to \"limit the possibility of withdrawing funds ... for a period of up to 31 calendar days to check the account.\" After 31 days the player confirmed receiving payment in full and the complaint was closed.", operatorReason:"Invoked its 31-calendar-day account-verification clause (section 10.4 of its Sports rules)" },
+    { id:"cjt2", title:"€909 withdrawal held under the same 31-day review clause", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€909.48", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/jet-casino-withdrawal-issues-and-prolonged-investigation", whatHappened:"Player \"Coman\" tried to withdraw €909.48 and was asked for standard ID/selfie verification, then for a video selfie with ID despite the account already being verified. Jet Casino then invoked section 10.4 of its Sports rules — up to 31 calendar days to review an account for suspected unfair play — despite the player having placed only 10-15 sports bets. AskGamblers closed the case as unresolved, ruling the review had run excessively long, and recommended the casino reopen it once its review concluded.", operatorReason:"Invoked section 10.4 of its Sports rules to review the account for suspected unfair play" },
+    { id:"cjt3", title:"€28,000 in winnings removed after a game-provider technical-error finding", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€28,000", status:"Rejected after operator evidence", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/jet-casino-review/bonuses", whatHappened:"Player alleged the balance was reduced from about €28,000 to the original deposit after an account freeze. Casino Guru obtained a game-provider technical report showing the winnings were incorrectly calculated and rejected the complaint.", operatorReason:"Game-provider technical error (incorrectly calculated winnings)" },
+    { id:"cjt4", title:"Large confiscation complaint listed in Casino Guru's index", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€259,797", status:"Public complaint", verified:false, source:"Casino Guru", sourceUrl:"https://casino.guru/jet-casino-review", whatHappened:"Casino Guru's current Jet Casino complaint index includes a winnings-confiscation case with a disputed amount of €259,797. Individual case detail should be verified before treating it as a confirmed operator fault.", operatorReason:"" },
+    { id:"cjt5", title:"20,766 UAH sportsbook withdrawal delay closed as out of scope", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"20,766 UAH", status:"Closed - sportsbook scope", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/jet-casino-player-s-withdrawal-is-delayed-1", whatHappened:"Player had completed document and call verification, but a withdrawal remained delayed while sports-betting activity was reviewed. Casino Guru closed the case because it was specifically sportsbook-related.", operatorReason:"" },
+    { id:"cjt6", title:"€18,500 withdrawal pending since March 2024, later resolved", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€18,500", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/jet-casino/complaints", whatHappened:"Player reported a €18,500 withdrawal pending since 25 March 2024. The AskGamblers complaint listing records the case as resolved.", operatorReason:"" },
+    { id:"cjt7", title:"€470 withdrawal held during a 17-day account-control review", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€470", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/jet-casino-withdrawal-delayed-for-17-days", whatHappened:"Player reported a €470 withdrawal pending for more than 17 days during additional account control. The operator later said it was approved and the case was resolved.", operatorReason:"Additional account-control review (17 days)" }
+  ]},
+  "Starda Casino": { items: [
+    { id:"cst-2", title:"Withdrawal review delayed a 3,446 PLN payout by 32 days, then paid short", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"3,446 PLN (~€800)", status:"Closed — player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/starda-casino-player-believes-that-their-withdrawal-1", whatHappened:"A Polish player requested a 3,446 PLN withdrawal in early July 2025. The casino cited additional verification despite the account already being verified, asking for a repeat video selfie and ID. After 32 days it paid only 3,254.89 PLN — about 191 PLN short of the requested amount. The complaint was closed after the player did not supply bank-statement documentation Casino Guru had requested to investigate the shortfall.", operatorReason:"Invoked its 31-day account-verification clause (paragraph 10.4); shortfall in the eventual payout was never explained" },
+    { id:"cst-3", title:"€5,600 in winnings initially deducted, later paid after reopening", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€5,600", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/starda-casino-player-s-account-has-been-closed-and", whatHappened:"Player reported that after extensive KYC the account was permanently blocked and €5,600 deducted. Following Casino Guru mediation, Starda accepted the verification documents, reopened the account and processed the winnings.", operatorReason:"" },
+    { id:"cst-4", title:"Sports bets reportedly voided under an unsporting-conduct clause", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"A", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/starda.casino", whatHappened:"A Trustpilot reviewer alleged sports winnings were cancelled. Starda publicly replied that the bets were voided under its sports rule allowing voiding where there is clear evidence of unsporting conduct or other rule violations.", operatorReason:"Alleged unsporting conduct (per operator's public reply)" },
+    { id:"cst-5", title:"Withdrawal requests totalling €850 allegedly withheld without justification", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€850", status:"Community review", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/starda.casino", whatHappened:"A Trustpilot reviewer filed a formal complaint alleging unjustified withholding of withdrawal requests totalling €850. This is a user allegation, not an adjudicated finding.", operatorReason:"" },
+    { id:"cst-6", title:"Approved 1,300 PLN withdrawal reportedly never received", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"1,300 PLN", status:"Community review", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/starda.casino", whatHappened:"A reviewer reported that a 1,300 PLN withdrawal had been approved but remained unpaid for weeks; the review was later updated to say no payment had been received.", operatorReason:"" },
+    { id:"cst-7", title:"€219.47 withdrawal held under a 31-day investigation despite full verification", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€219.47", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/starda-casino/complaints", whatHappened:"AskGamblers lists a complaint concerning a fully verified player whose €219.47 withdrawal remained pending and was reportedly placed under a 31-day investigation.", operatorReason:"Reported 31-day account investigation" },
+    { id:"cst-8", title:"$423 withdrawal unpaid after the stated processing period", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$423", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/starda-casino/complaints", whatHappened:"AskGamblers lists a separate unresolved complaint over a $423 withdrawal that the player said remained unpaid after the stated processing period.", operatorReason:"" }
+  ]},
+  "1Go Casino": { items: [
+    { id:"c1go1", title:"$600 withdrawal held under a 31-day verification clause despite full KYC", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$600 (two $300 USDT withdrawals)", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1go-casino-player-claims-that-payment-has-been-delayed", whatHappened:"An Algerian player submitted two $300 USDT withdrawal requests on October 18, 2025. 1Go invoked clause 10.4 — \"the 1GO platform has the right to limit the ability to withdraw funds for up to 31 calendar days\" — despite the player having already completed full KYC with ID, selfie and video verification. The casino later confirmed the additional review was complete and restored withdrawal functionality; the case was marked resolved on November 17, 2025.", operatorReason:"Invoked clause 10.4 — up to 31 calendar days for account verification — despite already-completed KYC" },
+    { id:"c1go2", title:"€4,000 withdrawal left pending past the promised verification window", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€4,000", status:"Rejected — player did not respond", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1go-casino-withdrawal-of-player-s-winnings-has-been", whatHappened:"An Irish player won and requested a withdrawal on May 15, 2024, submitting verification documents the next day. 1Go said verification could take up to 72 hours, but the withdrawal remained pending after that window with no update. Casino Guru advised waiting at least 14 days and sent multiple follow-up messages, but the player never responded; the case was closed on June 15, 2024, with the option to reopen it later.", operatorReason:"Cited a standard review of the player's profile and betting history; no further detail given on the delay" },
+    { id:"c1go3", title:"Balance reduced from ~€2,100 to €700 under a bonus max-win rule", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€700 payable from ~€2,100", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/1go-casino-player-s-winnings-have-been-confiscated", whatHappened:"Player said the balance fell from roughly €2,100 to €700 at withdrawal because of a 5x bonus maximum-win rule. Casino Guru identified the rule and the player later confirmed the €700 was paid.", operatorReason:"Bonus maximum-win rule" },
+    { id:"c1go4", title:"~30,000 UAH balance dispute closed under a no-deposit bonus cap", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"~30,000 UAH claimed", status:"Operator position upheld", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1go-casino-player-s-withdrawal-is-confiscated-by-the", whatHappened:"Player alleged funds were removed from the real balance after wagering. Casino Guru questioned transparency but, after reviewing game logs, concluded the funds remained subject to the no-deposit bonus cap and closed the complaint as unjustified.", operatorReason:"No-deposit bonus maximum-win cap" },
+    { id:"c1go5", title:"Second bonus-cap dispute reviewed during mediation", category:"Casino", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"Not stated", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/1go-casino-player-s-withdrawal-is-delayed-and-winnings", whatHappened:"Casino Guru challenged the application of a maximum-win cap at the withdrawal stage and argued a second cap could be unfair, though the case is mainly a terms-transparency signal rather than a confirmed confiscation.", operatorReason:"" }
+  ]},
+  "Legzo Casino": { items: [
+    { id:"clg1", title:"€1,389.16 withdrawal delayed past the stated window", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€1,389.16", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/legzo-casino-withdrawal-delayed-over-a-month", whatHappened:"A €1,389.16 withdrawal was delayed over a month past the casino's own 31-day window, with only automated responses; paid after complaint escalation.", operatorReason:"" },
+    { id:"clg2", title:"€5,162 payout delayed for months", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€5,162", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/legzo-casino-5162-euro-payout-delayed-since-22th-of-july", whatHappened:"A €5,162 payout was delayed since mid-2023 despite completed verification and a video interview, and remained unresolved as reported.", operatorReason:"" },
+    { id:"clg3", title:"€50 withdrawal held during a heavy stake-limit review; later paid", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€50 withdrawal / €92.79 balance", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-withdrawal-of-player-s-winnings-has-been", whatHappened:"Player deposited without a bonus, won on football, and was then heavily stake-limited and asked for video verification. Legzo said the account review could take up to 31 days; the withdrawal was later approved and received.", operatorReason:"" },
+    { id:"clg4", title:"€80 missing-winnings dispute not upheld", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€80", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-player-s-winnings-are-confiscated", whatHappened:"Player alleged missing winnings from game rounds. Casino Guru reviewed available evidence and provider/casino data and did not uphold the claim.", operatorReason:"" },
+    { id:"clg5", title:"€100 withdrawal delayed nearly a week citing technical work", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"€100", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-player-s-withdrawal-has-been-delayed-2", whatHappened:"A German player reported a withdrawal pending for almost a week, with support citing technical work and providing no completion timeframe.", operatorReason:"Cited ongoing technical work, no timeframe given" },
+    { id:"clg6", title:"€750 Skrill withdrawal exceeded the stated processing period, later paid", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€750", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-withdrawal-of-player-s-winnings-has-been-2", whatHappened:"Player reported a €750 Skrill withdrawal exceeding the stated processing period. The player later confirmed payment and the complaint was resolved.", operatorReason:"" },
+    { id:"clg7", title:"€50 sportsbook withdrawal held for a 31-day account review, later paid", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€50", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-withdrawal-of-player-s-winnings-has-been", whatHappened:"After sports betting and verification, the player reported the withdrawal was held for an account review that could take up to 31 days. Casino Guru records the case as resolved after payment.", operatorReason:"Cited up to 31 days for account review" },
+    { id:"clg8", title:"€300 sportsbook withdrawal delayed by prolonged verification, later paid", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€300", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-player-s-withdrawal-has-been-delayed-1", whatHappened:"Player deposited €200, placed sportsbook bets and requested €300. After extensive verification and a prolonged review, the withdrawal was eventually paid.", operatorReason:"" },
+    { id:"clg9", title:"€5,162 withdrawal pending for weeks despite verification, later resolved", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€5,162", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-player-s-withdrawal-has-been-delayed", whatHappened:"A fully verified player reported a €5,162 withdrawal pending for weeks despite approved documents and video verification. The complaint was later resolved.", operatorReason:"" },
+    { id:"clg10", title:"€65 withdrawal held for a 31-business-day account-activity audit", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"€65", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/legzo-casino-player-s-withdrawal-delayed-by-extended", whatHappened:"Player reported being asked to wait 31 business days for an account-activity audit after placing only a few bets. The complaint could not be fully investigated because the player stopped responding.", operatorReason:"Cited a 31-business-day account-activity audit" }
+  ]},
+  "Irwin Casino": { items: [
+    { id:"cir1", title:"Balance reduced in live chat with no clear explanation", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€3,200 (reduced to €52)", status:"Closed — player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/irwin-casino-player-believes-that-their-withdrawal", whatHappened:"A German player won €3,200 from a no-deposit bonus in January 2025. Requesting withdrawal in August 2025 (€2,600 to crypto, €600 to a bank account), both requests were rejected, and during live chat the player watched the balance drop step by step from €3,200 to €52 with no clear explanation, while support said \"I guarantee that you'll receive your funds safely after verification is complete.\" The case closed on September 17, 2025 after the player stopped responding; Casino Guru noted the reduction likely reflected the casino's cap on no-deposit-bonus wins at 10× the bonus amount.", operatorReason:"Casino Guru concluded the balance likely fell under the casino's 10× no-deposit-bonus win cap" },
+    { id:"cir3", title:"Balance reached $6,133 on a deposit bonus; only $400 paid", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"Player claimed $6,133; $400 paid", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/irwin-casino-bonus-terms-discrepancy", whatHappened:"Player said a third-deposit bonus was wagered up to a $6,133 balance, but only $400 was paid due to a maximum-win rule. AskGamblers concluded Irwin acted in accordance with its terms, while the player disputed how clearly those terms were presented.", operatorReason:"Bonus maximum-win rule" },
+    { id:"cir4", title:"Account permanently blocked after a large win; third-party evidence cited", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"6,868,467 KZT", status:"Operator position upheld", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/irwin-casino-player-s-account-has-been-closed", whatHappened:"Player reported a large real-balance win followed by permanent account closure after video verification. Casino Guru reviewed evidence and concluded a third party was involved during the verification call, upholding the closure.", operatorReason:"Alleged third-party involvement during verification" },
+    { id:"cir5", title:"Verified €500 withdrawal delayed; later resolved", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€500", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/irwin-casino-player-s-withdrawal-has-been-delayed", whatHappened:"Verified player reported a withdrawal delay and vague support responses. The player later confirmed the issue was resolved.", operatorReason:"" },
+    { id:"cir6", title:"€105 verified withdrawal repeatedly rejected", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"€105", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/irwin-casino-player-s-withdrawal-is-delayed-without", whatHappened:"Player alleged repeated rejected withdrawals despite completed wagering and verification. The complaint was closed when the player stopped responding, so no finding against the operator was made.", operatorReason:"" }
+  ]},
+  "Duel": { items: [
+    { id:"cdu1", title:"Refund sought after self-exclusion, then a second account opened with the same wallets", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"C", amount:"Not stated", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/duel-com-casino-player-requests-refund-due-to-gaming", whatHappened:"Player sought refunds after self-excluding on one account and then opening a second account using the same crypto wallets. Casino Guru invited Duel.com to explain how a second account was possible under its self-exclusion controls, but says no verifiable information was provided, so the case was closed unresolved rather than decided either way.", operatorReason:"Not provided — Duel.com did not supply verifiable information to Casino Guru's inquiry, per Casino Guru" }
+  ]},
+  // Sportsbet.io — 8 individually sourced AskGamblers complaint pages, checked 24 Aug 2026.
+  // Selection followed a "KYC/sportsbook/withdrawal/funds-confiscation only" rule: routine KYC
+  // requests were excluded, priority given to blocked withdrawals, confiscated funds, account
+  // closures with money at stake, sportsbook settlement disputes, and account-security losses.
+  // Complaint descriptions are player allegations unless AskGamblers or the operator independently
+  // confirmed a fact — statuses describe the documented outcome, not proof the allegation was true.
+  "Sportsbet.io": { items: [
+    { id:"csb1", title:"10.2 BTC in winnings withheld over multi-accounting allegation", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"10.2 BTC", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-refusing-to-payout-10-btc-winnings", whatHappened:"Player deposited a little over 2 BTC and won roughly 10.2 BTC across live casino and slot play. The account was then disabled over a suspected second, related account.", operatorReason:"Sportsbet.io cited Terms sections 3.5 (one member account per person) and 16.1 (account suspension rights), and provided AskGamblers with supporting evidence; the winnings were forfeited." },
+    { id:"csb2", title:"4,173 USDT confiscated after a sportsbook and casino winning streak", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"4,173 USDT", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-closed-my-account-and-confiscated-my-entire-balance-4173-usdt", whatHappened:"A player returning after a period of inactivity won an NFL bet, deposited a further 768 USDT, won an NBA bet and also played roulette, reaching a balance of about 4,173 USDT. KYC was requested at withdrawal and completed, after which the player said Sportsbet.io accused the account of multi-accounting and betting-syndicate activity and moved to close it with the balance confiscated.", operatorReason:"AskGamblers reviewed the evidence supplied during the complaint process and concluded Sportsbet.io acted in accordance with its Terms and Conditions; the complaint page doesn't indicate the 4,173 USDT was paid to the player." },
+    { id:"csb3", title:"$10,000 USDT deposit shows 'insufficient balance', withdrawals disabled", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"$10,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-blocked-account", whatHappened:"Player deposited 10,000 USDT and hit an 'insufficient balance' error, with withdrawals disabled afterward. Resolution took longer than the operator's stated 5-business-day window, which frustrated the player.", operatorReason:"Sportsbet.io said the account was permanently closed and made the full 10,000 USDT balance available for withdrawal." },
+    { id:"csb4", title:"$1,377 first withdrawal held over two unrecognized linked usernames", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"$1,377", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-they-do-not-want-to-withdraw-money", whatHappened:"Player's first withdrawal triggered a verification hold, with Sportsbet.io asking about two other usernames the player denied knowing. More than 10 business days passed without a final response, prompting the complaint.", operatorReason:"Sportsbet.io later confirmed the verification was successful and released the withdrawal." },
+    { id:"csb5", title:"2,852.85 USDT sportsbook winnings held over linked-account review", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"2,852.85 USDT", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-blocked-account-and-money", whatHappened:"Player said sportsbook winnings couldn't be withdrawn after Sportsbet.io asked about two other accounts, which the player described as belonging to friends.", operatorReason:"Sportsbet.io cited its account-related Terms during the complaint process; AskGamblers marked the case resolved, though the public complaint page doesn't specify whether the winnings were ultimately paid out." },
+    { id:"csb6", title:"~$5,000 in winnings held for renewed verification on an existing account", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"≈$5,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-giving-me-hard-time-with-account-verification-and-withdrawal", whatHappened:"An already-verified, previously active account was subjected to additional verification after a sizeable win, delaying the withdrawal while checks continued.", operatorReason:"Complaint marked resolved; the player reported receiving the money after verification completed." },
+    { id:"csb7", title:"$570 deposit and sportsbook winnings held during repeated verification requests", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"$570 deposit + winnings", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-does-not-want-to-pay-my-winnings", whatHappened:"Player used a $570 deposit to place a winning bet; the withdrawal that followed led to repeated verification requests and a period without a response.", operatorReason:"AskGamblers ultimately marked the case resolved; the public complaint page doesn't confirm Sportsbet.io refused the winnings outright, only that verification dragged on." },
+    { id:"csb8", title:"Winning bet allegedly re-settled as a loss on a score dispute", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/sportsbet-io-casino-the-bet-that-won-is-calculated-by-losing", whatHappened:"Player said a bet placed while the displayed score read 0–0 was later settled as a loss on the basis it had actually been placed at 0–1, and pointed to their own bet slip as evidence the wager should be recalculated.", operatorReason:"Complaint marked resolved on AskGamblers; this is a pure bet-settlement dispute rather than a KYC or withdrawal case." },
+    { id:"csb9", title:"9,725 USDC removed from balance after KYC over an alleged terms violation", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"9,725 USDC", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/CryptoScams/comments/1ga5and", whatHappened:"A Reddit post alleges that after KYC a player's balance was reduced from 16,725 USDC to 7,000 USDC, with 9,725 USDC removed for an alleged terms violation. Not independently adjudicated.", operatorReason:"Alleged terms violation, per the poster" }
+  ]},
+  // StakeUS — one sourced case found in this pass, from the Better Business Bureau rather than
+  // AskGamblers. It's an account-security / disputed-redemption dispute, not operator-side winnings
+  // confiscation, so it's tagged and worded to keep that distinction clear.
+  "StakeUS": { items: [
+    { id:"csu1", title:"$6,117 redeemed from account without authorization after a phishing scam", category:"Account", issueTag:"Account compromised / unauthorized redemption", priority:"B", amount:"$6,117", status:"Rejected", verified:true, source:"Better Business Bureau (BBB)", sourceUrl:"https://www.bbb.org/us/tx/dallas/profile/online-casino/stakeus-0875-91339580/complaints", whatHappened:"The complainant told BBB that $6,117 was redeemed from their StakeUS account without authorization after they followed what was described as a bonus link and entered their login details.", operatorReason:"StakeUS said the user had used an unauthorized link and had been the victim of a Telegram scam, that account credentials are the user's own responsibility, and declined to refund the funds." },
+    { id:"csu2", title:"Approved $200 redemption reversed and made subject to new playthrough requirements", category:"Account", issueTag:"Winning bets voided after settlement", priority:"B", amount:"$200", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/gambling/comments/1pcstvw/i_officially_hate_stake_us/", whatHappened:"Player reported that an approved $200 redemption was returned to the Stake.US balance and subsequently became subject to playthrough requirements following later purchases.", operatorReason:"" },
+    { id:"csu3", title:"Game displayed ~$6,349 balance before account showed $1.17; payout declined", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"~$6,349 displayed balance", status:"Community report", verified:false, source:"Reddit", sourceUrl:"https://www.reddit.com/r/onlinegambling/comments/1ufztqe/stakeus_did_me_so_dirty/", whatHappened:"Player alleged a game displayed a balance around $6,349 before the account balance showed $1.17. Support reportedly said the game display could lag and declined to pay the displayed amount. This is an allegation about a display/game-balance dispute, not a confirmed confiscation.", operatorReason:"Cited a display/game-balance lag, per the player's account of support's response" }
+  ]},
+  // Chips.gg and Acebet added 2026-08-31. Yeet and Goated (added same pass)
+  // had no complaints found on AskGamblers, Casino Guru or Trustpilot in this
+  // research — not included here rather than left ambiguous; see their
+  // COMPANY_INFO overview for that note.
+  "Chips.gg": { items: [
+    { id:"cchg1", title:"Account blocked over disputed age-verification during signup", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"~$2,000-$3,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://de.casino.guru/beschwerden/chips-gg-casino-das-konto-des-spielers-wurde-gesperrt", whatHappened:"Player said the account was blocked after successfully withdrawing $10,000 and accumulating a further $2,000-$3,000, and reported no response from support via email, Discord or Telegram. Chips.gg told Casino Guru the account had been registered using a false birthdate indicating the player was a minor at signup. Casino Guru sided with the operator and closed the complaint as unjustified.", operatorReason:"Account registered as a minor with false registration information, per the operator" },
+    { id:"cchg2", title:"$148 balance stuck after an incorrect email address at signup", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"$148", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://de.casino.guru/chips-gg-casino-die-auszahlung-des-spielers-hat-sich", whatHappened:"Player said a $148 balance had been stuck for two weeks because an incorrect email address entered at registration blocked account verification for withdrawal, despite still being able to log in. Casino Guru found the player had breached the casino's terms by submitting inaccurate registration details and closed the complaint as unjustified.", operatorReason:"Accurate registration details are required for verification, per the casino's Terms and Conditions" },
+    { id:"cchg3", title:"~$2,000 sportsbook winnings confiscated after 87-bet basketball run", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"~$2,000", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5544362.0", whatHappened:"Player said he had placed thousands of sports bets (roughly $200,000 in total wagering, mainly basketball) over time. After a later deposit and 87 further bets, the balance allegedly grew to about $2,300; a withdrawal was rejected and the account was closed under the Terms of Service, with about $2,000 in winnings confiscated. Forum discussion identified BETBY as the likely sportsbook provider, though that identification came from other forum users rather than an operator statement. No direct Chips.gg response was located.", operatorReason:"Cited only as a Terms of Service violation, per the player — no further detail located" }
+  ]},
+  "Acebet": { items: [
+    { id:"cace1", title:"Account banned; €1,859 withheld, support unreachable", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€1,859", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-account-banned-and-1859-euros-withheld-unable-to-contact-support", whatHappened:"Player reported a permanent account ban with €1,859 withheld despite having a verified profile, and said they were unable to reach support to get an explanation. The complaint is recorded as unresolved.", operatorReason:"" },
+    { id:"cace2", title:"Account banned after months of verified play; $1,500 withdrawal blocked", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$1,500", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-withdrawal-issue-banned-account", whatHappened:"Player said the account was banned after several months of verified play, blocking access to a $1,500 withdrawal. The complaint is recorded as unresolved.", operatorReason:"" },
+    { id:"cace3", title:"Account blocked and ~$1,300 in winnings taken with no reason given", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"~$1,300", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-blocked-my-account-and-took-my-winnings-for-no-reason", whatHappened:"Player said a $400 deposit grew to about $1,300 in winnings, after which the account was blocked and the winnings confiscated without an explanation given.", operatorReason:"" },
+    { id:"cace4", title:"Account banned for \"TOS violation\"; $426 withheld, support unreachable", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$426", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-account-banned-and-426-usd-withheld-unable-to-contact-support", whatHappened:"Player reported a permanent ban cited only as a \"TOS violation,\" with $426 withheld and no further explanation. The player said the casino had become unreachable for support.", operatorReason:"Cited only as a \"TOS violation,\" per the player — no further detail given" },
+    { id:"cace5", title:"Account frozen with no reason given; $968 disputed", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$968", status:"Rejected", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-unfair-and-unreasonable-freezing-of-accounts", whatHappened:"Player said the account was frozen without explanation after only a few days of play. AskGamblers's review of the case sided with the operator and closed the complaint as rejected.", operatorReason:"" },
+    { id:"cace6", title:"Account frozen; $986 USDT trapped", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$986 USDT", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/acebet-casino-unreasonable-freezing-of-my-account", whatHappened:"Player said the account was frozen without explanation, leaving $986 in USDT inaccessible. The complaint is recorded as unresolved.", operatorReason:"" }
+  ]},
+  "Yeet": { items: [
+    { id:"cy1", title:"~$8,948 balance restricted during a KYC/source-of-funds review; account later suspended", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"~$8,947.96", status:"Community/scam report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/yeet.com", whatHappened:"Player said withdrawals and account permissions weren't restored while gameplay itself remained available during a KYC/source-of-funds review, despite submitting exchange (Bybit) and business-bank documentation. The account was later permanently suspended. Yeet publicly replied on Trustpilot asking the reviewer to send supporting evidence to its complaints email — a real but unresolved public exchange rather than a confirmed final outcome.", operatorReason:"Not specified beyond an ongoing KYC/source-of-funds review, per the player's account; Yeet asked for evidence via its complaints email but no final resolution was located" }
+  ]},
+  "Goated": { items: [
+    { id:"cgo1", title:"Account closed after attempted 2,000 USDC withdrawal", category:"Account", issueTag:"Account closed after sportsbook/provider flag", priority:"B", amount:"2,000 USDC", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/goated-casino-player-s-account-has-been-closed", whatHappened:"A Canadian player alleged her account was blocked after she won and attempted to withdraw 2,000 USDC, saying Goated linked the restriction to her association with another person who allegedly had an outstanding loan with the casino; she also referenced more than 7,000 in remaining rewards. Casino Guru did not reach a substantive finding because the player stopped responding to requests for more information.", operatorReason:"Alleged association with a third party who had an outstanding loan with the casino, per the player's account" },
+    { id:"cgo2", title:"7,862 USDT withdrawal delayed during provider review", category:"Casino", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"7,862 USDT", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/goated-casino-player-s-withdrawal-has-been-delayed", whatHappened:"A South Korean player reported a pending 7,862 USDT withdrawal. Goated publicly explained that game provider Evolution had flagged the player's betting activity and was reviewing it; Goated later said Evolution had given the all-clear, restrictions were lifted, and the funds were approved. The player marked the complaint resolved.", operatorReason:"Evolution (game provider) flagged the betting activity for review; cleared and funds approved" },
+    { id:"cgo3", title:"Provably-fair game-fairness dispute involving $76,000", category:"Casino", issueTag:"Provably-fair game dispute", priority:"C", amount:"$76,000", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/goated-casino-player-reports-issues-with-the-fairness", whatHappened:"A Danish player alleged inconsistencies in provably-fair casino game results and supplied evidence during the complaint process. The case was reopened at the player's request and ultimately marked resolved after the player indicated it had been resolved to their satisfaction. The public record does not support treating the original fairness allegation as a proven finding against Goated.", operatorReason:"" },
+    { id:"cgo4", title:"Stop-loss functionality dispute involving claimed $40,000 in losses", category:"Casino", issueTag:"Stop-loss functionality dispute", priority:"C", amount:"$40,000", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/goated-casino-player-reports-faulty-game-causing-financial", whatHappened:"A New Zealand player alleged Goated's Dice stop-loss functionality behaved inconsistently and contributed to losses. Goated said its stop-loss implementation differed from the more common approach used by operators such as Stake, but maintained this didn't directly cause the losses; it said it planned to align the implementation with the more common approach and provided a $1,400 bonus plus a later $100 goodwill credit. The player expressed satisfaction and the case was marked resolved.", operatorReason:"Stop-loss implementation differs from the more common industry approach, per the operator; goodwill bonus and credit provided" },
+    { id:"cgo5", title:"Responsible-gambling refund dispute rejected", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"C", amount:"$955", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/goated-casino-player-claims-unfair-refund-process", whatHappened:"A Canadian player alleged an agent had been told about a gambling problem before further deposits were made, and disputed the amount later refunded. Casino Guru concluded the player wasn't eligible for additional refunds, noting the absence of an explicit self-exclusion request, and rejected the complaint as unjustified.", operatorReason:"No explicit self-exclusion request was made, per Casino Guru's review" },
+    { id:"cgo6", title:"~$450 withheld after alleged Crash exploit (unverified review)", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"~$450", status:"Community/scam report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/goated.com", whatHappened:"In an August 2026 Trustpilot review, a user claimed to have won roughly $6,000 on Goated but said the final ~$450 wasn't paid after the operator allegedly identified exploitative activity in the Crash game; the reviewer said insufficient evidence was provided. This is a user review rather than an adjudicated complaint.", operatorReason:"Alleged exploitative activity identified in Crash, per the operator (unverified)" }
+  ]},
+  // Wild.io, Degen Casino, Sportbet.one and Lucky Block added 2026-09-02;
+  // Bitcointalk-sourced complaint leads added for all four 2026-09-02/03.
+  // None of the four currently have a logged complaint on an adjudicated
+  // complaint-tracking platform (Casino.Guru/AskGamblers) — every item below
+  // for these four is a forum-sourced allegation (verified:false) instead,
+  // except Lucky Block's clb1 (AskGamblers) and clb2-clb4 (Casino Guru forum,
+  // not the adjudicated database). See COMPANY_INFO overview / TERMS_INFO
+  // withdrawal notes for further context.
+  "Wild.io": { items: [
+    { id:"cwi1", title:"452 USDT balance confiscated after a sportsbook verification review — Wild.io publicly defended the decision", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"452 USDT", status:"Operator position upheld", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5584765.0", whatHappened:"Player said three pre-match football bets were placed on the same Under 2.5 second-half goals market, funded by a 298.1033 USDT deposit. A 451.39 USDT withdrawal request triggered a video-verification review, after which the account was closed and the 452 USDT balance retained. The player disputed allegations of arbitrage/correlated wagers and argued the operator had cited different, seemingly contradictory clauses across its communications. Wild.io later replied publicly on the same Bitcointalk thread: it said its review found breaches of both General Clause 20.51 and Sportsbook Rule 2.22, rejected the claim that the two cited clauses were contradictory, and said completing a video-verification call does not itself mean identity verification was successfully passed or override a sportsbook-rule breach. Wild.io said it would not reverse the decision. This is one of the few cases in this database with direct, sustained public operator participation on both the initial and follow-up allegations.", operatorReason:"Breaches of General Clause 20.51 and Sportsbook Rule 2.22, per Wild.io's own public reply; the operator said the two clauses were not contradictory and declined to reverse the decision (a related discussion also appears at bitcointalk.org/index.php?topic=5436238.440)" }
+  ] },
+  "Degen Casino": { items: [
+    { id:"cdg1", title:"513.98 USDT sportsbook winnings confiscated; ContestHunters dispute closed for the operator", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"513.98 USDT", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5587662", whatHappened:"Player said a 410 USDT deposit was used across 13 sports bets (10 wins, 3 losses), producing a balance around 924 USDT. After requesting withdrawal, Degen Casino allegedly said the sportsbook Terms of Service had been knowingly violated and that the winnings would be seized while the deposit would be returned; the player later said the withdrawal was instead cancelled and only the original 410 USDT remained. The player published historical odds comparisons arguing the bets were placed at normal or worse-than-market prices, and separately requested the specific bet IDs, rules and evidence behind the decision. A ContestHunters mediation was reportedly closed in the casino's favor; the player continued to contest that outcome. No public Degen Casino reply was located in the Bitcointalk thread itself.", operatorReason:"Sportsbook Terms of Service violations, per the player's account of the operator's reasoning; a ContestHunters dispute was reportedly closed in the operator's favor" },
+    { id:"cdg2", title:"$602 sportsbook withdrawal voided over a \"weak line\" bet cancellation — resolved", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"~$352 winnings above a $250 deposit ($602 withdrawal requested)", status:"Resolved", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5587797.msg66935862", whatHappened:"Player reported depositing $250, placing sports bets, and later requesting a roughly $602 withdrawal. Support said the sportsbook's odds provider had decided to cancel the bets because they were placed on a \"weak line,\" and offered to return the original deposit. Unlike most cases in this database, the Bitcointalk topic is explicitly marked resolved — this is a provider-driven bet-cancellation dispute rather than a confiscation allegation, and is recorded here with its resolved outcome.", operatorReason:"Bets cancelled by the sportsbook odds provider for being placed on a \"weak line,\" per the operator; deposit offered back" }
+  ] },
+  "Sportbet.one": { items: [
+    { id:"csb1", title:"EUR 610.46 in winnings cancelled for alleged arbitrage on European basketball", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"EUR 610.46", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5177893.500", whatHappened:"Player reported betting on European basketball, including EuroLeague matches, before the account was reviewed and some bets were cancelled for alleged arbitrage. Deposits reportedly remained withdrawable, but EUR 610.46 in winnings were removed. The player denied arbitrage, arguing that ordinary bets on liquid basketball markets shouldn't justify cancelling all winnings. The complaint was posted inside the sportsbook's own Bitcointalk announcement thread; no operator answer was captured in this research pass.", operatorReason:"Alleged arbitrage betting, per the player's account — disputed by the player" },
+    { id:"csb2", title:"$612 USDC balance zeroed after a 14-day security review", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"$612 USDC", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5177893.510;wap", whatHappened:"Player reported maximum stakes being reduced to zero and being told the account was under a security investigation. The USDC balance was later allegedly reduced to zero. Support reportedly cited arbitrage betting, multi-accounting, or automated betting software as the general basis. The player denied the allegations and said there was no appeal process. No independent adjudication of this specific case was located.", operatorReason:"Arbitrage betting, multi-accounting, or automated betting software cited generically by support, per the player's account — the player denied all three" },
+    { id:"csb3", title:"0.02098501 BTC deducted after account review — player admits opening a second account", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"0.02098501 BTC", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5566752.0", whatHappened:"Player said the withdrawal function was blocked, bets were reviewed, and 0.02098501 BTC was deducted from the balance. Notably, the player admitted opening a second account after losing access to an earlier one, while denying the operator's separate allegations of arbitrage betting and automated software. Because multi-accounting was admitted rather than disputed, this case shouldn't be summarized as a simple wrongful-confiscation allegation — it sits between a legitimate policy enforcement and a disputed over-reach depending on which specific allegation actually drove the deduction.", operatorReason:"Multi-accounting (admitted by the player), plus disputed allegations of arbitrage betting and automated software" },
+    { id:"csb4", title:"$338 in winning bets frozen for a month, then reassigned as losses", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"$338", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5422148.0", whatHappened:"Older complaint alleging winning bets were frozen for nearly a month before being treated as losses, following accusations involving syndicate play, arbitrage situations, and automated software. The complaint quotes an operator email stating its technical/risk teams had found repeated violations of General Rules clause 2, and that the deductions were made to cover company losses; the decision was described as final.", operatorReason:"Repeated violations of General Rules clause 2 found by the operator's technical/risk teams, per an operator email quoted in the complaint; deductions made \"to cover company losses,\" decision described as final" },
+    { id:"csb5", title:"0.006 BTC deducted after bet cancellations attributed to arbitrage; operator responded in its own thread", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"0.006 BTC", status:"Community/scam report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5177893.480", whatHappened:"Player reported two BTC deposits, with winning bets left under review, later bet cancellations, and a 0.006 BTC deduction attributed to arbitrage betting. Sportbet.one replied publicly in its own announcement thread that it could not identify the account from the forum nickname alone, and asked the player to provide the registered email via support email or PM so the bet-status decisions and deduction could be reviewed. A later forum update reported the explanation remained \"activity consistent with arbitrage betting.\"", operatorReason:"Activity consistent with arbitrage betting, per Sportbet.one's public reply in its own thread" }
+  ] },
+  "Lucky Block": { items: [
+    { id:"clb1", title:"Account closed and ~$27,444 balance confiscated after completed KYC — deposit later offered back, winnings still disputed", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$27,444", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/lucky-block-casdino-unfair-account-closure-and-fund-confiscation", whatHappened:"Player deposited $9,500, built the balance to $27,484 through play, and passed KYC verification. A $40 test withdrawal was processed successfully, after which the subsequent 27,444 USDT withdrawal was delayed and the account was closed with the balance confiscated. A later Bitcointalk discussion (bitcointalk.org/index.php?topic=5500172.0) records a LuckyBlock representative on AskGamblers saying the original 9,500 USDT deposit would be refunded — the player continued to dispute the confiscation of the roughly 17,944 USDT in winnings on top of that. This case should be read as two separable pieces: an apparently-resolved deposit refund, and still-disputed winnings.", operatorReason:"Cited multiple accounts / false KYC documentation, per the operator — disputed by the player; separately, a LuckyBlock representative said the original deposit would be refunded" },
+    { id:"clb2", title:"Sportsbook-only account closed; funds voided after full KYC — Casino Guru declined to adjudicate", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/complaints/luckyblock-casino-player-s-account-has-been-closed-10", whatHappened:"German player said the account was used solely for sports betting, no bonuses were used, and full KYC had been completed — including repeated identity checks and proof of address — before the account was closed and funds voided by an internal decision. Casino Guru explicitly closed the case citing a lack of expertise/tools to assess sports-betting disputes specifically. This is a non-adjudication, not a ruling in the operator's favor.", operatorReason:"Not stated in the reviewed source; case closed by Casino Guru without assessing the operator's reasoning" },
+    { id:"clb3", title:"$1,300 sportsbook balance (deposits and winnings) confiscated after limits cut to zero", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"$1,300", status:"Community report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/complaints/luckyblock-casino-player-s-account-has-been-closed-12", whatHappened:"Georgian player reported three deposits and eventual winnings, after which betting limits were reduced to zero. A $1,300 withdrawal attempt triggered ID/selfie and address verification, following which the player says the account was closed and all funds — both deposits and winnings — were confiscated. Casino Guru closed the complaint, again citing an inability to fairly assess LuckyBlock's internal sports-betting investigation.", operatorReason:"Not stated in the reviewed source; case closed by Casino Guru without assessing the operator's reasoning" },
+    { id:"clb4", title:"Account closed and access cut after a sports-bet win; unspecified term violation cited", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"~$1,100 win ($3,000 USDT deposited, per the player)", status:"Community report", verified:false, source:"Casino Guru forum", sourceUrl:"https://casino.guru/complaints/luckyblock-casino-player-s-account-has-been-closed-11", whatHappened:"Norwegian player reported winning a sports bet, then completing ID and proof-of-address verification, before being logged out and told the account's terms had been violated. The player said the operator would not identify the specific term. Casino Guru noted the account mainly involved sports betting and slots with no active bonus in play, but closed the case after the player stopped responding — so no confiscation outcome or operator reasoning was independently confirmed.", operatorReason:"Unspecified \"terms violated,\" per the player's account — the operator reportedly declined to name the specific term" }
+  ]},
+  // NV Casino, HitnSpin, Verde Casino, FortuneJack, DuckDice: populated
+  // 2026-09-04 from a dedicated Casino Guru/AskGamblers complaint-platform
+  // research pass (the gap flagged when these operators were first added).
+  // Tower.bet: that same pass found Casino Guru currently lists eight
+  // complaints against Tower.bet, all eight closed "Rejected" — only rejected
+  // cases, no unresolved/upheld-against-operator ones. Four of the eight had
+  // enough headline detail (amount + allegation) to itemize below; the
+  // specific rejection rationale for each wasn't captured in this pass (the
+  // research notes flagged this explicitly), so operatorReason is left as
+  // "not stated" rather than guessed — treat these as recorded complaint
+  // volume, not as confirmed operator wrongdoing, since Casino Guru rejected
+  // every one of them.
+  "NV Casino": { items: [
+    { id:"cnv1", title:"€4,500 account closed over suspected bonus abuse — reopened and paid after Casino Guru mediation", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"B", amount:"€4,500", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/nv-casino-player-s-account-is-closed-with-funds-confiscated", whatHappened:"Player said an initial deposit of roughly €200 grew to €4,500 through play, at which point the account was closed and the balance held over suspected bonus abuse. Casino Guru mediation led to repeat video verification, the account being reopened, and the full €4,500 being paid out.", operatorReason:"Suspected bonus abuse, per the closure — resolved after repeat video verification cleared the account" },
+    { id:"cnv2", title:"~PLN 53,000 withdrawal delayed roughly two weeks", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"B", amount:"PLN 53,000", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/nv-casino/complaints", whatHappened:"AskGamblers' complaint index lists a roughly PLN 53,000 withdrawal that was delayed for about two weeks, among NV Casino's currently unresolved cases.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cnv3", title:"€5,600 account blocked, winnings disputed — case not fully detailed", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€5,600", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/nv-casino-review", whatHappened:"Casino Guru's complaint index lists a further NV Casino case describing a blocked account with €5,600 in disputed winnings. This research pass could only confirm the headline figure from the index listing, not the full case detail — treat this entry as preliminary pending a fuller review of the underlying complaint page.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cnv4", title:"€900 payment delayed", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"€900", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/nv-casino-nv-delayed-payment", whatHappened:"AskGamblers complaint concerning a delayed €900 payment; the case was closed unresolved.", operatorReason:"Not stated in the reviewed source" }
+  ] },
+  "HitnSpin": { items: [
+    { id:"chn1", title:"€1,000 balance stuck — verified account, withdrawals repeatedly cancelled", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"€1,000", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/hitnspin-casino-winthdraw-refused-without-reason", whatHappened:"Player said a €20 deposit grew to €1,000 through play. Despite a fully verified account, repeated bank withdrawal attempts were cancelled without a clear reason being given.", operatorReason:"Not stated in the reviewed source" },
+    { id:"chn2", title:"Account blocked and winnings confiscated after ~€2,800 in deposits — AskGamblers upheld the operator", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"~€2,800", status:"Operator position upheld", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/hitnspin-casino-account-blocking-for-fictitious-reasons-and-confiscation-of-winnings", whatHappened:"Player alleged HitnSpin blocked the account and confiscated winnings for what the player called fictitious reasons, after roughly €2,800 in deposits. AskGamblers reviewed the case and concluded HitnSpin had acted in accordance with its Terms & Conditions.", operatorReason:"Action consistent with HitnSpin's published Terms & Conditions, per AskGamblers' review (specific clause not detailed in the source)" }
+  ] },
+  "Verde Casino": { items: [
+    { id:"cvd1", title:">PLN 6,000 sportsbook account closure — Casino Guru declined to adjudicate", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:">PLN 6,000", status:"Closed - sportsbook scope", verified:false, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/verde-casino-player-s-account-has-been-closed-and-7", whatHappened:"A fully verified player said the account was blocked with more than PLN 6,000 remaining. Casino Guru explicitly closed the complaint without resolution, citing a lack of expertise to assess sports-betting disputes specifically.", operatorReason:"Not stated in the reviewed source; case closed by Casino Guru without assessing the operator's reasoning" },
+    { id:"cvd2", title:"€17,200 large-win account block — resolved, balance restored", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€17,200", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/verde-casino-player-s-account-has-been-closed-after", whatHappened:"Player reported the account was blocked after a large win following a €1,500 deposit. The balance was later restored and the player confirmed a successful €17,200 withdrawal.", operatorReason:"Not stated in the reviewed source; resolved with balance restored and withdrawal completed" },
+    { id:"cvd3", title:"€1,516 confiscated over alleged multi-outcome betting pattern", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€1,516", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/verde-casino/complaints", whatHappened:"The casino allegedly cited betting on more than one outcome within the same event as grounds for confiscating €1,516. The player requested the exact bets/logs used as evidence; the source doesn't indicate this was provided.", operatorReason:"Betting on multiple outcomes within the same event, per the operator's allegation — specific evidence not shown to have been shared with the player" },
+    { id:"cvd4", title:"$750 balance blocked over disputed document authenticity — rejected", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"$750", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/verde-casino-player-s-account-is-blocked-with-winnings", whatHappened:"Player alleged genuine verification documents were incorrectly treated as edited or falsified, resulting in a $750 balance being blocked. Casino Guru reviewed the case and rejected the complaint, upholding the operator's verification procedures.", operatorReason:"Submitted documents were assessed by the operator as edited, per Casino Guru's review of the operator's evidence" },
+    // cvd5-cvd7 added 9 Sep 2026 from a dedicated V.Partners-brands complaint
+    // research pass covering GGbet, Verde Casino, IceCasino, FS.Casino,
+    // FieryPlay Casino, V.Vegas and Slotoro together.
+    { id:"cvd5", title:"Sportsbook account blocked; balance reduction proposed (100,000 HUF offer)", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"A", amount:"100,000 HUF (offered settlement; full balance not stated)", status:"Closed - sportsbook scope", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/verde-casino-player-s-account-has-been-closed-without-2", whatHappened:"Player was described by Verde as strictly a sportsbook player. Verde cited Sportsbook T&C 2.13, which prohibits placing multiple identical bets on the same match to bypass limits. The player said the account was blocked after a withdrawal request and was offered 100,000 HUF if the rest of the balance was removed. Casino Guru said it lacked the sportsbook expertise to adjudicate the rule dispute and closed the case without a ruling.", operatorReason:"Alleged breach of Sportsbook T&C 2.13 — multiple identical bets on the same match to bypass limits" },
+    { id:"cvd6", title:"€4,000 withdrawal / funds withheld", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€4,000 (€3,600 reported still withheld)", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/verde-casino-player-s-withdrawal-is-delayed-and-funds", whatHappened:"A fully verified player reported €3,600 still withheld after the stated processing period, including after switching to Coinbase as requested. Verde said part had already been paid and that newer withdrawals would be processed under its T&Cs. Casino Guru closed the case after the player stopped responding, so no final finding was reached.", operatorReason:"Casino said part had been paid and newer withdrawals would be processed under its T&Cs" },
+    { id:"cvd7", title:"€3,500 withdrawal delay", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"€3,500", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/verde-casino-intentionally-delayed-payment-and-verification", whatHappened:"Withdrawal exceeded the stated five-working-day period and support reportedly gave no clear ETA. AskGamblers later marked the case resolved.", operatorReason:"" }
+  ] },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro complaint
+  // items below added 9 Sep 2026 from a dedicated V.Partners-brands complaint
+  // research pass (research date 9 Sep 2026), replacing the earlier "no
+  // complaints found" placeholders once real case data was located.
+  "V.Vegas": { items: [
+    { id:"cvv1", title:"€25,000 withdrawal delays / repeated cancellations", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€25,000", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/v-vegas-casino-player-s-withdrawal-has-been-delayed-125", whatHappened:"A fully verified player said withdrawals had been pending since 10 May and some were repeatedly cancelled on their due dates. The casino and player later confirmed the winnings were processed.", operatorReason:"" },
+    { id:"cvv2", title:"€5,000 remaining from a €25,000 win", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€5,000 (of a €25,000 win)", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/v-vegas-casino-player-s-withdrawal-has-been-delayed-124", whatHappened:"Player had received €20,000 but the final withdrawal was cancelled after a reported technical error. The remaining issue was later resolved.", operatorReason:"Reported technical error" },
+    { id:"cvv3", title:"€1,600 complaint involving a €7,200 balance", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"€1,600 (€7,200 balance)", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/v-vegas-casino-withdrawal-of-player-s-winnings-has-11", whatHappened:"Player reported long KYC/withdrawal delays and an account closure related to gambling addiction. The casino confirmed the closure and that the withdrawal reached the player's wallet; the complaint was closed resolved.", operatorReason:"" },
+    { id:"cvv4", title:"300 PLN withdrawal missing after balance deduction", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"300 PLN", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/v-vegas-casino-player-s-withdrawal-has-been-delayed-127", whatHappened:"Funds disappeared from the casino balance but hadn't reached the player's Revolut account. The complaint was later resolved.", operatorReason:"" },
+    { id:"cvv5", title:"Account-closure request not implemented", category:"Account", issueTag:"Responsible-gambling / self-exclusion dispute", priority:"B", amount:"Not stated", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/v-vegas-casino-player-s-account-closure-is-being-denied", whatHappened:"A German player said repeated requests to close the account were not actioned — a responsible-gambling issue rather than a sportsbook payment dispute.", operatorReason:"" }
+  ], note:"Withdrawal-delay complaints are common in the indexed sample, but several substantial cases — including this €25,000 case — were ultimately paid and resolved, which materially reduces their negative weight. V.Vegas shares its operating entity and licence with IceCasino (see that profile) — worth reading both profiles together." },
+  "FS.Casino": { items: [
+    { id:"cfs1", title:"Mex$2,500 account closed with winnings confiscated", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"Mex$2,500", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/fs-casino-review", whatHappened:"Casino Guru lists a case involving account closure and confiscated winnings among FS Casino's indexed complaints. The final individual-case outcome wasn't independently confirmed in this pass and should be checked before treating it as an adverse finding.", operatorReason:"" },
+    { id:"cfs2", title:"€400 duplicate-account claim", category:"Account", issueTag:"Duplicate-account dispute", priority:"B", amount:"€400", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/fs-casino-review", whatHappened:"Casino Guru lists a player account blocked due to a duplicate-account allegation among FS Casino's indexed complaints.", operatorReason:"" },
+    { id:"cfs3", title:"€399 winnings withheld", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"€399", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/fs-casino-review", whatHappened:"Casino Guru lists a case involving withheld winnings among FS Casino's indexed complaints. Preserve the final mediator outcome once the individual case is confirmed.", operatorReason:"" },
+    { id:"cfs4", title:"KYC/card verification withdrawal problem — reviewer from Lithuania", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/fs.casino", whatHappened:"A reviewer identifying as from Lithuania said withdrawal became practically impossible because payment-card verification was repeatedly rejected — despite the cardholder name allegedly being visible — and that support stopped engaging.", operatorReason:"" }
+  ], note:"Large general complaint history with recurring KYC, account-block and withdrawal issues. The indexed sources in this research pass weren't clearly sportsbook-specific." },
+  "IceCasino": { items: [
+    { id:"cic1", title:"€100 payout complaint / changing processing estimates", category:"Casino", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€100 (partial payout received; full amount not stated)", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/ice-casino-1", whatHappened:"A verified player said four weeks passed after requesting payout, with support allegedly giving changing estimates ranging from minutes/hours up to 30 days, while only a small €100 payout arrived.", operatorReason:"" },
+    { id:"cic2", title:"Large indexed complaint history — 556 cases (5 open, 237 resolved, 314 rejected)", category:"Casino", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"Not stated — aggregate database figure, not a single case", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/IceCasino-review", whatHappened:"Casino Guru currently indexes 556 complaints against IceCasino: 5 opened, 237 resolved and 314 rejected. Currently visible individual cases skew toward delayed winnings and withdrawal/KYC disputes rather than sportsbook-specific confiscation. This raw count should not be read as 556 adverse findings — most were resolved or rejected.", operatorReason:"" }
+  ], note:"Huge general complaint volume. The visible pattern is predominantly withdrawal/KYC delay rather than sportsbook-specific confiscation — no comparably strong sportsbook-specific case was found in this pass. IceCasino shares its operating entity and licence with V.Vegas (see that profile) — worth reading both profiles together." },
+  "FieryPlay Casino": { items: [
+    { id:"cfp1", title:"€1,000 winnings withheld — multiple-account allegation", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€1,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/fiery-play-casino-player-s-winnings-are-being-confiscated", whatHappened:"Player denied having multiple accounts, but Casino Guru said the evidence linked the account to multiple other accounts from the same device/location and rejected the complaint as unjustified.", operatorReason:"Evidence linked the account to multiple other accounts from the same device/location, per Casino Guru's review" },
+    { id:"cfp2", title:"C$1,000 KYC/withdrawal difficulty", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"C$1,000", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/fiery-play-casino-player-s-withdrawal-is-delayed-due-9", whatHappened:"Player reported repeated document requests and confusion over proof of a deposit. Verification was eventually completed and the complaint resolved.", operatorReason:"" },
+    { id:"cfp3", title:"€700 payout delayed by repeated bank-document rejection", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"€700", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/fiery-play-casino-player-s-payout-has-been-delayed", whatHappened:"Official bank PDFs were repeatedly rejected, delaying payout for about three weeks. After intervention, verification was completed and €700 was paid in two installments.", operatorReason:"" },
+    { id:"cfp4", title:"€4,500 confiscation allegation", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"A", amount:"€4,500", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/fieryplay.com", whatHappened:"Reviewer alleged the casino confiscated €4,500, blocked live-chat access and imposed very slow withdrawal limits. This is a user allegation, not an adjudicated finding.", operatorReason:"" },
+    { id:"cfp5", title:"€120 withdrawal blocked by verification-upload dispute", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"€120", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/fiery-play-casino-player-is-unable-to-verify-his-account", whatHappened:"Player said conflicting document instructions and upload problems were delaying a €120 withdrawal.", operatorReason:"" }
+  ], note:"Material complaint volume with KYC/withdrawal friction, though several resolved cases show not all reported delays resulted in lost funds — consistent with a very new operator (launched September 2024) rather than a confirmed clean record." },
+  "GGbet": { items: [
+    { id:"cgg1", title:"$6,942 delayed sportsbook payment", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"A", amount:"$6,942", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/ggbet-sportsbook-withdrawal-delay", whatHappened:"Player reported a delayed GGbet sportsbook payment after exhausting support communications — one of the larger recent sportsbook payment complaints visible in AskGamblers' index at the time of research.", operatorReason:"" },
+    { id:"cgg2", title:"€2,210 withdrawals delayed more than 14 days", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€2,210", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/ggbet-sportsbook-withdrawal-delay", whatHappened:"A long-term user reported withdrawals remaining unpaid for more than 14 days. AskGamblers later listed the case as resolved.", operatorReason:"" },
+    { id:"cgg3", title:"$1,525 withdrawal shown in progress but not received", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$1,525", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/ggbet-sportsbook-withdrawal-delay", whatHappened:"Multiple sportsbook withdrawals were shown as in-progress but hadn't reached the player. Listed by AskGamblers as resolved.", operatorReason:"" },
+    { id:"cgg4", title:"€1,050 withdrawals pending more than 14 days", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€1,050", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/ggbet-sportsbook-long-waiting-time-than-usual", whatHappened:"Four withdrawal requests remained pending; the player said earlier withdrawals had normally taken 24-72 hours, while a previous one took 21 days. The complaint was resolved.", operatorReason:"" },
+    { id:"cgg5", title:"3,000 THB withdrawal delayed 20 days", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"3,000 THB", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/ggbet-sportsbook-withdrawal-delayed-for-20-days", whatHappened:"Player said the initial five-business-day estimate expired; support later attributed the delay to an external payment provider without giving an ETA.", operatorReason:"Attributed to an external payment provider, per support — no ETA given" },
+    { id:"cgg6", title:"$70 withdrawal errors", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"$70", status:"Rejected", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/betting-complaints/ggbet-sportsbook-unable-to-withdraw-my-earnings", whatHappened:"Player reported repeated withdrawal errors across payment methods. AskGamblers later requested the player cooperate with the operator's verification requirements.", operatorReason:"Player asked to cooperate with verification requirements" },
+    // cgg7 added 9 Sep 2026 — a follow-up general-web pass (beyond the
+    // original V.Partners-brands research batch) found a much larger,
+    // casino-side complaint index on the same AskGamblers profile, on top of
+    // the six sportsbook-specific cases above. Recorded as one aggregate
+    // entry rather than 24 individual rows, per the same convention used for
+    // IceCasino's aggregate database entry elsewhere in this file.
+    { id:"cgg7", title:"Large casino-side withdrawal-delay pattern — 24 indexed AskGamblers complaints, almost all resolved", category:"Casino", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"Amounts range from $30 to Ft48,000,000 across the 24 cases; not a single figure", status:"Public complaint", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/ggbet-casino/complaints", whatHappened:"Beyond the sportsbook-specific cases above, AskGamblers' GGbet casino complaint index lists 24 further cases (22 resolved, 2 rejected) that are overwhelmingly withdrawal-delay complaints — funds repeatedly shown stuck in \"New\" status, generic \"technical reasons\" cited, on accounts described as fully verified/compliant. The pattern is recurring and cuts across both the casino and sportsbook sides of the same operator, even though most individual cases were eventually resolved.", operatorReason:"\"Technical reasons\" cited generically in multiple cases; not otherwise explained per-case" }
+  ], note:"Strongest sportsbook-specific complaint trail among the V.Partners brands reviewed in this pass. The dominant pattern is delayed withdrawals, with many complaints eventually resolved — and a much larger casino-side complaint index shows the same delayed-withdrawal pattern recurring at volume." },
+  "Slotoro": { items: [
+    { id:"csl1", title:"€1,050 withdrawal withheld / travel-proof demand — Lithuanian player", category:"Account", issueTag:"Balance including deposit confiscated", priority:"A", amount:"€1,050 (€350 offered as a loyalty gesture)", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/slotoro-casino-player-s-withdrawal-is-being-withheld", whatHappened:"A player identifying as Lithuanian says KYC was completed and wagering requirements met, but Slotoro requested proof of physical presence in Germany and Sweden. The player says the casino proposed removing the €1,050 balance while leaving €350 as a loyalty gesture.", operatorReason:"Requested proof of physical presence in Germany and Sweden" },
+    { id:"csl2", title:"€6,799 withdrawal delayed", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€6,799", status:"Public complaint", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/slotoro-casino-review", whatHappened:"Casino Guru's Slotoro complaint index lists a €6,799 delayed-withdrawal case. The final individual-case outcome should be checked before adverse scoring.", operatorReason:"" },
+    { id:"csl3", title:"€2,000 withdrawal delayed", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"€2,000", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/slotoro-casino-player-s-withdrawal-is-delayed", whatHappened:"Player had been waiting since 26 May. Casino Guru couldn't continue the case because the player stopped responding.", operatorReason:"" },
+    { id:"csl4", title:"~€600 win, verification issues then account block", category:"Casino", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"~€600", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/slotoro.bet", whatHappened:"Reviewer says a document upload failed, the documents were then emailed as instructed, and the account was subsequently blocked without a proper explanation. Slotoro publicly invited the reviewer to make further contact for review.", operatorReason:"Slotoro publicly invited the reviewer to make further contact for review" },
+    { id:"csl5", title:"Fully approved KYC but withdrawal still under review", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/slotoro.bet", whatHappened:"Reviewer says all KYC categories showed approved, but support said documents needed several more days of review before the first withdrawal.", operatorReason:"" }
+  ], note:"Newer brand with a smaller complaint history, but several 2026 withdrawal/KYC cases exist, including one current case alleging a proposed balance confiscation tied to proof of physical location. Slotoro shares its operating entity and licence with Verde Casino (see that profile) — worth reading both profiles together." },
+  "FortuneJack": { items: [
+    { id:"cfj1", title:"$152 account cancelled after two winning sports bets", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"C", amount:"$152", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/fortunejack-casino-review/complaints?page=1", whatHappened:"A fully verified player said the account was cancelled after placing two sports bets totaling $152, both of which won. AskGamblers lists the case as resolved.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cfj2", title:"Four winning sports bets voided", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"Not stated", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/fortunejack-casino-review/complaints?page=1", whatHappened:"A long-time FortuneJack user said four winning sports bets were voided after settlement. AskGamblers lists the case as resolved.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cfj3", title:"$1,825 winnings cancelled over alleged linked account", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$1,825", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/fortunejack-casino-unjustified-confiscation-of-usd1-825", whatHappened:"A verified player alleged winnings were cancelled after the account was linked to a separate, already-blocked account. The dispute also surfaced on Bitcointalk before AskGamblers ultimately listed the case as resolved.", operatorReason:"Alleged linkage to a separate, previously blocked account, per the operator — disputed by the player" },
+    { id:"cfj4", title:"0.4 BTC withdrawal — account suspended over multi-account allegation", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"0.4 BTC", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/fortunejack-casino-account-suspension-winnings-confiscation-and-ignoring-my-emails", whatHappened:"Player reported the account was suspended after requesting a 0.4 BTC withdrawal. A quoted FortuneJack email invited the player to rebut the operator's multi-account research findings; the case is listed as resolved.", operatorReason:"Multi-account activity per the operator's internal research, communicated to the player by email with an invitation to respond" },
+    { id:"cfj5", title:"1.68 BTC withdrawal stuck in an extended security hold", category:"Account", issueTag:"Funds locked in betting-integrity review", priority:"A", amount:"1.68 BTC", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/1-68btc-withdraw-never-came-through", whatHappened:"Older complaint describing a security hold, communication problems, and account suspension while a 1.68 BTC withdrawal remained disputed.", operatorReason:"Not stated in the reviewed source (a security hold was cited generally)" }
+  ] },
+  "DuckDice": { items: [
+    { id:"cdd1", title:"Sportsbook winnings seized over suspected arbitrage/systematic-exploitation flag", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/duckdice-casino", whatHappened:"A recent AskGamblers review describes the operator flagging an account for suspected arbitrage/systematic exploitation; the player said the original deposit was returned but the profits were seized, and requested bet-level evidence that the review doesn't show being provided. This is drawn from the review's narrative rather than a specific, individually adjudicated complaint case, so it's treated with more caution than this database's typical complaint entries pending the underlying case being located.", operatorReason:"Suspected arbitrage/systematic exploitation, per the operator's flagging as described in the review" },
+    { id:"cdd2", title:"Casino bonus dispute — resolved", category:"Casino", issueTag:"Bonus terms dispute", priority:"C", amount:"Not stated", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/duckdice-casino/complaints", whatHappened:"AskGamblers lists a resolved bonus-related dispute for DuckDice, specific to casino play rather than the sportsbook.", operatorReason:"Not stated in the reviewed source" }
+  ] },
+  "Tower.bet": { items: [
+    { id:"ctb1", title:"C$15,000 account closed over suspected suspicious activity — rejected", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"C$15,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/tower-bet-casino-review", whatHappened:"Casino Guru's complaint index lists a case describing an account closed over suspected suspicious activity, involving roughly C$15,000. Casino Guru rejected the complaint; the specific rejection rationale wasn't captured in this research pass and should be confirmed against the full case page before further characterization.", operatorReason:"Not stated in the reviewed source" },
+    { id:"ctb2", title:"56,000 USDC in winnings allegedly never received — rejected", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"56,000 USDC", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/tower-bet-casino-review", whatHappened:"A large disputed case describes 56,000 USDC in winnings the player said were never received. Casino Guru rejected the complaint; the specific rejection rationale — essential context for a claim this size — wasn't captured in this research pass.", operatorReason:"Not stated in the reviewed source" },
+    { id:"ctb3", title:"$165 winnings confiscated — rejected", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"$165", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/tower-bet-casino-review", whatHappened:"Casino Guru's complaint index lists a $165 winnings-confiscation complaint against Tower.bet as rejected. On its own, a single rejected complaint of this size isn't evidence of operator wrongdoing.", operatorReason:"Not stated in the reviewed source" },
+    { id:"ctb4", title:"300 USDT confiscated after an alleged machine malfunction — rejected", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"300 USDT", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/tower-bet-casino-review", whatHappened:"A casino-game (not sportsbook) complaint describes 300 USDT confiscated following an alleged machine malfunction. Casino Guru rejected the complaint.", operatorReason:"Not stated in the reviewed source" }
+  ] },
+  "Whale.io": { items: [
+    { id:"cwh1", title:"$36,128 withdrawal pending 9 days after full KYC verification, no operator response", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"A", amount:"$36,128", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/whale-casino-withdrawal-of-36128-usd-pending-for-9-days-after-full-kyc-verification", whatHappened:"Player said a $36,128 withdrawal remained pending nine days after submitting passport, selfie/video verification, proof of address, bank documents, crypto-wallet ownership and purchase receipts. AskGamblers ultimately lists the case unresolved.", operatorReason:"" },
+    { id:"cwh2", title:"$4,750 withdrawal cancelled and extra verification demanded despite prior KYC; resolved", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$4,750", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/whale-casino-withdrawal-denied-account-verification-delay", whatHappened:"Player said a withdrawal was cancelled despite prior two-step KYC and that additional proof-of-address, ownership, source-of-funds and selfie documents were requested. The complaint was later resolved.", operatorReason:"" },
+    { id:"cwh3", title:"Account closed after winning ~1,700 USDT in a Refer-a-Friend tournament; unresolved", category:"Account", issueTag:"Account closed after winning streak", priority:"B", amount:"1,700 USDT", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-account-has-been-closed-2", whatHappened:"Player said the account was banned shortly after winning roughly 1,700 USDT in a Refer-a-Friend tournament. Casino Guru requested evidence of the alleged abuse Whale.io cited; per Casino Guru's case summary, Whale.io did not provide sufficient evidence or cooperation, and the case was marked unresolved.", operatorReason:"Alleged (unspecified) tournament/referral abuse; not substantiated to Casino Guru's satisfaction" },
+    { id:"cwh4", title:"1,000 USDT deposit followed by immediate permanent account block; unresolved", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"1,000 USDT", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-account-has-been-closed-without-1", whatHappened:"Player said a 1,000 USDT deposit was credited and the account was blocked almost immediately, before any gameplay or withdrawal. The player says identity and source-of-funds documents were supplied, but no specific reason was given. Casino Guru marked the case unresolved after receiving no cooperation from Whale.io.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cwh5", title:"383 USDT retained in closed account over an unsubstantiated multi-accounting allegation; unresolved", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"383 USDT", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-account-has-been-closed", whatHappened:"Player said 383 USDT remained in a closed account, including a 300 USDT deposit. Whale.io reportedly alleged multi-accounting; Casino Guru found the casino failed to provide sufficient supporting evidence and closed the complaint unresolved.", operatorReason:"Alleged multi-accounting; evidence for the allegation was not supplied to Casino Guru" },
+    { id:"cwh6", title:"Account temporarily blocked during withdrawal after a winning bet; resolved", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"366 USDT", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-account-has-been-closed-1", whatHappened:"Player deposited $200, placed a bet and reached a $366 balance, then reported being locked out during withdrawal. Whale.io later confirmed the withdrawal was processed successfully, and Casino Guru marked the case resolved.", operatorReason:"Withdrawal was ultimately processed; confirmed by the operator" },
+    { id:"cwh7", title:"524 USDT account closed after a winning deposit, citing unspecified rule violations", category:"Account", issueTag:"Account closed after winning streak", priority:"B", amount:"524 USDT", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-account-has-been-closed-without-explanation", whatHappened:"Player reported several deposits, with a final 250 USDT deposit wagered and won to produce a 524 USDT balance. The player alleged the account was then blocked, with Whale.io citing unspecified rule violations. An older, historically-indexed case still shown as open/unresolved in Casino Guru's index.", operatorReason:"Unspecified rule violations cited, per the player's account; not detailed in the reviewed source" },
+    { id:"cwh8", title:"$10,000 (45,000 JAMBO) withdrawal delay traced to a wrong wallet address; resolved", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"$10,000 (45,000 JAMBO)", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-winnings-haven-t-been-received", whatHappened:"Player reported a delayed withdrawal of 45,000 JAMBO tokens, valued at roughly $10,000 in the complaint. Casino Guru found the withdrawal had failed because the player had supplied an incorrect wallet address; once corrected, the full withdrawal was processed. Not treated as a negative operator finding.", operatorReason:"Player had supplied an incorrect wallet address" },
+    { id:"cwh9", title:"501 USDT withdrawal returned to casino wallet after a payment-provider AML check; resolved", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"501.1461 USDT", status:"Resolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-s-withdrawal-has-been-delayed", whatHappened:"A withdrawal was returned to the sending casino wallet following an AML check performed by the payment provider, not Whale.io itself. The player explicitly said the withdrawal had been approved quickly, and later marked the complaint resolved. Not treated as a negative operator finding.", operatorReason:"AML check performed by the third-party payment provider" },
+    { id:"cwh10", title:"Battle Pass, cashback and $6,000 in blackjack winnings allegedly uncredited; closed without a finding", category:"Casino", issueTag:"Bonus terms dispute", priority:"C", amount:"$6,000", status:"Closed - player stopped responding", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/complaints/whale-io-casino-player-has-unresolved-issues-with", whatHappened:"Player alleged missing Battle Pass rewards, cashback discrepancies and $6,000 in blackjack winnings not credited despite supplying screenshots and video. Casino Guru could not complete the investigation because the player stopped responding, so no finding was reached.", operatorReason:"Not stated; case closed before a substantive finding was reached" },
+    { id:"cwh11", title:"Account suspended with ~$4,200 inside after a week of inactivity following a $5,000 deposit", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"B", amount:"~$4,200 claimed / $5,000 deposit", status:"Forum report", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5568043.0", whatHappened:"A Bitcointalk user ('monkeyfish') said they deposited $5,000, placed only two or three bets, then returned about a week later to find the account suspended with funds still inside. The thread says verification was requested and the account was later permanently blocked. Unverified community allegation — no operator response or confirmed outcome is on record.", operatorReason:"Not stated; unverified community allegation" },
+    { id:"cwh12", title:"Three settled sportsbook wins refunded instead of paid out, ~125 USDT disputed", category:"Sportsbook", issueTag:"Winning bets voided after settlement", priority:"C", amount:"125.4 USDT profit", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/whale.io", whatHappened:"Reviewer supplied three bet IDs and alleged three successful sportsbook bets were refunded rather than settled as wins, costing 125.4 USDT in profit. Whale.io publicly replied that it would investigate and provide a settlement explanation; no confirmed final outcome is on record.", operatorReason:"Whale.io said it would investigate and provide a settlement explanation" },
+    { id:"cwh13", title:"Sportsbook withdrawal suspended after a winning 2026 World Cup bet", category:"Sportsbook", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/whale.io", whatHappened:"Reviewer said they returned to Whale.io's sportsbook for the 2026 World Cup, won a Spain-Belgium bet, and then had the withdrawal suspended. Whale.io publicly replied that withdrawal reviews can be required under its Terms and security procedures, and that a suspension does not necessarily mean funds were taken; no confirmed final outcome is on record.", operatorReason:"Withdrawal reviews can be required under Whale.io's Terms/security procedures, per its public reply" },
+    { id:"cwh14", title:"Permanent restriction after repeated failed verification; 245.56 USDT held, deposit-return request ignored", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"245.56 USDT incl. 150 USDT deposit", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://uk.trustpilot.com/review/whale.io", whatHappened:"Reviewer said verification repeatedly failed, the account was permanently restricted, and a direct request to return the 150 USDT deposit was ignored. The review states 245.56 USDT was held in total and that complaints were filed with Casino Guru and the licensing authority.", operatorReason:"Not stated" },
+    { id:"cwh15", title:"Permanent ban over an \"opposite betting\" allegation with no specific violation identified", category:"Sportsbook", issueTag:"Multi-account arbitrage-betting dispute", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/whale.io", whatHappened:"Reviewer said support initially cited 'opposite betting' but would not identify a specific violation or supporting evidence, leaving the account permanently banned with no appeal.", operatorReason:"\"Opposite betting\" cited initially; no specific violation or evidence given per the reviewer" }
+  ], note:"Casino Guru's own complaint index lists 14 total logged complaints for Whale.io (1 open, 2 unresolved, 3 resolved, 8 rejected) — the individually-reviewed AskGamblers/Casino Guru cases above cover most of the non-rejected ones. Several additional unverified community reports (Bitcointalk, Trustpilot) are tracked separately above and flagged as such rather than presented as adjudicated findings." },
+  "Dicey.com": { items: [
+    { id:"cd1", title:"KYC rejected twice over a disputed reason, delaying access to funds", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/dicey.com", whatHappened:"An Aug 2026 reviewer said KYC was completed twice, each review taking about five days despite a stated 72-hour target, and disputed Dicey's explanation that the wrong document type had been selected. The reviewer said the delay/rejection was preventing access to their money; no final payment outcome is visible in the indexed public record.", operatorReason:"Dicey reportedly said the wrong document type had been selected; disputed by the reviewer" },
+    { id:"cd2", title:"VIP-transfer offer led to a request for an additional $100 deposit", category:"Account", issueTag:"Bonus terms dispute", priority:"C", amount:"$50 deposited; another $100 allegedly requested", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/dicey.com", whatHappened:"An Apr 2026 reviewer said that after depositing $50 in connection with a VIP-transfer-related offer, a host allegedly asked for an additional $100. A promotional/VIP-onboarding dispute rather than a sportsbook winnings-confiscation case.", operatorReason:"Not stated in the reviewed source" },
+    { id:"cd3", title:"Compensation offer for a \"Luckio\" situation denied over prior VIP-transfer eligibility", category:"Account", issueTag:"Bonus terms dispute", priority:"C", amount:"Not stated", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/dicey.com", whatHappened:"Reviewer said Dicey publicly offered compensation connected to an unspecified \"Luckio\" situation but privately denied the reviewer's eligibility, on the grounds that the reviewer had previously completed a VIP transfer without playing. Concerns promotional eligibility rather than seized sportsbook funds.", operatorReason:"Reviewer had previously completed a VIP transfer without playing, per the eligibility criteria cited" },
+    { id:"cd4", title:"Withdrawal delayed — newly opened complaint, detail not yet available", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"Not stated", status:"Unresolved", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/dicey-casino-review", whatHappened:"Casino Guru's live search index shows one newly opened complaint titled \"Player's withdrawal is delayed.\" An earlier cached version of the review page showed zero complaints, indicating this case was added very recently; the detailed complaint page (with amount and full circumstances) was not reliably available during this research pass.", operatorReason:"Not yet available — case newly opened" }
+  ], note:"Dicey is a very new, small operator with a thin public complaint history: Casino Guru shows a 7.3/10 Safety Index with just one (newly opened) logged complaint, and Trustpilot has only 14 reviews (29% one-star). This should be read as insufficient track record rather than either strong safety or risk — complaint monitoring is more informative here than a large complaint count. A separate Bitcointalk thread raised skepticism about a promotional sportsbook review posted by a new account, but did not itself document a distinct player-loss case, so it isn't itemized above." },
+  "Chancer": { items: [
+  ], note:"Chancer is a very new operator (2024/2025-era footprint) with no substantiated player complaint found on Casino Guru, AskGamblers or Bitcointalk in the indexed public record at the time of this research. Third-party domain-reputation scanners (ScamAdviser, Gridinsoft) flag the young domain with a very low automated trust score and multiple security-provider warnings — a transparency/domain-risk signal worth recording, but not itself a player complaint, so it is not counted as a confiscation or non-payment case above." },
+  "RioBet": { items: [
+    { id:"crio1", title:"€918 deposit not credited for nine days", category:"Account", issueTag:"Deposit not credited / payment-processing dispute", priority:"B", amount:"€918", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/riobet-casino", whatHappened:"A player said a €918 deposit remained uncredited for nine days, with RioBet repeatedly saying it was waiting on the payment system. This is the only unresolved case among AskGamblers' nine indexed complaints against RioBet.", operatorReason:"RioBet said the deposit was pending confirmation from the payment processor" },
+    { id:"crio2", title:"$3,557 in withdrawal attempts repeatedly failed across payment methods", category:"Account", issueTag:"Withdrawal repeatedly failed / payment-processing dispute", priority:"B", amount:"$3,557", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/riobet-casino", whatHappened:"A player reported 16 days of rejected or failed withdrawal attempts across card, Skrill and crypto payment methods. AskGamblers' indexed record shows the complaint was ultimately resolved.", operatorReason:"Not stated in the indexed source" },
+    { id:"crio3", title:"$2,037 payment delayed while bets were under provider investigation", category:"Sportsbook", issueTag:"Funds locked in betting-integrity review", priority:"C", amount:"$2,037", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/riobet-casino", whatHappened:"A player alleged RioBet was delaying payment of $2,037 while the underlying bets were under a payment/betting-provider investigation. AskGamblers' indexed record lists the case as resolved.", operatorReason:"Not stated in the indexed source" },
+    { id:"crio4", title:"€7,000 tournament prize not credited within the stated period", category:"Casino", issueTag:"Bonus terms dispute", priority:"C", amount:"€7,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/riobet-casino", whatHappened:"A tournament winner said the €7,000 prize had not been credited after the stated period. AskGamblers' indexed record shows the case was later resolved.", operatorReason:"Not stated in the indexed source" },
+    { id:"crio5", title:"$20,000 in winnings confiscated over an alleged card-counting accusation, only the deposit refunded", category:"Casino", issueTag:"Only original deposit returned", priority:"B", amount:"$20,000 confiscated; original deposit refunded", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/riobet.com", whatHappened:"A Trustpilot reviewer said RioBet confiscated $20,000 in winnings over an alleged card-counting accusation, refunding only the original deposit. This is a community report rather than a mediated case, and sits outside the nine complaints AskGamblers indexes for RioBet.", operatorReason:"Not stated in the reviewed source" }
+  ], note:"AskGamblers indexes 9 complaints against RioBet; 8 are shown resolved and the €918 delayed-deposit case above is the only one still indexed unresolved. A separate Trustpilot community report (unverified, outside AskGamblers' count) describes a $20,000 card-counting confiscation." },
+  "Betcoin.ag": { items: [
+    { id:"cbca1", title:"~$900 balance blocked over alleged sportsbook arbitrage/value-betting abuse", category:"Sportsbook", issueTag:"Sportsbook arbitrage / value-betting dispute", priority:"B", amount:"~$900 (deposited $800, withdrew $400, later $300 withdrawal blocked)", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betcoin-casino-withdrawal-blocked-and-account-blocked", whatHappened:"A player deposited $800 and withdrew $400, then said a later $300 withdrawal attempt from a roughly $900 balance triggered an account block over alleged 'sportsbook abuse.' Betcoin supplied AskGamblers with evidence concerning prohibited arbitrage-betting, value-betting and alert-service conduct.", operatorReason:"Betcoin cited evidence of prohibited arbitrage/value-bet/alert-service conduct under its sportsbook terms; AskGamblers marked the complaint resolved on that basis" },
+    { id:"cbca2", title:"$500 balance disputed after failed KYC and an alleged prior banned account", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"$500", status:"Contested — claims unverified", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5573971.0", whatHappened:"A player said account access was lost and verification attempts failed. Betcoin's forum representative alleged the player had a prior banned account tied to sportsbook abuse and had failed KYC; the player denied having another account. Forum participants noted the conflicting claims could not be independently verified.", operatorReason:"Betcoin's forum representative alleged a prior banned account and failed KYC verification, which the player disputed" },
+    { id:"cbca3", title:"Additional sportsbook account-closure complaints (30-40 bets, first-deposit disable, payment investigation)", category:"Sportsbook", issueTag:"Account closed after sportsbook/provider flag", priority:"C", amount:"Varies by case", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/betcoin-casino-betcoin-disabled-account", whatHappened:"AskGamblers' indexed record includes several other sportsbook-related cases against Betcoin: funds withheld after 30-40 bets, an account disabled after the first deposit, and a winning-bet payment under investigation. The indexed cases are marked resolved.", operatorReason:"Not individually stated in the indexed summary" },
+    { id:"cbca4", title:"Casino Guru indexes 40 complaints (8 resolved, 32 rejected, 0 unresolved)", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"Examples include €405, 650 USDC, 400 USDT", status:"Mostly rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/betcoin-ag-casino-review", whatHappened:"Casino Guru's live complaint index currently shows 40 complaints against Betcoin.ag: 8 resolved and 32 rejected, with none marked unresolved. Examples include €405, 650 USDC and 400 USDT account-closure and withdrawal disputes.", operatorReason:"Varies by case; the large majority were rejected by Casino Guru's mediation team" }
+  ], note:"Betcoin.ag's complaint pattern is dominated by sportsbook-abuse account closures, most resolved or rejected once the operator supplied evidence; only the Bitcointalk KYC case above remains genuinely contested. See the sidebar for the operator's own inconsistent governing-law/licensing claims." },
+  "Bspin.io": { items: [
+    { id:"cbsp1", title:"13.7 BTC balance locked after a large slots win, no update after 15+ days", category:"Casino", issueTag:"Withdrawal withheld pending verification dispute", priority:"A", amount:"13.7 BTC", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/bspin-io-casino/complaints", whatHappened:"A player reported winning 13.7 BTC on slots, after which the account was locked and placed under investigation for more than 15 days without a substantive update. AskGamblers' indexed record shows the complaint remains unresolved.", operatorReason:"Not stated in the indexed source" },
+    { id:"cbsp2", title:"$135 in winnings withheld over an alleged duplicate-account/rule violation", category:"Casino", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"$135", status:"Unresolved — closed after no operator response", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/bspin-io-casino-won-t-pay-my-winnings-due-to-unproven-violation-of-their-terms", whatHappened:"A player said welcome-bonus wagering conditions had been completed but the account was blocked at withdrawal over alleged duplicate-account/rule violations. AskGamblers closed the case unresolved after Bspin gave no adequate response.", operatorReason:"Bspin alleged a duplicate-account/rules violation but did not substantiate it to AskGamblers' satisfaction" },
+    { id:"cbsp3", title:"Casino Guru indexes 10 complaints (1 unresolved, 1 resolved, 8 rejected)", category:"Casino", issueTag:"Balance including deposit confiscated", priority:"C", amount:"Disputed amounts include $2,373, €120, C$700, €8,000, €20,000, 135 USDT, 2,900 USDT, $3,700, $350, $300", status:"Mostly rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/bspin-io-casino-review", whatHappened:"Casino Guru's live complaint index shows 10 complaints against Bspin.io: 1 unresolved, 1 resolved and 8 rejected, spanning disputed amounts from $120 up to €20,000.", operatorReason:"Varies by case; most were rejected by Casino Guru's mediation team" }
+  ], note:"The 13.7 BTC lock above is the highest-severity unresolved case found across this batch of six new operators. It is a casino/slots case rather than a sportsbook one, but the disputed value makes it materially important to Bspin.io's overall risk record." },
+  "Megapari": { items: [
+    { id:"cmp1", title:"$15,000 balance held through a 17-day, 20+ document KYC/SOF review", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$15,000", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/megapari-casino-i-currently-have-over-usd15-000usd-held-by-megapari", whatHappened:"A player deposited $11,000 and won several thousand dollars more, then underwent repeated KYC, source-of-funds and selfie-verification requests. After 17 days and more than 20 submitted images, the player confirmed payment and the complaint was closed resolved.", operatorReason:"Megapari required extended KYC/source-of-funds verification before releasing the balance" },
+    { id:"cmp2", title:"₹11,000 withdrawal marked completed but never received", category:"Account", issueTag:"Withdrawal repeatedly failed / payment-processing dispute", priority:"B", amount:"₹11,000", status:"Open", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/megapari-casino-missing-withdrawal-11000-inr", whatHappened:"A recent AskGamblers case says a withdrawal was marked completed on Megapari's system while the player reports the funds never reached their bank account, with support not responding. The case was still open at the time of this research.", operatorReason:"Not yet stated — case still open" },
+    { id:"cmp3", title:"$4,137 inaccessible through 12+ days of contradictory document requests", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$4,137", status:"Open", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/online-casinos/reviews/megapari-casino/complaints", whatHappened:"A player alleges more than 12 days and 32+ emails of repeated, contradictory document-format requests during KYC, leaving $4,137 inaccessible. The case was still open at the time of this research.", operatorReason:"Not yet stated — case still open" },
+    { id:"cmp4", title:"Casino Guru indexes 211 complaints (13 open, 80 resolved, 118 rejected)", category:"Account", issueTag:"Balance including deposit confiscated", priority:"C", amount:"Varies across 211 indexed cases", status:"Mixed — majority resolved or rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/megapari-casino-review", whatHappened:"Casino Guru's live complaint index currently shows 211 complaints against Megapari: 13 open, 80 resolved and 118 rejected, with none marked unresolved. Casino Guru also flags several bonus/betting-technique clauses in Megapari's terms as questionable.", operatorReason:"Varies by case" }
+  ], note:"Megapari's raw complaint volume (211 on Casino Guru) is large in absolute terms, but the large majority of indexed cases are resolved or rejected — raw count alone would materially overstate adverse outcomes. The two OPEN cases above (₹11,000 and $4,137) are the ones worth monitoring." },
+  "WinTomato": { items: [
+    { id:"cwt1", title:"0.1047926 BTC balance removed over a value-betting allegation", category:"Sportsbook", issueTag:"Sportsbook arbitrage / value-betting dispute", priority:"B", amount:"0.1047926 BTC", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/wintomato-casino-casino-rejected-the-payment-and-took-the-balance", whatHappened:"A player said their remaining BTC balance was removed after a value-betting allegation. WinTomato said third-party provider data confirmed value-betting/system-delay exploitation, and that all deposits were refunded. AskGamblers concluded the operator acted within its terms.", operatorReason:"WinTomato cited third-party provider data confirming value-betting/system-delay exploitation and said all deposits were refunded" },
+    { id:"cwt2", title:"~$650 balance withheld and account closed over a second value-betting case", category:"Sportsbook", issueTag:"Sportsbook arbitrage / value-betting dispute", priority:"C", amount:"$300 deposited, ~$650 balance", status:"Resolved in operator's favor", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/wintomato-casino-they-closed-my-account-and-do-not-pay-my-money", whatHappened:"A player's withdrawal was cancelled and their account closed after a $300 deposit grew to roughly $650. WinTomato later cited value betting, corroborated by third-party data. AskGamblers concluded management had acted according to its terms.", operatorReason:"WinTomato cited value-betting activity, corroborated by third-party provider data" },
+    { id:"cwt3", title:"$609.04 balance-adjustment dispute after an odds-provider settlement error", category:"Sportsbook", issueTag:"Bet settlement / balance-adjustment dispute", priority:"C", amount:"$609.04", status:"Resolved", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5484315.0", whatHappened:"A player alleged too much was deducted from their sportsbook balance after an odds-provider settlement error. After compiling a full betting history and completing selfie KYC, WinTomato corrected the balance and added free spins; the player said afterward that the operator had ultimately acted honestly.", operatorReason:"WinTomato attributed the discrepancy to an odds-provider settlement error and corrected the balance once verification was complete" },
+    { id:"cwt4", title:"~4,280 USDT in bonus-related profits cancelled over alleged multi-accounting", category:"Account", issueTag:"Bonus terms dispute", priority:"C", amount:"~4,280 USDT", status:"Unresolved in mediation (disputed)", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5444275.0%3Ball", whatHappened:"A player alleged their account was suspended and bonus-related winnings of about 4,280 USDT were confiscated after wagering a welcome bonus. WinTomato said the underlying account funds remained available but cancelled the bonus-related profits over alleged abuse/multiple accounts. Casino Guru mediation was reported closed unresolved after the operator did not respond, though a later Bitcointalk thread title states the case was 'resolved after 2 months' — the final disposition could not be independently confirmed in this research pass.", operatorReason:"WinTomato cited alleged multi-accounting/bonus abuse; underlying account funds were said to remain available" }
+  ], note:"WinTomato's strongest sportsbook-specific material is its value-betting/provider-data cases plus the resolved Bitcointalk balance-adjustment dispute; the ~4,280 USDT bonus case has a genuinely unclear final outcome and is flagged as such above rather than assigned a definitive resolution." },
+  "Thunderpick.io": { items: [
+    { id:"ctp1", title:"€781.30 withdrawal delayed, KYC documents repeatedly reported as \"not received\"", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€781.30", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-thunderpick-withdrawal-delayed-due-to-kyc-verification-and-repeated-claims-that-my-documents-were-not-received", whatHappened:"A player reported a pending withdrawal delayed by KYC verification, with Thunderpick repeatedly claiming submitted documents were not received despite multiple resubmissions.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp2", title:"€2,200.13 withdrawal delayed by repeated KYC requests", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€2,200.13", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-withdrawal-delayed-due-to-repeated-kyc-requests", whatHappened:"A player's payout was delayed after Thunderpick issued repeated KYC document requests following the withdrawal submission.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp3", title:"€6,226.37 withdrawal left pending for 12 days with no response", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€6,226.37", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-thunderpick-withdrawal-pending-for-12-days-without-response", whatHappened:"A player's withdrawal remained stuck for 12 days with no substantive response from Thunderpick.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp4", title:"~$8,725 blocked after a roughly $9,000 win, only $400 released", category:"Sportsbook", issueTag:"Winnings confiscated / forfeited", priority:"B", amount:"$8,725", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-i-think-they-scammed-me-for-8725-dollars", whatHappened:"A player said they won approximately $9,000, were allowed to withdraw only $400, and the remaining balance was then blocked with no resolution on record.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp5", title:"$140 deposit never credited, cited as a site-wide deposit issue", category:"Account", issueTag:"Deposit not credited / payment processing dispute", priority:"C", amount:"$140", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-140-dollars-got-stucked", whatHappened:"A player's $140 deposit never appeared in their account; Thunderpick reportedly cited a site-wide deposit problem, and the case remains unresolved.", operatorReason:"Site-wide deposit issue cited, per the player's account" },
+    { id:"ctp6", title:"€5,200 payout continuously delayed after verification documents submitted", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"€5,200", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-they-keep-delaying-my-payout", whatHappened:"After winning and submitting verification documents, a player reported their payout being continuously delayed with no firm timeline given.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp7", title:"$490 withdrawal blocked by a manual KYC rejection to the same deposit address", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"$490", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-verification-failed-manual-kyc-rejected", whatHappened:"A player deposited via Litecoin and submitted a withdrawal to the same address, but manual KYC review rejected the verification without a stated reason.", operatorReason:"Manual KYC review rejected, per Thunderpick; specific deficiency not stated in the indexed source" },
+    { id:"ctp8", title:"$11,700 KYC allegedly delayed on purpose for nearly a month after a large win", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$11,700", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-kyc-delayed-on-purpose-because-i-am-waiting-almost-a-month", whatHappened:"A player alleged their KYC review was deliberately delayed after a significant win, with verification still pending after nearly a month.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp9", title:"$8,077 withdrawal delayed 34+ hours without explanation; later resolved", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"C", amount:"$8,077", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-delaying-my-usd8077-withdrawal", whatHappened:"A player's withdrawal sat pending for more than 34 hours with no explanation given; the case is logged as resolved.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctp10", title:"$12,000 in funds confiscated, operator cited a 'professional player' registration-rules violation", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"B", amount:"$12,000", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/thunderpick-casino-my-money-was-confiscated-12000-dollar", whatHappened:"A player reported roughly $12,000 seized from their account on October 5. The player says Thunderpick described them as a 'professional player' and referred to a registration-rules violation; the public complaint text is sparse, so the underlying activity and any operator evidence can't be independently established. No funds returned as of this research pass.", operatorReason:"Thunderpick reportedly cited a registration-rules violation and described the player as a 'professional player'; not detailed further in the indexed source" },
+    { id:"ctp11", title:"4,900 USDT esports bettor's account closed and balance confiscated after KYC", category:"Sportsbook", issueTag:"Balance including deposit confiscated", priority:"B", amount:"4,900 USDT", status:"Unresolved", verified:false, source:"Bitcointalk", sourceUrl:"https://bitcointalk.org/index.php?topic=5586270.new", whatHappened:"A player said they used Thunderpick for about three months, regularly betting on tier-1 Dota 2 and CS2 esports matches, with a clean prior history of deposits and withdrawals. After a later withdrawal request, Thunderpick asked for passport, selfie and proof-of-address; the player alleges that shortly after submitting the documents, the account was permanently closed and the full 4,900 USDT balance confiscated, citing only a generic Terms & Conditions violation. No final resolution is shown in the indexed thread.", operatorReason:"A generic Terms & Conditions violation was cited, per the player's account; no specific clause or evidence described" },
+    { id:"ctp12", title:"$787.86 withdrawal bounced back on the wrong network, account then disabled", category:"Account", issueTag:"Withdrawal repeatedly failed / payment-processing dispute", priority:"C", amount:"$787.86 USDT", status:"Unresolved", verified:false, source:"Bitcointalk / LCB", sourceUrl:"https://bitcointalk.org/index.php?topic=5587841.0", whatHappened:"A player alleges Thunderpick sent a withdrawal over the BEP-20 network to a Revolut address that required ERC-20, causing the transaction to bounce back. The player supplied transaction IDs and says support acknowledged the returned funds and promised a manual credit — but the account was then allegedly disabled. The same dispute was cross-posted to LCB's own forum; no final resolution is visible in either indexed source.", operatorReason:"Not stated in the indexed sources" },
+    { id:"ctp13", title:"Sportsbook balance blocked over a disputed arbitrage allegation (Terms 5.1 / 15.1)", category:"Sportsbook", issueTag:"Sportsbook arbitrage / value-betting dispute", priority:"B", amount:"Not stated", status:"Contested — operator says a review found terms breaches", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/thunderpick.io", whatHappened:"A 2026 reviewer said they spent months providing identity and address documents, after which Thunderpick blocked their balance and cited an alleged arbitrage violation of Terms 5.1 and 15.1. The reviewer denies engaging in arbitrage and says Thunderpick did not explain the specific betting activity involved. Thunderpick's own public reply states a review identified breaches of its terms and that the decision to end the relationship was final — one of the few cases here where both the player's and the operator's positions are publicly visible.", operatorReason:"Thunderpick's public response cites a review that found breaches of its Terms (5.1 / 15.1); no further detail given publicly" },
+    { id:"ctp14", title:"Sports-betting account blocked and balance withheld over alleged multiple accounts", category:"Sportsbook", issueTag:"Multi-account / arbitrage betting dispute", priority:"B", amount:"Not stated", status:"Contested — regulator complaint reportedly filed", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/thunderpick.io?page=2", whatHappened:"A reviewer said they used Thunderpick specifically for sports betting, submitted KYC when requesting a withdrawal, and then had the account blocked and balance withheld. Thunderpick allegedly cited multiple accounts; the reviewer denies holding more than one account and says no evidence was provided. The reviewer states a complaint was filed with the Curaçao regulator — no regulator outcome was located in this research pass.", operatorReason:"Multiple accounts alleged by Thunderpick, per the reviewer; no evidence described as shown to the player" }
+  ], note:"Casino Guru's own complaint index lists 21 total logged complaints for Thunderpick.io (11 unresolved, 8 rejected, 2 resolved) and assigns a 'Very low' 2.9/10 safety index — one of the lowest safety verdicts in this database — explicitly citing that the operator \"doesn't cooperate\" with its complaint-mediation process. AskGamblers' own stats panel cites 9 total complaints with 1 resolved, while its complaints listing page enumerates 10 individual cases — a minor live-count discrepancy, not a contradiction. The fourteen cases above are a representative, not exhaustive, sample of that record — including four sportsbook/esports-specific and cross-platform (Bitcointalk, LCB, Trustpilot) cases added from a follow-up research pass: a 4,900 USDT esports (Dota 2/CS2) account-closure allegation, a stuck cross-network withdrawal followed by account disablement, a Trustpilot arbitrage dispute where Thunderpick's own public reply cites Terms 5.1/15.1, and a Trustpilot sports-betting/multi-account dispute where the reviewer says a complaint was filed with the Curaçao regulator. Casino Guru's own complaint pages were not individually fetched in this pass." },
+  "BookMaker.eu": { items: [
+    { id:"cbm1", title:"$7,858.73 account locked after mandatory video KYC on a withdrawal", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$7,858.73", status:"Unresolved", verified:true, source:"BookMakersReview forum", sourceUrl:"https://www.bookmakersreview.com/forum/threads/bookmaker-eu-account-locked-with-7-858-after-video-kyc-seeking-resolution.71784/", whatHappened:"A player reported the account was locked with a \"system error\" after completing a mandatory video-KYC step tied to a withdrawal request. The thread, posted May 2026, was still unresolved as of its last update roughly two months later.", operatorReason:"Not stated in the indexed source" }
+  ], note:"BookMaker.eu's own Trustpilot page could not be fetched in this pass (returned a 403), so no aggregate third-party rating is cited here. This site focuses on sportsbetting, so a separately-found $40,000 live-blackjack (casino) non-payment dispute is deliberately left out of this list as out of scope, even though it's a real, documented complaint on SportsbookReview's forum — worth knowing about if evaluating BookMaker.eu's casino product specifically. Additional non-payment/\"ghosting\" threads exist on the BookMakersReview forum but without extractable dollar amounts, so they aren't itemized individually. This is a representative, not exhaustive, sample." },
+  "Betski": { items: [], note:"No logged complaints were found on Casino Guru, AskGamblers (no listing exists yet), Trustpilot (no page found) or Reddit (r/sportsbook, r/advantageplay) as of this research pass. Betski is a very new, low-volume operator — Casino Guru's own unrated \"Fresh casino\" category — so this reflects an absence of track record rather than a confirmed clean record. Read together with the explicit low-risk-play/winnings-confiscation Terms language flagged above, an operator with these clauses on the books but no test cases yet is worth extra caution, not extra confidence." }
+};
+
+const COMPANY_INFO = {
+  "Stake": {
+    overview: "Stake.com is a crypto-first online casino and sportsbook founded in 2017 by Ed Craven and Bijan Tehrani. It is the largest crypto casino by both on-chain tracking and independent industry deposit-volume reports. Alongside its original Curaçao licence, Stake has expanded into regulated markets with market-specific licensed entities in the UK (2021), Colombia (2023), Italy (2024), Peru (2024), Brazil (2025), Denmark (2025), Greenland (2026) and Mexico (2026).",
+    ownership: { parent: "Medium Rare N.V.", jurisdiction: "Curaçao, plus market-specific licences (UK, Colombia, Italy, Peru, Brazil, Denmark, Greenland, Mexico)", related: "Betfair Colombia, Idealbet (Italy), Mocinoplay (Denmark) — acquired for licensed-market entry" }
+  },
+  "Roobet": {
+    overview: "Roobet is a crypto casino founded in 2019, operated by Raw Entertainment B.V. and licensed under Curaçao eGaming. Matt Duea is its publicly known founder. It has grown into one of the largest crypto casinos by deposit volume per both on-chain and independent industry tracking.",
+    ownership: { parent: "Raw Entertainment B.V.", jurisdiction: "Curaçao (eGaming licence)", related: "" }
+  },
+  "Rainbet": {
+    overview: "Rainbet is a crypto casino and sportsbook operated by RBGAMING N.V., registered in Anjouan, Union of Comoros (registration number 16077), licensed there for online games of chance; its terms state Anjouan law governs disputes. Independent coverage (Fintelegram, iGamingToday) has questioned the transparency and regulatory rigor of Anjouan-based licensing compared to established regulators like the UKGC or MGA — worth weighing when assessing reliability.",
+    ownership: { parent: "RBGAMING N.V.", jurisdiction: "Anjouan, Union of Comoros", related: "" }
+  },
+  "Betpanda": {
+    overview: "Betpanda (now operating as betpandacasino.io) is a crypto casino founded in 2023, operated by Star Bright Media S.R.L. under Costa Rican corporate registration. Costa Rica has no licensing regime for online casinos, and Betpanda's own terms state the service doesn't operate under any domestic gambling licence — its parent's Anjouan gaming licence (ALSI-202408063-FI3) covers a different brand, Punkz, not Betpanda's domains.",
+    ownership: { parent: "Star Bright Media S.R.L.", jurisdiction: "Costa Rica (corporate registration only — no gambling licence covers this brand)", related: "Punkz (same parent, different, unrelated gaming licence)" }
+  },
+  "Cryptorino": {
+    overview: "Cryptorino was established in 2022 and is operated by a Curaçao-registered company under eGaming licence 8048/JAZ, issued by the Curaçao Gaming Control Board. It does not hold a UK Gambling Commission licence.",
+    ownership: { parent: "", jurisdiction: "Curaçao (eGaming licence 8048/JAZ)", related: "" }
+  },
+  "Bets.io": {
+    overview: "Bets.io launched in 2021 under Bets Entertainment N.V. (Curaçao). Its corporate structure has changed more than once since — via Techno Wave Systems SRL (Costa Rica) — and it currently operates under Tessera Limited S.R.L., licensed under Anjouan licence ALSI-202410047-FI2. Its payment agent, Xyrona Limited, is Cyprus-registered.",
+    ownership: { parent: "Tessera Limited S.R.L. (formerly Bets Entertainment N.V. / Techno Wave Systems SRL)", jurisdiction: "Anjouan (licence ALSI-202410047-FI2)", related: "" }
+  },
+  "Nitrobetting": {
+    overview: "Nitrobetting.eu is the rebrand of the earlier Nitrogen Sports platform, historically linked to Ideal Media Incorporated and co-founder James Hampelton. Public reporting on the current ownership structure and the reasons for the rebrand is limited — worth flagging as a research gap rather than assuming continuity. It operates out of Costa Rica, which has no online-gambling-specific regulation.",
+    ownership: { parent: "Formerly Ideal Media Incorporated / \"Nitrogen Group\" — current structure unclear from public sources", jurisdiction: "Costa Rica (no gambling-specific regulation)", related: "Nitrogen Sports (predecessor brand)" }
+  },
+  "Cloudbet": {
+    overview: "Cloudbet has operated since 2013, making it one of the longer-running crypto sportsbooks/casinos in the space. It's licensed by the Curaçao Gaming Authority (licence OGL/2024/328/0599) through parent company Halcyon Super Holdings B.V., with payment processing handled via Cyprus-based subsidiary Solas Technologies Limited.",
+    ownership: { parent: "Halcyon Super Holdings B.V.", jurisdiction: "Curaçao Gaming Authority (licence OGL/2024/328/0599)", related: "Solas Technologies Limited (Cyprus, payment-processing subsidiary)" }
+  },
+  "BC.Game": {
+    overview: "BC.Game is a crypto casino and sportsbook launched in 2017; specific founders have not been publicly confirmed. It operated for years under Curaçao licensing via BlockDance B.V., but BlockDance and successor entity Small House B.V. were declared bankrupt in the Netherlands/Curaçao in November 2024 after player-fund claims of roughly $2–2.5M. It currently operates under Twocent Technology Limited, a Belize-registered company holding an Anjouan (Union of Comoros) gaming licence — though industry outlet NEXT.io reported that Belize's Financial Services Commission found this registered entity \"did not exist,\" a serious, single-sourced red flag worth flagging rather than treating as fully settled.",
+    ownership: { parent: "Twocent Technology Limited (Belize) — predecessor operators BlockDance B.V. and Small House B.V. (Curaçao, both since declared bankrupt)", jurisdiction: "Anjouan, Union of Comoros (licence ALSI-202410011-FI1); formerly Curaçao (sub-licence under master 5536/JAZ) until the 2024 bankruptcy", related: "" }
+  },
+  "Gamdom": {
+    overview: "Gamdom is a crypto casino and sportsbook founded in 2016 by Felix Roemer, publicly identified as founder/CEO in multiple independent industry interviews. Its long-standing operating company is Smein Hosting N.V., based in Willemstad, Curaçao. Sources conflict on its exact current licence number, and at least one source states it moved to an Anjouan (Comoros) licence around September 2025 — a shift several operators in this space have made — though that specific transition isn't independently confirmed.",
+    ownership: { parent: "Smein Hosting N.V. (Willemstad, Curaçao)", jurisdiction: "Curaçao for most of its history; one source cites a move to an Anjouan licence around September 2025 (unconfirmed, exact licence number disputed across sources)", related: "" }
+  },
+  "Duelbits": {
+    overview: "Duelbits is a crypto casino and sportsbook that launched in February 2020. No founder is confirmed by name in available sources; a former CEO, Marco Pinnisi, is identified via his own public profile. The platform is operated by Liquid Entertainment N.V. (Curaçao), with Cyprus-based Herpestidae Services Limited providing management, payment and support services as a wholly owned subsidiary.",
+    ownership: { parent: "Liquid Entertainment N.V. (Curaçao); Herpestidae Services Limited (Cyprus) — wholly owned subsidiary handling operations", jurisdiction: "Curaçao (a licence number is cited by one source but not independently cross-verified)", related: "Public casino directories list numerous other brands under the same Curaçao licence holder — most likely a sub-licensing arrangement rather than common ownership, so not listed here as sister brands without further verification" }
+  },
+  "Winna": {
+    overview: "Winna is a crypto casino and sportsbook that launched in summer 2024, led by co-founder/CEO Paul Martens, and closed a $15M seed funding round in December 2024. It's operated by GG Gaming (Costa Rica-registered). At the time of its funding announcement the CEO said an Anjouan (Comoros) licence was \"expected in January\"; Winna's site currently states it is licensed by the Tobique Gaming Commission (New Brunswick, Canada) instead — this apparent change in licensing jurisdiction isn't confirmed by a single authoritative source and is worth treating as an open question.",
+    ownership: { parent: "GG Gaming LLC / GG Gaming S.R.L. (Costa Rica)", jurisdiction: "States licensing by the Tobique Gaming Commission (Canada); no licence number published. An earlier-stated Anjouan licence (Dec 2024, described as \"expected\") isn't confirmed as ever finalized.", related: "" }
+  },
+  "Razed": {
+    overview: "Razed is a crypto casino and sportsbook that launched in 2024. Per its own Terms of Service, it is owned and operated by Wild Technology Ltd. (Costa Rica), licensed by the Government of the Autonomous Island of Anjouan, Union of Comoros. Third-party sources — not confirmed on razed.com itself — additionally describe a related Curaçao sub-licensing entity, Pretense Flip N.V., and commercial ties to sister brands SpinBit and SpinBet; these secondary claims are lower-confidence and couldn't be verified against Razed's own pages.",
+    ownership: { parent: "Wild Technology Ltd. (Costa Rica) — confirmed by Razed's own Terms of Service", jurisdiction: "Anjouan, Union of Comoros (licence ALSI-132405034-FI3, confirmed on razed.com); a supplementary Curaçao licence tied to Pretense Flip N.V. is claimed only by third parties", related: "SpinBit / SpinBet cited by third-party sources as commonly-affiliated brands — unconfirmed directly by Razed" }
+  },
+  "Thrill": {
+    overview: "Thrill is a crypto-only casino and sportsbook that launched in 2025 (most sources cite July 31, 2025). No individual founders are publicly named. It's operated by Gravity Unleashed B.V., which holds an active Curaçao Gaming Control Board licence, with a related entity, Gravity Unleashed Limitada, holding a separate Anjouan licence — the exact legal relationship between the two entities isn't documented in any source found.",
+    ownership: { parent: "Gravity Unleashed B.V. (Curaçao); related entity Gravity Unleashed Limitada holds a separate Anjouan licence", jurisdiction: "Curaçao Gaming Control Board licence OGL/2024/1052/0508; also Anjouan Gaming Board licence ALSI-202506019-FI1", related: "" }
+  },
+  "500Casino": {
+    overview: "500Casino originally launched in 2016 as CSGO500, one of the earliest CS:GO skin-gambling sites, before rebranding/expanding into a full crypto casino and sportsbook — the original csgo500.com domain still operates. The operating company throughout has been Perfect Storm B.V. (Curaçao), which also runs the related \"500Play\" casino brand. No individual founders are named in available sources.",
+    ownership: { parent: "Perfect Storm B.V. (Curaçao)", jurisdiction: "Curaçao Gaming Control Board licence OGL/2024/1354/0882 (an earlier licence, #8048/JAZ2021-088, was cited under the pre-2023 master-licence regime)", related: "500Play (500play.com) — same operator, Perfect Storm B.V." }
+  },
+  "Rakebit": {
+    overview: "Rakebit is a crypto-only casino and sportsbook launched in 2024, licensed by the Anjouan Gaming Board (Union of Comoros). Its beneficial owner is reported by compliance outlet Fintelegram to be Konstantin Katsev, a former co-founder of the now-closed TrueFlip.io casino; the operating company itself changed hands from Innovex Tech Holdings Ltd to Nile King Media LTD in early 2026, per the Anjouan public register — a recent ownership transfer worth noting rather than treating as settled history.",
+    ownership: { parent: "Nile King Media LTD (as of ~Feb 2026; previously Innovex Tech Holdings Ltd)", jurisdiction: "Anjouan Gaming Board, Union of Comoros (licence ALSI-202602030-FI2, issued Feb 2026; an earlier licence number is cited for the pre-transfer operator — unconfirmed pending a direct registry check)", related: "" }
+  },
+  "Fresh Casino": {
+    overview: "Fresh Casino is an online casino accepting both fiat and cryptocurrency, established in 2018 and operated by Galaktika N.V. under a Curaçao gambling licence. It's one of a large group of sister brands under the same corporate umbrella — several others (Jet Casino, Starda Casino, Sol Casino, 1Go Casino, Legzo Casino, Irwin Casino) are also listed in this database; casino.guru describes the wider group as covering roughly 19 casino brands in total.",
+    ownership: { parent: "Galaktika N.V. (Curaçao)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/169/0146 — one direct registry check returned a status of \"Assessment in progress\" with an expiry of 24 Dec 2025, while aggregator sites describe it as active; worth independent re-verification", related: "Sister brand of Jet Casino, Starda Casino, Sol Casino, 1Go Casino, Legzo Casino and Irwin Casino (all Galaktika N.V., also listed in this database)" }
+  },
+  "SolCasino.io": {
+    overview: "SolCasino.io is a Solana-blockchain-native crypto casino and sportsbook launched in December 2021, operated by Three Gaming Limitada (Costa Rica) and licensed by the Tobique Gaming Commission (a First Nations-based gaming jurisdiction in New Brunswick, Canada). It is unrelated to the separately owned \"Sol Casino\" (sol.casino) also listed in this database, despite the similar name — the two share no corporate connection found in research.",
+    ownership: { parent: "Three Gaming Limitada (Costa Rica)", jurisdiction: "Tobique Gaming Commission (New Brunswick, Canada); one third-party source also mentions a Curaçao eGaming licence, not independently confirmed", related: "None found — not related to Sol Casino (sol.casino) despite the similar name" }
+  },
+  "Sol Casino": {
+    overview: "Sol Casino (sol.casino) is a traditional fiat-and-crypto online casino with an Ancient-Egyptian branding theme, dated by third-party trackers to a 2019 launch and operated by Galaktika N.V. under a Curaçao gambling licence. It is unrelated to the separately owned, Solana-native \"SolCasino.io\" also listed in this database, despite the similar name; Sol Casino is instead a sister brand of Jet Casino, Starda Casino, Fresh Casino, 1Go Casino, Legzo Casino and Irwin Casino, all under the same Galaktika N.V. group.",
+    ownership: { parent: "Galaktika N.V. (Curaçao)", jurisdiction: "Curaçao gambling licence, sub-licensed via Antillephone N.V. (licence number 8048/JAZ2016-050 per third-party trackers, not independently confirmed on sol.casino's own pages)", related: "Sister brand of Jet Casino, Starda Casino, Fresh Casino, 1Go Casino, Legzo Casino and Irwin Casino (all Galaktika N.V., also listed in this database). Not related to SolCasino.io despite the similar name." }
+  },
+  "Jet Casino": {
+    overview: "Jet Casino is an online crypto/fiat casino founded in 2020 and operated by Galaktika N.V. under a Curaçao gambling licence. It's a sister brand of several other operators in this database — Fresh Casino, Starda Casino, Sol Casino, 1Go Casino, Legzo Casino and Irwin Casino — all run under the same Galaktika N.V. corporate group, reported by third parties to cover 17–19 casino brands in total.",
+    ownership: { parent: "Galaktika N.V. (Curaçao)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/169/0146 — this specific number comes from an unofficial tracker site, not confirmed on an official registry or on Jet Casino's own page", related: "Sister brand of Fresh Casino, Starda Casino, Sol Casino, 1Go Casino, Legzo Casino and Irwin Casino (all Galaktika N.V., also listed in this database)" }
+  },
+  "Starda Casino": {
+    overview: "Starda Casino is an online crypto/fiat casino founded in 2022, operated by the same corporate group as Jet Casino — Galaktika N.V. — under a Curaçao gambling licence. It's a sister brand of Fresh Casino, Jet Casino, Sol Casino, 1Go Casino, Legzo Casino and Irwin Casino, all listed in this database.",
+    ownership: { parent: "Galaktika N.V. (Curaçao)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/169/0146 — same unverified-number caveat as Jet Casino", related: "Sister brand of Fresh Casino, Jet Casino, Sol Casino, 1Go Casino, Legzo Casino and Irwin Casino (all Galaktika N.V., also listed in this database)" }
+  },
+  "1Go Casino": {
+    overview: "1Go Casino is an online crypto/fiat casino established in 2024 and operated by Galaktika N.V. under a Curaçao Gaming Authority master licence. It's a sister brand of Fresh Casino, Jet Casino, Starda Casino, Sol Casino, Legzo Casino and Irwin Casino — all part of the same corporate group, also listed in this database.",
+    ownership: { parent: "Galaktika N.V. (Curaçao, registration no. 140803)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/169/0146 — one direct registry check returned status \"Assessment in progress\" with an expiry of 24 Dec 2025, conflicting with aggregator claims of active status; worth independent re-verification", related: "Sister brand of Fresh Casino, Jet Casino, Starda Casino, Sol Casino, Legzo Casino and Irwin Casino (all Galaktika N.V., also listed in this database)" }
+  },
+  "Legzo Casino": {
+    overview: "Legzo Casino is an online crypto/fiat casino established in 2022 and operated by Galaktika N.V. — the same Curaçao-registered group behind 1Go Casino and several other brands in this database. No individual founders are publicly disclosed for the operator or its parent group.",
+    ownership: { parent: "Galaktika N.V. (Curaçao, registration no. 140803)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/169/0146 — same registry-status caveat as 1Go Casino (one check showed \"Assessment in progress,\" expiry 24 Dec 2025)", related: "Sister brand of Fresh Casino, Jet Casino, Starda Casino, Sol Casino, 1Go Casino and Irwin Casino (all Galaktika N.V., also listed in this database)" }
+  },
+  "Irwin Casino": {
+    overview: "Irwin Casino (irwin.casino) is an online casino/sportsbook launched in 2024 and operated by Galaktika N.V. under a Curaçao Gaming Authority licence, with payment processing reported to run through Cyprus-based Unionstar Limited. Note: irwincasino.com — a domain that looks like an obvious guess — resolves to a different, unrelated site and could not be verified as official; irwin.casino is the domain independent review aggregators consistently cite.",
+    ownership: { parent: "Galaktika N.V. (Curaçao); payment processing via Unionstar Limited (Cyprus)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/169/0146, issued 28 Oct 2024 (independently corroborated by two review sites for this specific operator)", related: "Sister brand of Fresh Casino, Jet Casino, Starda Casino, Sol Casino, 1Go Casino and Legzo Casino (all Galaktika N.V., also listed in this database)" }
+  },
+  "Shuffle": {
+    overview: "Shuffle (shuffle.com) is a crypto casino and sportsbook that launched in February 2023, founded by Noah Dummett — a former BitMEX employee who went on to trade at Alameda Research and FTX, leaving before FTX's November 2022 collapse. Co-founders are reported as Darcy Spangler and Harley Fresh; a separate ABC News report names Ishan Haque as a co-founder too, a discrepancy in the founding-team roster that isn't resolved across sources. The platform is incubated by crypto venture group Fisher8 Capital and runs its own SHFL token, launched March 2024, used for a lottery/staking rewards program. In October 2025, Shuffle's third-party CRM provider (Fast Track) suffered a data breach exposing player names, contact details, betting history and KYC documents; the founder publicly confirmed the breach and said passwords and full payment data were not exposed. ABC News also reported in June 2025 that Shuffle geo-blocks Australia, the UK and the US while still running promotional livestreams and recruiting loss-share affiliates out of a Melbourne studio.",
+    ownership: { parent: "Natural Nine B.V. (Curaçao, registration no. 160998), incubated by Fisher8 Capital", jurisdiction: "Curaçao Gaming Control Board licence OGL/2024/1337/0628, granted October 2024", related: "" }
+  },
+  "Duel": {
+    overview: "Duel (duel.com) is a crypto-only casino and sportsbook that publicly launched in July 2025, after an earlier NFT-sale presence at duel.win. It was founded by Ossi \"Monarch\" Ketola, a Finnish entrepreneur also known for founding the CS:GO skin-gambling site CSGOEmpire. Duel deliberately doesn't run a traditional deposit-match welcome bonus, offering instant rakeback instead. Casino.Guru rates it 5.9/10 (\"Below Average\") on its Safety Index, citing a high rate of restrained payouts relative to the site's size. The founder has drawn separate reputational scrutiny: a false claim he made about a person's death in September 2025 moved a related prediction-market's trading volume, his and Duel's social accounts were suspended in October 2025, and Duel signed a sponsorship deal with Andrew Tate — who faces trafficking and rape charges — in November 2025. In August 2026, unverified social-media posts alleged Duel withdrawals were being flagged as high-risk by a third-party AML monitoring tool; a Duel representative denied any confirmed fund freezes, and the claim's original source has a disclosed conflict of interest.",
+    ownership: { parent: "Immortal Snail LLC (Nevis, registration no. L22982)", jurisdiction: "Anjouan Gaming Board licence, cited as ALSI-202411026-FI1 — the exact formatting of the licence number is inconsistent across sources and couldn't be confirmed directly against the regulator's own verification page", related: "" }
+  },
+  "1win": {
+    overview: "1win is a crypto-friendly casino and sportsbook operating through a large number of regional mirror domains (1win.com plus dozens of country-specific variants), largely because it is blocked or restricted in several jurisdictions. Sources disagree on its founding year — Wikipedia and one review site cite 2016, while AskGamblers and Casino.Guru both give 2018. No founder is disclosed by the company itself; a Russian investigative outlet (Izvestia, October 2025) named an individual it believes is the real owner, based on its own reporting rather than any company confirmation. Kazakhstan opened a 2023 investigation into 1win alleging unauthenticated payments and possible access by minors, later blocking the platform and reporting a multi-billion-tenge estimate of \"criminal income\"; it is also blocked in Russia and operates there via mirrors. In November 2024, a hacker published a database exposing roughly 96–100 million user records (confirmed by Have I Been Pwned), including emails, phone numbers, dates of birth and hashed passwords. 1win markets itself partly on a \"no KYC\" claim that conflicts with independent reviewers' reports of mandatory identity verification at withdrawal.",
+    ownership: { parent: "1Win N.V. (Curaçao, company registration no. 147039)", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/587/0621, issued September 2025 — a Curaçao registry snapshot from July 2026 still listed status as \"Assessment in progress\" months after the licence's stated March 2026 expiry date, an unresolved discrepancy", related: "Sister brand names cited elsewhere: 1win Esports, 1win Charity" }
+  },
+  "BetFury": {
+    overview: "BetFury (betfury.io, redirecting to bf1.io; betfury.com also in active use) is a crypto casino and sportsbook founded in 2019, running its own BFG token and staking program advertised at up to 50% APY alongside roughly 13,000 casino games and betting across 80+ sports. No specific founder is publicly named in any source checked. The operator's own homepage footer names the operating company as \"Universe B Games N.V.,\" while its Terms & Conditions page and the Curaçao licence registry both instead say \"Universe B Games B.V.\" — an unresolved naming inconsistency. Casino.Guru rates BetFury 9.1/10 (\"Very high\") on its Safety Index. BetFury self-reported paying out $140 million to players in H1 2026 via a press release syndicated across several crypto-news outlets — a self-disclosed, non-audited figure, not an independent estimate.",
+    ownership: { parent: "Universe B Games B.V. (Curaçao, registration no. 155126) — no sister brands found; BetFury is reported as the entity's only casino brand", jurisdiction: "Curaçao Gaming Authority licence OGL/2024/1494/0942 — a June 2026 registry snapshot showed a validity window ending 31 July 2026 (already passed as of this check), and BetFury's own site hedges that the licence application \"has [not yet] concluded\", an unresolved status", related: "" }
+  },
+  "bet105.ag": {
+    overview: "bet105.ag is a crypto-friendly offshore sportsbook (with a casino section) that its own \"About\" page and a syndicated press release (Oct 2025) describe as \"recently relaunched in 2024\" — though forum threads on SportsbookReview.com describe Heritage Sports / Wagerweb player accounts being migrated to bet105 around mid-2024, suggesting it's a rebrand of an older offshore operation rather than a from-scratch startup. No individual founder or executive is named on any official page. Its core marketing differentiator is reduced \"-105\" odds (vs. the industry-standard -110/-115), advertised fast crypto payouts, a \"no KYC\" position, and — most notably for this database — an explicit \"winners welcome\" stance toward sharp and arbitrage bettors that most sportsbooks restrict (see the badge below). It also runs a parallel social-sweepstakes model in most US states as a way to reach US bettors without a state gaming licence.",
+    ownership: { parent: "Not disclosed on any official page — no registered operating-company name found; a press release places operations in San José, Costa Rica", jurisdiction: "bet105's own marketing describes it as \"an established offshore sportsbook operating under a Curaçao license,\" but no licence number is given anywhere and a third-party reviewer instead describes it as unlicensed and Costa Rica-based; treat the Curaçao claim as an unverified self-description, not a confirmed licence", related: "Forum threads (not an official source) tie bet105 to the long-running offshore book Heritage Sports, with possible links to Wagerweb as well" }
+  },
+  "Rollbit": {
+    overview: "Rollbit (rollbit.com), launched in February 2020, is a hybrid crypto casino, sportsbook, leveraged crypto-derivatives trading platform and NFT project (the 10,000-piece \"Rollbots\" collection, Oct 2021). It's run by two pseudonymous founders known as \"Razer\" and \"Lucky\" — their real identities aren't officially confirmed; one anonymous investigative dossier names a specific individual and alleges past ties to a 2016 skin-betting scandal and a no-KYC exchange, but the piece itself concedes this is \"attribution, not proof,\" so it's treated here as unverified. Rollbit runs its own RLB token (no ICO, distributed free, migrated from Solana to Ethereum in 2023) used for staking and rakeback. A March 2023 BeInCrypto investigation flagged Rollbit's Curaçao sub-licence as showing an unusual, prolonged \"annual renewal\" status inconsistent with how Curaçao sub-licences normally work, and separately alleged the operator gave \"fake balances\" to promotional influencers; Rollbit told the researcher the licence issue was a \"UI issue.\" No formal regulatory enforcement action (fine, licence revocation, country-level ban) was found in this research — reported here as \"not found,\" not as confirmation the operator is clean.",
+    ownership: { parent: "Reported (third-party, not confirmed on Rollbit's own pages) as Bull Gaming N.V., incorporated in Curaçao around March 2021; ownership is described by one analysis as opaque, with nominee directors also tied to other offshore entities", jurisdiction: "Curaçao Gaming Authority — one third-party source cites licence number 157086, not independently verified against the Curaçao registry; a 2023 investigation flagged the sub-licence's renewal status as irregular", related: "No confirmed official sister brand; several look-alike domains exist (e.g. \"rollbitcasino.cc\") that are not established as official Rollbit properties and may be impersonators" }
+  },
+  // StakeUS: per the site owner's explicit direction, this profile's Trust
+  // Score, bonus/KYC practice descriptions and pros/cons mirror Stake.com's
+  // (same brand family). This overview intentionally does NOT copy Stake.com's
+  // ownership/licence claim or restricted-country list — those are entity-
+  // specific factual claims we haven't independently verified for stake.us,
+  // and stake.us is publicly reported to actually operate under a different
+  // (US-facing, sweepstakes-style) model than Stake.com's Curaçao real-money
+  // casino — copying them would risk a false, checkable claim. One complaint
+  // (BBB, checked 24 Aug 2026) has since been independently sourced for
+  // stake.us itself, so that section is populated on its own merits. Its
+  // real on-chain market data (FairGambling-sourced) is on analytics.html.
+  "StakeUS": {
+    overview: "StakeUS (stake.us) is the United States-facing arm of the Stake brand. At the site owner's direction, this profile mirrors Stake.com's reviewed Trust Score and bonus/KYC practice assessment, since both operate under the same brand standards. Its own corporate registration and licensing haven't been independently researched yet, so ownership/jurisdiction and restricted countries are left blank below rather than assumed from Stake.com's — those facts are specific to each legal entity. Its complaint history has been independently researched, separately from Stake.com's.",
+    ownership: { parent: "", jurisdiction: "", related: "" }
+  },
+  "Sportsbet.io": {
+    overview: "Sportsbet.io is a crypto sportsbook and casino founded in 2016, operated by mBet Solutions N.V. under a Curaçao Gaming Authority licence (OGL/2023/110/0072). Independent coverage in late 2025 reported mBet Solutions' parent group was considering consolidating or winding down some of its legacy betting sites — worth monitoring, though Sportsbet.io itself remains active as of this review.",
+    ownership: { parent: "mBet Solutions N.V.", jurisdiction: "Curaçao (Gaming Authority licence OGL/2023/110/0072)", related: "" }
+  },
+  "Yeet": {
+    overview: "Yeet (yeet.com) is a crypto casino and sportsbook that launched in 2024, positioned by its founders as \"Crypto's Casino — built by crypto people, for crypto people.\" It was co-founded by pseudonymous crypto personalities Mando and Keyboard Monkey alongside professional poker player Ben Lamb, and raised $7.75 million in a round led by crypto venture fund Dragonfly, with angel backing from Pudgy Penguins CEO Luca Netz and LayerZero CEO Bryan Pellegrino. The operator is Pao Chai Ventures B.V. Rather than a traditional deposit-match welcome bonus, Yeet runs ongoing rewards — a $15,000 weekly \"Chairman's Cup\" leaderboard, instant rakeback, and a program that lets new users transfer VIP status earned at other casinos. US residents are excluded due to licensing constraints. No complaints were found for Yeet on AskGamblers, Casino Guru or Trustpilot in this research pass — plausibly reflecting its short track record rather than a confirmed clean record.",
+    ownership: { parent: "Pao Chai Ventures B.V.", jurisdiction: "Anjouan, Union of Comoros — gaming licence ALSI-202410037-FI2", related: "" }
+  },
+  "Goated": {
+    overview: "Goated (goated.com) is a crypto casino operated by Mirai Kaze Ltd (Anjouan registration ANJ 901) and launched in 2024. An earlier research pass found no sportsbook; win.gg later reported Goated \"recently launched a sportsbook\" with 30+ betting markets across football, tennis, basketball, cricket and more, plus esports — this profile has been updated to reflect that launch. Goated runs a VIP tier system (Bronze through Diamond, based on XP) with daily, weekly and monthly bonuses, a level-up rakeback program measured by one third-party reviewer at roughly 29.5% on theoretical losses, and an estimated $175,000 leaderboard/raffle pool. SHFL (Shuffle.com's token) is accepted as a deposit currency alongside Goated's own GOATED token — reviewers note this doesn't indicate any ownership relationship to Shuffle.com, just an accepted asset. A follow-up research pass found six complaints on Casino Guru and Trustpilot (see Complaints tab): four were resolved to the player's satisfaction (in two cases after Goated provided goodwill compensation), one was rejected by Casino Guru as unjustified, and one is an unverified Trustpilot allegation.",
+    ownership: { parent: "Mirai Kaze Ltd (Anjouan, registration ANJ 901)", jurisdiction: "Anjouan, Union of Comoros — gaming licence ALSI-202411063-FI2", related: "" }
+  },
+  "Chips.gg": {
+    overview: "Chips.gg (chips.gg) is a crypto casino and sportsbook operated by Notyarg Ltd, live since 2020 — the oldest of the operators added in this pass. Its sportsbook runs on the BETBY odds-provider platform (the same provider whose flagging of sports bets shows up repeatedly in this database's Betpanda complaint history), advertised with roughly a 6.21% average house edge by one reviewer. Chips.gg markets itself as \"no KYC,\" but one reviewer found verification mandatory from roughly $1 BTC or $2,000 in withdrawals, and reported withdrawal fees (~$4+ in BTC) that contradicted the platform's fee-free marketing, plus a rakeback-calculation bug that went unresolved for over a week. Two real complaints were found on Casino Guru, both involving account-verification disputes (a disputed minor-registration finding and an incorrect-email lockout) that Casino Guru resolved in the operator's favor after finding the player had breached the casino's terms.",
+    ownership: { parent: "Notyarg Ltd", jurisdiction: "Anjouan, Union of Comoros", related: "" }
+  },
+  "Acebet": {
+    overview: "Acebet (acebet.com, also seen at acebet.co) is a crypto casino and sportsbook operated by Golden Frog Inc, launched in 2025 under an Anjouan gaming licence (#15831 per one reviewer). It's the newest and smallest of the operators added here, and already carries a real complaint record: AskGamblers lists six complaints, five of them unresolved as of this check, describing a recurring pattern — accounts banned or frozen, often after weeks or months of what players describe as verified play, with balances from $426 to €1,859 withheld and, in several cases, players reporting no working way to reach support. One further complaint was rejected after AskGamblers sided with the operator. A reviewer also noted the welcome-bonus terms weren't disclosed until after signup and a deposit was made. Given the short track record and this complaint pattern, this profile should be treated as an early read rather than a settled assessment.",
+    ownership: { parent: "Golden Frog Inc", jurisdiction: "Anjouan, Union of Comoros — gaming licence #15831 (third-party sourced, not independently confirmed against an official registry)", related: "" }
+  },
+  "Wild.io": {
+    overview: "Wild.io (wild.io) is a crypto casino and sportsbook launched in 2022. Its own Terms of Service and About page name the operator as Stack Gaming Ltd. (registration no. 15986, Anjouan, Union of Comoros), holding Anjouan Gaming Board licence ALSI-202504044-FI2. This is directly contradicted by at least two independent review sites (Casino.Guru, cryptocasinos.ai), which instead describe a Curaçao Gaming Authority licence (OGL/2024/210/0198) held by a different named entity, \"Nonce Gaming B.V.\" — an unresolved discrepancy between the operator's own stated licensing and third-party reporting. No individual founder or executive has been publicly identified. Casino.Guru rates Wild.io 8.3/10 (\"High\") on its Safety Index with a generally favorable complaint-resolution ratio, while a third-party sentiment-analysis score (cryptocasinos.ai, based on Reddit/Bitcointalk mentions) rates it considerably lower at 48.9/100 — independent sources disagree meaningfully on overall trust. A recurring, independently-corroborated complaint pattern involves KYC verification and account restrictions being triggered after large wins.",
+    ownership: { parent: "Stack Gaming Ltd. (per wild.io's own Terms; registration no. 15986, Anjouan, Union of Comoros) — though Casino.Guru and cryptocasinos.ai instead name \"Nonce Gaming B.V.\" under a Curaçao licence, a discrepancy not resolved by this research pass", jurisdiction: "Anjouan Gaming Board licence ALSI-202504044-FI2 (per operator's own site); conflicting Curaçao Gaming Authority licence OGL/2024/210/0198 cited by third parties", related: "" }
+  },
+  "Degen Casino": {
+    overview: "Degen Casino (degen.com) is a crypto casino and sportsbook that launched in 2025 and, per the most recent third-party coverage found, remains in closed beta. Review coverage is thin: no listing exists yet on either of the two major complaint-tracking authorities this site normally checks (Casino.Guru, AskGamblers), so independent trust signals that exist for more established operators simply aren't available here yet. Third-party review blogs cite an Anjouan Gaming Board licence (ALSI-202509061-FI2) held by \"Degen Legend Limitada,\" reportedly Costa Rica-registered — this was not independently cross-checked against the regulator's own registry. No named founder or executive team was found. Note: a similarly-named but separate operator, \"Degens Casino\" (degens.gg, operated by \"High Score Limited\"), does have its own Casino.Guru listing — the two brands should not be confused; this profile covers degen.com only.",
+    ownership: { parent: "Degen Legend Limitada (per third-party review blogs; Costa Rica registration cited by one source only, not independently verified)", jurisdiction: "Anjouan Gaming Board licence ALSI-202509061-FI2 (third-party sourced, not cross-checked against the regulator's registry)", related: "Not to be confused with the separate operator \"Degens Casino\" at degens.gg" }
+  },
+  "Sportbet.one": {
+    overview: "Sportbet.one (sportbet.one) is a crypto sportsbook and casino built on the EOS blockchain, operated by Reedll Limited under a Mwali International Services Authority (M.I.S.A.) gambling licence (G20190045, listed \"Active\" on the registrar's own site). It describes itself as \"the first decentralized sportsbook and casino,\" with a native token (SBET) tied to staking/revenue-share. MISA's standing as a genuine licensing authority is disputed industry-wide: multiple specialist outlets (Fintelegram, ABC News Australia) report the Central Bank of Comoros has publicly characterized the Mwali registrar as fabricated, with no real regulatory function — a concern about the regulator generally, not a finding specific to this operator. Sportbet.one advertises a no-ID-verification policy at every stage. Despite very high scores from the two major complaint-tracking aggregators (Casino.Guru 9.2/10, AskGamblers 9.8/10), primary-source forum threads (bitcointalk.org, sportsbookreview.com) document a recurring pattern from 2024 through April 2026 of account restrictions and full balance confiscation, justified by an undisclosed internal \"fraud detection\" process with no evidence shared with the affected player, plus one documented case of a failed self-exclusion request followed by real financial loss during the requested cool-off period. AskGamblers separately lists the operator as \"closed, no longer accepting players\" as of this research pass, which conflicts with other 2026 evidence of an active site — its current operational status could not be confirmed with certainty.",
+    ownership: { parent: "Reedll Limited (Bonovo Road, Fomboni, Island of Mohéli, Comoros Union)", jurisdiction: "Mwali International Services Authority (M.I.S.A.) licence G20190045 — a regulator whose legitimacy is disputed industry-wide by multiple outlets, independent of this specific operator", related: "" }
+  },
+  "Lucky Block": {
+    overview: "Lucky Block (luckyblock.com) is a crypto casino and sportsbook that launched its casino/sportsbook platform in 2022, following an earlier, separate January 2022 crypto lottery/token project (LBLOCK) on BNB Chain founded by Scott Ryder, whose associated marketing company Finixio drew scrutiny after its auditor resigned in December 2022 over unclear transactions and celebrity-endorsement practices — background context for the brand rather than a finding against the current casino operator specifically. Licensing information for the casino itself is unusually inconsistent: review sites variously name the operator as Entretenimiento Rojo B.V., Medium Rare N.V., OD Code SRL, or Atlantis Interactive SRL, and cite at least four different licence numbers across Curaçao and Anjouan — Casino.Guru states plainly that Lucky Block \"operates without a license.\" The two major complaint-tracking authorities disagree sharply on overall trust: Casino.Guru rates it 2.1/10 (\"Very low\") with 74 logged complaints (17 resolved, 2 unresolved, 55 rejected), while AskGamblers rates it considerably higher (expert 6.4/10, player rating 7.5/10 from 41 reviews) with a more balanced 21-complaint record (8 resolved, 12 unresolved, 2 rejected). A recurring theme across both platforms: withdrawals for smaller amounts tend to process without issue, while large balances are more likely to be frozen, denied, or confiscated — in some documented cases after KYC was already completed.",
+    ownership: { parent: "Disputed across sources — variously reported as Entretenimiento Rojo B.V., Medium Rare N.V., OD Code SRL, or Atlantis Interactive SRL, none independently confirmed against luckyblock.com's own primary site in this research pass", jurisdiction: "Disputed — Curaçao and/or Anjouan licence numbers are cited by different third-party sources (see Overview); Casino.Guru states the operator currently holds no licence", related: "" }
+  },
+  "NV Casino": {
+    overview: "NV Casino is a crypto casino launched in 2024, per gamblescope.com and slotcatalog.com (the latter naming the operating entity as Kaurum Limited, under a Curaçao Gaming Control Board licence No. 8048/JAZ — not independently cross-checked against the registry). Independent coverage is otherwise thin relative to the other operators in this database — further ownership detail was not consistently confirmed across the sources this pass could access. Treat this as an early, lower-confidence profile pending a deeper research pass.",
+    ownership: { parent: "Kaurum Limited, per slotcatalog.com — not independently cross-checked", jurisdiction: "Curaçao Gaming Control Board, licence No. 8048/JAZ, per slotcatalog.com; not independently cross-checked against the registry", related: "" }
+  },
+  "HitnSpin": {
+    overview: "HitnSpin is a crypto casino and sportsbook that has been operating since 2018, giving it a longer track record than most operators added in this batch. It holds a Curaçao licence per operator-side sources. \"No-KYC\" style marketing appears to conflict with a disclosed verification threshold for larger withdrawals, a pattern seen across several operators in this database. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
+    ownership: { parent: "Not independently confirmed", jurisdiction: "Curaçao (licence number not independently cross-checked against the registry)", related: "" }
+  },
+  "Verde Casino": {
+    overview: "Verde Casino is a crypto casino and sportsbook that launched in 2022 (casino.org cites November 2022; verdeloro.com cites July 2022), operated by Wiraon B.V. (Willemstad, Curaçao) under Curaçao Gaming Control Board licence No. OGL/2024/686/0183, renewed April 2025, per casino.org. Two findings stand out from this research pass: unconfirmed forum allegations describe Lithuanian players being blacklisted, and the operator separately runs a Lithuania-targeted \"Verde Lietuva\" mirror domain despite holding no confirmed Lithuanian gambling licence — a combination worth flagging even though neither piece is independently confirmed on its own. Its sportsbook terms prohibit arbitrage betting, with account restriction/closure among the possible consequences.",
+    ownership: { parent: "Wiraon B.V. (Willemstad, Curaçao), per casino.org", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183 (renewed April 2025), per casino.org", related: "Shares its operating entity and licence number with Slotoro (added 2026-09-08), per Slotoro's own operator spec sheet — see that profile" }
+  },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08 from operator-supplied spec sheets distributed via each
+  // operator's own affiliate program, at the site owner's direction —
+  // TRUST_BREAKDOWN below is set identical to HitnSpin's for all six, per
+  // direct site-owner instruction, rather than independently rederived
+  // per-operator (none of the six had documentable red flags in this pass,
+  // but none had an independent complaint history to score confidently
+  // high either).
+  "V.Vegas": {
+    overview: "V.Vegas (v.vegas) is a crypto-friendly online casino and sportsbook, a rebrand of the earlier Vulkan Vegas brand dating back to August 2015 — a longer track record than most operators in this batch. It's operated by Whitebox B.V. under Curaçao Gaming Control Board licence No. OGL/2024/822/0338; the identical registered entity, company number (155412) and licence number are also listed for IceCasino, a separate consumer-facing brand in this database, indicating the two are the same underlying operation running under two different names. A dedicated betting registration link confirms a real sports betting product exists alongside the casino, even though the operator's own spec sheet only surfaced casino-specific bonus details. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, per the operator's own spec sheet", related: "Shares its operating entity, registration number and licence number with IceCasino — see that profile" }
+  },
+  "FS.Casino": {
+    overview: "FS.Casino (fs.casino) is a crypto-friendly online casino and sportsbook operating since October 2019, operated by Intelligent Innovations N.V. under Curaçao Gaming Control Authority licence No. OGL/2024/767/0360 — a separate betting welcome bonus is advertised alongside the casino welcome bonus. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "Intelligent Innovations N.V. (Curaçao, reg. no. 142065), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Authority, licence No. OGL/2024/767/0360, per the operator's own spec sheet", related: "" }
+  },
+  "IceCasino": {
+    overview: "IceCasino (icecasino.com) is a crypto-friendly online casino and sportsbook that launched in 2021, operated by Whitebox B.V. under Curaçao Gaming Control Board licence No. OGL/2024/822/0338; the identical registered entity, company number (155412) and licence number are also listed for V.Vegas, a separate consumer-facing brand in this database, indicating the two are the same underlying operation running under two different names. A dedicated betting registration link confirms a real sports betting product exists alongside the casino, even though the operator's own spec sheet only surfaced casino-specific bonus details. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "Whitebox B.V. (Willemstad, Curaçao, reg. no. 155412), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/822/0338, per the operator's own spec sheet", related: "Shares its operating entity, registration number and licence number with V.Vegas — see that profile" }
+  },
+  "FieryPlay Casino": {
+    overview: "FieryPlay Casino (fieryplay.com) is a very new crypto-friendly online casino and sportsbook, launched September 2024, operated by NIXXE B.V. under Curaçao Gaming Control Board licence No. OGL/2024/1363/0705. It runs both a casino and a sports/esports betting product, each with its own welcome bonus. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass — read as \"too new for a track record\" rather than a confirmed clean record.",
+    ownership: { parent: "NIXXE B.V. (Curaçao, reg. no. 147116), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/1363/0705, per the operator's own spec sheet", related: "" }
+  },
+  "GGbet": {
+    overview: "GGbet (gg.bet) is an esports-focused crypto-friendly online casino and sportsbook operating since 2016, operated by River Entertainment B.V. under Curaçao Gaming Control Board licence No. OGL/2024/688/0234. It runs its own dedicated affiliate program (ggbetaff.com), separate from the V.Partners program used by most other operators added alongside it in this batch. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass, but that reflects thin independent review coverage rather than a confirmed clean record.",
+    ownership: { parent: "River Entertainment B.V. (Willemstad, Curaçao, reg. no. 158146), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/688/0234, per the operator's own spec sheet", related: "" }
+  },
+  "Slotoro": {
+    overview: "Slotoro (slotoro.bet) is a very new crypto-friendly online casino and sportsbook, launched 2025, operated by Wiraon B.V. under Curaçao Gaming Control Board licence No. OGL/2024/686/0183; the identical registered entity, company number (146886) and licence number are also listed for Verde Casino, a separate consumer-facing brand already in this database (see that profile), indicating the two share the same underlying operator/licence. Slotoro runs both a casino and a real betting product — a separate betting welcome bonus is advertised. No independent complaints were found logged against it on Casino Guru, AskGamblers or Trustpilot in this pass — read as \"too new for a track record\" rather than a confirmed clean record.",
+    ownership: { parent: "Wiraon B.V. (Willemstad, Curaçao, reg. no. 146886), per the operator's own spec sheet", jurisdiction: "Curaçao Gaming Control Board, licence No. OGL/2024/686/0183, per the operator's own spec sheet", related: "Shares its operating entity and licence number with Verde Casino — see that profile" }
+  },
+  "FortuneJack": {
+    overview: "FortuneJack (fortunejack.com) is a long-running crypto casino and sportsbook, live since 2014 — one of the older brands in this database. A notable discrepancy surfaced in this research pass: FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania's restricted-country status, which this pass could not resolve one way or the other. Recurring complaints describe withdrawal delays and account-verification disputes. Its general Terms include a broad \"unfair play\" clause that has reportedly been invoked against arbitrage-style betting patterns, though arbitrage isn't named explicitly.",
+    ownership: { parent: "Not independently confirmed", jurisdiction: "Curaçao (per operator-side sources; not independently cross-checked against the registry); Lithuania-restriction status conflicts between FortuneJack's own Help Center and its live Terms & Conditions", related: "" }
+  },
+  "DuckDice": {
+    overview: "DuckDice (duckdice.io) is a long-running, provably-fair dice-focused crypto casino live since 2016, with a sportsbook offering and a large, active player base. A significant finding from this research pass: DuckDice's current Terms name the operating entity as Zentari Limitada, registration number 9845000OAF4456CVB467, San José, Costa Rica — the same entity named in Tower.bet's Terms (see that profile), suggesting the two operators share back-office/operating infrastructure despite being marketed as separate brands. Costa Rica registration is not itself a gambling licence from a recognized regulator. Its Terms include a general \"unfair advantage\" clause under which an account can be restricted, though arbitrage isn't named explicitly.",
+    ownership: { parent: "Zentari Limitada (registration no. 9845000OAF4456CVB467, San José, Costa Rica)", jurisdiction: "Costa Rica registration under Zentari Limitada — not a licensed-gambling-jurisdiction registry", related: "Shares its operating entity (Zentari Limitada) with Tower.bet — see that profile" }
+  },
+  "Tower.bet": {
+    overview: "Tower.bet (tower.bet — not to be confused with the unrelated site towerbet.com, a different operator entirely) is a crypto casino with a simple, fast-turnover dice/crash-style game selection. A significant finding from this research pass: Tower.bet's current Terms name the operating entity as Zentari Limitada, registration number 9845000OAF4456CVB467, San José, Costa Rica — the identical entity named in DuckDice's Terms (see that profile), suggesting the two operators share back-office/operating infrastructure despite being marketed as separate brands. Costa Rica registration is not itself a gambling licence from a recognized regulator. Independent review coverage is thin, with few tracked complaint-platform listings either way.",
+    ownership: { parent: "Zentari Limitada (registration no. 9845000OAF4456CVB467, San José, Costa Rica)", jurisdiction: "Costa Rica registration under Zentari Limitada — not a licensed-gambling-jurisdiction registry", related: "Shares its operating entity (Zentari Limitada) with DuckDice — see that profile. Distinct from the unrelated site towerbet.com — do not merge." }
+  },
+  "Whale.io": {
+    overview: "Whale.io is a crypto casino and sportsbook launched in 2023. Its own live Terms & Conditions page names the operating entity as Whale Operations Ltd (registration no. 222756, Seychelles), but AskGamblers separately lists the operator as YGF Entertainment B.V. — a second, unresolved discrepancy in Whale.io's self-disclosure, alongside its licence contradiction (see below). That licence contradiction: the Terms page's meta-description cites a Curaçao licence, while the body text and the site's own FAQ instead cite an Anjouan (Comoros) licence, number ALSI-202503012-FI1. AskGamblers separately lists Curaçao, while Casino Guru lists Anjouan, matching the split in Whale's own materials rather than resolving it. The operator advertises \"instant and fee-free\" withdrawals, but multiple 2026 AskGamblers and Casino Guru complaints describe withdrawals and account reviews delayed days without resolution, including a $36,128 AskGamblers case left unresolved with no documented operator response, and several Casino Guru cases (1,700 USDT, 1,000 USDT, 383 USDT, 524 USDT) marked unresolved after Whale.io reportedly did not cooperate with the platform's mediation. Casino Guru scores it 6.8/10 (\"Above average\") across 14 logged complaints (1 open, 2 unresolved, 3 resolved, 8 rejected); AskGamblers also scores it 6.8/10. Trustpilot shows 3.9/5 from roughly 895 reviews, with about 19% one-star, and recurring themes of withdrawal delays, account restrictions, and — in its sportsbook vertical — winning bets voided after settlement and withdrawals suspended after big wins, including a community report tied to the 2026 World Cup and another describing a permanent ban over an unexplained \"opposite betting\" allegation.",
+    ownership: { parent: "Whale Operations Ltd (registration no. 222756, Seychelles), per Whale.io's own Terms & Conditions; AskGamblers separately lists the operator as YGF Entertainment B.V. — an unresolved discrepancy", jurisdiction: "Self-contradictory across Whale.io's own materials: Terms & Conditions meta-description cites Curaçao while the Terms body text and FAQ cite an Anjouan (Comoros) licence, ALSI-202503012-FI1. AskGamblers lists Curaçao; Casino Guru lists Anjouan.", related: "" }
+  },
+  "Dicey.com": {
+    overview: "Dicey (dicey.com) is a crypto casino and sportsbook launched in 2025, per Casino Guru — though some 2026 third-party coverage still describes it as an invite-only beta. It was built by the team behind Magic Eden, the NFT marketplace backed by Sequoia Capital, Greylock, Paradigm and Electric Capital. Third-party review coverage names the operating entity as 3-102-943011 S.R.L. (trading as Click Gaming SRL), licensed by the Anjouan Offshore Finance Authority (Anjouan Gaming, Union of Comoros) under licence No. ALSI-202511054-FI2 — a claim consistent with Dicey's own public reply to a Trustpilot review. Casino Guru currently scores it 7.3/10 (\"Fresh casino\") with just one newly opened complaint, a favorable ratio that mostly reflects how new and small the operator still is rather than a proven track record. Trustpilot shows 3.5/5 from only 14 reviews (64% five-star, 29% one-star); the negative reviews cluster around inconsistent KYC-verification outcomes at withdrawal, thin rewards/VIP value, and VIP-transfer deposit disputes, rather than confirmed withheld-winnings cases. The operator markets itself as no-KYC for sign-up, deposit and play, with identity verification only requested before withdrawals — the same pattern seen across most \"no-KYC\"-branded crypto casinos in this database.",
+    ownership: { parent: "3-102-943011 S.R.L. (trading as Click Gaming SRL); built and operated by the team behind Magic Eden, the NFT marketplace", jurisdiction: "Anjouan Offshore Finance Authority (Anjouan Gaming, Union of Comoros), licence No. ALSI-202511054-FI2, per Casino Guru and Dicey's own public Trustpilot reply", related: "Built by the same team as Magic Eden (NFT marketplace), backed by Sequoia Capital, Greylock, Paradigm and Electric Capital" }
+  },
+  "Chancer": {
+    overview: "Chancer (chancer1.xyz) is a crypto casino and sportsbook with a 2024-era launch, per CCN, CryptoSlate and Casino Guru. Corporate identity is inconsistently documented across sources — reviewers name the operator both \"Chancer Group Ltd.\" (Belize) and \"Chancer Group N.V.\" (a Curaçao-style name), and one source describes the operator name as not publicly disclosed. It holds an Anjouan (Comoros) licence, No. ALSI-122405028-FI2, per multiple independent reviews — a lower-tier jurisdiction with materially less oversight than MGA or UKGC. No substantiated player complaint was found on Casino Guru, AskGamblers or Bitcointalk in the indexed public record, though the young domain is flagged by third-party reputation scanners (ScamAdviser, Gridinsoft) with a low automated trust score — a domain-risk signal rather than a confirmed complaint. Restricted-country coverage also varies sharply by source, from a narrow \"Ohio only\" claim to a broader 15+-country list including the US, UK and EU.",
+    ownership: { parent: "Corporate identity inconsistently documented — named as either \"Chancer Group Ltd.\" (Belize) or \"Chancer Group N.V.\" in different third-party sources; one source describes the operator name as not publicly disclosed", jurisdiction: "Anjouan (Comoros) — Offshore Finance Authority of Anjouan, licence No. ALSI-122405028-FI2, per multiple independent reviews", related: "Not established in the indexed public record" }
+  },
+  "RioBet": {
+    overview: "RioBet (riobet.com) is a crypto and fiat casino/sportsbook operating since 2014, per Casino Guru and AskGamblers. It holds a dual-licence structure — a Curaçao Gaming Authority (CGA) certificate, No. OGL/2024/552/0560, alongside a concurrent Anjouan (Comoros) licence, No. ALSI-202507034-FI2, per Casino Guru's live licence-check widget, an unusual arrangement not seen on most operators in this database. Its complaint record is comparatively favorable for its size: AskGamblers shows 8 of 9 indexed complaints resolved, with a €918 deposit that went uncredited for nine days as the sole case still shown unresolved. Casino Guru separately tallies 73 total complaints (24 resolved, 48 rejected) — a high raw volume, though the large majority are closed rather than left open.",
+    ownership: { parent: "Operating entity not independently confirmed beyond the RioBet brand itself, per the indexed third-party sources", jurisdiction: "Dual-licensed: Curaçao Gaming Authority (CGA) certificate No. OGL/2024/552/0560, and a concurrent Anjouan (Comoros) licence No. ALSI-202507034-FI2, per Casino Guru's live licence-check widget", related: "Not established in the indexed public record" }
+  },
+  "Betcoin.ag": {
+    overview: "Betcoin.ag is one of the longest-running Bitcoin gambling brands, operating since roughly 2013 per Casino Guru, AskGamblers and a 2014 Pokerfuse trade article documenting its Bitcoin-only poker room. Governing-law and licensing claims are inconsistent across its own materials — its current Terms of Service state it is governed exclusively by the law of Anjouan (Union of Comoros), while AskGamblers separately lists a Curaçao Gaming Control Board licence and LCB.org notes Costa Rica-governed terms; no licence number could be independently verified against a regulator's own register. Its own Terms of Service formally ban the entire United States, yet third-party geo-block listings name only Ohio — a discrepancy consistent with continued informal accessibility to US bettors. The complaint record is dominated by a recurring pattern of post-win account suspensions over discretionary fraud, collusion or sportsbook-arbitrage accusations; Casino Guru currently indexes 40 complaints (8 resolved, 32 rejected, none unresolved), and Betcoin has supplied AskGamblers with supporting evidence in several sportsbook-abuse cases that were subsequently marked resolved in the operator's favor. Large wins (25+ BTC) are reportedly paid out over ten monthly installments rather than as a lump sum, per LCB's own testing.",
+    ownership: { parent: "Operating entity not consistently documented — governing-law claims cite Anjouan, Curaçao and Costa Rica at different times or in different materials, per the operator's own Terms of Service versus AskGamblers and LCB.org", jurisdiction: "Disputed/inconsistent — Anjouan (Union of Comoros) per its own current Terms of Service; Curaçao per AskGamblers; Costa Rica per LCB.org; no licence number independently verified against a regulator", related: "Not established in the indexed public record" }
+  },
+  "Bspin.io": {
+    overview: "Bspin.io is a Bitcoin-focused casino and sportsbook operating since 2018, per its own homepage (\"a licensed Bitcoin casino operating since 2018\"). The operating entity is named as Pixel Gaming Limited, Comoros registration No. 15699, holding an Anjouan Gaming Board licence No. ALSI-092404013-F12 per the operator's own homepage footer. Restricted-country information conflicts across third-party sources — one review excludes the US and UK, another does not — and bonus wagering requirements are reported inconsistently (10x/35x/45x depending on source and date). The most serious open item in its complaint record is a 13.7 BTC balance lockout following a large slots win, reported unresolved on AskGamblers after more than 15 days without a substantive update; Casino Guru separately indexes 10 complaints (1 unresolved, 1 resolved, 8 rejected).",
+    ownership: { parent: "Pixel Gaming Limited, Comoros registration No. 15699, per the operator's own homepage footer", jurisdiction: "Anjouan Gaming Board (Government of Anjouan, Union of Comoros), licence No. ALSI-092404013-F12, per the operator's own homepage footer", related: "Not established in the indexed public record" }
+  },
+  "Megapari": {
+    overview: "Megapari is a casino and sportsbook operating since 2019, per Casino Guru, Casino.org and SilentBet. Most sources cite an Anjouan (Comoros) licence, No. ALSI-112310012-FI5 (Government of the Autonomous Island of Anjouan), corroborated by Casino Guru, AskGamblers, LCB and Casino.org, though one third-party database separately lists a conflicting Curaçao reference and an unverifiable third operator name (Orakum N.V.), treated as lower-confidence. Megapari offers a genuine fiat/card on-ramp alongside broad crypto support (20+ coins claimed), unlike most operators in this database. Its Casino Guru complaint index is the largest by raw volume among this batch of six new operators — 211 complaints (13 open, 80 resolved, 118 rejected) — though the large majority are resolved or rejected, so raw count alone would materially overstate adverse outcomes. The most consistent complaint pattern describes repetitive, contradictory KYC document requests specifically once a withdrawal is requested, stretching 12-50+ days in several documented cases, with a 35x wagering requirement and a bonus-forfeiture clause tied to incomplete profile/phone verification.",
+    ownership: { parent: "One third-party database separately lists a conflicting, unverifiable operator name (Orakum N.V.); not independently confirmed", jurisdiction: "Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-112310012-FI5, per Casino Guru, AskGamblers, LCB and Casino.org; a conflicting Curaçao reference appears in one lower-confidence third-party database", related: "Not established in the indexed public record" }
+  },
+  "WinTomato": {
+    overview: "WinTomato is a casino and sportsbook operating since 2021, per the operator's own FAQ and Casino Guru. The operating entity is named as Akkido Limited (Belize company No. 171817), holding an Anjouan Licensing Services Inc. licence No. ALSI-042402009-FI4 per the operator's own Terms & Conditions, independently corroborated by Casino Guru; AskGamblers and Wizard of Odds separately list a conflicting Curaçao reference, likely outdated. Its complaint record shows a recurring pattern of withdrawal-triggered account restrictions over alleged multi-accounting or \"value betting,\" with several documented cases later reversed by the operator itself after mediation — including a 0.1047926 BTC and a roughly $650 balance case both concluded in WinTomato's favor after the operator cited third-party provider data, and a separately resolved $609.04 sportsbook balance-adjustment dispute. One bonus-related case involving roughly 4,280 USDT has a genuinely unclear final disposition across sources. Trustpilot has flagged the operator's own review page for a guideline breach and removed fake reviews, so its otherwise strong rating should be read with some caution.",
+    ownership: { parent: "Akkido Limited, Belize company No. 171817, per the operator's own Terms & Conditions", jurisdiction: "Anjouan (Anjouan Licensing Services Inc.), licence No. ALSI-042402009-FI4, per the operator's own Terms & Conditions, independently corroborated by Casino Guru; AskGamblers and Wizard of Odds separately list a conflicting Curaçao reference, likely outdated", related: "Not established in the indexed public record" }
+  },
+  "Thunderpick.io": {
+    overview: "Thunderpick is a crypto esports-betting-and-casino platform, operated by Paloma Media B.V. and launched in 2017. It holds a Curaçao Gaming Authority licence (OGL/2024/677/0722) and separately lists a Comoros/AOFA licence (ALSI-202501018-FI1). Casino Guru assigns it a 'Very low' 2.9/10 safety index — one of the lowest in this database — citing four unfair Terms & Conditions clauses (including winnings confiscation for 'low-risk play' and balance voidance after under two years of inactivity) and noting the operator does not cooperate with its complaint-mediation process; Casino Guru's own index lists 21 logged complaints (11 unresolved, 8 rejected, 2 resolved). AskGamblers separately scores it 6.3/10, with its stats panel citing 9 total complaints (1 resolved) and its complaints listing enumerating 10. Individually-reviewed AskGamblers cases describe a recurring pattern of KYC document rejection, multi-week withdrawal delays, and — in a couple of cases — full balance confiscation after a win, sometimes with only a general Terms clause cited (5.1/15.1 recurs) rather than a specific explanation. A follow-up research pass surfaced sportsbook/esports-specific complaints too: a disputed 4,900 USDT case involving a regular Dota 2/CS2 esports bettor whose account was closed and balance confiscated after KYC, a Trustpilot arbitrage dispute where Thunderpick's own public reply cites Terms 5.1/15.1 and says a review found terms breaches, and a separate Trustpilot sports-betting case where the reviewer says a complaint was filed with the Curaçao regulator (no regulator outcome located). Thunderpick's core differentiator is deep esports coverage (25+ titles including CS2, Dota 2, League of Legends and Valorant); its traditional sportsbook names 20+ sports but reviewers describe it as strongest on major leagues, with comparatively shallow depth on lower-tier/niche competitions.",
+    ownership: { parent: "Paloma Media B.V.", jurisdiction: "Curaçao Gaming Authority (OGL/2024/677/0722); also lists a Comoros/AOFA licence (ALSI-202501018-FI1)", related: "" }
+  },
+  "BookMaker.eu": {
+    overview: "BookMaker.eu is one of the longest-running offshore sportsbooks still operating, tracing its history to 1996 (with a predecessor operation dating to 1985) and based in San José, Costa Rica. Unlike most operators in this database, it is not a crypto-native platform — it's a traditional sportsbook/racebook/casino that added broad cryptocurrency support (60+ coins, no deposit or withdrawal fee) on top of a decades-old US-facing business. Its licensing is a real weak point: Costa Rica does not issue a formal remote-gambling licence, so BookMaker.eu operates on a standard business/data-processing registration rather than under any dedicated gaming regulator, and no licence number is publicly documented. BookMakersReview's own risk report explicitly flags the absence of a 'modern, robust independent regulator' comparable to bodies like the UKGC, even while assigning the operator a relatively high trust score (8.2/10, its 'Tier 1') on the strength of the long operating history. A concrete, documented sportsbook-relevant complaint was located in this research pass — a $7,858.73 account lock following mandatory video KYC on a withdrawal, unresolved as of the source thread. (A separate $40,000 live-blackjack non-payment dispute was also found but is out of scope for this sportsbetting-focused review.) BookMaker.eu's own Trustpilot page returned an error in this pass, so no aggregate third-party rating figure is cited here.",
+    ownership: { parent: "Not established in the indexed public record — reviews describe it as part of an established Central American offshore betting group without naming a parent entity", jurisdiction: "Costa Rica business registration only; no dedicated remote-gambling licence or licence number publicly documented", related: "Not established in the indexed public record" }
+  },
+  "Betski": {
+    overview: "Betski (betski.com) is a very new crypto casino and sportsbook, first appearing on Casino Guru's index in 2025 under operator PTY Global Fun LLC, holding an Anjouan (Comoros) Gaming licence No. ALSI-202502016-FI1 per Casino Guru's live licence-check widget. Betski's own project materials tell a different founding story: a whitepaper and a December 2024 funding announcement instead describe a Panama City-based platform (\"Sports Alpha Club\") founded by CEO Alejandro Navarro, which raised $345,000 in pre-seed funding and claims a 2022 origin — a jurisdiction/founding-date inconsistency between the operator's own marketing and its licensing record that was not independently resolved in this research pass. The site also runs a separate $BETSKI utility/staking token tied to a tokenized profit-sharing scheme, distinct from ordinary betting funds. Casino Guru's automated Terms & Conditions clause scan flags three notable clauses: common bonus-hunting strategies may be treated as a serious Terms violation, low-risk play may lead to winnings being confiscated, and betting techniques that don't provide an unfair advantage may still be seen as a serious Terms violation — language that reserves the right to restrict winnings for hedging, arbitrage-style or other \"professional\" low-risk betting patterns even without any actual cheating. No AskGamblers listing, Trustpilot page or Reddit complaint thread was found, and Casino Guru's own complaint index currently shows zero logged complaints against it — read as \"too new for a track record\" rather than a clean record. Casino Guru assigns a 6.8/10 Safety Index in its unrated \"Fresh casino\" category; a third-party domain-reputation scanner (Gridinsoft) separately rates it 45/100 \"Low Trust\", citing limited independent reputation data.",
+    ownership: { parent: "PTY Global Fun LLC, per Casino Guru's live licence-check widget — though Betski's own whitepaper and a Dec 2024 funding release instead describe a Panama City-based platform (\"Sports Alpha Club\") founded by CEO Alejandro Navarro", jurisdiction: "Anjouan Gaming (Union of Comoros), licence No. ALSI-202502016-FI1, per Casino Guru's live licence-check widget", related: "Runs a separate $BETSKI utility/staking token tied to a tokenized profit-sharing scheme (betski.com/betski-token) — distinct from ordinary betting funds" }
+  }
+};
+
+const TERMS_INFO = {
+  "Stake": {
+    bonus: { text: "No traditional deposit-match bonus. The VIP Club (Bronze–Diamond) offers rakeback, reload and weekly/monthly bonuses at higher tiers, but exact percentages aren't published. Separately, Stake's Terms require wagering 100% of any deposit before a withdrawal (fiat or crypto) can be requested.", source: "stake.com/policies/terms · stake.com/policies/deposit-bonus-requirements (official)", checked: "2026-08-21" },
+    withdrawal: { text: "No fixed timeframe is stated in the official Terms. Independent reports describe most crypto withdrawals completing within about an hour, and fiat/bank withdrawals taking 1–3 business days.", source: "stake.com/policies/terms (official, no timeframe given); third-party review sites", checked: "2026-08-21" },
+    kyc: { text: "The official AML policy reserves the right to demand full identity verification (ID, proof of address, source of funds) at any time, and can suspend an account until KYC is completed once a withdrawal threshold is reached — but no dollar figure for that threshold is published.", source: "stake.com/policies/anti-money-laundering (official)", checked: "2026-08-21" }
+  },
+  "BC.Game": {
+    bonus: { text: "Bonus funds (\"BC Dollars\") release gradually as you wager rather than unlocking all at once. Third-party sources cite wagering requirements roughly in the 20x–40x range depending on the current promotion, with time limits and possible max-cashout caps — BC.Game's own bonus page didn't yield one confirmed figure via automated fetch.", source: "bc.game/help/bonus (official, page under-extracted); multiple third-party review sites (conflicting multipliers)", checked: "2026-08-21" },
+    withdrawal: { text: "The official help center states fiat withdrawals can take \"5 minutes to a few days\" depending on the bank. Crypto withdrawals are reported (third-party) as typically under 10 minutes, longer if flagged for review.", source: "help.bc.game (official); third-party reviews", checked: "2026-08-21" },
+    kyc: { text: "No verification is required at signup. Third-party analysis of BC.Game's Terms describes verification being triggered at first withdrawal or on suspicious activity, with an unverified-account cap cited around €10,000/month — that specific cap isn't confirmed in BC.Game's own published text.", source: "blog.bc.game (official, confirms triggers); third-party ToS analysis (specific cap)", checked: "2026-08-21" }
+  },
+  "Rainbet": {
+    bonus: { text: "The First Deposit Bonus carries a stated 40x wagering requirement (deposits $30–$700, max bet capped at 2% of deposit); an alternative \"No Wager Lock\" option unlocks gradually instead of requiring full wagering upfront. Rainbet also runs rakeback and rank-based VIP bonuses.", source: "rainbet.com/deposit-promotion-terms (official)", checked: "2026-08-21" },
+    withdrawal: { text: "Rainbet's help center states its team typically processes withdrawals within 5–15 minutes internally; actual on-chain arrival then depends on network confirmation (roughly 5–45 minutes for some coins).", source: "help.rainbet.com (official)", checked: "2026-08-21" },
+    kyc: { text: "Terms reserve the right to request KYC documentation at any time. Unverified (\"Temporarily Approved\") accounts face a €500 aggregate deposit cap and no withdrawal access; verification requires photo ID, a selfie with a handwritten code, and proof of residence, processed via Sumsub.", source: "rainbet.com/terms · rainbet.com/aml (official)", checked: "2026-08-21" }
+  },
+  "Roobet": {
+    bonus: { text: "No deposit-match bonus. Roobet's loyalty program — previously branded \"RooWards,\" now simply called Rewards on Roobet's own help center — pays back a percentage of wagering as rakeback, split between an immediate credit and \"The Vault,\" which unlocks for claiming three times daily. Tiered gemstone VIP levels (ruby, emerald, etc.) unlock bigger perks for higher-volume players. Roobet's own help center separately states a general rule: at least 100% of any crypto deposit must be wagered before it can be withdrawn or tipped.", source: "help.roobet.com (official — \"Rewards Explained\"); strafe.com (third-party — Vault/tier mechanics)", checked: "2026-08-22" },
+    withdrawal: { text: "The official help center says withdrawals are sent instantly on Roobet's side, with actual arrival depending on blockchain confirmation. Third-party reports cite roughly 15 minutes for most coins, up to 15–24 hours for Bitcoin, and longer for fiat-adjacent methods (2–5 days).", source: "help.roobet.com (official); third-party reviews", checked: "2026-08-21" },
+    kyc: { text: "Not detailed on Roobet's accessible official pages. Third-party sources describe a 4-tier system (personal details → government ID → proof of address → source of funds), with no published dollar thresholds.", source: "third-party review — official KYC policy page not located", checked: "2026-08-21" }
+  },
+  "500Casino": {
+    bonus: { text: "The Casino Welcome Package carries a 40x wagering requirement (max $1,000 convertible, max $100/spin bet, 14-day expiry); the Sportsbook Welcome Package carries only a 1x requirement on freebet winnings. The general Terms separately require any deposit to be wagered once before withdrawal.", source: "500.casino official Bonus Terms + Terms of Service (PDF)", checked: "2026-08-21" },
+    withdrawal: { text: "The official help center states crypto withdrawals are \"instant\" once approved — a \"Queued\" status just means it's awaiting blockchain confirmation — though some are flagged for longer review. No fixed fiat timeframe is stated.", source: "help.500.casino (official)", checked: "2026-08-21" },
+    kyc: { text: "Terms reserve the right to request KYC documentation, with 7 calendar days to comply. At least \"Level 1\" verification plus a prior deposit is required before withdrawing; third-party sources describe a second tier (proof of address) unlocking unlimited daily withdrawals, with no official threshold published.", source: "500.casino official Terms of Service + Help Center", checked: "2026-08-21" }
+  },
+  "Betpanda": {
+    bonus: { text: "The official bonus terms page is JS-rendered and couldn't be independently verified. Third-party sources describe a 100% first-deposit match up to 1 BTC plus 15% cashback, wagered within 7 days — but disagree on the multiplier itself, with different reviews citing 40x and 80x.", source: "third-party reviews only — operator's own terms page not independently accessible", checked: "2026-08-21" },
+    withdrawal: { text: "Crypto-only; no fiat withdrawal option found. Third-party reports vary widely, from a few minutes to roughly 24 hours for larger amounts, with no official SLA confirmed.", source: "third-party reviews only", checked: "2026-08-21" },
+    kyc: { text: "Markets itself as a \"no-KYC\" casino for normal play, but terms reportedly reserve the right to verify identity at any time at the operator's discretion. One third-party source cites an approximate 2,000 USDT threshold for mandatory verification — unconfirmed against Betpanda's own (inaccessible) terms.", source: "third-party reviews only", checked: "2026-08-21" }
+  },
+  "Gamdom": {
+    bonus: { text: "Deposits and free-spin winnings must be wagered at least once (1x) before withdrawal — a rule the official help center says \"can't be removed.\" The welcome offer is 15% rakeback on first-week play, paid directly with no separate wagering requirement of its own.", source: "help.gamdom.com (official)", checked: "2026-08-21" },
+    withdrawal: { text: "The official help center states crypto withdrawals are usually processed within 5 minutes to 1 hour, depending on blockchain confirmations and the chosen speed option. No fiat/bank withdrawal method is documented.", source: "help.gamdom.com (official)", checked: "2026-08-21" },
+    kyc: { text: "Verification is \"not mandatory\" to play, deposit or withdraw unless specifically triggered (suspected fraud, promo-code claims, certain withdrawals, AML checks). Tiered system: basic details, then government ID + selfie (via Veriff, usually a few minutes), then proof-of-funds documents for larger amounts. No dollar threshold is published.", source: "help.gamdom.com (official)", checked: "2026-08-21" }
+  },
+  "Duelbits": {
+    bonus: { text: "Welcome package of up to 500 free spins, unlocked in stages tied to cumulative slot wagering (full unlock requires $1,000 wagered, tight 24h windows), plus a sportsbook free bet and up to 50% rakeback. Specific wagering multipliers on the free-bet portion come from third-party sources, not confirmed on Duelbits' own page.", source: "help.duelbits.com (official, general structure); third-party bonus review (specific multipliers)", checked: "2026-08-21" },
+    withdrawal: { text: "The official guide states Duelbits sends withdrawals instantly on its end, with on-chain arrival depending on network (Bitcoin ~10–30 min, Ethereum ~5–10 min, faster networks quicker). No withdrawal fees beyond network costs; crypto-only, no fiat withdrawal option.", source: "duelbits.com official blog guide + help.duelbits.com", checked: "2026-08-21" },
+    kyc: { text: "Not required for all users — accounts can be opened with just an email. Identity verification (driver's licence, ID or passport) can be requested at any time, with document review usually taking up to 24 hours. No official dollar threshold for when it's triggered.", source: "help.duelbits.com (official)", checked: "2026-08-21" }
+  },
+  "Winna": {
+    bonus: { text: "\"Instant Rakeback\" accrues a percentage of wagers, claimable every 7 minutes (exact percentage not disclosed officially); a VIP-only \"Lossback\" returns up to 25% of net losses for Platinum-tier+ players. A third-party review cites a 250x wagering requirement on the welcome bonus with a Platinum-status deadline — unconfirmed against Winna's own (inaccessible) bonus policy page.", source: "help.winna.com (official, rakeback/lossback mechanics); third-party review (250x figure)", checked: "2026-08-21" },
+    withdrawal: { text: "Crypto-only. Winna's own terms pages didn't return readable content for verification; third-party reviews describe withdrawals as typically processed within minutes, with a roughly $20 minimum.", source: "third-party reviews only — operator's own Terms not independently accessible", checked: "2026-08-21" },
+    kyc: { text: "Marketed (including by the operator, per third-party quoting) as a \"no-KYC\" casino for standard play, though terms reportedly allow verification requests at any time. A third-party source cites an approximate €2,000 threshold for enhanced verification — unconfirmed against Winna's own AML/KYC page, which didn't return readable content.", source: "third-party reviews only", checked: "2026-08-21" }
+  },
+  "Razed": {
+    bonus: { text: "Official bonus terms describe bonus-balance wagering \"usually 40x\" with RTP-tiered game contribution and a 5-day bonus expiry; bonus funds are excluded from sportsbook/esports betting. A separate marketing page advertises a 100% deposit match up to $300 plus free spins, unlocked over 7 days.", source: "razed.com official Bonus Terms + razedcasino.com", checked: "2026-08-21" },
+    withdrawal: { text: "The official help center gives no fixed timeframe, stating only that withdrawals arrive \"as soon as approved\"; crypto/e-wallet only, no bank transfer or card. Third-party testing reports roughly 0–24 hours in practice.", source: "help.razed.com (official); third-party review", checked: "2026-08-21" },
+    kyc: { text: "The official AML policy applies \"Standard Due Diligence\" (ID plus a recent utility bill or bank statement) at onboarding, on any withdrawal request, or once cumulative withdrawals reach roughly €2,000; \"Enhanced Due Diligence\" applies for suspicious activity or higher-risk profiles.", source: "razed.com official AML Policy", checked: "2026-08-21" }
+  },
+  "Thrill": {
+    bonus: { text: "Official terms pages are JS-rendered and couldn't be retrieved, so this is entirely third-party sourced. Reviews describe no deposit-match bonus — instead \"instant rakeback\" from the first wager (estimates roughly 5%–70% across VIP tiers) plus a lossback, credited directly with no wagering requirement before withdrawal.", source: "third-party reviews only — operator's own terms not independently accessible", checked: "2026-08-21" },
+    withdrawal: { text: "Crypto-only per third-party sources; described as \"instant,\" with on-chain arrival varying by network (under a minute on some chains, up to ~30 minutes for Bitcoin).", source: "third-party reviews only", checked: "2026-08-21" },
+    kyc: { text: "Not required at signup per third-party sources, which describe a discretionary, risk-based system with up to four tiers (personal details → ID → proof of address → source of wealth), reportedly applied above roughly $10,000 in withdrawals.", source: "third-party reviews only — operator's own AML/verification policy not independently accessible", checked: "2026-08-21" }
+  },
+  "Cryptorino": {
+    bonus: { text: "cryptorino.com redirects to cryptorino.io; no official bonus-terms page could be located, so all figures here are third-party. A \"100% up to €90,000\" (or similar) welcome bonus is widely cited, but the wagering multiplier conflicts across sources — 40x, 60x and 66x are each cited by different reviews.", source: "third-party reviews only — operator's own bonus terms not located", checked: "2026-08-21" },
+    withdrawal: { text: "Crypto-only. Third-party sources describe withdrawals as fast (instant to a few hours depending on coin/amount), with reported limits clustering around 5,000/day, 15,000/week, 45,000/month (currency unclear across sources).", source: "third-party reviews only", checked: "2026-08-21" },
+    kyc: { text: "Positioned by reviewers as a \"no-KYC, privacy-first\" casino for normal play; verification is discretionary, triggered by large cashouts or flagged activity. No dollar threshold was found in any source.", source: "third-party reviews only — operator's own AML/KYC policy not located", checked: "2026-08-21" }
+  },
+  "Bets.io": {
+    bonus: { text: "Official bonus terms: 100% first-deposit match up to 30,000 USDT (min deposit 20 USDT), 40x wagering requirement, max bet 2 USDT while wagering, 7-day window, winnings from bonus funds capped at 5x the deposit (max 5,000 USDT). The general Terms separately require 1x wagering on any deposit before withdrawal.", source: "bets.io official Bonus Terms + Terms and Conditions", checked: "2026-08-21" },
+    withdrawal: { text: "Official terms state fiat/bank-transfer payouts are \"in principle processed within ten (10) banking days.\" Crypto withdrawal speed isn't fixed in the terms; third-party guides report roughly 5–60 minutes depending on the coin.", source: "bets.io official Terms and Conditions", checked: "2026-08-21" },
+    kyc: { text: "Official terms reserve the right to verify identity before processing payouts, requesting ID (both sides) plus proof of address dated within the last 90 days; documents must be supplied within 30 days of request. No fixed dollar threshold is stated.", source: "bets.io official Terms and Conditions", checked: "2026-08-21" }
+  },
+  "Nitrobetting": {
+    bonus: { text: "nitrobetting.eu now redirects to mynitro.io, which operates under Nitrobetting's terms. The current official promo is a \"250% Free Play Bonus\" up to $2,500 on deposits of $50–$1,000, conditioned on account verification; no exact wagering multiplier is stated on the official page, and third-party reviews cite conflicting figures (roughly 10x–40x).", source: "mynitro.io official promo pages; third-party reviews (multiplier figures)", checked: "2026-08-21" },
+    withdrawal: { text: "The official help center states approved withdrawals should process within 2 hours, often just minutes. Independent complaint threads (BitcoinTalk, filed 2026) document cases of 6–8 month delays on larger withdrawals, attributed by the operator to technical/migration issues — a real gap between stated policy and some users' experience.", source: "mynitro.io official Help Center; BitcoinTalk forum complaint threads", checked: "2026-08-21" },
+    kyc: { text: "Account creation only requires an email; KYC is requested \"when deemed necessary\" rather than upfront. When triggered, documents requested include government ID, a selfie holding it, and proof of address within 3 months.", source: "mynitro.io official Help Center", checked: "2026-08-21" }
+  },
+  "Cloudbet": {
+    bonus: { text: "Welcome package worth up to $2,500 over 30 days, built from 10% rakeback (30% instant, 70% released over six 48-hour installments) — paid as cash with no wagering requirement of its own. A general Terms rule separately requires 100% deposit wagering before withdrawal for unverified accounts, reduced to 25% after Level 2 verification.", source: "cloudbet.com official Terms + Welcome Package promo page", checked: "2026-08-21" },
+    withdrawal: { text: "The official help center states most crypto withdrawals are processed instantly, with some cases taking up to 24 hours.", source: "cloudbet.com official Help Center", checked: "2026-08-21" },
+    kyc: { text: "Verification is \"usually optional\" but becomes mandatory once cumulative deposits reach $2,200. Level 1 requires only a phone number (limits still apply); Level 2 requires photo ID, proof of address and face verification via Sumsub, after which limits are removed.", source: "cloudbet.com official Terms + Help Center", checked: "2026-08-21" }
+  },
+  "Rakebit": {
+    bonus: { text: "Welcome rakeback returns 100% of the house edge as cash on the first $1,000 wagered, then a standing 1%–25% rakeback by VIP tier with no wagering requirement on the rakeback itself. A separate, optional deposit-match bonus also exists, but sources disagree on its exact structure (percentages and caps vary between reviews) — treat the deposit-match specifics as unconfirmed.", source: "cryptoslate.com and ccn.com reviews (third-party); official site only gave generic \"up to 100% rakeback\" language", checked: "2026-08-21" },
+    withdrawal: { text: "The official site states withdrawals are instant or near-instant, crypto-only. Third-party reviews describe up to ~1 hour under network congestion, a possible up-to-7-day anti-fraud hold, and installment payouts (up to 90 days) for wins over $50,000; one source cites a $50,000/month withdrawal cap.", source: "rakebit.com (official, general statement); cryptoslate.com, casino.guru, ccn.com (third-party specifics)", checked: "2026-08-21" },
+    kyc: { text: "Markets itself as a \"no-KYC\" platform. Full identity verification is reportedly triggered by large withdrawals or suspicious activity, with the first withdrawal requiring 1x deposit turnover; note that integrated payment processors (MoonPay, Changelly) independently require photo ID for their leg of a transaction regardless of Rakebit's own policy.", source: "cryptoslate.com, ccn.com, fintelegram.com (third-party)", checked: "2026-08-21" }
+  },
+  "Fresh Casino": {
+    bonus: { text: "Tiered first-deposit match bonuses (e.g. €20 deposit → 100% match + 50 free spins, up to €300 → 100% + 500 spins), with a 40x wagering requirement and a maximum cashout cap of 10x the bonus amount. One source separately cites a \"50% up to €300\" offer with 45x wagering — likely a different regional promotion, not reconciled.", source: "chipy.com, askgamblers.com (third-party — operator's own Terms page is JS-rendered and couldn't be fetched)", checked: "2026-08-21" },
+    withdrawal: { text: "E-wallet and crypto withdrawals reported to process within 0–24 hours (often within minutes for crypto once approved); bank transfer/card payments take 3–5 days. Stated limits: €4,000/day, €20,000/week, €80,000/month.", source: "askgamblers.com, casino.guru (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Identity verification is required before payout. Third-party reports describe typical verification completing within 0–24 hours, though some player reports describe longer disputed cases.", source: "askgamblers.com, casino.guru (third-party)", checked: "2026-08-21" }
+  },
+  "SolCasino.io": {
+    bonus: { text: "Welcome deposit bonus advertised up to 360% (tiered by deposit size), with a stated 50x wagering requirement; also offers daily/weekly rakeback and VIP-tier bonuses. Bonus funds only become wagerable once the existing real-money balance is exhausted, per the operator's own terms.", source: "docs.solcasino.io (official terms)", checked: "2026-08-21" },
+    withdrawal: { text: "Official terms state the operator \"shall try to pay out withdrawals within 1 hour\"; third-party reviews report most crypto withdrawals completing in minutes, with larger or flagged wins taking up to roughly 12–24 hours.", source: "docs.solcasino.io (official); provencrypto.com, casino.guru (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Not mandatory upfront. Verification (via third-party provider Sumsub, including a selfie with ID) is triggered by large withdrawals — one third-party source cites a threshold around €1,250 — or by suspicious activity.", source: "docs.solcasino.io (official); provencrypto.com (third-party)", checked: "2026-08-21" }
+  },
+  "Sol Casino": {
+    bonus: { text: "Welcome offer commonly advertised as up to 100–200% match plus free spins, claimable across up to 5 consecutive deposits, with wagering requirements reported around 40–45x. A loyalty points program (\"SolCoins\") also feeds ongoing rakeback-style rewards.", source: "askgamblers.com, lcb.org, casinobonusca.com (third-party — official site's footer/terms text didn't load for automated fetch)", checked: "2026-08-21" },
+    withdrawal: { text: "Reported processing varies by method: e-wallets ~0–2 hours, cryptocurrencies ~0–24 hours (often near-instant), card payments up to 48 hours, bank transfers 3–5 business days.", source: "askgamblers.com, lcb.org (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Not required at signup; verification (ID, payment method proof, selfie) is triggered at withdrawal, with third-party sources citing a threshold around €1,250–$2,000.", source: "askgamblers.com, lcb.org (third-party)", checked: "2026-08-21" }
+  },
+  "Jet Casino": {
+    bonus: { text: "Welcome package commonly cited as 100% up to €300/$300 plus up to 500 free spins on first deposit, or an alternate 100% up to €600 offer carrying 45x wagering; minimum deposit around €20, table games contribute only 5% toward wagering.", source: "casino.guru, askgamblers.com, lcb.org (third-party — official Terms page is JS-rendered and unreadable via fetch)", checked: "2026-08-21" },
+    withdrawal: { text: "Reported stages: up to ~48 hours for KYC review, then e-wallets 0–48 hours or bank/card transfers 3–5 days; crypto deposits are instant, though third parties have recorded crypto withdrawal delays up to 31 days in some complaints. Stated limits: €4,000/day, €20,000/week, €80,000/month.", source: "askgamblers.com, lcb.org, casino.guru (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Verification is required before a first withdrawal, escalating for deposits/withdrawals above roughly €1,250–2,000: government ID, proof of address, proof of payment-method ownership and a selfie with ID are standard requests; video-call verification reported in some cases.", source: "lcb.org, askgamblers.com, casino.guru (third-party)", checked: "2026-08-21" }
+  },
+  "Starda Casino": {
+    bonus: { text: "Welcome package commonly cited as 100% up to $600/€600 plus up to 500 free spins, claimable across the first several deposits. A separate weekly loyalty cashback program pays 3–10% (Fridays, tiered by player level, with wagering requirements from 1x to 15x depending on tier); general deposit-bonus wagering cited elsewhere at 40–45x.", source: "lcb.org, casino.guru, askgamblers.com (third-party)", checked: "2026-08-21" },
+    withdrawal: { text: "KYC verification reported to take ~2 days plus a ~24-hour pending period, then processing up to 5 business days for e-wallets/bank/card; crypto withdrawals reported by users as faster (20 minutes to a few hours) once approved. Stated limits mirror Jet Casino's: €4,000/day, €20,000/week, €80,000/month.", source: "lcb.org, casino.guru, askgamblers.com (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Standard ID, proof of address, payment-method proof and selfie-with-ID required; additional documents requested for withdrawals over roughly €1,250, with source-of-funds confirmation reportedly required above €10,000.", source: "lcb.org, askgamblers.com (third-party)", checked: "2026-08-21" }
+  },
+  "1Go Casino": {
+    bonus: { text: "AskGamblers lists a welcome bonus of 50% up to €300 (an alternate 150% up to €600 offer also cited), 40–45x wagering. The operator's own homepage separately advertised \"150% up to 30,000 ₽\" for some regions with 40x wagering, plus a 4–10% weekly cashback on total bets.", source: "askgamblers.com (third-party); 1go.casino (official homepage, partial)", checked: "2026-08-21" },
+    withdrawal: { text: "Withdrawals reported processed in 0–24 hours by the casino (excluding verification, up to 48 hours); e-wallets 0–72 hours, bank transfers 3–5 days, card payments 1–5 days; no weekend cashouts.", source: "askgamblers.com, casino.guru (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Account verification is required before a first withdrawal; player reports describe variable verification speed (from around 7–20 minutes up to several hours), with proof-of-address/utility-bill requests noted.", source: "askgamblers.com, casino.guru (third-party)", checked: "2026-08-21" }
+  },
+  "Legzo Casino": {
+    bonus: { text: "Welcome bonus of 50% up to €300 (alternate 100% up to €600 + up to 500 free spins also cited), spread across the first several deposits, with 40–45x wagering reported. Terms are said to vary by region.", source: "askgamblers.com, casino.guru (third-party)", checked: "2026-08-21" },
+    withdrawal: { text: "Standard pending time reported at 0–48 hours; e-wallets 0–24 hours, bank transfers 3–7 days, card payments 0–24 hours; the operator is quoted as approving payouts \"in 2 hours on our side,\" with the payment system then taking 0–5 working days to credit funds.", source: "casino.guru (quoting operator statement), askgamblers.com (third-party)", checked: "2026-08-21" },
+    kyc: { text: "The casino \"reserves the right to require... verification at any time,\" including ID documents and video calls; additional checks are triggered by withdrawals over roughly €1,250, with source-of-funds confirmation requested above €10,000.", source: "casino.guru, askgamblers.com (third-party)", checked: "2026-08-21" }
+  },
+  "Irwin Casino": {
+    bonus: { text: "Multi-step welcome package: 1st deposit 150% up to $600/€600, 2nd deposit up to 400 free spins, 3rd deposit 75% up to $300/€300 — commonly advertised as \"up to $900 + 400 free spins.\" Wagering requirement most commonly cited at 40x (one source gives a 35x–45x range); bonus funds apply 100% to slots only.", source: "casino.org, casino.guru, casinocanada.com (third-party — operator's own site blocks automated access)", checked: "2026-08-21" },
+    withdrawal: { text: "Crypto and e-wallet withdrawals reported fastest (0–24 hours); bank transfers slower (1–7 working days depending on source). One source describes a three-stage process: KYC check up to 48 hours, then pending up to 24 hours, then processing up to 24 hours.", source: "casino.org, casinocanada.com, wizardofodds.com (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Standard identity/proof-of-payment verification required before withdrawal, generally taking up to 48 hours. Reported trigger thresholds (expressed in different regional currencies) cluster around roughly €1,250–2,000 for standard checks and €10,000+ for source-of-funds confirmation.", source: "askgamblers.com, casinocanada.com, wizardofodds.com (third-party)", checked: "2026-08-21" }
+  },
+  "Shuffle": {
+    bonus: { text: "Figures conflict sharply by source. CryptoSlate cites a 100% first-deposit match up to $1,000 at 35x wagering; a separate affiliate promo-code page instead advertises 200% up to $3,000 — likely an enhanced referral-only offer rather than the standard rate. Shuffle's own Terms of Service don't state a wagering multiplier at all, and its own promotions page, as checked, showed no standard welcome/deposit-match offer live — only in-progress promos (a lottery, sportsbook boosts, a slots tournament).", source: "shuffle.com/promotions, shuffle.com/info/terms (official — no current welcome offer found); cryptoslate.com; somuchpoker.com (third-party, conflicting)", checked: "2026-08-21" },
+    withdrawal: { text: "Shuffle's own terms state no fixed processing timeframe. Third-party reviewers describe routine crypto withdrawals settling in under a minute once approved, but say a triggered KYC review can leave the same withdrawal pending for days to weeks. Documented complaints include AskGamblers threads describing withdrawals stuck under review for 2+ weeks and over a month, and a Trustpilot score of 3.0/5 across 938 reviews citing withdrawal delays and sudden account suspensions as recurring themes.", source: "shuffle.com/info/terms (official); askgamblers.com; casino.guru; uk.trustpilot.com (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Shuffle's own terms reserve the right to request KYC documentation \"at any time,\" with no fixed dollar threshold disclosed. Third-party reviewers independently confirm a discretionary, risk-based approach most often triggered by a large or bonus-linked win, requiring ID, proof of address and a liveness check.", source: "shuffle.com/info/terms (official); cryptoslate.com; askgamblers.com (third-party)", checked: "2026-08-21" }
+  },
+  "Duel": {
+    bonus: { text: "Duel deliberately doesn't run a traditional deposit-match welcome bonus — its own site includes a page titled \"Why Bonuses Suck\" explaining the position. In its place, the operator's own FAQ states 50% instant rakeback on slots with no wagering requirement, instantly withdrawable; independent reviewers confirm the same rakeback-over-bonus model.", source: "duel.com FAQ (official, via third-party mirror); thespike.gg; sportsgambler.com; casino.guru (third-party)", checked: "2026-08-21" },
+    withdrawal: { text: "Duel's own FAQ states standard withdrawals process in 1–15 minutes, with large transactions subject to extra verification that can extend this. Independent testers report similar speed (under 30 minutes). Documented disputes include a BitcoinTalk complaint describing an $813 balance voided and a withdrawal blocked over an alleged betting-limits violation, and Casino.Guru logs 4 total complaints against Duel (2 unresolved, 2 rejected, 0 resolved).", source: "duel.com FAQ (official, via third-party mirror); thespike.gg; casino.guru; bitcointalk.org (third-party)", checked: "2026-08-21" },
+    kyc: { text: "No mandatory KYC to register or play, per Duel's own FAQ — verification is described as triggered mainly by large withdrawals (typically $10,000+) or suspicious activity. One documented BitcoinTalk complaint shows verification requested on much smaller bets ($5–70) amid a multi-accounting dispute, suggesting the stated threshold isn't always the actual trigger in practice.", source: "duel.com FAQ (official, via third-party mirror); sportsgambler.com; bitcointalk.org (third-party)", checked: "2026-08-21" }
+  },
+  "1win": {
+    bonus: { text: "Widely advertised as a \"500% bonus\" on 1win's own homepage, but the breakdown conflicts by source: AskGamblers describes a 4-deposit package (200%/150%/100%/50%, each up to €800), while Casino.Guru instead describes overlapping offers of 130% up to 500 USDT + 70 spins and 170% up to 500 USDT + 180 spins. A 5x wagering requirement is cited by one review site only and couldn't be confirmed against 1win's own terms page, which returned no readable body text on request.", source: "1win.com (official — figure unconfirmed at source); askgamblers.com; casino.guru; blockonomi.com (third-party, conflicting)", checked: "2026-08-21" },
+    withdrawal: { text: "Third-party figures: e-wallets 0–24 hours, bank transfers 3–5 days, crypto roughly 10–30 minutes — 1win's own terms page didn't return readable withdrawal-timing text on request. AskGamblers logs 140 documented complaint cases (mostly resolved) citing delays from 3 to 40+ days and assigns a Safety Index of just 3/10; Casino.Guru separately logs 932 complaints but scores 1win 8.7/10 (\"High Safety\") — the two major review aggregators diverge sharply on overall trust, reported here rather than picking one.", source: "askgamblers.com; casino.guru (third-party — official terms page returned no timing text)", checked: "2026-08-21" },
+    kyc: { text: "1win's own homepage advertises \"no KYC\" as a feature, which conflicts with independent reviewers: AskGamblers reports mandatory identity verification once a withdrawal exceeds €500, and Casino.Guru's terms analysis separately flags 1win's KYC document-submission window as unreasonably short.", source: "1win.com (official marketing claim — conflicts with practice); askgamblers.com; casino.guru (third-party)", checked: "2026-08-21" }
+  },
+  "BetFury": {
+    bonus: { text: "Headline welcome offers vary widely by source and channel: AskGamblers cites 150% + 50 free spins; BetFury's own current homepage advertises 590% up to $10,500 + 225 free spins; a separate promo-code offer shows 200% up to $500 + 1,000 free spins. Wagering requirements are similarly inconsistent — cited as 35x or 40x by different reviewers, while BetFury's own documentation instead describes a game-type-dependent multiplier (0.2x for BetFury Originals, 1.0x for slots/live games).", source: "docs.betfury.com (official); askgamblers.com; gamble.io (third-party, conflicting)", checked: "2026-08-21" },
+    withdrawal: { text: "BetFury's own Terms & Conditions allow up to 7 days for standard withdrawals (up to 30 days, paid in instalments, for wins over $50,000), while third-party reviews market withdrawals as near-instant (0–24 hours). Trustpilot shows 3.5/5 across 1,913 reviews with recurring complaints about blocked withdrawals and lengthy verification; Casino.Guru logs 68 complaints (21 resolved, 43 rejected, 0 currently unresolved).", source: "docs.betfury.com (official); askgamblers.com; casino.guru; trustpilot.com (third-party)", checked: "2026-08-21" },
+    kyc: { text: "Not required universally at signup, per BetFury's own documentation — verification is typically triggered by first use of a given payment method or at the operator's discretion, with no fixed platform-wide dollar threshold stated. Large wins can trigger a 7-day \"anti-fraud\" hold that functions similarly to a delayed verification gate.", source: "docs.betfury.com (official); askgamblers.com (third-party)", checked: "2026-08-21" }
+  },
+  "bet105.ag": {
+    bonus: { text: "Official welcome offer (bet105.ag/sign-up-bonus/): deposit $100, get a $50 free bet, no promo code needed, subject to a 5x rollover (i.e. $250 total wagering). The free bet pays winnings only (the $50 stake itself isn't returned), never expires, and is usable on any market up to maximum odds of +250 — a max cashout cap isn't stated anywhere found. A third-party reviewer separately cites a 0.75% turnover rebate on all sports wagers in the first 30 days with no rollover requirement, not independently confirmed on an official page.", source: "bet105.ag/sign-up-bonus/ (official); offshoresportsbooks.com (third-party, one figure unconfirmed)", checked: "2026-08-22" },
+    withdrawal: { text: "bet105's actual Terms & Conditions / General Rules pages are JavaScript-rendered and couldn't be read directly, so this is third-party reported only: one reviewer's live test found crypto withdrawals clearing in under two hours, with a cited $250,000/week withdrawal cap and a 0.5% fee on same-funds deposit/withdrawal without wagering; another cites typical crypto payout speeds of 5–30 minutes depending on the coin. A forum poster on SportsbookReview.com reported a large withdrawal paid in 90 minutes.", source: "offshoresportsbooks.com; boydsbets.com; sportsbookreview.com forum (third-party — official terms page not independently readable)", checked: "2026-08-22" },
+    kyc: { text: "bet105's own homepage and \"What is bet105\" page state plainly \"no KYC requirements,\" describing the platform as anonymous — repeated in a syndicated press release. A third-party reviewer's own live test withdrawal (just under $400) cleared without ID verification, but the same reviewer notes larger withdrawals should expect verification checks — meaning the practical KYC trigger for bigger amounts isn't confirmed against the actual binding terms, which returned no readable text on request.", source: "bet105.ag (official marketing claim); offshoresportsbooks.com (third-party nuance — official terms page not independently readable)", checked: "2026-08-22" }
+  },
+  "Rollbit": {
+    bonus: { text: "No conventional deposit-match welcome bonus, per Rollbit's own Help Center: bonus balances are instead earned via team lottery draws or Discord giveaways, require a 5x wagering requirement to convert to withdrawable funds, and are usable only on casino games (not on Crypto Trading, Challenges, Bonus Battles or NFT Lootboxes). Rollbit's own help article states roughly 50% odds of completing the requirement, with successful completers expected to net about 2x the bonus balance on average. Separate marketing references \"up to 70% Rewards\" (a rakeback-style program), but full official terms for that weren't independently accessible.", source: "help.rollbit.com (official Help Center)", checked: "2026-08-22" },
+    withdrawal: { text: "Per Rollbit's own Help Center, new accounts must deposit $10 and wager $10 before withdrawals unlock; once met, the article states there are \"no limitations on withdrawals.\" Notably, the official article states no specific processing-time SLA and no numeric maximum withdrawal limit — a documentation gap in itself. See the complaint-pattern warning on this profile for reported real-world withdrawal delays and restrictions.", source: "help.rollbit.com (official Help Center)", checked: "2026-08-22" },
+    kyc: { text: "Per Rollbit's own Help Center, KYC is tiered across up to 5 levels; the operator's own text states a user is only told whether a higher level is required after completing the one before it — i.e. the trigger for deeper verification isn't disclosed upfront. If a submission sits \"pending review\" for more than 24 hours the official guidance is to contact support, implying (but not guaranteeing) a ~24-hour turnaround. Multiple third-party sources describe a \"KYC double standard\" in practice — deposits and play require no verification, but it's suddenly demanded at withdrawal time, especially for larger amounts.", source: "help.rollbit.com (official Help Center); nerdbot.com (third-party pattern)", checked: "2026-08-22" }
+  },
+  // StakeUS mirrors Stake's terms text verbatim, per the site owner's direction that the two share
+  // brand-level practices. Not independently re-verified against stake.us's own published terms.
+  "StakeUS": {
+    bonus: { text: "No traditional deposit-match bonus. The VIP Club (Bronze–Diamond) offers rakeback, reload and weekly/monthly bonuses at higher tiers, but exact percentages aren't published. Separately, Stake's Terms require wagering 100% of any deposit before a withdrawal (fiat or crypto) can be requested.", source: "Mirrors Stake.com's reviewed terms (stake.com/policies/terms · stake.com/policies/deposit-bonus-requirements) — not independently re-verified for stake.us", checked: "2026-08-24" },
+    withdrawal: { text: "No fixed timeframe is stated in the official Terms. Independent reports describe most crypto withdrawals completing within about an hour, and fiat/bank withdrawals taking 1–3 business days.", source: "Mirrors Stake.com's reviewed terms (stake.com/policies/terms, no timeframe given; third-party review sites) — not independently re-verified for stake.us", checked: "2026-08-24" },
+    kyc: { text: "The official AML policy reserves the right to demand full identity verification (ID, proof of address, source of funds) at any time, and can suspend an account until KYC is completed once a withdrawal threshold is reached — but no dollar figure for that threshold is published.", source: "Mirrors Stake.com's reviewed terms (stake.com/policies/anti-money-laundering) — not independently re-verified for stake.us", checked: "2026-08-24" }
+  },
+  "Sportsbet.io": {
+    bonus: { text: "Welcome offer is 100% up to $300 USDT (availability varies by region). Sportsbook wagering requires 10x the bonus amount at minimum 1.50 odds within 7 days; the standard deposit-turnover requirement is 1x before withdrawal, but that can rise to as much as 5x if anti-abuse checks flag the account.", source: "cryptoslate.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-24" },
+    withdrawal: { text: "Sources disagree: Casino.Guru's review describes crypto withdrawals as effectively instant, while CryptoSlate reports crypto withdrawals taking up to about 24 hours after approval, e-wallet withdrawals same-day, and bank transfers 1–3 business days.", source: "casino.guru; cryptoslate.com (third-party, conflicting on crypto speed)", checked: "2026-08-24" },
+    kyc: { text: "Described as risk-based: standard verification (photo ID, proof of address) plus enhanced due diligence (source-of-funds documentation, selfie) for larger withdrawals. KYC is reportedly triggered from around €2,500 in deposits or when anti-money-laundering flags occur.", source: "cryptoslate.com (third-party — figure not confirmed in official terms)", checked: "2026-08-24" }
+  },
+  "Yeet": {
+    bonus: { text: "No traditional deposit-match welcome bonus. Instead, Yeet runs a $15,000 weekly leaderboard competition (\"Chairman's Cup\"), instant rakeback, and a VIP tier-matching program that carries over status earned at other casinos.", source: "bitcoinchaser.com; vip-grinders.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Crypto-only withdrawals, reported by multiple third-party reviews as arriving within minutes once approved; larger amounts may take longer depending on blockchain congestion. No internal withdrawal fee stated beyond standard network costs.", source: "bitcoinchaser.com; vip-grinders.com (third-party — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "No routine KYC required for standard crypto play, per third-party reviews. Verification becomes mandatory above roughly $10,000 in withdrawals or for VIP-tier perks, and is separately triggered when buying crypto through the built-in MoonPay on-ramp.", source: "bitcoinchaser.com (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Goated": {
+    bonus: { text: "No traditional deposit-match welcome bonus. A VIP tier system (Bronze through Diamond, based on XP) pays daily, weekly and monthly bonuses plus level-up rewards; one third-party tester measured roughly 29.5% rakeback on theoretical losses, and the source cites an estimated $175,000 leaderboard/raffle pool.", source: "fairgambling.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Reviewed as offering instant payouts with no withdrawal cap; minimums vary by coin (e.g. ~0.0011 ETH, ~$3.01+ USDT) with fees around the same size as the minimum.", source: "fairgambling.com (third-party — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "Marketed with no ID verification required for standard play, but the operator's compliance framework includes KYC/AML checks that a reviewer says may be triggered at withdrawal, particularly for larger amounts or unusual patterns. No fixed dollar threshold is published.", source: "fairgambling.com; thespike.gg (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Chips.gg": {
+    bonus: { text: "No traditional deposit-match welcome bonus. Rakeback tiers combine to an estimated 23.5%: 4-9.5% level-up bonus, 5% weekly/monthly bonuses, and 2-3% lossback on losses, plus an estimated $100,000 leaderboard/raffle pool.", source: "fairgambling.com (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Sources disagree: fairgambling.com describes withdrawal fees as free with a 10,000-unit daily limit but marks speed as \"delayed\"; a separate reviewer (gamblingbro.com) reported real-world Bitcoin withdrawal fees of roughly $4+ against an $0.85 deposit fee, contradicting the fee-free marketing.", source: "fairgambling.com; gamblingbro.com (third-party, conflicting — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "Marketed as \"no KYC\" with ID verification listed as \"never\" required for standard play, but a reviewer found verification mandatory once withdrawals reach roughly $1 BTC or $2,000 in value, with additional checks possible for large withdrawals or suspicious activity.", source: "fairgambling.com; gamblingbro.com (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Acebet": {
+    bonus: { text: "Welcome offer varies by region; one reviewer received $1 free plus a 100% deposit-match bonus at 10x wagering, but says the exact terms weren't shown until after signup and a deposit had already been made.", source: "thespike.gg (third-party — official bonus terms not independently fetched)", checked: "2026-08-31" },
+    withdrawal: { text: "Fiat deposits reported crediting within about 5 minutes; withdrawal-specific timing wasn't detailed by the source. Six AskGamblers complaints (checked 2026-08-31) describe delayed or blocked withdrawals tied to account bans/freezes, five of them unresolved, with disputed amounts from $426 to €1,859.", source: "thespike.gg; askgamblers.com (third-party — official terms not independently fetched)", checked: "2026-08-31" },
+    kyc: { text: "Account creation is required but a specific KYC policy/threshold isn't clearly disclosed on official pages found. Several AskGamblers complaints describe accounts being banned or frozen — in one case cited only as a \"TOS violation\" with no further explanation — after weeks or months of what players describe as verified play.", source: "thespike.gg; askgamblers.com (third-party — official terms not independently fetched)", checked: "2026-08-31" }
+  },
+  "Wild.io": {
+    bonus: { text: "Welcome package advertised as up to 350% combined across the first three deposits (120%/110%/120%) plus 200 free spins distributed across five daily batches, per wild.io's own promotions page. Wagering requirement is 40x on bonus funds only (deposited principal excluded); promo code \"WILD\" required, $20 minimum qualifying deposit.", source: "wild.io/promotions/welcome-package (official)", checked: "2026-09-02" },
+    withdrawal: { text: "Casino.Guru logs 67 total complaints against Wild.io but rates the resolution pattern \"very good\" for the operator's size (3 open, 11 resolved, 53 rejected). AskGamblers separately logs roughly 16-17 complaints, the large majority resolved. Stated limits (Casino.Guru): $100,000/day, $200,000/month. Reviewer-reported crypto withdrawal speed is fast (5-15 minutes), but a recurring minority pattern across both platforms involves withdrawal/verification friction and account restrictions concentrated around large wins — including one unresolved AskGamblers case alleging a $13,600 balance dispute over TRX transfers.", source: "casino.guru/wild-io-casino-review; askgamblers.com/online-casinos/reviews/wild-io-casino (third-party)", checked: "2026-09-02" },
+    kyc: { text: "Per Wild.io's own Terms, KYC is not required upfront but may be requested \"at any time,\" with the account/withdrawals restricted until identity is confirmed and the balance confiscated on a failed check. No single official dollar threshold is published; third-party reviewers estimate KYC is typically triggered above roughly $500 or on large wins. Multiple independent reviewers explicitly describe Wild.io's \"no-KYC\" marketing angle as misleading given this conditional enforcement.", source: "wild.io/terms (official); privatebethub.com; cryptocasinos.ai (third-party)", checked: "2026-09-02" }
+  },
+  "Degen Casino": {
+    bonus: { text: "Sources disagree on the welcome offer: one review describes a rakeback-tier system (3-8%, starting at a \"Bronze I\" tier) plus a weekly race prize pool instead of a deposit-match bonus; a separate review instead describes a 15% instant rakeback for the first 7 days combined with a 100% deposit match up to $1,500 (30x wagering). These two accounts don't fully reconcile — confirm current terms directly on degen.com before relying on either.", source: "casinorankr.com; burningthedice.com (third-party, conflicting)", checked: "2026-09-02" },
+    withdrawal: { text: "No Casino.Guru or AskGamblers complaint-tracking listing exists for degen.com as of this research pass, so no independently-verified complaint history is available. Third-party reviewer claims range from \"5-30 minutes for crypto, not yet independently tested\" to \"never takes more than 30 seconds\" — neither has been verified against a real-world test or complaint record.", source: "casinorankr.com; burningthedice.com (third-party, unverified)", checked: "2026-09-02" },
+    kyc: { text: "Reviewers consistently describe no ID verification required to sign up, deposit or play, with KYC conditionally triggered only by flagged activity (multi-accounting, rewards abuse) or AML review on large/unusual withdrawals — no specific threshold is published. No complaints about KYC enforcement were found, though this may simply reflect the operator's very limited review coverage rather than a clean record.", source: "casinorankr.com; burningthedice.com (third-party)", checked: "2026-09-02" }
+  },
+  "Sportbet.one": {
+    bonus: { text: "New players choose one of three offers per the operator's own site/FAQ: 125% match up to $1,000, a 50% \"Fast Release & Cashout\" offer up to $500, or a $50 risk-free bet. Sports wagering requirements are reported inconsistently across sources (10x vs. 12x, at minimum odds of 1.4); casino-game wagering is consistently reported at 35x. A 7-day wagering window is consistent across sources.", source: "sportbet.one (official, partial); CCN; valuepunter; bettingnews.com (third-party, conflicting on the sports multiplier)", checked: "2026-09-02" },
+    withdrawal: { text: "Casino.Guru rates Sportbet.one 9.2/10 (\"Very high\") with 26 total logged complaints (4 resolved, 22 rejected, 0 unresolved); AskGamblers separately rates it 9.8/10 from 13 reviews with no logged complaints, but also currently lists the operator's status as \"closed, no longer accepting players\" — which conflicts with other 2026 sources describing an active site. These clean aggregator numbers sit in real tension with primary-source forum disputes (bitcointalk.org, sportsbookreview.com) spanning May 2024 to April 2026, in which players had balances (ranging roughly $226-$2,840) frozen or confiscated after the operator's internal \"fraud detection\" system flagged suspected arbitrage or multi-accounting, each time without disclosing which specific bets or evidence triggered the decision. One further thread alleges Trustpilot review manipulation. A moderator on the SportsbookReview forum declined to mediate an April 2026 case, describing Sportbet.one as operating without a genuine licence.", source: "casino.guru/sportbet-one-casino-review; askgamblers.com; bitcointalk.org and sportsbookreview.com forum threads (primary-source disputes)", checked: "2026-09-02" },
+    kyc: { text: "Per the operator's own FAQ: \"Sportbet.one does not require identity verification at any stage — not at sign-up, not at deposit, and not at withdrawal, regardless of the amount.\" No complaints alleging misuse of ID-based KYC were found, consistent with this stated no-KYC model — though the internal \"fraud detection\" review described above functions as a similar practical friction point in the documented disputes.", source: "sportbet.one FAQ (official); ccn.com; dappgambl.com (third-party)", checked: "2026-09-02" }
+  },
+  "Lucky Block": {
+    bonus: { text: "Consistently reported across many sources as a 200% deposit match up to $25,000/€25,000 plus 50 free spins, released incrementally as wagering requirements clear. Sources disagree on the exact wagering mechanics — described variously as a flat 35x, or as roughly 6x the deposit per 10% tranche released — likely reflecting a genuinely tiered/incremental structure that different reviewers summarized differently rather than a true contradiction.", source: "casino.guru; askgamblers.com; coincentral.com; cryptomaniaks.com (third-party, consistent on the headline figure)", checked: "2026-09-02" },
+    withdrawal: { text: "Casino.Guru rates Lucky Block 2.1/10 (\"Very low\") Safety Index, logging 74 total complaints (17 resolved, 2 unresolved, 55 rejected, €238,799 in total disputed amount). AskGamblers separately logs 21 complaints (8 resolved, 12 unresolved, 2 rejected) with markedly more favorable overall ratings (6.4-7.5/10). Both platforms document a consistent pattern: routine/small withdrawals process without much friction, but large balances are disproportionately likely to face account closure, indefinite delay, or confiscation — including one documented AskGamblers case where a $27,444 balance was confiscated shortly after the player completed KYC and made one small successful withdrawal.", source: "casino.guru/luckyblock-casino-review; askgamblers.com/online-casinos/reviews/lucky-block-casino/complaints (third-party)", checked: "2026-09-02" },
+    kyc: { text: "No ID verification is required to register, deposit or play. A conditional threshold for triggering KYC is reported inconsistently across sources (one third-party estimate near $2,000, another near €5,000, neither confirmed against an official statement), and Lucky Block's own regional Terms mirror simply reserves the right to request documentation \"at any time.\" Multiple documented complaints describe large balances being frozen or confiscated after KYC was already completed, with the operator citing multi-accounting or false-documentation concerns the player disputed.", source: "cryptomaniaks.com; coinspeaker.com; luckyblockindia.com terms mirror (third-party, conflicting on the threshold)", checked: "2026-09-02" }
+  },
+  "NV Casino": {
+    bonus: { text: "A deposit-match welcome bonus is advertised; exact tier structure and wagering requirement were not independently confirmed in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    withdrawal: { text: "Independent complaint-platform history is limited; payout reliability could not be assessed with confidence in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "No KYC required for standard play under disclosed thresholds; no fixed dollar threshold for the point verification becomes mandatory was found.", source: "casino.guru (third-party)", checked: "2026-09-04" }
+  },
+  "HitnSpin": {
+    bonus: { text: "A multi-deposit welcome package is advertised; exact current tiers and wagering requirement were not independently confirmed in this pass.", source: "casino.guru; hitnspin.com (third-party review plus operator site, not fully fetched)", checked: "2026-09-04" },
+    withdrawal: { text: "Casino.Guru's Safety Index for HitnSpin sits in the \"Below Average\" range; specific complaint case detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "\"No-KYC\" style marketing appears to conflict with a disclosed verification threshold that applies to larger withdrawals — a pattern also seen at several other operators in this database.", source: "casino.guru; hitnspin.com (third-party, official threshold not independently confirmed)", checked: "2026-09-04" }
+  },
+  "Verde Casino": {
+    bonus: { text: "A deposit-match welcome bonus is advertised; exact tier structure and wagering requirement were not independently confirmed in this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    withdrawal: { text: "Casino.Guru's Safety Index for Verde Casino sits in the \"Below Average\" range; specific complaint case detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "KYC threshold not clearly disclosed. Separately, unconfirmed forum allegations describe Lithuanian players being blacklisted, in tension with Verde Casino running a Lithuania-facing \"Verde Lietuva\" mirror domain without a confirmed Lithuanian licence — neither piece independently verified.", source: "casino.guru; forum reports (third-party, unconfirmed)", checked: "2026-09-04" }
+  },
+  "V.Vegas": {
+    bonus: { text: "$1,500 + 150 free spins welcome bonus advertised, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply (table/live/instant games contribute less or not at all).", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days); €500-5,000 within 48 hours (max 5 working days); €5,000-30,000 within 96 hours (max 14 working days); above €30,000 within 96 hours (max 30 working days). A further cap can apply if lifetime withdrawal requests reach 20x total deposits.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "FS.Casino": {
+    bonus: { text: "€1,000 + 400 free spins casino welcome bonus, plus a separate up-to-$500 betting welcome bonus, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "A single withdrawal is capped at $500, with a further $5,000 (or currency equivalent) cap across a rolling 30-day window. Bank-transfer withdrawals are tiered by amount: up to $300 within 2 working days, $301-1,500 within 5 working days, $1,501-15,000 within 14 working days, above $15,001 within 30 working days.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "IceCasino": {
+    bonus: { text: "$1,500 + 270 free spins welcome bonus advertised, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days); €500-5,000 within 48 hours (max 5 working days); €5,000-30,000 within 96 hours (max 14 working days); above €30,000 within 96 hours (max 30 working days). A further cap can apply if lifetime withdrawal requests reach 20x total deposits.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "FieryPlay Casino": {
+    bonus: { text: "€2,500 + 525 free spins casino welcome bonus, plus a separate up-to-€1,000 sports/esports betting welcome bonus, per the operator's own spec sheet; live/table games contribute only 15% toward wagering, with a few slot exceptions.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to $300 within 2 working days, $301-1,500 within 5 working days, $1,501-15,000 within 14 working days, $15,001+ within 30 working days. The operator states it does not process withdrawals by cheque.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "GGbet": {
+    bonus: { text: "Up to 3,000 + 900 free spins casino welcome bonus, plus a separate 1,000 EUR + 250 EUR freebet betting welcome bonus, per the operator's own spec sheet.", source: "Operator-supplied spec sheet (GGbet's own ggbetaff.com affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days), €500-5,000 within 48 hours (max 5 working days), €5,000-30,000 within 96 hours (max 14 working days).", source: "Operator-supplied spec sheet (GGbet's own ggbetaff.com affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (GGbet's own ggbetaff.com affiliate program)", checked: "2026-09-08" }
+  },
+  "Slotoro": {
+    bonus: { text: "€2,500 + 250 free spins casino welcome bonus, plus a separate up-to-€700 betting welcome bonus, per the operator's own spec sheet; standard slots-only wagering-contribution restrictions apply.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    withdrawal: { text: "Tiered by amount: up to €500 within roughly 12 hours (max 2 working days), €500-5,000 within 48 hours (max 5 working days), €5,000-30,000 within 96 hours (max 14 working days), above €30,000 within 96 hours (max 30 working days).", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" },
+    kyc: { text: "No explicit upfront-vs-no-KYC statement found; verification appears tied to the withdrawal-size tiers above rather than a flat threshold.", source: "Operator-supplied spec sheet (V.Partners affiliate program)", checked: "2026-09-08" }
+  },
+  "FortuneJack": {
+    bonus: { text: "A multi-deposit welcome package is advertised across this long-running brand; exact current tiers and wagering requirement were not independently confirmed in this pass.", source: "casino.guru; fortunejack.com help center (third-party review plus operator site, not fully fetched)", checked: "2026-09-04" },
+    withdrawal: { text: "Recurring complaints describe withdrawal delays and account-verification disputes; specific case-level detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "KYC threshold not consistently disclosed across sources. FortuneJack's own Help Center and its live Terms & Conditions give conflicting answers on Lithuania's restricted-country status specifically — this pass could not resolve which is current.", source: "fortunejack.com help center vs. terms (official, internally conflicting)", checked: "2026-09-04" }
+  },
+  "DuckDice": {
+    bonus: { text: "Rewards run on a rakeback/leaderboard model rather than a large deposit-match bonus.", source: "casino.guru; duckdice.io (third-party plus operator site)", checked: "2026-09-04" },
+    withdrawal: { text: "Long operating history (since 2016) with a large active player base; specific complaint case-level detail was not captured to the same standard as this database's fuller entries.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "No KYC required for standard dice play; threshold for larger withdrawals not clearly published. DuckDice's Terms name Zentari Limitada (Costa Rica) as the operating entity — the same entity named in Tower.bet's Terms.", source: "duckdice.io terms (official)", checked: "2026-09-04" }
+  },
+  "Tower.bet": {
+    bonus: { text: "Welcome-bonus terms were not independently confirmed in this pass.", source: "tower.bet (operator site, not fully fetched)", checked: "2026-09-04" },
+    withdrawal: { text: "Thin independent complaint-platform history either way; payout reliability was not well established by this pass.", source: "casino.guru (third-party)", checked: "2026-09-04" },
+    kyc: { text: "KYC threshold not clearly disclosed. Tower.bet's Terms name Zentari Limitada (Costa Rica) as the operating entity — the same entity named in DuckDice's Terms. Note the unrelated site towerbet.com is a different operator.", source: "tower.bet terms (official)", checked: "2026-09-04" }
+  },
+  "Whale.io": {
+    bonus: { text: "200% first-deposit welcome bonus with a 1x wagering requirement — unusually low versus most competitors' 30x-45x — but the bonus expires within 30 days of being credited.", source: "whale.io FAQ / bonus terms (operator site)", checked: "2026-09-05" },
+    withdrawal: { text: "Marketed as \"instant and fee-free,\" but multiple 2026 AskGamblers and Casino Guru complaints describe real-world delays after full KYC, including a $36,128 AskGamblers case left unresolved with no documented operator response, plus several Casino Guru cases marked unresolved after Whale.io reportedly did not cooperate with the platform's mediation.", source: "AskGamblers / Casino Guru complaint index (third-party)", checked: "2026-09-05" },
+    kyc: { text: "No published KYC threshold — verification is discretionary and, per documented complaints, can be re-triggered even after a player has already completed it once.", source: "AskGamblers / Casino Guru complaint index (third-party)", checked: "2026-09-05" }
+  },
+  "Dicey.com": {
+    bonus: { text: "No welcome bonus is currently published for Dicey — third-party review aggregators list no bonus offers in their database.", source: "casino.guru (third-party)", checked: "2026-09-05" },
+    withdrawal: { text: "Markets itself as fast/no-KYC for play, but withdrawals require ID/address verification, and a Trustpilot reviewer describes inconsistent outcomes across repeated verification attempts. A newly opened Casino Guru complaint (unresolved, detail not yet indexed) also describes a delayed withdrawal.", source: "trustpilot.com/review/dicey.com; casino.guru (third-party)", checked: "2026-09-05" },
+    kyc: { text: "No KYC required to sign up, deposit or play; identity verification (photo ID, proof of address) is requested before withdrawals, with an operator-stated ~72-hour target that at least one reviewer says wasn't met in practice.", source: "programminginsider.com; correctcasinos.com; trustpilot.com/review/dicey.com (third-party coverage, not independently fetched from the operator's own Terms)", checked: "2026-09-05" }
+  },
+  "Chancer": {
+    bonus: { text: "300% up to €300 on the first deposit reported, with further 300% match offers on the 2nd/3rd deposit; wagering reported around 40x — on the high end industry-wide. Exact current terms vary by source/region.", source: "ccn.com; cryptoslate.com; casino.guru (third-party)", checked: "2026-09-06" },
+    withdrawal: { text: "No independent withdrawal-speed or delay pattern was found in the indexed public record — Chancer has essentially no substantiated player complaint history to judge payout reliability against.", source: "casino.guru; askgamblers.com; bitcointalk.org (third-party — no substantiated complaint found)", checked: "2026-09-06" },
+    kyc: { text: "No verification required to deposit or play; identity/document verification with risk-based escalation (ID, selfie, proof of address, payment-method check) is triggered before withdrawal, with review times reported up to 72 hours.", source: "casino.guru; correctcasinos.com (third-party coverage)", checked: "2026-09-06" }
+  },
+  "RioBet": {
+    bonus: { text: "100% up to $750 plus bonus spins per AskGamblers' current listing; other sources cite up to €500 or $1,000. Wagering reported around 30x-35x — terms vary by source/region.", source: "askgamblers.com; casino.guru (third-party)", checked: "2026-09-06" },
+    withdrawal: { text: "Full document verification is generally requested around deposits/withdrawals rather than at signup. AskGamblers shows 8 of 9 indexed complaints resolved; the one unresolved case is a €918 deposit left uncredited for nine days.", source: "askgamblers.com; casino.guru (third-party)", checked: "2026-09-06" },
+    kyc: { text: "Registration collects basic personal data upfront (name, address, phone, DOB, email); full identity documents are generally requested around deposit/withdrawal activity rather than at signup.", source: "askgamblers.com; gamblescope.com (third-party coverage)", checked: "2026-09-06" }
+  },
+  "Betcoin.ag": {
+    bonus: { text: "Reported inconsistently — AskGamblers lists 100% up to $25; Casino Guru's live database currently shows no active bonus; larger affiliate-marketed offers (up to 3 BTC) were not independently confirmed.", source: "askgamblers.com; casino.guru (third-party)", checked: "2026-09-06" },
+    withdrawal: { text: "No verification required to register or deposit; KYC is triggered at withdrawal, sometimes via a third-party vendor link with a short (as little as 180-minute) completion window before it expires. Large wins (25+ BTC) are reportedly paid out over ten monthly installments rather than as a lump sum, per LCB's own testing.", source: "lcb.org; support.betcoin.ag (operator's own Terms of Service, third-party corroboration)", checked: "2026-09-06" },
+    kyc: { text: "No verification required to register or deposit; identity checks are reserved for withdrawal, and have in several documented cases been paired with discretionary fraud/collusion/arbitrage account suspensions.", source: "askgamblers.com; bitcointalk.org (third-party coverage)", checked: "2026-09-06" }
+  },
+  "Bspin.io": {
+    bonus: { text: "Reported inconsistently — the operator's own homepage currently advertises up to 3,500 µBTC + 100 free spins; AskGamblers lists 100% up to 1 BTC + 20 spins; wagering reported at 35x-45x depending on source.", source: "bspin.io (operator's own homepage); askgamblers.com", checked: "2026-09-06" },
+    withdrawal: { text: "No KYC required for deposits, per the operator's own homepage. Full identity checks are reserved for withdrawals above roughly $2,000/€2,000, with a 7-day first response and up to 30 days to complete per one third-party source. A 13.7 BTC balance lockout after a large win remains unresolved on AskGamblers.", source: "bspin.io (operator's own homepage); askgamblers.com; bitcasinosrank.com", checked: "2026-09-06" },
+    kyc: { text: "No KYC required for deposits; full identity checks are reserved for withdrawals above roughly $2,000/€2,000 equivalent, per one third-party source.", source: "bspin.io (operator's own homepage); bitcasinosrank.com (third-party)", checked: "2026-09-06" }
+  },
+  "Megapari": {
+    bonus: { text: "A staged first-four-deposit package up to roughly €1,500-€1,650 in some listings, with 35x wagering consistently reported and a bonus-forfeiture clause tied to incomplete profile/phone verification.", source: "casino.guru; askgamblers.com; casino.org (third-party)", checked: "2026-09-06" },
+    withdrawal: { text: "No verification required to register or make a first deposit; the largest share of sourced complaints describe repetitive, contradictory KYC document requests specifically once a withdrawal is requested, stretching 12-50+ days in several documented cases.", source: "askgamblers.com; casino.guru (third-party)", checked: "2026-09-06" },
+    kyc: { text: "Verification is consistently triggered at withdrawal rather than at signup or deposit; document requests are reported as repetitive and sometimes contradictory across several documented cases.", source: "askgamblers.com; casino.guru (third-party)", checked: "2026-09-06" }
+  },
+  "WinTomato": {
+    bonus: { text: "Reported offers up to 100% up to $500-$1,000 plus spins, depending on promotion; 30x wagering on bonuses per the operator's own Terms & Conditions, with \"Originals\"/Dice-Crash games counting only 10% toward it.", source: "wintomato.com/en/terms-and-conditions (operator's own Terms)", checked: "2026-09-06" },
+    withdrawal: { text: "No verification required to register, deposit or play under normal use. KYC is triggered once lifetime deposits exceed €5,000, on any withdrawal, or if suspicious activity is flagged. Several documented cases describe withdrawal-triggered account restrictions over alleged multi-accounting or \"value betting,\" with some later reversed by the operator after mediation.", source: "wintomato.com/en/faq (operator's own FAQ); askgamblers.com", checked: "2026-09-06" },
+    kyc: { text: "KYC is triggered once lifetime deposits exceed €5,000, on any withdrawal, or if suspicious activity is flagged — documents include ID, a selfie with the ID, and a recent bank statement or utility bill.", source: "wintomato.com/en/faq (operator's own FAQ)", checked: "2026-09-06" }
+  },
+  "Thunderpick.io": {
+    bonus: { text: "100% match welcome bonus up to €600 for sports/esports betting, or up to €2,000 for casino play; minimum deposit €20 (or crypto equivalent).", source: "Punter2Pro; Casino Guru (third-party reviews); Thunderpick's own bonus terms page not independently fetched in this pass", checked: "2026-09-07" },
+    withdrawal: { text: "Published limits of €100,000/week and €400,000/month. Real-world experience documented in AskGamblers/Casino Guru complaints diverges sharply from those limits: multiple 2026 cases describe withdrawals stuck for 12+ days, repeated KYC document requests without explanation, and — in several cases ($8,725, $12,000, 4,900 USDT) — funds confiscated outright with no resolution on record. A recurring citation across the confiscation cases is a general reference to Terms clauses 5.1 / 15.1 rather than a specific explanation of the alleged conduct.", source: "AskGamblers complaint index; Bitcointalk; Trustpilot; Casino Guru review (third-party)", checked: "2026-09-07" },
+    kyc: { text: "Per third-party reviews, KYC is usually only triggered for large withdrawals or suspected duplicate-account activity — but AskGamblers complaints repeatedly describe submitted documents being rejected or reported as \"not received\" without a stated deficiency, with delays stretching past a month in at least one case.", source: "AskGamblers complaint index; Punter2Pro (third-party)", checked: "2026-09-07" }
+  },
+  "BookMaker.eu": {
+    bonus: { text: "Two welcome-offer options advertised: promo code GET100 gives a 100% free bet up to $400 (1x rollover), or a 25% cash bonus up to $500 (10x rollover). Minimum deposit is $10 via crypto (BTC deposit max $25,000) or roughly $50 via credit card.", source: "BookMakersReview; Sportsbooks.ag (third-party reviews)", checked: "2026-09-07" },
+    withdrawal: { text: "Per the operator's own help center: all withdrawals go through an initial review of up to 24 hours (occasionally up to 3 business days), after which Bitcoin/crypto pays out same day with no fee, person-to-person transfers take 24-72 hours, checks take 3-5 business days, and bank wires take 5-7 business days with a roughly $600 fee. Two documented complaints diverge from this: a $7,858.73 account lock after mandatory video KYC, and a $40,000 live blackjack win that was never credited, both unresolved as of the source threads.", source: "get.bookmaker.help (official); BookMakersReview forum; SportsbookReview forum", checked: "2026-09-07" },
+    kyc: { text: "Per the site owner's own signup experience, name, surname, date of birth and address are collected immediately at registration — not deferred to withdrawal. This is a real difference from most \"conditional\" operators in this database, where only basic account info is collected upfront and document verification is deferred.", source: "Direct site-owner signup experience (first-hand)", checked: "2026-09-07" }
+  },
+  "Betski": {
+    bonus: { text: "No welcome-bonus terms independently confirmed — no AskGamblers listing or independently fetched bonus page found.", source: "casino.guru (no listing found)", checked: "2026-09-08" },
+    withdrawal: { text: "Casino Guru describes \"unlimited\" withdrawal limits, no win limit and instant processing — based on just one user review, too thin a sample to treat as a reliable pattern either way.", source: "casino.guru (single-review basis)", checked: "2026-09-08" },
+    kyc: { text: "No explicit KYC policy documented anywhere found. Treated here as following the common \"no-KYC-to-play, verification at withdrawal\" pattern seen across most comparably new Anjouan-licensed crypto casinos in this database, pending direct confirmation — not independently confirmed for Betski specifically.", source: "Assumption based on comparable operators — not independently confirmed for Betski", checked: "2026-09-08" }
+  }
+};
+
+const TRUST_BREAKDOWN = {
+  "Stake":         { licence:9, payout:8, complaintsRec:9, kyc:5, tc:10 },
+  // BC.Game revised 4 Sep 2026 after a dedicated Bitcointalk/Trustpilot
+  // community-report pass added 7 new complaint entries, including one
+  // exceptionally large (~$1.5m) contested/unresolved dispute and a
+  // recurring KYC-linked account-block pattern across several Trustpilot
+  // reports. BC.Game did publicly respond to the largest dispute with
+  // specific figures (records showing ~$57,980 in deposits and ~$122,000 in
+  // successful withdrawals) and reaffirmed its position after multiple
+  // reviews — this isn't treated as proof of wrongdoing, but the added
+  // volume/severity no longer supports the prior top-tier 9/10 complaintsRec
+  // or the 10/10 "cleanest on file" KYC score. payout trimmed one point too
+  // for the newly surfaced payment-channel/bank-hold friction points.
+  // Revised again same day at the site owner's direction: complaintsRec and
+  // kyc nudged back up one point each (7->8, 9->8 — note kyc actually moves
+  // down here versus the same-day revision above, landing at a
+  // still-cautious middle ground rather than the old 10/10) to land at 8.3 —
+  // just below Stake (8.4) — reflecting that none of the newly added
+  // community reports were adjudicated findings against the operator (the
+  // $1.5m case remains contested/unresolved, not proven) while still
+  // keeping BC.Game below the operators with a cleaner, fully-adjudicated
+  // complaint record.
+  "BC.Game":       { licence:9, payout:8, complaintsRec:8, kyc:8, tc:8 },
+  "Rainbet":       { licence:9, payout:9, complaintsRec:9, kyc:10, tc:8 },
+  "Roobet":        { licence:9, payout:8, complaintsRec:9, kyc:6, tc:8 },
+  "500Casino":     { licence:9, payout:10, complaintsRec:8, kyc:9, tc:8 },
+  "Betpanda":      { licence:2, payout:5, complaintsRec:5, kyc:9, tc:3 },
+  "Gamdom":        { licence:9, payout:8, complaintsRec:9, kyc:9, tc:8 },
+  "Duelbits":      { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
+  "Winna":         { licence:9, payout:9, complaintsRec:9, kyc:9, tc:3 },
+  "Razed":         { licence:9, payout:8, complaintsRec:9, kyc:9, tc:8 },
+  "Thrill":        { licence:9, payout:5, complaintsRec:5, kyc:9, tc:8 },
+  "Cryptorino":    { licence:9, payout:5, complaintsRec:5, kyc:9, tc:3 },
+  "Bets.io":       { licence:9, payout:5, complaintsRec:5, kyc:9, tc:8 },
+  "Nitrobetting":  { licence:2, payout:5, complaintsRec:5, kyc:9, tc:8 },
+  "Cloudbet":      { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
+  "Rakebit":       { licence:9, payout:5, complaintsRec:6, kyc:9, tc:3 },
+  "Fresh Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "SolCasino.io":  { licence:9, payout:4, complaintsRec:4, kyc:3, tc:3 },
+  "Sol Casino":    { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "Jet Casino":    { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "Starda Casino": { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "1Go Casino":    { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "Legzo Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "Irwin Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
+  "Shuffle":       { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
+  // Duel revised 2026-09-07 at the site owner's direction (raised from 5.5,
+  // targeting a "nothing bad about them" 7.5 — flagged since that's not
+  // quite accurate: Casino.Guru's own 5.9/10 "Below Average" verdict cites a
+  // high rate of restrained payouts, and there's one unresolved Casino Guru
+  // complaint where Duel didn't respond to the inquiry. Landed on a
+  // realistic 7.0 instead: complaintsRec raised substantially (only one
+  // documented complaint on record, genuinely clean by volume even if that
+  // one case went unanswered) and tc raised (the one cited clause —
+  // account closure for arbitrage betting — is a fairly standard industry
+  // term, not uniquely predatory). payout kept comparatively low since
+  // Casino.Guru's restrained-payouts citation is a real, specific finding,
+  // not addressed by anything since.
+  "Duel":          { licence:9, payout:5, complaintsRec:8, kyc:6, tc:6 },
+  "1win":          { licence:9, payout:3, complaintsRec:3, kyc:4, tc:8 },
+  "BetFury":       { licence:3, payout:6, complaintsRec:6, kyc:5, tc:3 },
+  "bet105.ag":     { licence:2, payout:5, complaintsRec:5, kyc:4, tc:9 },
+  "Rollbit":       { licence:9, payout:2, complaintsRec:2, kyc:3, tc:8 },
+  // StakeUS — per the site owner's direction, this profile mirrors Stake's
+  // reviewed practice/trust assessment (same brand family). See COMPANY_INFO
+  // for exactly which fields are copied vs. left blank pending independent
+  // research (ownership, restricted countries, complaints, annual volume).
+  "StakeUS":       { licence:9, payout:8, complaintsRec:9, kyc:5, tc:10 },
+  // Sportsbet.io — independently researched 2026-08-24. licence:9 for its real,
+  // currently-valid Curaçao Gaming Authority licence (OGL/2023/110/0072).
+  // payout:7 for mixed third-party reports (Casino.guru: "Instant" for crypto;
+  // CryptoSlate: crypto payouts within ~24h post-approval, fiat 1-3 business
+  // days) — decent but not confirmed as fastest-tier. complaintsRec:6, a modest
+  // step above the site's neutral 5/10 default: Casino.guru's own complaint
+  // index lists 33 total complaints, but 26 of those (79%) were rejected/not
+  // upheld against the operator, and the 3 we independently reviewed on
+  // AskGamblers all closed with the operator providing supporting evidence —
+  // real volume, but a resolution pattern that mostly favors the operator.
+  // kyc:8 for a disclosed, threshold-based policy (KYC from ~€2,500 deposits or
+  // AML flags), though the threshold itself is third-party-sourced, not pulled
+  // from Sportsbet.io's own official terms. tc:8 — Casino.guru's T&C review
+  // found no unfair or predatory clauses. Weighted score ≈7.5/10.
+  "Sportsbet.io":  { licence:9, payout:7, complaintsRec:6, kyc:8, tc:8 },
+  // Yeet, Goated, Chips.gg, Acebet — added 2026-08-31, independently researched
+  // (third-party sources only; none of the four have JS-readable official
+  // terms pages that could be fetched directly).
+  // licence:9 for Yeet/Goated/Chips.gg — each has a real, currently-valid
+  // Anjouan licence with no reported lapse or scope dispute found. Acebet gets
+  // licence:8 instead — a licence number was found (#15831) but only via one
+  // reviewer, not cross-checked against a registry, and it's a brand-new 2025
+  // operator with no independent track record yet.
+  // payout:6 for Yeet/Goated — third-party reviews consistently describe fast
+  // ("instant"/"minutes") payouts and no complaints were found, but that's
+  // unverified against official terms and could reflect low sample size more
+  // than confirmed reliability. Chips.gg payout:6 too, for conflicting
+  // fee/speed reports (fee-free + delayed vs. real ~$4+ BTC fees found by a
+  // reviewer). Acebet payout:3 — the clear outlier: AskGamblers logs six
+  // complaints describing withheld balances tied to account bans/freezes.
+  // complaintsRec stays at the neutral 5/10 default for Yeet (no complaints
+  // found, but too new/small a track record to credit further). Goated moves
+  // to 6/10 — a follow-up pass found six complaints (Casino Guru/Trustpilot),
+  // but four were resolved to the player's satisfaction (twice with goodwill
+  // compensation offered), one was rejected in the operator's favor, and only
+  // one (an unverified Trustpilot review) remains genuinely open — a real but
+  // modest volume with an above-average resolution track record. Chips.gg
+  // gets 7/10 — the two complaints found were both resolved in the operator's
+  // favor over genuine player-side terms breaches (false minor registration,
+  // incorrect email), a mild positive signal rather than a concern. Acebet
+  // gets 3/10 — six AskGamblers complaints for a brand-new, low-volume 2025
+  // operator is a high rate, and five of six are unresolved.
+  // kyc: Yeet 7 (disclosed ~$10K threshold, third-party only), Goated 8
+  // (light-touch, AML-only framing), Chips.gg 6 ("no KYC" marketing conflicts
+  // with a disclosed $2K trigger found by a reviewer), Acebet 5 (no clear
+  // policy found; complaint pattern suggests inconsistent/discretionary
+  // enforcement).
+  // tc: Yeet 6 (no red flags found, but not deeply reviewed). Goated,
+  // Chips.gg and Acebet all drop to the documented ARBITRAGE_CLAUSE floor of
+  // 3/10 (see the scoring-rule note above) — a full account-restricting
+  // arbitrage clause was flagged for all three based on direct site review;
+  // Acebet's independently-sourced bonus-terms-transparency issue would have
+  // scored similarly low on its own regardless.
+  "Yeet":          { licence:9, payout:6, complaintsRec:5, kyc:7, tc:6 },
+  "Goated":        { licence:9, payout:6, complaintsRec:6, kyc:8, tc:3 },
+  "Chips.gg":      { licence:9, payout:6, complaintsRec:7, kyc:6, tc:3 },
+  "Acebet":        { licence:8, payout:3, complaintsRec:3, kyc:5, tc:3 },
+  // Wild.io, Degen Casino, Sportbet.one and Lucky Block added 2026-09-02.
+  // Wild.io: real (if disputed) licence, strong Casino.Guru score and fast
+  // reported payouts, but "no-KYC" marketing conflicts with conditional
+  // post-win verification and an explicit account-confiscation arbitrage
+  // clause (tc floored at 3, matching the site's arbitrage-clause convention).
+  // Degen Casino: plausible licence claim and clean KYC/no-complaint record,
+  // but entirely third-party-sourced with zero independent complaint-platform
+  // coverage given its very short (2025, beta) track record — complaintsRec
+  // held at a cautious 6 rather than credited higher purely for absence of
+  // complaints. Sportbet.one: licence scored low (3) specifically because the
+  // Mwali/MISA regulator's own legitimacy is disputed industry-wide, not
+  // because of anything operator-specific; payout/complaintsRec reflect the
+  // real tension between very high aggregator scores and a documented
+  // primary-source pattern of undisclosed "fraud detection" fund freezes;
+  // tc floored at 3 for the same enforcement pattern. Lucky Block: licence
+  // scored lowest here (3) since Casino.Guru states it currently holds no
+  // licence at all and reviewers can't agree on the operator entity; payout
+  // and complaintsRec reflect a real but mixed record (74 Casino.Guru
+  // complaints, only 17 resolved, vs. a considerably better AskGamblers
+  // picture) with a recurring large-balance-confiscation pattern; tc marked
+  // down for the broad, low-confidence "unfair advantage" clause.
+  "Wild.io":       { licence:8, payout:8, complaintsRec:8, kyc:6, tc:3 },
+  "Degen Casino":  { licence:8, payout:7, complaintsRec:6, kyc:8, tc:6 },
+  "Sportbet.one":  { licence:3, payout:5, complaintsRec:6, kyc:8, tc:3 },
+  "Lucky Block":   { licence:3, payout:6, complaintsRec:7, kyc:7, tc:6 },
+  // NV Casino, HitnSpin, Verde Casino, FortuneJack, DuckDice, Tower.bet: added
+  // 2026-09-04, research-grounded rather than user-specified. Licence: NV
+  // Casino/Verde Casino score mid (5) for unconfirmed licensing; HitnSpin/
+  // FortuneJack score higher (7) for a named Curaçao licence not independently
+  // registry-checked; DuckDice/Tower.bet score mid (5) for a Costa Rica
+  // company registration rather than a recognized gambling licence. Payout/
+  // complaintsRec are neutral-to-below for the four with thin case-level
+  // complaint data captured (NV Casino, Verde Casino, HitnSpin's "Below
+  // Average" Safety Index range, Tower.bet's thin coverage), and higher for
+  // DuckDice given its longer track record and larger player base. KYC scores
+  // mid (5-6) reflecting undisclosed/unconfirmed thresholds across the board.
+  // TC (T&C fairness) is floored at 3 for HitnSpin, Verde Casino, FortuneJack
+  // and DuckDice per their account-restricting ARBITRAGE_CLAUSE entries above;
+  // NV Casino (no clause found) and Tower.bet (only an ambiguous exploit
+  // clause, not a true arbitrage clause) are left at a more neutral level.
+  //
+  // Revised 2026-09-04 (second pass) at the site owner's direction, after the
+  // dedicated complaint-platform research above turned up mostly resolved/
+  // rejected outcomes rather than confirmed operator wrongdoing for this
+  // batch. Licence, payout, complaintsRec and kyc were raised where the
+  // complaint record didn't show a case actually upheld against the
+  // operator; TC stays floored at 3 wherever a real account-restricting
+  // arbitrage clause is on file, since that's a documented Terms provision
+  // independent of complaint outcomes.
+  "NV Casino":     { licence:7, payout:7, complaintsRec:6, kyc:9, tc:8 },
+  "HitnSpin":      { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "Verde Casino":  { licence:8, payout:8, complaintsRec:7, kyc:8, tc:3 },
+  // V.Vegas, FS.Casino, IceCasino, FieryPlay Casino, GGbet and Slotoro added
+  // 2026-09-08: set identical to HitnSpin's breakdown above, per direct
+  // site-owner instruction, rather than independently rederived per operator.
+  "V.Vegas":         { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "FS.Casino":       { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "IceCasino":       { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "FieryPlay Casino":{ licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "GGbet":           { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "Slotoro":         { licence:8, payout:8, complaintsRec:7, kyc:9, tc:3 },
+  "FortuneJack":   { licence:8, payout:7, complaintsRec:7, kyc:7, tc:3 },
+  "DuckDice":      { licence:7, payout:7, complaintsRec:9, kyc:7, tc:3 },
+  "Tower.bet":     { licence:6, payout:7, complaintsRec:7, kyc:8, tc:8 },
+  "Whale.io":      { licence:6, payout:6, complaintsRec:7, kyc:6, tc:5 },
+  "Dicey.com":     { licence:7, payout:7, complaintsRec:7, kyc:6, tc:6 },
+  "Chancer":       { licence:6, payout:6, complaintsRec:7, kyc:7, tc:6 },
+  "RioBet":        { licence:7, payout:7, complaintsRec:9, kyc:6, tc:6 },
+  // Betcoin.ag raised 2026-09-07 at the site owner's direction ("isn't that
+  // bad"). Checked against the evidence already on file: complaintsRec was
+  // sitting at a neutral 5 despite Casino Guru's own live index showing 40
+  // complaints with ZERO marked unresolved (8 resolved, 32 rejected) — a
+  // genuinely strong resolution record, stronger than several operators
+  // scored higher elsewhere in this file — so complaintsRec moves 5->8.
+  // licence stays at 3: this isn't a low-quality-but-clear licence like a
+  // plain Anjouan registration, it's an unresolved THREE-WAY inconsistency
+  // (Anjouan per its own current Terms, Curaçao per AskGamblers, Costa Rica
+  // per LCB.org) with no licence number independently verifiable anywhere —
+  // a transparency problem the complaint record doesn't offset. kyc (4) and
+  // tc (4) also stay: KYC friction (a 180-minute document-upload window) and
+  // an account-restricting arbitrage clause with a confirmed real-world
+  // enforcement case are both still on file. Total = 3*.25+4*.25+8*.25+
+  // 4*.125+4*.125 = 4.8 (was 4.0) — moves off the bottom of "Below average"
+  // without crossing into "Above average", since the licence/KYC/arbitrage
+  // issues are real and unaddressed by this change.
+  "Betcoin.ag":    { licence:3, payout:4, complaintsRec:8, kyc:4, tc:4 },
+  "Bspin.io":      { licence:7, payout:6, complaintsRec:7, kyc:6, tc:5 },
+  "Megapari":      { licence:7, payout:5, complaintsRec:5, kyc:4, tc:5 },
+  "WinTomato":     { licence:7, payout:7, complaintsRec:7, kyc:7, tc:6 },
+  "Thunderpick.io":{ licence:6, payout:5, complaintsRec:5, kyc:6, tc:6 },
+  // BookMaker.eu added 2026-09-07. Licence held down to reflect the real
+  // Costa Rica "eGaming" registration (no dedicated remote-gambling
+  // regulator, no public licence number) — per the site owner's own
+  // direction, this weakness is flagged in text (COMPANY_INFO/KEY_CONS)
+  // rather than dragging the overall score below the requested 8-9 range.
+  // Payout and complaintsRec scored high given the 30+ year operating
+  // history, BookMakersReview's own 8.2/10 "Tier 1" trust rating, and only
+  // two concrete documented complaints found (both real, both unresolved,
+  // but not a mass-pattern). KYC scored high per the user's first-hand
+  // confirmation that basic KYC is required upfront. TC (terms fairness)
+  // left at the neutral-high default — no arbitrage-restriction clause or
+  // other unfair-terms finding is on file. Total = 7*.25 + 9*.25 + 8*.25 +
+  // 8*.125 + 8*.125 = 8.0.
+  "BookMaker.eu":  { licence:7, payout:9, complaintsRec:8, kyc:8, tc:8 },
+  // Betski added 2026-09-08, revised same day at the site owner's direction:
+  // a brand-new operator with zero logged complaints anywhere shouldn't be
+  // scored as if it were already presumed risky just for being new — so
+  // licence/payout/complaintsRec/kyc were all moved up from an initial
+  // cautious 6 to reflect "clean so far" rather than "unproven, treat with
+  // suspicion." licence:7 — a licence number is disclosed and checkable
+  // (Anjouan, ALSI-202502016-FI1, per Casino Guru's live registry widget),
+  // matching other single-Anjouan-licence operators with a clean disclosure;
+  // the Panama-vs-Comoros founding-story mismatch is noted on the profile as
+  // a caveat but isn't treated as a licence-quality problem on its own.
+  // payout:8 and complaintsRec:8 — zero complaints logged anywhere
+  // (Casino Guru, AskGamblers, Trustpilot, Reddit) and no contradicting
+  // report of withdrawal problems. kyc:7 — no KYC policy is documented, but
+  // treated as benefit-of-the-doubt rather than a further penalty. tc:4 is
+  // the one score that does NOT move: it's the one concretely sourced red
+  // flag on file (Casino Guru's own Terms clause scan finds explicit
+  // language allowing winnings confiscation for "low-risk play" and
+  // treating non-cheating betting techniques as a serious Terms violation)
+  // and is independent of how new the operator is, so it stays at the same
+  // tier as Betcoin.ag's documented arbitrage-restriction clause.
+  // Total = 7*.25+8*.25+8*.25+7*.125+4*.125 = 7.125, rounds to 7.1.
+  "Betski":        { licence:7, payout:8, complaintsRec:8, kyc:7, tc:4 }
+};
