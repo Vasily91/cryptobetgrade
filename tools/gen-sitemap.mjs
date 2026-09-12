@@ -21,6 +21,7 @@ const STATIC_URLS = [
   { loc: "https://cryptobetgrade.com/research-betby-sportsbook-complaints", changefreq: "monthly", priority: "0.5" },
   { loc: "https://cryptobetgrade.com/research-arbitrage-vs-value-betting", changefreq: "monthly", priority: "0.5" },
   { loc: "https://cryptobetgrade.com/research-no-kyc-sportsbooks-requested-kyc", changefreq: "monthly", priority: "0.5" },
+  { loc: "https://cryptobetgrade.com/research-bcgame-vs-500casino-same-bet-different-outcome", changefreq: "monthly", priority: "0.5" },
   { loc: "https://cryptobetgrade.com/about", changefreq: "monthly", priority: "0.5" },
   { loc: "https://cryptobetgrade.com/privacy-policy", changefreq: "yearly", priority: "0.2" },
   { loc: "https://cryptobetgrade.com/cookies", changefreq: "yearly", priority: "0.2" },
