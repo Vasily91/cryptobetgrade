@@ -6600,86 +6600,85 @@ function blockchainMixFor(op){
   if(!raw) return null;
   return raw.map(([name,pct]) => ({name, pct}));
 }
-// FairGambling-sourced 30-day market data, refreshed 5 Sep 2026 (previously
-// checked 2 Sep 2026, and 24 Aug 2026 before that). Now covers all 27
-// CryptoBetGrade-reviewed operators FairGambling tracks (was 2) — added
-// Dicey.com and Whale.io (both newly reviewed and newly tracked by
-// FairGambling since the last check) plus DuckDice, Betpanda, 500Casino,
-// Razed, Gamdom, Duelbits, Winna, Thrill, Cloudbet, BetFury, SolCasino.io,
-// Shuffle, Duel, 1win, BetFury, Rollbit, Acebet, Goated, Chips.gg, Yeet,
-// Stake, BC.Game, Rainbet, Roobet, which were tracked all along but never
-// added here. Many of these operators (Stake, BC.Game, Rainbet, Roobet,
-// 500Casino, Gamdom, Duelbits, Winna, Razed, Thrill, Cloudbet, SolCasino.io,
-// Shuffle, Duel, 1win, BetFury, Rollbit, StakeUS, Sportsbet.io, Yeet,
-// Goated, Chips.gg, Acebet) already show real 99bitcoins.com-sourced 24h
-// on-chain figures via the onchain object in seedOperators() above, so this
-// table is what actually renders their Analytics tab only if that other
-// figure is ever nulled out — it stays populated anyway as a genuinely
-// different, real, already-published cross-check data set (the same one
-// shown on analytics.html's rank panel, record cards, wallet bars and
-// market explorer). For the operators without 99bitcoins coverage
-// (Betpanda, DuckDice, Whale.io, Dicey.com) this table is the only source
-// for their Analytics tab. volume/wallet are in $M, deposits is a 30D
-// deposit COUNT in K (not USD). mix is a real per-wallet chain-balance
-// breakdown pulled from FairGambling's "Wallet Balance · By Casino" table
-// the same day (distinct from BLOCKCHAIN_MIX above, which is a deposit-flow
-// split captured on 23 Aug 2026 and used instead whenever real 24h onchain
-// data exists for that operator).
+// FairGambling-sourced 30-day market data, refreshed 12 Sep 2026 (previously
+// checked 5 Sep 2026, 2 Sep 2026, and 24 Aug 2026 before that). Still covers
+// the same all 27 CryptoBetGrade-reviewed operators FairGambling tracks — no
+// additions/removals this pass. Many of these operators (Stake, BC.Game,
+// Rainbet, Roobet, 500Casino, Gamdom, Duelbits, Winna, Razed, Thrill,
+// Cloudbet, SolCasino.io, Shuffle, Duel, 1win, BetFury, Rollbit, StakeUS,
+// Sportsbet.io, Yeet, Goated, Chips.gg, Acebet) already show real
+// 99bitcoins.com-sourced 24h on-chain figures via the onchain object in
+// seedOperators() above, so this table is what actually renders their
+// Analytics tab only if that other figure is ever nulled out — it stays
+// populated anyway as a genuinely different, real, already-published
+// cross-check data set (the same one shown on analytics.html's rank panel,
+// record cards, wallet bars and market explorer). For the operators without
+// 99bitcoins coverage (Betpanda, DuckDice, Whale.io, Dicey.com) this table is
+// the only source for their Analytics tab. volume/wallet are in $M, deposits
+// is a 30D deposit COUNT in K (not USD), and change is the 30D DEPOSIT VOL. %
+// change (FairGambling also tracks a separate # of deposits % change, not
+// carried into this field). mix is a real per-wallet chain-balance breakdown
+// pulled from FairGambling's "Wallet Balance · By Casino" table the same day
+// (distinct from BLOCKCHAIN_MIX above, which is a deposit-flow split captured
+// on 23 Aug 2026 and used instead whenever real 24h onchain data exists for
+// that operator). Notable this pass: Rollbit's 30D volume has collapsed to
+// near-zero ($66.89K, -99.8%, FairGambling rank fell from 26 to 54) — still
+// carried here since it remains a reviewed operator, just now barely active.
 const FAIRGAMBLING_MARKET_DATA = {
-  "Stake": { fgRank:1, volume:2120, deposits:3510, wallet:112.8, change:10.5,
-                mix:[["Ethereum",36.6],["Solana",33],["TRON",12.4],["Polygon",7.4],["BNB Chain",6.8],["XRP",3.6]] },
-  "Roobet": { fgRank:2, volume:365.09, deposits:638.78, wallet:37.19, change:1.3,
-                mix:[["Ethereum",40.1],["TRON",29.8],["Solana",9.4],["Bitcoin",8.1],["BNB Chain",4.3],["Other",4],["XRP",2.7],["Litecoin",1.4]] },
-  "Rainbet": { fgRank:3, volume:264.51, deposits:798.14, wallet:87.35, change:-24.4,
-                mix:[["Ethereum",39.3],["Solana",19.7],["BNB Chain",13.2],["TRON",10.6],["Bitcoin",7.9],["Litecoin",6.4],["Other",2.9]] },
-  "Duel": { fgRank:4, volume:262.36, deposits:225.14, wallet:16.86, change:0.7,
-                mix:[["Ethereum",36.2],["Solana",21.4],["BNB Chain",16],["TRON",13.6],["Other",5.9],["Litecoin",3.6],["Bitcoin",2],["XRP",1.3]] },
-  "Shuffle": { fgRank:5, volume:206.29, deposits:521.56, wallet:22.44, change:-5.2,
-                mix:[["TRON",27.6],["Ethereum",20.9],["Solana",18.7],["BNB Chain",15.6],["Polygon",8.5],["XRP",3.2],["Bitcoin",3.1],["Litecoin",1.4],["Other",0.7]] },
-  "Gamdom": { fgRank:6, volume:175.66, deposits:179.85, wallet:4.42, change:1.1,
-                mix:[["BNB Chain",40.7],["Solana",27.1],["Ethereum",24.9],["TRON",6.8],["XRP",1.4]] },
-  "BC.Game": { fgRank:7, volume:134.74, deposits:81.42, wallet:11.39, change:50,
-                mix:[["Solana",72.9],["TRON",22.8],["XRP",4.2],["Ethereum",0.2],["BNB Chain",0.1]] },
-  "1win": { fgRank:8, volume:109.45, deposits:389.44, wallet:18.89, change:11.4,
-                mix:[["TRON",37.1],["BNB Chain",17.5],["Other",14.3],["Ethereum",13.2],["Solana",5.8],["Polygon",5.8],["Litecoin",3.2],["Bitcoin",2.6]] },
-  "StakeUS": { fgRank:9, volume:78.62, deposits:121.05, wallet:35.17, change:9.1,
-                mix:[["Ethereum",42.9],["XRP",19.9],["Polygon",18.5],["Solana",15.4],["TRON",2.3],["BNB Chain",0.8]] },
-  "Sportsbet.io": { fgRank:10, volume:72.21, deposits:14.18, wallet:3.59, change:33.5,
-                mix:[["Ethereum",41.8],["TRON",36.2],["BNB Chain",17.7],["Solana",4.2]] },
-  "Thrill": { fgRank:11, volume:47.39, deposits:131.41, wallet:1.83, change:-11.9,
-                mix:[["Ethereum",38.3],["BNB Chain",14.7],["Polygon",13.5],["Other",11.9],["Solana",11.5],["TRON",5.2],["Bitcoin",2.6],["XRP",2.3]] },
-  "Winna": { fgRank:12, volume:40.47, deposits:54.27, wallet:3.64, change:6.5,
-                mix:[["Ethereum",68.7],["TRON",12.9],["Solana",10.7],["BNB Chain",4.6],["XRP",1.3],["Bitcoin",0.3],["Litecoin",0.2],["Other",0.2]] },
-  "Betpanda": { fgRank:13, volume:26.33, deposits:97.42, wallet:1.98, change:14,
-                mix:[["Ethereum",90.9],["Solana",6.2],["Other",2.6]] },
-  "Duelbits": { fgRank:14, volume:24.06, deposits:40.68, wallet:5.72, change:15.6,
-                mix:[["Ethereum",42],["Solana",36.7],["BNB Chain",11.8],["XRP",8.2],["TRON",1.9]] },
-  "500Casino": { fgRank:15, volume:23.78, deposits:57.66, wallet:2.87, change:7.6,
-                mix:[["Ethereum",32.4],["TRON",23.9],["Solana",17.1],["Other",8.6],["Litecoin",6.2],["Polygon",4.4],["BNB Chain",3.8],["Bitcoin",3.6]] },
-  "Razed": { fgRank:16, volume:22.2, deposits:41.38, wallet:4.75, change:-5.8,
-                mix:[["Ethereum",52.6],["TRON",31.6],["Solana",12.4],["BNB Chain",1.8],["Litecoin",1.5]] },
-  "Yeet": { fgRank:17, volume:21.73, deposits:33.27, wallet:3.96, change:-31.5,
-                mix:[["Ethereum",32.8],["TRON",23.6],["Solana",14.6],["Other",7.6],["Polygon",7.1],["BNB Chain",6.2],["Bitcoin",4],["Litecoin",3],["XRP",0.7]] },
-  "Dicey.com": { fgRank:19, volume:21.04, deposits:10.86, wallet:13.39, change:15.3,
-                mix:[["Solana",41.8],["Ethereum",35.1],["TRON",14.2],["Bitcoin",9]] },
-  "Cloudbet": { fgRank:20, volume:20.11, deposits:9.58, wallet:14.62, change:-42.8,
-                mix:[["Ethereum",31.5],["Solana",26],["TRON",12.3],["Polygon",10.9],["BNB Chain",7.5],["Bitcoin",6.6],["Other",5.2],["Litecoin",0.3]] },
-  "BetFury": { fgRank:21, volume:17.12, deposits:36.65, wallet:6.63, change:12.9,
-                mix:[["BNB Chain",25.6],["Ethereum",19.6],["TRON",19.6],["Other",18.1],["Polygon",8.6],["Solana",7.4],["XRP",1.4]] },
-  "SolCasino.io": { fgRank:22, volume:12.58, deposits:51.8, wallet:6.33, change:-13.9,
-                mix:[["Solana",71.1],["TRON",8.7],["Other",6.1],["Ethereum",4.3],["BNB Chain",3.5],["XRP",3.4],["Polygon",3]] },
-  "Rollbit": { fgRank:26, volume:6.09, deposits:15.21, wallet:0.1514, change:-85.7,
-                mix:[["Ethereum",97.8],["Solana",2.2]] },
-  "Acebet": { fgRank:29, volume:5.08, deposits:10.15, wallet:0.311, change:-23.2,
-                mix:[["Ethereum",60.6],["Litecoin",14.2],["Solana",13],["Bitcoin",11.7],["BNB Chain",0.3],["XRP",0.2]] },
-  "Whale.io": { fgRank:33, volume:3.01, deposits:12.03, wallet:0.0862, change:-12.3,
-                mix:[["Solana",46.2],["TRON",24.4],["BNB Chain",17.1],["Ethereum",12.4]] },
-  "Goated": { fgRank:34, volume:2.79, deposits:17.73, wallet:1.55, change:6.2,
-                mix:[["Ethereum",32.7],["Solana",19.9],["BNB Chain",19.6],["TRON",18.8],["XRP",5.9],["Litecoin",1.6],["Bitcoin",1.5]] },
-  "DuckDice": { fgRank:38, volume:1.57, deposits:12.68, wallet:0.3012, change:-7,
-                mix:[["Solana",27.7],["BNB Chain",24.5],["Ethereum",12.1],["Polygon",11.6],["TRON",10.3],["XRP",9],["Other",4.8]] },
-  "Chips.gg": { fgRank:42, volume:1.29, deposits:4.73, wallet:4, change:27.9,
-                mix:[["Bitcoin",57.5],["Ethereum",11.9],["BNB Chain",11.2],["TRON",10.6],["Litecoin",8.6]] }
+  "Stake": { fgRank:1, volume:2180, deposits:3310, wallet:139.5, change:13.9,
+                mix:[["Solana",32.3],["TRON",27.4],["Ethereum",21.3],["Polygon",7.5],["BNB Chain",7.4],["XRP",4.1]] },
+  "Roobet": { fgRank:2, volume:389.43, deposits:658.08, wallet:30.56, change:2.2,
+                mix:[["Ethereum",41.2],["TRON",25.9],["Solana",11.1],["Bitcoin",10.1],["Other",5.2],["BNB Chain",3.2],["XRP",2.4],["Litecoin",1]] },
+  "Rainbet": { fgRank:4, volume:274.90, deposits:862.49, wallet:97.13, change:-22.3,
+                mix:[["Ethereum",36.5],["Solana",24.1],["BNB Chain",12],["TRON",10.4],["Bitcoin",7.6],["Litecoin",6.6],["Other",2.8]] },
+  "Duel": { fgRank:3, volume:329.51, deposits:244.75, wallet:13.70, change:21.2,
+                mix:[["Ethereum",33.6],["Solana",29.2],["BNB Chain",16.8],["TRON",9.5],["Other",7],["XRP",4.1]] },
+  "Shuffle": { fgRank:5, volume:213.80, deposits:540.71, wallet:21.38, change:-1.6,
+                mix:[["Ethereum",27.6],["BNB Chain",22.5],["Solana",20.1],["TRON",13.6],["Polygon",10.3],["XRP",2.9],["Bitcoin",1.3],["Litecoin",1.1],["Other",0.6]] },
+  "Gamdom": { fgRank:6, volume:210.46, deposits:177.54, wallet:8.85, change:15.2,
+                mix:[["Ethereum",62.1],["Solana",19.2],["BNB Chain",9.1],["TRON",8.9],["XRP",0.6]] },
+  "BC.Game": { fgRank:7, volume:146.15, deposits:90.18, wallet:11.69, change:51.1,
+                mix:[["Solana",77.8],["TRON",18],["XRP",4.1],["Ethereum",0.2],["BNB Chain",0.1]] },
+  "1win": { fgRank:8, volume:114.98, deposits:404.02, wallet:18.04, change:11.3,
+                mix:[["TRON",34.4],["Other",17.2],["BNB Chain",15],["Ethereum",13.9],["Polygon",6.7],["Solana",6.1],["Litecoin",3.7],["Bitcoin",3]] },
+  "StakeUS": { fgRank:10, volume:75.50, deposits:121.07, wallet:36.78, change:-1.8,
+                mix:[["Ethereum",40],["Polygon",25.6],["XRP",16.6],["Solana",14.7],["TRON",2.1],["BNB Chain",1.2]] },
+  "Sportsbet.io": { fgRank:9, volume:83.30, deposits:13.82, wallet:3.30, change:64.4,
+                mix:[["TRON",51.5],["Ethereum",23.1],["BNB Chain",21.1],["Solana",4.8]] },
+  "Thrill": { fgRank:11, volume:47.52, deposits:139.16, wallet:1.49, change:-11.6,
+                mix:[["Ethereum",18.4],["Other",15.9],["BNB Chain",15.3],["TRON",14.2],["Polygon",11.3],["Solana",11],["Bitcoin",8],["XRP",6]] },
+  "Winna": { fgRank:12, volume:45.95, deposits:59.00, wallet:1.64, change:18.2,
+                mix:[["Ethereum",45.9],["TRON",17.4],["Solana",17.1],["BNB Chain",11.9],["XRP",6],["Other",0.9],["Litecoin",0.5],["Bitcoin",0.2]] },
+  "Betpanda": { fgRank:13, volume:27.59, deposits:107.11, wallet:2.06, change:9.9,
+                mix:[["Ethereum",87.4],["Solana",7],["Other",2.7],["XRP",2.6]] },
+  "Duelbits": { fgRank:14, volume:25.64, deposits:48.54, wallet:5.24, change:20.1,
+                mix:[["Ethereum",47.7],["Solana",26.7],["BNB Chain",13.4],["XRP",9.1],["TRON",3]] },
+  "500Casino": { fgRank:15, volume:25.03, deposits:62.04, wallet:2.60, change:12.6,
+                mix:[["Ethereum",33.5],["Solana",19],["TRON",15.4],["BNB Chain",8.9],["Other",7.9],["Polygon",5.7],["Litecoin",5.4],["Bitcoin",4],["XRP",0.1]] },
+  "Razed": { fgRank:18, volume:23.29, deposits:46.84, wallet:4.86, change:-4.7,
+                mix:[["Ethereum",59.7],["TRON",24.7],["Solana",12.3],["Litecoin",1.6],["BNB Chain",0.7]] },
+  "Yeet": { fgRank:16, volume:24.25, deposits:36.40, wallet:5.12, change:-26.9,
+                mix:[["Ethereum",29.3],["TRON",25.4],["Solana",18.6],["BNB Chain",7.8],["Other",7.3],["Polygon",5.7],["Bitcoin",3.1],["Litecoin",2.5],["XRP",0.6]] },
+  "Dicey.com": { fgRank:17, volume:23.82, deposits:12.43, wallet:13.89, change:32.4,
+                mix:[["Solana",38.2],["Ethereum",36],["TRON",15.1],["Bitcoin",10.1]] },
+  "Cloudbet": { fgRank:20, volume:21.40, deposits:9.81, wallet:13.50, change:-36.5,
+                mix:[["Solana",27.4],["Ethereum",25.9],["TRON",19.3],["Polygon",11.9],["Other",5.5],["Bitcoin",5],["BNB Chain",4.1],["Litecoin",0.2]] },
+  "BetFury": { fgRank:19, volume:22.34, deposits:37.60, wallet:6.79, change:49.9,
+                mix:[["BNB Chain",25],["TRON",19.2],["Other",19.2],["Ethereum",16.2],["Polygon",9.1],["Solana",9],["XRP",1.7]] },
+  "SolCasino.io": { fgRank:22, volume:14.14, deposits:60.14, wallet:7.14, change:-1.6,
+                mix:[["Solana",75.6],["TRON",7.4],["Other",5.3],["Ethereum",3.9],["XRP",2.9],["Polygon",2.4],["BNB Chain",1.8]] },
+  "Rollbit": { fgRank:54, volume:0.0669, deposits:0.137, wallet:0.1534, change:-99.8,
+                mix:[["Ethereum",97.7],["Solana",2.3]] },
+  "Acebet": { fgRank:29, volume:5.29, deposits:11.07, wallet:0.3472, change:-19.7,
+                mix:[["Ethereum",47.7],["Solana",28],["Litecoin",13.8],["Bitcoin",10.1],["XRP",0.3],["BNB Chain",0.2]] },
+  "Whale.io": { fgRank:34, volume:2.95, deposits:13.61, wallet:0.1139, change:-15.4,
+                mix:[["BNB Chain",36.6],["Solana",32.9],["TRON",23.7],["Ethereum",6.8]] },
+  "Goated": { fgRank:32, volume:3.30, deposits:19.94, wallet:1.44, change:25.8,
+                mix:[["Ethereum",35.5],["Solana",21],["TRON",20.6],["BNB Chain",15.3],["XRP",5.1],["Litecoin",1.8],["Bitcoin",1]] },
+  "DuckDice": { fgRank:39, volume:1.62, deposits:13.10, wallet:0.2203, change:-6.6,
+                mix:[["Ethereum",20.7],["Polygon",20.5],["Solana",16.8],["BNB Chain",16.8],["TRON",13.4],["Other",7.8],["XRP",4.1]] },
+  "Chips.gg": { fgRank:41, volume:1.45, deposits:5.35, wallet:3.94, change:42.4,
+                mix:[["Bitcoin",55.8],["BNB Chain",11.5],["Ethereum",11.3],["TRON",11],["Litecoin",9.4]] }
 };
 function blockchainDonutSvg(mix){
   const r = 46, cx = 60, cy = 60, circumference = 2*Math.PI*r;
