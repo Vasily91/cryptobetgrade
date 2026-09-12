@@ -5165,7 +5165,7 @@ let state = {
   operators: seedOperators(),
   listSort: { key: "trust", dir: "desc" },
   listPage: 1,
-  listFilters: { kyc: [], provider: [] },
+  listFilters: { kyc: [], provider: [], onchain: [] },
   filterPanelOpen: false
 };
 let isAdmin = false;
@@ -5434,7 +5434,7 @@ function toggleFilter(dim, val){
   renderList();
 }
 function clearFilters(){
-  state.listFilters = { kyc:[], provider:[] };
+  state.listFilters = { kyc:[], provider:[], onchain:[] };
   state.listPage = 1;
   renderList();
 }
@@ -5487,6 +5487,7 @@ function renderList(){
   const f = state.listFilters;
   if(f.kyc.length) rows = rows.filter(o => f.kyc.includes(kycStanceOf(o.name)));
   if(f.provider && f.provider.length) rows = rows.filter(o => f.provider.includes(sportsbookProviderOf(o.name)));
+  if(f.onchain && f.onchain.length) rows = rows.filter(o => o.onchain && o.onchain.deposits24h !== null && o.onchain.deposits24h !== undefined);
 
   const sortKey = state.listSort.key, sortDir = state.listSort.dir;
   rows = rows.slice().sort((a,b) => {
@@ -5500,7 +5501,7 @@ function renderList(){
   if(state.listPage < 1) state.listPage = 1;
   const page = state.listPage;
   const pageRows = rows.slice((page-1)*pageSize, page*pageSize);
-  const activeFilterCount = f.kyc.length + (f.provider ? f.provider.length : 0);
+  const activeFilterCount = f.kyc.length + (f.provider ? f.provider.length : 0) + (f.onchain ? f.onchain.length : 0);
 
   const view = document.getElementById("view");
   view.innerHTML = `
@@ -5519,6 +5520,8 @@ function renderList(){
             ${Object.keys(KYC_STANCE_LABEL).filter(k => k !== "unclear").map(k => `<label><input type="checkbox" ${f.kyc.includes(k)?"checked":""} onchange="toggleFilter('kyc','${k}')"> ${KYC_STANCE_LABEL[k]}</label>`).join("")}
             <div class="fp-title">Sportsbook provider</div>
             ${Object.keys(SPORTSBOOK_PROVIDER_LABEL).map(k => `<label><input type="checkbox" ${(f.provider||[]).includes(k)?"checked":""} onchange="toggleFilter('provider','${k}')"> ${SPORTSBOOK_PROVIDER_LABEL[k]}</label>`).join("")}
+            <div class="fp-title">Data coverage</div>
+            <label><input type="checkbox" ${(f.onchain||[]).includes("yes")?"checked":""} onchange="toggleFilter('onchain','yes')"> Has real-time on-chain data</label>
             ${activeFilterCount ? `<div style="margin-top:10px;"><a href="javascript:void(0)" onclick="clearFilters()" style="font-size:12px;font-weight:700;color:var(--brand-dark);">Clear filters</a></div>` : ""}
           </div>
         </div>
