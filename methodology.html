@@ -477,12 +477,25 @@ footer{padding:26px 0 22px;}
   .hero-copy h1{font-size:40px}
 }
 
-/* The unscoped .flow-grid/.flow-card rules earlier in this "FINAL MOCKUP
-   MATCH OVERRIDES" block (same specificity, later in source) silently
-   cancelled the original @media(max-width:640px) rule that stacked the
-   Submission/Review cards into one column on phones — leaving both cards
-   squeezed side by side at phone widths instead of stacking. Restated here,
-   later still in the cascade, so the mobile stack wins again. */
+/* Several unscoped rules further up this "FINAL MOCKUP MATCH OVERRIDES"
+   block redeclare grid-template-columns with no media query, at the same
+   specificity as (and later than) the responsive rules at the top of the
+   file that were meant to stack these sections on mobile — so the later,
+   unconditional rule silently won at every width, including phones:
+   - .hero-grid (the page title + subtitle) stayed split into its desktop
+     ~58/42 two-column ratio instead of stacking to full width, squeezing
+     the "How scoring works" heading and intro paragraph into a narrow
+     column even though the second column's content (.hero-graphic) was
+     correctly hidden.
+   - .flow-grid / .flow-card (Submission/Review cards) stayed side by side
+     instead of stacking — see the fix below.
+   - .beta-strip (the "Beta" callout) stayed 3-column instead of stacking.
+   Restated here, later still in the cascade, so the mobile/tablet stack
+   wins again in every case. */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr !important;}
+  .beta-strip{grid-template-columns:1fr !important;}
+}
 @media(max-width:640px){
   .flow-grid{grid-template-columns:1fr;}
   .flow-arrow{transform:rotate(90deg);}

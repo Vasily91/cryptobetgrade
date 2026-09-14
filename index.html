@@ -1125,34 +1125,132 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
 
   .card-shadow-plane{display:none !important;}
 
-  /* Operator grid */
+  /* Operator grid — one wide, short "row" card per line instead of two
+     narrower full-height cards, so more of the leaderboard is visible per
+     screen. Built with flexbox + explicit `order` on each child rather
+     than CSS grid auto-placement, so the layout stays correct regardless
+     of which properties get overridden by other breakpoints below (a
+     previous grid-based attempt at a compact card broke this way — see
+     the "Fix static Top 5 leaderboard" / "Toshi.bet sports-range" commit
+     history around this section). */
   .top5-grid{
     display:grid !important;
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    grid-template-columns:1fr !important;
     gap:10px !important;
   }
 
-  .top5-card{
+  #top-operators .top5-card{
+    min-height:0 !important;
     min-width:0 !important;
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:wrap !important;
+    align-items:center !important;
+    column-gap:12px !important;
+    row-gap:8px !important;
+    padding:14px 16px !important;
+    text-align:left !important;
   }
 
-  /* Make logos visible and prevent image collapse */
-  .top5-card .op-logo{
+  #top-operators .top5-card.rank-1{
+    padding-top:32px !important;
+  }
+
+  #top-operators .leader-badge{
+    position:absolute !important;
+    top:10px !important;
+    left:16px !important;
+    right:auto !important;
+  }
+
+  /* Logo: fixed-size flex item, no longer centered/stacked above the name */
+  #top-operators .top5-card .op-logo{
+    order:1 !important;
+    width:44px !important;
+    height:44px !important;
+    margin:0 !important;
+    flex:0 0 auto !important;
     display:flex !important;
     align-items:center !important;
     justify-content:center !important;
     overflow:hidden !important;
   }
 
-  .top5-card .op-logo img{
+  #top-operators .top5-card .op-logo img{
     display:block !important;
-    width:42px !important;
-    height:42px !important;
-    max-width:42px !important;
-    max-height:42px !important;
+    width:28px !important;
+    height:28px !important;
+    max-width:28px !important;
+    max-height:28px !important;
     object-fit:contain !important;
     opacity:1 !important;
     visibility:visible !important;
+  }
+
+  #top-operators .top5-card .name{
+    order:2 !important;
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    margin:0 !important;
+    font-size:15px !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+
+  #top-operators .top5-card .trust-score-main{
+    order:3 !important;
+    flex:0 0 auto !important;
+    margin:0 !important;
+  }
+
+  #top-operators .top5-card .trust-score-main strong{
+    font-size:22px !important;
+  }
+
+  /* "Trust Score" label is redundant once the score sits right next to
+     the operator name in the same row — drop it to save space. */
+  #top-operators .top5-card .trust-label{
+    display:none !important;
+  }
+
+  #top-operators .top5-card .score-track{
+    order:4 !important;
+    flex:1 1 100% !important;
+    margin:0 !important;
+    height:5px !important;
+  }
+
+  #top-operators .top5-card .secondary-stat{
+    order:5 !important;
+    flex:1 1 100% !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    text-align:left !important;
+    margin:0 !important;
+    padding:7px 10px !important;
+  }
+
+  #top-operators .top5-card .secondary-stat span,
+  #top-operators .top5-card .secondary-stat b{
+    display:inline !important;
+    text-align:left !important;
+    margin-top:0 !important;
+  }
+
+  #top-operators .top5-card .card-actions{
+    order:6 !important;
+    flex:1 1 100% !important;
+    display:flex !important;
+    flex-direction:row !important;
+    gap:8px !important;
+    margin:0 !important;
+  }
+
+  #top-operators .top5-card .btn-mini{
+    flex:1 1 0 !important;
+    width:auto !important;
   }
 
   .split-head{
