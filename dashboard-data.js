@@ -201,6 +201,11 @@ const KEY_CONS = {
   "Thunderpick.io": ["Casino Guru rates it \"Very low\" safety (2.9/10) — one of the lowest scores in this database — and states the operator does not cooperate with its complaint-mediation process","Traditional sportsbook leans narrow in practice: solid on major leagues but comparatively shallow on lower-tier/niche competitions despite naming 20+ sports","Multiple 2026 AskGamblers complaints describe repeated KYC document rejection and withdrawals delayed or funds confiscated after wins, including two cases ($8,725 and $12,000) with no resolution on record","Sportsbook/esports-specific complaints exist too — a disputed 4,900 USDT esports (Dota 2/CS2) account-closure case, a Trustpilot arbitrage dispute where Thunderpick's own reply cites Terms 5.1/15.1, and a separate Trustpilot sports-betting case where the reviewer says a complaint was filed with the Curaçao regulator"],
   "BookMaker.eu": ["Licensed only under a Costa Rica \"eGaming\" operating permit — reviewers describe this as effectively minimal/no real regulatory oversight (\"there's no licensing involved at all,\" one reviewer rates its regulatory standing 3.8/10), with no independent complaint-resolution body and no licence number publicly disclosed","KYC (name, date of birth, address) is collected immediately at signup, not just at withdrawal","Its own \"winners welcome\" reputation is not stated on the operator's own official pages — it rests on third-party reviewer claims, some of which describe real bet-size/market limits on consistent winners, especially in lower-liquidity sports like boxing and MMA","A $600 bank-wire withdrawal fee is flagged by one reviewer as unusually steep for players not using crypto"],
   "Betski": ["Terms allow confiscating winnings for \"low-risk play\"","Very new — no independent track record yet"]
+,
+  // MetaWin, Toshi.bet and Qzino added 2026-09-14.
+  "MetaWin": ["Sportsbook technology provider not disclosed anywhere on the site or in independent reviews checked","Licensed entity and licence number differ between the current site footer (Rivolo Limited, Anjouan licence ALSI-202602025-FI1) and earlier independent reporting (Asobi N.V., a different Anjouan licence number) — worth treating as a licensing history to watch, not a settled fact","Trustpilot rating is polarized (3.6/5, 318 reviews) with a recurring theme of balance depleting quickly and access issues during technical problems"],
+  "Toshi.bet": ["Sportsbook provider (BetBy) is per the site owner rather than independently confirmed — toshi.bet blocks automated access (Cloudflare bot-check) and no independent review checked names a specific provider either","Trustpilot reviewers report account suspensions after large wins and at least one cancelled withdrawal with funds not returned, alongside consistently unresponsive support","Launch year conflicts between independent sources (2023 vs 2024)"],
+  "Qzino": ["Very new operator — established 2026 per an independent review, with no long independent track record yet","Withdrawal time is stated as up to 72 hours (extendable to 7 days with additional checks) rather than a fast fixed window, per an independent review","A Casino Guru-logged complaint describes an account closed with confiscated funds, alongside a separate bonus-abuse flag"],
 };
 
 const BONUS_KYC_CHECKLIST = {
@@ -575,6 +580,25 @@ const BONUS_KYC_CHECKLIST = {
     { ok: false, text: "Betting techniques that don't provide an unfair advantage can still be treated as a serious Terms violation, per the same clause scan" },
     { ok: false, text: "No AskGamblers listing, Trustpilot page or independent complaint history exists yet — too new to judge a track record either way" }
   ]
+,
+  "MetaWin": [
+    { ok: false, text: "Welcome bonus terms not independently confirmed in this pass" },
+    { ok: true, text: "No KYC required when using a non-custodial Web3 wallet, per independent reviews" },
+    { ok: false, text: "No published withdrawal-time SLA — reports range from near-instant to unannounced" },
+    { ok: false, text: "Licensed entity and licence number differ between the current site footer and earlier independent reporting — a licensing history worth watching" }
+  ],
+  "Toshi.bet": [
+    { ok: false, text: "Welcome bonus terms not independently confirmed in this pass" },
+    { ok: true, text: "No KYC required for standard withdrawals, per every independent review checked" },
+    { ok: false, text: "Withdrawal speed varies widely in practice — reports range from ~2 minutes to ~4 hours" },
+    { ok: false, text: "Trustpilot reviewers report account suspensions after large wins and at least one cancelled withdrawal with funds not returned" }
+  ],
+  "Qzino": [
+    { ok: true, text: "Sports-betting bonus offered exclusively on BetBy, per an independent review" },
+    { ok: true, text: "No mandatory KYC for standard gameplay, per an independent review" },
+    { ok: false, text: "Stated withdrawal window is up to 72 hours, extendable to 7 days with additional checks" },
+    { ok: false, text: "Very new operator (established 2026) — thin independent track record so far" }
+  ],
 };
 
 const PROFILE_SIDEBAR = {
@@ -1093,6 +1117,31 @@ const PROFILE_SIDEBAR = {
     cryptocurrencies: "BTC, ETH, LTC, XRP, USDT, TRX, BNB, SOL, ADA, USDC, TON, plus bank transfer/USD, per Casino Guru",
     source: "casino.guru; gridinsoft.com; betski.com (whitepaper/token page); globenewswire.com (Dec 2024 funding release) — third-party coverage; operator's own Terms page not independently fetched (JavaScript-rendered)", checked: "2026-09-08"
   }
+,
+  "MetaWin": {
+    license: "Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-202602025-FI1, held by Rivolo Limited (Nevis company No. C62588), per the operator's own site footer. Independent reporting from an earlier period names a different operating entity and licence number (Asobi N.V., a Curaçao-style Anjouan licence ALSI-1523 12009-FI3) — indicating at least one licensing/entity restructure worth watching.",
+    launched: "2022, per independent reviews and 2022 press coverage (the sportsbook product appears to be a later addition, not part of the original launch)",
+    welcomeBonus: "Not independently confirmed in this pass",
+    minDeposit: "Roughly BTC 0.0001 / LTC 0.08 / ETH 0.002 / USDT 5, per independent reviews",
+    cryptocurrencies: "BTC, ETH, LTC, USDT among accepted deposit methods, per independent reviews",
+    source: "metawin.com/hub/sports/ (operator's own site, footer); casino.org; wizardofodds.com; cryptoslate.com; fintelegram.com (third-party coverage)", checked: "2026-09-14"
+  },
+  "Toshi.bet": {
+    license: "Anjouan Gaming Board (Autonomous Island of Anjouan, Comoros), Computer Gaming Licensing Act 007 of 2005, licence No. ALSI-202601015-FI1, held by BowtoyourSensei Ltd, stated to expire January 2027 — per independent reviews (toshi.bet itself blocks automated access, so this was not independently fetched from the operator's own footer/Terms).",
+    launched: "2023 or 2024 — independent reviews conflict and this could not be resolved in this pass",
+    welcomeBonus: "Not independently confirmed in this pass",
+    minDeposit: "$1, per an independent review that ran a real-money test (a second review separately cites a $10 minimum tied specifically to bonus eligibility)",
+    cryptocurrencies: "Crypto-only; specific coin list not independently confirmed in this pass",
+    source: "cryptogamble.com; casino.guru; pokerlistings.com; ambcrypto.com; football-talk.co.uk; bitcoinchaser.com; thebettingprofessionals.com (third-party coverage — toshi.bet itself returns a Cloudflare bot-check to automated access, so none of this is independently fetched from the operator's own site)", checked: "2026-09-14"
+  },
+  "Qzino": {
+    license: "Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-202503015-FI1, held by CG Universe (Costa Rica LLC, reg. no. 3-102-919306) — confirmed directly from the operator's own site footer (qzino.ai/sports, the live redirect target of qzino.com/sports).",
+    launched: "2026, per an independent review (Casino Guru) — the newest of the three operators added alongside it in this batch",
+    welcomeBonus: "A sports-betting bonus is offered exclusively on BetBy, per an independent review; exact terms not independently confirmed",
+    minDeposit: "1 USDT (or crypto equivalent); local fiat rails also listed for some regions (e.g. PIX from BRL 20 in Brazil), per an independent review",
+    cryptocurrencies: "BTC, ETH, SOL, BNB, TON, TRX among accepted deposit methods, per an independent review",
+    source: "qzino.ai/sports (operator's own site, footer — direct fetch, live redirect target of qzino.com/sports); casino.guru; manekicasino.com; gipsyteam.com (third-party coverage)", checked: "2026-09-14"
+  },
 };
 
 const PROFILE_STATS = {
@@ -1552,6 +1601,22 @@ const PROFILE_STATS = {
     support: null, mobileApp: null,
     source: "casino.guru (single-review basis for limits); Betski's own site is JavaScript-rendered and could not be independently crawled for a full markets/odds page", checked: "2026-09-08"
   }
+,
+  "MetaWin": {
+    markets: "Casino, live casino, sportsbook (25+ sports incl. soccer, NFL, NBA, MLB, NHL, tennis, cricket, F1, MMA/UFC, boxing, golf) with live in-play betting",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "metawin.com/hub/sports/ (operator's own site)", checked: "2026-09-14"
+  },
+  "Toshi.bet": {
+    markets: "Casino, live casino, sportsbook (~22-25 sports and esports depending on source) incl. football, basketball, tennis, MMA/UFC, NFL, horse racing, greyhound racing, plus ~12 esports titles, with in-play betting and cash-out",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "bitcoinchaser.com; thebettingprofessionals.com (third-party coverage)", checked: "2026-09-14"
+  },
+  "Qzino": {
+    markets: "Casino, live casino, sportsbook (~40 sports) incl. football, basketball, tennis, ice hockey, American football, combat sports, plus esports (CS, Dota 2)",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: null,
+    source: "casino.guru (third-party review)", checked: "2026-09-14"
+  },
 };
 
 const RESTRICTED_COUNTRIES = {
@@ -1631,6 +1696,9 @@ const RESTRICTED_COUNTRIES = {
   "Thunderpick.io": { codes:["US","GB","NL","ES","DE","AU","CW"], confidence:"partial", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome. Third-party tracker (win.gg) names the United States, United Kingdom, Netherlands (and Dutch Caribbean territories), Spain, Germany, Australia and Curaçao (the operator's own licensing jurisdiction) as explicitly restricted, plus a general exclusion for FATF-blacklisted countries. Thunderpick's own Terms were not independently fetched in this pass, and win.gg itself notes there is no officially published full list, describing the operator as available mainly in a broader 'grey zone' of jurisdictions that neither license nor prohibit online gambling." },
   "BookMaker.eu": { codes:["LT"], confidence:"partial", note:"Lithuania confirmed blocked, per the site owner. No comprehensive international country-restriction list was found otherwise; BookMaker.eu is primarily US-facing, with third-party sources citing US state-level exclusions (New Jersey, Ohio, Kentucky, Tennessee) rather than a full country list." },
   "Betski": { codes:[], confidence:"unknown", confirmedAccepted:["LT"], note:"Lithuania directly confirmed welcome, per the site owner. No comprehensive restricted-country list was independently found otherwise. Casino Guru's review notes only an Ohio (US) carve-out — an unusually narrow exclusion for an Anjouan/Comoros-licensed operator — rather than a full country list." },
+  "MetaWin": { codes:["AU","FR","IR","IN","IL","KP","PH","SG","TW","AE","US"], confidence:"partial", note:"Two independent country-checker sources disagree on the exact list and neither could be cross-checked against MetaWin's own Terms page (URL not located). Strafe.com (updated 10 Sep 2026) names Australia, France, Iran, India, Israel, North Korea, Philippines, Singapore, Taiwan, UAE and the USA as fully blocked; an older CryptoSlate review lists a different, broader set. Lithuania is not on either list, but given the source disagreement this should be treated as directional rather than authoritative." },
+  "Toshi.bet": { codes:["LT"], confidence:"partial", note:"toshi.bet's own Terms page could not be independently fetched (Cloudflare bot-check). An independent review (CryptoGamble) states the Terms list 40+ restricted jurisdictions and explicitly name Lithuania as one of them, plus a separate Ohio (US state) exclusion — Lithuania is the only country this pass could confirm by name; the rest of the 40+ list was not enumerated by the source." },
+  "Qzino": { codes:["AU","AT","FR","DE","NL","ES","GB","US"], confidence:"partial", note:"Per an independent review (Casino Guru): Australia, Austria, Comoros (the operator's own licensing jurisdiction), France, Germany, the Netherlands, Spain, the UK, the USA, plus sanctioned and FATF-blacklisted jurisdictions and others determined by Qzino's compliance team. Not independently cross-checked against the operator's own Terms PDF in this pass. Lithuania is not mentioned either way in the source — its status is not confirmed." },
 };
 
 const COMPLAINT_REPORTS = {
@@ -2138,6 +2206,18 @@ const COMPLAINT_REPORTS = {
     { id:"cbm1", title:"$7,858.73 account locked after mandatory video KYC on a withdrawal", category:"Account", issueTag:"Withdrawal withheld pending verification dispute", priority:"B", amount:"$7,858.73", status:"Unresolved", verified:true, source:"BookMakersReview forum", sourceUrl:"https://www.bookmakersreview.com/forum/threads/bookmaker-eu-account-locked-with-7-858-after-video-kyc-seeking-resolution.71784/", whatHappened:"A player reported the account was locked with a \"system error\" after completing a mandatory video-KYC step tied to a withdrawal request. The thread, posted May 2026, was still unresolved as of its last update roughly two months later.", operatorReason:"Not stated in the indexed source" }
   ], note:"BookMaker.eu's own Trustpilot page could not be fetched in this pass (returned a 403), so no aggregate third-party rating is cited here. This site focuses on sportsbetting, so a separately-found $40,000 live-blackjack (casino) non-payment dispute is deliberately left out of this list as out of scope, even though it's a real, documented complaint on SportsbookReview's forum — worth knowing about if evaluating BookMaker.eu's casino product specifically. Additional non-payment/\"ghosting\" threads exist on the BookMakersReview forum but without extractable dollar amounts, so they aren't itemized individually. This is a representative, not exhaustive, sample." },
   "Betski": { items: [], note:"No logged complaints were found on Casino Guru, AskGamblers (no listing exists yet), Trustpilot (no page found) or Reddit (r/sportsbook, r/advantageplay) as of this research pass. Betski is a very new, low-volume operator — Casino Guru's own unrated \"Fresh casino\" category — so this reflects an absence of track record rather than a confirmed clean record. Read together with the explicit low-risk-play/winnings-confiscation Terms language flagged above, an operator with these clauses on the books but no test cases yet is worth extra caution, not extra confidence." }
+,
+  "MetaWin": { items: [
+  ], note:"No individually-documented, dollar-specific complaint case was found for MetaWin on Casino Guru, AskGamblers or Bitcointalk in this pass. Trustpilot shows a polarized 3.6/5 rating from 318 reviews (35% one-star) with recurring themes of balance depleting quickly, perceived unfair/rigged outcomes and technical issues affecting fund access — a pattern worth monitoring, but not itemized above since the individual reviews don't document verifiable case details (dates, amounts, resolution)." },
+  "Toshi.bet": { items: [
+    { id:"ctb1", title:"Account suspended after a reported 100K+ win", category:"Account", issueTag:"Account closed after large win", priority:"B", amount:"100,000+ (currency not stated)", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/toshi.bet", whatHappened:"A Trustpilot reviewer said their account was suddenly suspended after winning more than 100,000, with no further detail on the stated reason or resolution visible in the indexed review.", operatorReason:"Not stated in the indexed source" },
+    { id:"ctb2", title:"$1,500 withdrawal cancelled, funds not returned", category:"Account", issueTag:"Withdrawal cancelled / funds not returned", priority:"B", amount:"$1,500", status:"Community report", verified:false, source:"Trustpilot", sourceUrl:"https://www.trustpilot.com/review/toshi.bet", whatHappened:"A Trustpilot reviewer said a $1,500 withdrawal was cancelled by Toshi.bet, and that they were unable to reach support or recover the funds as of the review.", operatorReason:"Not stated in the indexed source" }
+  ], note:"No listing was found on Casino Guru or AskGamblers for Toshi.bet in this pass — both cases above come from Trustpilot community reviews (145 total, 3.5/5, 43% one-star) rather than a mediated complaint platform, so they are unverified community reports, not confirmed/adjudicated cases. The pattern (suspension after a large win; a cancelled withdrawal with funds not returned) is consistent enough across independent reviews to flag as a real risk signal for this operator." },
+  "Qzino": { items: [
+    { id:"cqz1", title:"Account flagged for bonus abuse", category:"Account", issueTag:"Bonus terms dispute", priority:"C", amount:"Not stated", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/qzino-casino-review", whatHappened:"Casino Guru's complaint log lists a case where a player's account was flagged for bonus abuse. Per Casino Guru's own categorization this case was rejected.", operatorReason:"Bonus abuse cited, per Casino Guru's categorization; case rejected" },
+    { id:"cqz2", title:"Account closed with ¥400,000 confiscated", category:"Account", issueTag:"Balance including deposit confiscated", priority:"B", amount:"¥400,000", status:"Rejected", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/qzino-casino-review", whatHappened:"Casino Guru's complaint log lists a case where a player's account was closed and ¥400,000 in funds confiscated. Per Casino Guru's own categorization this case was rejected.", operatorReason:"Not stated in the indexed summary" },
+    { id:"cqz3", title:"$6 in winnings confiscated", category:"Account", issueTag:"Winnings confiscated / forfeited", priority:"C", amount:"$6", status:"Open", verified:true, source:"Casino Guru", sourceUrl:"https://casino.guru/qzino-casino-review", whatHappened:"Casino Guru's complaint log lists a small case where $6 in winnings were confiscated. Per Casino Guru's own categorization this case remains open.", operatorReason:"Not stated in the indexed summary" }
+  ], note:"Casino Guru's complaint log shows 3 total logged cases for Qzino (1 open, 0 unresolved, 2 rejected per its own stats panel) — a low volume for a review platform of this size, consistent with Qzino being a very new (2026) operator. None of the three amounts is large individually, but the ¥400,000 confiscation case is the one most worth monitoring going forward." },
 };
 
 const COMPANY_INFO = {
@@ -2412,6 +2492,19 @@ const COMPANY_INFO = {
     overview: "Betski (betski.com) is a very new crypto casino and sportsbook, first appearing on Casino Guru's index in 2025 under operator PTY Global Fun LLC, holding an Anjouan (Comoros) Gaming licence No. ALSI-202502016-FI1 per Casino Guru's live licence-check widget. Betski's own project materials tell a different founding story: a whitepaper and a December 2024 funding announcement instead describe a Panama City-based platform (\"Sports Alpha Club\") founded by CEO Alejandro Navarro, which raised $345,000 in pre-seed funding and claims a 2022 origin — a jurisdiction/founding-date inconsistency between the operator's own marketing and its licensing record that was not independently resolved in this research pass. The site also runs a separate $BETSKI utility/staking token tied to a tokenized profit-sharing scheme, distinct from ordinary betting funds. Casino Guru's automated Terms & Conditions clause scan flags three notable clauses: common bonus-hunting strategies may be treated as a serious Terms violation, low-risk play may lead to winnings being confiscated, and betting techniques that don't provide an unfair advantage may still be seen as a serious Terms violation — language that reserves the right to restrict winnings for hedging, arbitrage-style or other \"professional\" low-risk betting patterns even without any actual cheating. No AskGamblers listing, Trustpilot page or Reddit complaint thread was found, and Casino Guru's own complaint index currently shows zero logged complaints against it — read as \"too new for a track record\" rather than a clean record. Casino Guru assigns a 6.8/10 Safety Index in its unrated \"Fresh casino\" category; a third-party domain-reputation scanner (Gridinsoft) separately rates it 45/100 \"Low Trust\", citing limited independent reputation data.",
     ownership: { parent: "PTY Global Fun LLC, per Casino Guru's live licence-check widget — though Betski's own whitepaper and a Dec 2024 funding release instead describe a Panama City-based platform (\"Sports Alpha Club\") founded by CEO Alejandro Navarro", jurisdiction: "Anjouan Gaming (Union of Comoros), licence No. ALSI-202502016-FI1, per Casino Guru's live licence-check widget", related: "Runs a separate $BETSKI utility/staking token tied to a tokenized profit-sharing scheme (betski.com/betski-token) — distinct from ordinary betting funds" }
   }
+,
+  "MetaWin": {
+    overview: "MetaWin (metawin.com) launched in 2022 as an NFT prize-draw platform and has since grown into a full crypto casino with a genuine 25+-sport sportsbook (metawin.com/hub/sports/), covering major leagues with live in-play betting. It is currently licensed under the Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-202602025-FI1, and its site footer names Rivolo Limited (Nevis) as the operating entity. Independent reporting from an earlier period names a different licensed entity and licence number (Asobi N.V., a Curaçao-style Anjouan licence), and separately identifies Raman Dandyan as beneficial owner via UK entity MetaWin Limited — together suggesting at least one corporate/licensing restructure that's worth periodically re-checking rather than treating as settled. No sportsbook technology provider is disclosed anywhere checked. Trustpilot shows a polarized 3.6/5 across 318 reviews (59% five-star vs 35% one-star), with recurring complaints about balance depleting quickly, perceived unfair outcomes and technical access issues, alongside many reports of fast crypto withdrawals.",
+    ownership: { parent: "Rivolo Limited (Nevis company No. C62588), per the operator's own site footer; earlier independent reporting names a different entity, Asobi N.V. (Curaçao)", jurisdiction: "Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-202602025-FI1, per the operator's own site footer", related: "Runs a separate sweepstakes-model site at metawin.us for the US market, a distinct product under different regulatory rules" }
+  },
+  "Toshi.bet": {
+    overview: "Toshi.bet (toshi.bet) is a no-KYC-branded crypto casino and sportsbook, licensed under the Anjouan Gaming Board (Autonomous Island of Anjouan, Comoros) via licensed entity BowtoyourSensei Ltd, licence No. ALSI-202601015-FI1, stated to expire January 2027. Its launch year is unclear — independent reviews conflict between 2023 and 2024. The sportsbook (toshi.bet/sports) covers roughly 22-25 sports plus esports with in-play betting and cash-out; per the site owner it runs on BetBy technology, though this could not be independently confirmed since toshi.bet returns a Cloudflare bot-check to automated access and no independent review checked names a specific provider. KYC is not required for standard withdrawals per every independent source checked, though one review notes verification may still apply to higher-tier accounts or specific withdrawal thresholds. Trustpilot shows a polarized 3.5/5 across 145 reviews (49% five-star vs 43% one-star), with a recurring and fairly serious complaint pattern of account suspensions shortly after large wins and at least one cancelled withdrawal with funds not returned — a more concerning pattern than seen for the other two operators added alongside it in this batch.",
+    ownership: { parent: "BowtoyourSensei Ltd, per independent reviews (not independently fetched from the operator's own site)", jurisdiction: "Anjouan Gaming Board (Autonomous Island of Anjouan, Comoros), licence No. ALSI-202601015-FI1, per independent reviews", related: "" }
+  },
+  "Qzino": {
+    overview: "Qzino (qzino.com, with its sports section at qzino.com/sports currently redirecting to a qzino.ai mirror domain) is a crypto casino and sportsbook established in 2026, per an independent review — the newest of the three operators added alongside it in this batch. It is owned and operated by CG Universe, a Costa Rica-registered LLC (reg. no. 3-102-919306), and licensed under the Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-202503015-FI1 — all confirmed directly from the operator's own site footer. Its sportsbook, covering roughly 40 sports plus esports, runs on BetBy technology, also confirmed directly in the operator's own page markup. KYC is not mandatory for standard gameplay per an independent review, though internal security/compliance checks may still apply, and stated withdrawal times range up to 72 hours (extendable to 7 days with additional verification). Casino Guru's complaint log shows three logged cases: an account flagged for bonus abuse, an account closed with roughly ¥400,000 in funds confiscated, and a separate $6 winnings-confiscation case — a low volume in absolute terms, with the ¥400,000 case the one most worth a closer look.",
+    ownership: { parent: "CG Universe, a limited liability company registered in Costa Rica (reg. no. 3-102-919306), per the operator's own site footer", jurisdiction: "Government of the Autonomous Island of Anjouan, Union of Comoros, licence No. ALSI-202503015-FI1, per the operator's own site footer", related: "" }
+  },
 };
 
 const TERMS_INFO = {
@@ -2732,6 +2825,22 @@ const TERMS_INFO = {
     withdrawal: { text: "Casino Guru describes \"unlimited\" withdrawal limits, no win limit and instant processing — based on just one user review, too thin a sample to treat as a reliable pattern either way.", source: "casino.guru (single-review basis)", checked: "2026-09-08" },
     kyc: { text: "No explicit KYC policy documented anywhere found. Treated here as following the common \"no-KYC-to-play, verification at withdrawal\" pattern seen across most comparably new Anjouan-licensed crypto casinos in this database, pending direct confirmation — not independently confirmed for Betski specifically.", source: "Assumption based on comparable operators — not independently confirmed for Betski", checked: "2026-09-08" }
   }
+,
+  "MetaWin": {
+    bonus: { text: "Not independently confirmed in this pass.", source: "Not found", checked: "2026-09-14" },
+    withdrawal: { text: "No fixed SLA published; independent testing has reported both near-instant crypto payouts and no announced processing window, depending on the source.", source: "casino.org; wizardofodds.com; cryptoslate.com (third-party coverage)", checked: "2026-09-14" },
+    kyc: { text: "No identity verification required when using a non-custodial Web3 wallet; a custodial-wallet user may be asked to verify, and MetaWin reserves the right to run additional KYC at any time. One independent review reports verification is only triggered around a $10,000+ withdrawal.", source: "casino.org; wizardofodds.com (third-party coverage, not independently fetched from the operator's own Terms)", checked: "2026-09-14" }
+  },
+  "Toshi.bet": {
+    bonus: { text: "Not independently confirmed in this pass.", source: "Not found", checked: "2026-09-14" },
+    withdrawal: { text: "Advertised average around 120 minutes, but real-world reports vary widely — one review's own test saw a small withdrawal complete in about 2 minutes and a larger one take roughly 4 hours under manual review; Trustpilot separately documents at least one cancelled withdrawal never returned.", source: "cryptogamble.com; trustpilot.com/review/toshi.bet (third-party coverage)", checked: "2026-09-14" },
+    kyc: { text: "No KYC required for standard registration or withdrawal per every source checked, though verification may apply to higher-tier accounts or specific withdrawal thresholds not otherwise detailed.", source: "cryptogamble.com; football-talk.co.uk (third-party coverage)", checked: "2026-09-14" }
+  },
+  "Qzino": {
+    bonus: { text: "A sports-betting bonus is offered exclusively on BetBy, per an independent review; exact terms not independently confirmed.", source: "manekicasino.com (third-party review)", checked: "2026-09-14" },
+    withdrawal: { text: "Stated policy is up to 72 hours, extending to 7 days with additional verification checks, per an independent review; real-world speed not independently timed.", source: "manekicasino.com (third-party review)", checked: "2026-09-14" },
+    kyc: { text: "No mandatory KYC for standard gameplay, per an independent review, though internal security/compliance checks may still occur.", source: "casino.guru (third-party review)", checked: "2026-09-14" }
+  },
 };
 
 const TRUST_BREAKDOWN = {
@@ -2985,4 +3094,8 @@ const TRUST_BREAKDOWN = {
   // tier as Betcoin.ag's documented arbitrage-restriction clause.
   // Total = 7*.25+8*.25+8*.25+7*.125+4*.125 = 7.125, rounds to 7.1.
   "Betski":        { licence:7, payout:8, complaintsRec:8, kyc:7, tc:4 }
+,
+  "MetaWin":        { licence:6, payout:6, complaintsRec:6, kyc:7, tc:5 },
+  "Toshi.bet":       { licence:7, payout:6, complaintsRec:5, kyc:8, tc:4 },
+  "Qzino":           { licence:8, payout:6, complaintsRec:7, kyc:7, tc:6 },
 };

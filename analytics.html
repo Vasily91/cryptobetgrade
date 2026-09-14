@@ -2053,7 +2053,7 @@ html[data-theme="dark"] .reset-btn{
 
 <script>
 // CryptoBetGrade-reviewed operators only — every entry below is matched against this
-// site's 36-operator roster and cross-checked against FairGambling's own casino
+// site's operator roster and cross-checked against FairGambling's own casino
 // slug/name, using their /analytics "Crypto Casinos" 30-day market-share table
 // (expanded to 58 rows, which now surfaces every reviewed operator directly)
 // plus the aggregate "Wallet Balance · By Casino" table (expanded to all 58
@@ -2065,12 +2065,16 @@ html[data-theme="dark"] .reset-btn{
 // Betpanda currently sits in FairGambling's "crypto_new" bucket rather than
 // "Crypto Casinos", so its share is their raw market-wide % rather than one
 // renormalized to that tab. Everyone else FairGambling tracks that we don't
-// review at all (MetaWin, Gamba, Toshibet, a second unrelated "Degen" brand
-// distinct from CryptoBetGrade's own Degen Casino, etc.) is intentionally left
-// out — not filtered by a toggle, just never included.
-// Refreshed 12 Sep 2026 (previously 5 Sep 2026, 2 Sep 2026, 24 Aug 2026).
-// Same 27 operators as last pass — no additions/removals. Notable move this
-// pass: Rollbit's 30D volume has collapsed to near-zero ($66.89K, -99.8%,
+// review at all (Gamba, a second unrelated "Degen" brand distinct from
+// CryptoBetGrade's own Degen Casino, etc.) is intentionally left out — not
+// filtered by a toggle, just never included.
+// Refreshed 14 Sep 2026 (previously 12 Sep 2026, 5 Sep 2026, 2 Sep 2026,
+// 24 Aug 2026). MetaWin, Toshi.bet (listed by FairGambling as "Toshibet")
+// and Qzino added this pass as newly-reviewed operators — all three were
+// previously known to be FairGambling-tracked (see the old version of the
+// paragraph above) but hadn't been reviewed by CryptoBetGrade yet. 30
+// operators now, up from 27. Otherwise no additions/removals. Notable move
+// last pass: Rollbit's 30D volume collapsed to near-zero ($66.89K, -99.8%,
 // fgRank fell from 26 to 54) — kept in the list since it's still a
 // CryptoBetGrade-reviewed operator, just now barely active on-chain.
 // See the profile-page Analytics tab parity note next to
@@ -2102,7 +2106,15 @@ const explorerData = [
   {name:"Whale.io",       slug:"whale-io",         domain:"whale.io",             fgRank:34, share:0.07,  volume:2.95,    deposits:13.61,   change:-15.4, wallet:0.1139},
   {name:"DuckDice",       slug:"duckdice",         domain:"duckdice.io",          fgRank:39, share:0.04,  volume:1.62,    deposits:13.10,   change:-6.6,  wallet:0.2203},
   {name:"Chips.gg",       slug:"chips-gg",         domain:"chips.gg",             fgRank:41, share:0.03,  volume:1.45,    deposits:5.35,    change:42.4,  wallet:3.94},
-  {name:"Rollbit",        slug:"rollbit",          domain:"rollbit.com",          fgRank:54, share:0,     volume:0.0669,  deposits:0.137,   change:-99.8, wallet:0.1534}
+  {name:"Rollbit",        slug:"rollbit",          domain:"rollbit.com",          fgRank:54, share:0,     volume:0.0669,  deposits:0.137,   change:-99.8, wallet:0.1534},
+  // MetaWin, Toshi.bet and Qzino added 2026-09-14, now CryptoBetGrade-reviewed
+  // operators (previously named above as ones FairGambling tracks but this
+  // site didn't review — that note is now out of date and has been updated).
+  // Same fairgambling.com/analytics snapshot as FAIRGAMBLING_MARKET_DATA in
+  // dashboard.html.
+  {name:"MetaWin",        slug:"metawin",          domain:"metawin.com",          fgRank:21, share:0.43,  volume:19.17,   deposits:55.28,   change:-14.8, wallet:5.25},
+  {name:"Toshi.bet",      slug:"toshi-bet",        domain:"toshi.bet",            fgRank:25, share:0.17,  volume:7.70,    deposits:20.25,   change:26.0,  wallet:0.60},
+  {name:"Qzino",          slug:"qzino",            domain:"qzino.com",            fgRank:31, share:0.09,  volume:3.89,    deposits:18.01,   change:27.3,  wallet:2.38}
 ];
 
 const metricMeta = {
