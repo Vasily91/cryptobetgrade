@@ -460,13 +460,19 @@
   <url><loc>https://cryptobetgrade.com/complaints/bookmaker-eu-7858-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/betski</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/metawin</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/metawin/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/metawin-38000-usd-balance-account-access-restricted-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/metawin-400-usd-account-closed-after-withdrawal-request</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/toshi-bet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/toshi-bet/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-100000-account-closed-after-large-win</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-1500-usd-withdrawal-cancelled-funds-not-returned</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-3500-usd-multi-account-allegation-funds-withheld-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-1200-usdt-withdrawal-cancelled-funds-not-returned</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-652-usd-sportsbook-withdrawal-cancelled-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-741-usd-account-blocked-after-withdrawal-request</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/qzino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/qzino/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cryptobetgrade.com/complaints/qzino-bonus-terms-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cryptobetgrade.com/complaints/qzino-400000-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cryptobetgrade.com/complaints/qzino-6-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/qzino-300-usd-sportsbook-account-closed-withdrawal-blocked-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/qzino-50-usd-sportsbook-winnings-not-paid-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/qzino-500-usd-sportsbook-account-closed-deposit-not-refunded-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/qzino-multi-account-allegation-cashout-ban-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
