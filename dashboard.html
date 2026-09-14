@@ -2413,7 +2413,13 @@ const SPORTS_RANGE_OVERRIDE = {
   "IceCasino": { label: "Wide", cls: "good" },
   "FieryPlay Casino": { label: "Wide", cls: "good" },
   "GGbet": { label: "Wide", cls: "good" },
-  "Slotoro": { label: "Wide", cls: "good" }
+  "Slotoro": { label: "Wide", cls: "good" },
+  // Toshi.bet names "~22-25 sports" (which the raw sport-count heuristic
+  // buckets as Medium), but per site-admin judgment its real-world coverage
+  // — in-play betting, cash-out, horse/greyhound racing plus ~12 esports
+  // titles alongside the core sports list — reads as broader in practice
+  // than a plain count suggests. Set directly to Wide (2026-09-14).
+  "Toshi.bet": { label: "Wide", cls: "good" }
 };
 function sportsTierInfo(op){
   if(SPORTS_RANGE_OVERRIDE[op.name]) return SPORTS_RANGE_OVERRIDE[op.name];
