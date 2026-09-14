@@ -2419,7 +2419,12 @@ const SPORTS_RANGE_OVERRIDE = {
   // — in-play betting, cash-out, horse/greyhound racing plus ~12 esports
   // titles alongside the core sports list — reads as broader in practice
   // than a plain count suggests. Set directly to Wide (2026-09-14).
-  "Toshi.bet": { label: "Wide", cls: "good" }
+  "Toshi.bet": { label: "Wide", cls: "good" },
+  // Betski's markets text ("Sportsbook, esports, virtual sports, fantasy
+  // sports, global lotteries, casino...") never states a sport count, so
+  // the raw heuristic falls through to "—". Set directly to Narrow per
+  // site-admin judgment (2026-09-14).
+  "Betski": { label: "Narrow", cls: "bad" }
 };
 function sportsTierInfo(op){
   if(SPORTS_RANGE_OVERRIDE[op.name]) return SPORTS_RANGE_OVERRIDE[op.name];
