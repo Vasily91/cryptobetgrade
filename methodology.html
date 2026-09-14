@@ -476,6 +476,18 @@ footer{padding:26px 0 22px;}
   nav .navlinks{display:none}
   .hero-copy h1{font-size:40px}
 }
+
+/* The unscoped .flow-grid/.flow-card rules earlier in this "FINAL MOCKUP
+   MATCH OVERRIDES" block (same specificity, later in source) silently
+   cancelled the original @media(max-width:640px) rule that stacked the
+   Submission/Review cards into one column on phones — leaving both cards
+   squeezed side by side at phone widths instead of stacking. Restated here,
+   later still in the cascade, so the mobile stack wins again. */
+@media(max-width:640px){
+  .flow-grid{grid-template-columns:1fr;}
+  .flow-arrow{transform:rotate(90deg);}
+  .flow-card{grid-template-columns:55px 1fr;}
+}
 </style>
 
 <style>

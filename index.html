@@ -1201,40 +1201,17 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
     gap:5px !important;
   }
 
-  .top5-grid{
-    grid-template-columns:1fr !important;
-  }
-
-  .top5-card{
-    display:grid !important;
-    grid-template-columns:70px 1fr !important;
-    text-align:left !important;
-    align-items:center !important;
-    padding:14px !important;
-  }
-
-  .top5-card .top5-rank{
-    position:absolute !important;
-  }
-
-  .top5-card .op-logo{
-    grid-row:1 / span 5;
-    margin:0 !important;
-    width:58px !important;
-    height:58px !important;
-  }
-
-  .top5-card .name,
-  .top5-card .stat-n,
-  .top5-card .stat-l{
-    grid-column:2;
-  }
-
-  .top5-card .btn-mini{
-    grid-column:1 / -1;
-    width:100%;
-    margin-top:6px;
-  }
+  /* Below 620px the card's own internal layout (name/score/deposits/
+     buttons) already compacts via the #top-operators rules further down
+     this file — stay on the same 2-up grid used from 900px down instead of
+     the old 1-column + 70px-logo-column layout that used to run here. That
+     old layout targeted class names (.top5-rank, .stat-n, .stat-l) the
+     card markup no longer has, so op-logo/name/score/buttons fell back to
+     plain grid auto-placement instead of the intended positions — the
+     buttons ended up squeezed into the 70px logo column instead of
+     spanning full width, leaving a large blank gap beside them. Two
+     narrower cards per row reads better on a phone than one broken or
+     oversized one anyway. */
 
   .cta-band{
     padding:24px 20px !important;
@@ -1250,7 +1227,16 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
 
 <style>
 /* ===== MOBILE HERO REFINEMENT ===== */
-.mobile-mini-card{display:none;}
+.mobile-mini-card{
+  display:none;
+  color:inherit;
+  text-decoration:none;
+  cursor:pointer;
+}
+.mobile-mini-card:focus-visible{
+  outline:2px solid var(--brand);
+  outline-offset:3px;
+}
 
 @media (max-width: 900px){
   /* The large desktop BC.Game design is decorative, so hide it on mobile */
@@ -1273,12 +1259,12 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
 
   .mobile-mini-card{
     display:block;
-    flex:0 0 150px;
-    width:150px;
+    flex:0 0 190px;
+    width:190px;
     border:1px solid #dce5df;
-    border-radius:14px;
+    border-radius:16px;
     background:rgba(255,255,255,.97);
-    padding:10px;
+    padding:13px;
     box-shadow:10px 14px 28px rgba(7,74,53,.11);
     transform:perspective(500px) rotateY(-12deg) rotateX(4deg);
     transform-origin:center;
@@ -1288,17 +1274,17 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
   .mm-top{
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:7px;
   }
 
   .mm-logo{
-    width:28px;height:28px;border-radius:8px;
+    width:34px;height:34px;border-radius:9px;
     background:#111915;
     display:flex;align-items:center;justify-content:center;
     overflow:hidden;flex:none;
   }
 
-  .mm-logo img{width:20px;height:20px;object-fit:contain;}
+  .mm-logo img{width:24px;height:24px;object-fit:contain;}
 
   .mm-name{
     display:flex;
@@ -1308,29 +1294,29 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
   }
 
   .mm-name b{
-    font-size:9.5px;
+    font-size:12px;
     line-height:1.1;
     white-space:nowrap;
   }
 
   .mm-name small{
-    font-size:7.5px;
+    font-size:9px;
     color:#8d918d;
     margin-top:2px;
   }
 
   .mm-top strong{
-    font-size:16px;
+    font-size:20px;
     color:#0b6e4f;
     line-height:1;
   }
 
   .mm-line{
-    height:4px;
+    height:5px;
     background:#edf1ee;
     border-radius:999px;
     overflow:hidden;
-    margin:9px 0 7px;
+    margin:10px 0 8px;
   }
 
   .mm-line i{
@@ -1344,7 +1330,7 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
     display:flex;
     justify-content:space-between;
     gap:4px;
-    font-size:7px;
+    font-size:8.5px;
     color:#7e827e;
   }
 }
@@ -1361,22 +1347,22 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
   }
 
   .mobile-mini-card{
-    flex-basis:112px;
-    width:112px;
-    padding:8px;
-    border-radius:12px;
-    transform:perspective(420px) rotateY(-13deg) rotateX(4deg) scale(.96);
+    flex-basis:150px;
+    width:150px;
+    padding:11px;
+    border-radius:13px;
+    transform:perspective(420px) rotateY(-13deg) rotateX(4deg) scale(.98);
   }
 
-  .mm-logo{width:23px;height:23px;border-radius:7px;}
-  .mm-logo img{width:16px;height:16px;}
-  .mm-name b{font-size:8px;}
-  .mm-name small{font-size:6.5px;}
-  .mm-top strong{font-size:13px;}
+  .mm-logo{width:30px;height:30px;border-radius:8px;}
+  .mm-logo img{width:21px;height:21px;}
+  .mm-name b{font-size:10.5px;}
+  .mm-name small{font-size:8px;}
+  .mm-top strong{font-size:17px;}
   .mm-meta{
     flex-direction:column;
     gap:1px;
-    font-size:6.5px;
+    font-size:7.5px;
   }
 
   .hero p.sub{
@@ -1406,12 +1392,12 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
 @media (max-width: 390px){
   .mobile-mini-card{
     display:block !important;
-    flex:0 0 96px !important;
-    width:96px !important;
-    padding:7px !important;
+    flex:0 0 128px !important;
+    width:128px !important;
+    padding:10px !important;
     margin-right:-4px;
-    border-radius:11px !important;
-    transform:perspective(380px) rotateY(-12deg) rotateX(3deg) scale(.94) !important;
+    border-radius:12px !important;
+    transform:perspective(380px) rotateY(-12deg) rotateX(3deg) scale(.96) !important;
     transform-origin:right top !important;
   }
 
@@ -1430,27 +1416,27 @@ footer{padding:34px 0 26px;background:#fbfbfa;}
   }
 
   .mm-logo{
-    width:20px !important;
-    height:20px !important;
+    width:26px !important;
+    height:26px !important;
   }
 
   .mm-logo img{
-    width:14px !important;
-    height:14px !important;
+    width:18px !important;
+    height:18px !important;
   }
 
-  .mm-name b{font-size:7.2px !important;}
-  .mm-name small{font-size:5.8px !important;}
-  .mm-top strong{font-size:12px !important;}
+  .mm-name b{font-size:9px !important;}
+  .mm-name small{font-size:7px !important;}
+  .mm-top strong{font-size:15px !important;}
 
   .mm-line{
-    margin:7px 0 5px !important;
-    height:3px !important;
+    margin:8px 0 6px !important;
+    height:4px !important;
   }
 
   .mm-meta{
     display:block !important;
-    font-size:5.8px !important;
+    font-size:7px !important;
     line-height:1.35 !important;
   }
 
@@ -2063,7 +2049,7 @@ function handleLogoError(img){
 
       <div class="mobile-hero-row">
         <h1>Know the sportsbook <span>before you deposit.</span></h1>
-        <div class="mobile-mini-card" aria-hidden="true">
+        <a href="/sportsbooks/500casino" id="heroMiniCardLink" class="mobile-mini-card" aria-label="View 500Casino's full trust score profile">
           <div class="mm-top">
             <span class="mm-logo"><img id="heroMiniLogo" src="https://500.casino/favicon.ico" data-domain="500.casino" data-stage="direct" data-initials="50" alt="" decoding="async" onerror="handleLogoError(this)"></span>
             <div class="mm-name"><b id="heroMiniName">500Casino</b><small>Trust Score</small></div>
@@ -2071,7 +2057,7 @@ function handleLogoError(img){
           </div>
           <div class="mm-line"><i id="heroMiniBar" style="width:89%"></i></div>
           <div class="mm-meta"><span id="heroMiniDeposits">$388K · 24h</span><span id="heroMiniSports">25+ sports</span></div>
-        </div>
+        </a>
       </div>
       <p class="sub">Independent profiles focused on complaints, sportsbook rules and on-chain activity — not casino marketing.</p>
 
@@ -2565,6 +2551,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if(heroLink && hero.id){
         heroLink.href = "/sportsbooks/" + hero.id;
         heroLink.setAttribute("aria-label", "View " + hero.name + "'s full trust score profile");
+      }
+
+      const heroMiniLink = document.getElementById("heroMiniCardLink");
+      if(heroMiniLink && hero.id){
+        heroMiniLink.href = "/sportsbooks/" + hero.id;
+        heroMiniLink.setAttribute("aria-label", "View " + hero.name + "'s full trust score profile");
       }
 
       setText("heroName", hero.name);
