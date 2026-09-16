@@ -441,6 +441,60 @@ html[data-theme="dark"] .mobile-nav-panel a.active svg{color:#75E7A5!important;}
 .nav-user-menu-item svg{width:16px;height:16px;flex:none;color:var(--ink-muted);}
 .nav-user-menu-item:hover{background:var(--brand-lighter);}
 </style>
+
+<style id="cbg-complaints-redesign-v2">
+/* Compact complaints dashboard — aligned to CryptoBetGrade sportsbook page */
+.complaints-main{max-width:none!important}
+.page-hero{padding:46px 0 22px!important;text-align:left!important;background:transparent!important}
+.page-hero .wrap{max-width:1180px!important}
+.page-hero .kicker{margin:0 0 10px!important;padding:0!important;background:none!important;border-radius:0!important;color:var(--brand)!important;font-size:10px!important;letter-spacing:.09em!important}
+.page-hero h1{font-size:34px!important;line-height:1.12!important;letter-spacing:-1.1px!important;margin:0 0 8px!important;max-width:760px}
+.page-hero p{margin:0!important;max-width:760px!important;font-size:13px!important;line-height:1.6!important}
+.page-hero p.meta{margin-top:7px!important;font-size:10.5px!important}
+.complaints-main section{padding:20px 0!important;border:0!important;background:transparent!important}
+.complaints-main section.alt{background:transparent!important;border:0!important}
+.complaints-main section:first-child{padding-top:0!important}
+.stat-strip{max-width:1180px!important;gap:10px!important;margin:0 auto!important}
+.stat-tile{padding:15px 17px!important;border-radius:12px!important;box-shadow:none!important}
+.stat-tile .stat-label{font-size:9px!important;margin-bottom:5px!important}
+.stat-tile .stat-value{font-size:22px!important}
+.stat-tile .stat-sub{font-size:10px!important;margin-top:2px!important}
+.strip-caption{max-width:1180px!important;text-align:left!important;font-size:9.5px!important;margin-top:7px!important}
+.section-heading{max-width:none!important;margin:0 0 12px!important;text-align:left!important}
+.section-heading .eyebrow{font-size:9px!important;margin-bottom:3px!important}
+.section-heading h2{font-size:19px!important;letter-spacing:-.35px!important;margin:0!important}
+.section-heading p{font-size:10.5px!important;max-width:720px!important;margin:4px 0 0!important}
+.concentration-layout{max-width:1180px!important;grid-template-columns:300px 1fr!important;gap:10px!important}
+.share-chart,.rank-panel,.chain-bars{border-radius:12px!important}
+.share-chart{padding:16px!important;display:grid!important;grid-template-columns:130px 1fr!important;gap:16px!important;align-items:center!important}
+.share-donut{width:126px!important;height:126px!important}
+.share-donut:after{inset:19px!important}
+.share-center strong{font-size:20px!important}.share-center span{font-size:8px!important}
+.share-legend{margin:0!important}.share-legend div{padding:4px 0!important;font-size:9.5px!important}.share-legend b{font-size:9.5px!important}
+.rank-panel{padding:12px 14px!important}.rank-head{padding-bottom:6px!important}.rank-row{padding:6px 4px!important}
+.rank-name>b,.rank-value b{font-size:10px!important}.rank-logo,.rank-logo-fallback{width:18px!important;height:18px!important}
+.chain-bars{max-width:1180px!important;padding:16px 18px!important;box-shadow:none!important}
+.chain-bar-row{margin-bottom:9px!important}.chain-bar-row .cb-name{width:210px!important;font-size:10.5px!important}.chain-bar-row .cb-track{height:7px!important}.chain-bar-row .cb-count{font-size:10.5px!important}
+.explorer-shell{max-width:1180px!important;border-radius:13px!important;box-shadow:none!important}
+.explorer-toolbar{grid-template-columns:minmax(220px,1.7fr) repeat(3,minmax(125px,.7fr)) auto!important;padding:10px!important;gap:7px!important}
+.explorer-search,.explorer-control,.reset-btn{border-radius:9px!important}
+.explorer-search input{font-size:10.5px!important;padding:8px 0!important}.explorer-control{padding:5px 8px!important}.explorer-control label{font-size:7px!important}.cs-trigger{font-size:9.5px!important}.reset-btn{font-size:9.5px!important;padding:0 12px!important}
+.explorer-summary>div{padding:8px 12px!important}.explorer-summary span{font-size:7px!important}.explorer-summary b{font-size:10.5px!important}
+.complaints-table{font-size:11px!important}.complaints-table th{font-size:8px!important;padding:9px 12px!important}.complaints-table td{padding:9px 12px!important}.ct-logo,.ct-logo-fallback{width:20px!important;height:20px!important}.ct-op a{font-size:10.5px!important}.ct-title{font-size:10.5px!important;max-width:360px!important}.ct-cat{font-size:8px!important;padding:2px 6px!important}.ct-amount{font-size:10.5px!important}.ct-view{font-size:10px!important}.status-pill{font-size:8.5px!important;padding:3px 7px!important}
+.explorer-pagination{padding:10px!important}.explorer-pagination button{padding:5px 10px!important;font-size:10px!important}.explorer-pagination span{font-size:10px!important}.explorer-footnote{padding:9px 12px!important}.explorer-footnote p{font-size:9px!important}
+.complaints-cta{max-width:1180px!important;padding:20px 22px!important;border-radius:13px!important}.complaints-cta h2{font-size:17px!important}.complaints-cta p{font-size:10.5px!important}.complaints-cta .eyebrow{font-size:9px!important}
+/* Put the useful database before secondary analytics */
+.complaints-main{display:flex;flex-direction:column}
+.complaints-main > section:nth-of-type(1){order:1}
+.complaints-main > section:nth-of-type(4){order:2}
+.complaints-main > section:nth-of-type(2){order:3}
+.complaints-main > section:nth-of-type(3){order:4}
+.complaints-main > section:nth-of-type(5){order:5}
+@media(max-width:900px){.concentration-layout{grid-template-columns:1fr!important}.share-chart{grid-template-columns:130px 1fr!important}.explorer-toolbar{grid-template-columns:1fr 1fr!important}.explorer-search{grid-column:1/-1!important}}
+@media(max-width:600px){.page-hero{padding-top:28px!important}.page-hero h1{font-size:28px!important}.stat-strip{grid-template-columns:1fr 1fr!important}.share-chart{display:block!important}.share-legend{margin-top:12px!important}.explorer-toolbar{grid-template-columns:1fr!important}.chain-bar-row .cb-name{width:125px!important}}
+html[data-theme="dark"] .page-hero{background:transparent!important}
+</style>
+
 </head>
 <body>
 
