@@ -58,7 +58,7 @@
     line-height:1.55;
   }
   a{color:inherit;}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 24px;}
 
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);box-shadow:0 4px 18px rgba(7,74,53,0.28);}
@@ -151,9 +151,9 @@
 <style>
 /* ===== COMPLAINTS HUB — page-specific ===== */
 body{background:#fff!important;}
-.wrap{max-width:1180px;padding-left:28px;padding-right:28px;}
+.wrap{max-width:1320px;padding-left:28px;padding-right:28px;}
 nav{background:#fff!important;border-bottom:1px solid #e8e8e3!important;box-shadow:0 4px 18px rgba(11,11,11,.035)!important;}
-nav .wrap{max-width:1180px!important;padding-top:12px!important;padding-bottom:12px!important;}
+nav .wrap{max-width:1320px!important;padding-top:12px!important;padding-bottom:12px!important;}
 .logo .mark{width:40px!important;height:40px!important;padding:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;}
 .logo .wordmark-light{color:#111!important;font-weight:700!important}.logo .wordmark-bold{color:var(--brand)!important;font-weight:800!important}
 .navlinks{gap:22px!important;font-size:13px!important}.navlinks a{position:relative;color:#2f312f!important;background:transparent!important;box-shadow:none!important;padding:7px 0!important;border-radius:0!important}.navlinks a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--brand);transform:scaleX(0)}.navlinks a:hover:after,.navlinks a.active:after{transform:scaleX(1)}
@@ -450,7 +450,7 @@ html[data-theme="dark"] .mobile-nav-panel a.active svg{color:#75E7A5!important;}
 /* Compact complaints dashboard — aligned to CryptoBetGrade sportsbook page */
 .complaints-main{max-width:none!important}
 .page-hero{padding:46px 0 22px!important;text-align:left!important;background:transparent!important}
-.page-hero .wrap{max-width:1180px!important}
+.page-hero .wrap{max-width:1320px!important}
 .page-hero .kicker{margin:0 0 10px!important;padding:0!important;background:none!important;border-radius:0!important;color:var(--brand)!important;font-size:10px!important;letter-spacing:.09em!important}
 .page-hero h1{font-size:34px!important;line-height:1.12!important;letter-spacing:-1.1px!important;margin:0 0 8px!important;max-width:760px}
 .page-hero p{margin:0!important;max-width:760px!important;font-size:13px!important;line-height:1.6!important}
@@ -503,7 +503,7 @@ html[data-theme="dark"] .page-hero{background:transparent!important}
 <style id="cbg-visual-redesign-v2">
 /* Compact complaints dashboard — matched to Sportsbooks page */
 .page-hero{padding:30px 0 18px!important;text-align:left!important;background:transparent!important}
-.page-hero .wrap{max-width:1180px!important}.page-hero .kicker{display:none!important}
+.page-hero .wrap{max-width:1320px!important}.page-hero .kicker{display:none!important}
 .page-hero h1{font-size:32px!important;letter-spacing:-.8px!important;margin:0 0 5px!important}
 .page-hero p{margin:0!important;max-width:760px!important;font-size:13px!important}.page-hero p.meta{margin-top:7px!important;font-size:10.5px!important}
 .complaints-main section{padding:0!important;border:0!important;background:transparent!important}
@@ -526,10 +526,10 @@ html[data-theme="dark"] .page-hero{background:transparent!important}
 
 <style id="cbg-screenshot-match-v3">
 /* Match the approved visual mockup more closely while preserving real data/functionality */
-.wrap{max-width:1460px!important;padding-left:30px!important;padding-right:30px!important}
-nav .wrap{max-width:1460px!important}
+.wrap{max-width:1320px!important;padding-left:30px!important;padding-right:30px!important}
+nav .wrap{max-width:1320px!important}
 .page-hero{padding:32px 0 10px!important}
-.page-hero .wrap{max-width:1460px!important;display:grid;grid-template-columns:minmax(0,1fr) 640px;gap:28px;align-items:start}
+.page-hero .wrap{max-width:1320px!important;display:grid;grid-template-columns:minmax(0,1fr) 640px;gap:28px;align-items:start}
 .page-hero h1{font-size:36px!important;margin:0 0 5px!important;grid-column:1;grid-row:1}
 .page-hero p{font-size:12.5px!important;max-width:720px!important;line-height:1.55!important}
 .page-hero .wrap>p:not(.meta){grid-column:2;grid-row:1}
@@ -570,6 +570,27 @@ html[data-theme="dark"] .explorer-toolbar{background:#0f1613!important}
 html[data-theme="dark"] .complaints-cta{background:linear-gradient(145deg,rgba(52,210,123,.08),rgba(52,210,123,.025))!important;color:#f2f6f3!important}
 @media(max-width:1050px){.page-hero .wrap{grid-template-columns:1fr}.page-hero h1,.page-hero .wrap>p:not(.meta),.hero-tools{grid-column:1;grid-row:auto}.hero-tools{justify-content:flex-start;padding-top:14px}.cbg-layout{grid-template-columns:1fr!important}.cbg-side{display:grid!important;grid-template-columns:1fr 1fr!important}.complaints-cta{grid-column:1/-1}.hero-search{min-width:0;flex:1}}
 @media(max-width:700px){.wrap{padding-left:16px!important;padding-right:16px!important}.hero-tools{flex-wrap:wrap}.hero-search{width:100%;flex-basis:100%}.cbg-side{grid-template-columns:1fr!important}.complaints-cta{grid-column:auto}.explorer-toolbar{grid-template-columns:1fr 1fr!important}.reset-btn{grid-column:1/-1}.page-hero h1{font-size:29px!important}}
+@media(max-width:700px){
+  .complaints-table{font-size:10px!important}
+  .complaints-table tr{display:grid!important;grid-template-columns:1fr auto!important;column-gap:8px!important;row-gap:1px!important;padding:9px 14px!important}
+  .complaints-table td{padding:0!important;display:block!important;min-width:0!important}
+  .complaints-table td:nth-child(1){grid-column:1;grid-row:1}
+  .complaints-table td:nth-child(2){grid-column:1/-1;grid-row:2;margin-top:2px!important}
+  .complaints-table td:nth-child(3){grid-column:1;grid-row:3;margin-top:3px!important}
+  .complaints-table td:nth-child(4){grid-column:2;grid-row:1;justify-self:end}
+  .complaints-table td:nth-child(5){grid-column:2;grid-row:3;justify-self:end;align-self:end}
+  .complaints-table td:nth-child(6){grid-column:1/-1;grid-row:4;margin-top:5px!important}
+  .ct-op{gap:6px!important}
+  .ct-logo,.ct-logo-fallback{width:16px!important;height:16px!important}
+  .ct-op a{font-size:10.5px!important}
+  .ct-title{font-size:10px!important;line-height:1.35!important;display:block!important;max-width:none!important;white-space:normal!important}
+  .ct-cat{font-size:7.5px!important;padding:2px 6px!important;margin-top:3px!important}
+  .ct-amount{font-size:10px!important}
+  .ct-amount small{font-size:7.5px!important}
+  .complaints-table td:nth-child(5){font-size:8.5px!important;color:var(--ink-muted)!important}
+  .status-pill{font-size:7.5px!important;padding:2px 6px!important}
+  .ct-view{font-size:9px!important}
+}
 </style>
 
 </head>
