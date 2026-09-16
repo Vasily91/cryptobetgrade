@@ -537,8 +537,7 @@ nav .wrap{max-width:1460px!important}
 .hero-tools{display:flex;gap:10px;justify-content:flex-start;align-items:center;padding-top:14px;grid-column:1;grid-row:2}
 .hero-search{height:44px;min-width:390px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 13px;color:var(--ink-muted)}
 .hero-search input{width:100%;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:11.5px}
-.hero-count,.hero-filter-btn{height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;padding:0 14px;color:var(--ink-2);font-size:10.5px;white-space:nowrap}
-.hero-filter-btn{gap:7px;font-weight:700;cursor:pointer}.hero-filter-btn:hover{border-color:var(--brand);color:var(--brand)}
+.hero-count{height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;padding:0 14px;color:var(--ink-2);font-size:10.5px;white-space:nowrap}
 .cbg-dashboard{max-width:1460px!important;padding:0 0 42px!important}
 .cbg-layout{grid-template-columns:minmax(0,1fr) 330px!important;gap:16px!important}
 .cbg-maincol{display:flex;flex-direction:column}
@@ -566,7 +565,7 @@ nav .wrap{max-width:1460px!important}
 .rank-panel{padding:15px!important}.rank-row{grid-template-columns:20px 1fr 50px!important;padding:7px 2px!important}
 .complaints-cta{border:1px solid rgba(52,210,123,.45)!important;background:linear-gradient(145deg,rgba(52,210,123,.08),rgba(52,210,123,.025))!important;color:var(--ink)!important;padding:17px!important}.complaints-cta .eyebrow{display:none!important}.complaints-cta h2{color:var(--brand)!important;font-size:13px!important}.complaints-cta p{color:var(--ink-2)!important}.complaints-cta .btn{width:100%;justify-content:center;background:var(--brand)!important;color:#06110A!important}
 html[data-theme="dark"] .stat-tile{background:linear-gradient(145deg,#111815,#0d1511)!important}
-html[data-theme="dark"] .hero-search,html[data-theme="dark"] .hero-count,html[data-theme="dark"] .hero-filter-btn{background:#0f1613!important;border-color:#26352d!important}
+html[data-theme="dark"] .hero-search,html[data-theme="dark"] .hero-count{background:#0f1613!important;border-color:#26352d!important}
 html[data-theme="dark"] .explorer-toolbar{background:#0f1613!important}
 html[data-theme="dark"] .complaints-cta{background:linear-gradient(145deg,rgba(52,210,123,.08),rgba(52,210,123,.025))!important;color:#f2f6f3!important}
 @media(max-width:1050px){.page-hero .wrap{grid-template-columns:1fr}.page-hero h1,.page-hero .wrap>p:not(.meta),.hero-tools{grid-column:1;grid-row:auto}.hero-tools{justify-content:flex-start;padding-top:14px}.cbg-layout{grid-template-columns:1fr!important}.cbg-side{display:grid!important;grid-template-columns:1fr 1fr!important}.complaints-cta{grid-column:1/-1}.hero-search{min-width:0;flex:1}}
@@ -618,7 +617,6 @@ html[data-theme="dark"] .complaints-cta{background:linear-gradient(145deg,rgba(5
     <div class="hero-tools">
       <div class="hero-search"><span>⌕</span><input id="heroComplaintSearch" type="text" placeholder="Search complaints (e.g. Rainbet, withdrawal, KYC...)"></div>
       <div class="hero-count" id="heroComplaintCount">Loading…</div>
-      <button class="hero-filter-btn" id="heroFilterBtn" type="button">▽ Filters</button>
     </div>
   </div>
 </header>
@@ -1063,8 +1061,6 @@ document.addEventListener('DOMContentLoaded',function(){
   var hero=document.getElementById('heroComplaintSearch');
   var main=document.getElementById('complaintSearch');
   if(hero&&main){hero.addEventListener('input',function(){main.value=hero.value;main.dispatchEvent(new Event('input',{bubbles:true}));});}
-  var fb=document.getElementById('heroFilterBtn');
-  if(fb){fb.addEventListener('click',function(){var el=document.querySelector('.explorer-toolbar');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});}});}
   function syncCount(){var total=document.getElementById('statTotal');var count=document.getElementById('heroComplaintCount');if(total&&count&&total.textContent.trim()!=='—'){count.textContent=total.textContent.trim()+' complaints';}}
   syncCount(); setTimeout(syncCount,300); setTimeout(syncCount,1000);
 });
