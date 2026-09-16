@@ -517,12 +517,31 @@ footer{background:#fbfbfa!important;padding-top:32px!important}
   padding:7px 5px!important;
   gap:7px!important;
 }
+.explorer-name{gap:12px!important;}
 .explorer-name b{font-size:12px!important;}
 .explorer-name small{font-size:7px!important;}
-.explorer-logo,.explorer-logo-fallback{width:21px!important;height:21px!important;}
+.explorer-logo,.explorer-logo-fallback{
+  width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;
+  flex:0 0 42px!important;border-radius:11px!important;
+}
+.explorer-logo{
+  background:#fafbfa!important;border:1px solid #e7e9e6!important;
+  box-shadow:0 4px 12px rgba(11,16,14,.06)!important;
+  object-fit:contain!important;padding:6px!important;box-sizing:border-box!important;
+}
+.explorer-logo-fallback{
+  background:#fafbfa!important;border:1px solid #e7e9e6!important;
+  box-shadow:0 4px 12px rgba(11,16,14,.06)!important;
+  color:#6d7570!important;font-size:13px!important;font-weight:800!important;
+}
 .explorer-bar{height:5px!important;}
 .explorer-footnote{padding:8px 10px!important;}
 .explorer-footnote p{font-size:8px!important;}
+@media(max-width:600px){
+  .explorer-logo,.explorer-logo-fallback{
+    width:36px!important;height:36px!important;max-width:36px!important;max-height:36px!important;flex:0 0 36px!important;
+  }
+}
 
 /* Remove leftover compare styles from occupying anything */
 .compare-panel,.compare-cards,.compare-empty{display:none!important;}
@@ -1536,11 +1555,6 @@ html[data-theme="dark"] .explorer-row.compact-row:hover{
 }
 html[data-theme="dark"] .explorer-name b{
   font-size:12.5px!important;
-}
-html[data-theme="dark"] .explorer-logo,
-html[data-theme="dark"] .explorer-logo-fallback{
-  width:24px!important;
-  height:24px!important;
 }
 
 /* Mobile: keep the bigger controls rather than shrinking them back */
