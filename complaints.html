@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem('cbg_theme');if(!t){t='dark';}if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Complaints — CryptoBetGrade</title>
+<meta name="description" content="Every verified crypto sportsbook and casino complaint we track, in one searchable database — withdrawal delays, confiscated winnings, KYC disputes and more, by operator and issue type.">
+<link rel="canonical" href="https://cryptobetgrade.com/complaints">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CryptoBetGrade">
+<meta property="og:title" content="Complaints — CryptoBetGrade">
+<meta property="og:description" content="Every verified crypto sportsbook and casino complaint we track, in one searchable database.">
+<meta property="og:url" content="https://cryptobetgrade.com/complaints">
+<meta property="og:image" content="https://cryptobetgrade.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Complaints — CryptoBetGrade">
+<meta name="twitter:description" content="Every verified crypto sportsbook and casino complaint we track, in one searchable database.">
+<meta name="twitter:image" content="https://cryptobetgrade.com/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" type="image/svg+xml" href="/logo-mark.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0b6e4f;
+    --brand-dark:#074a35;
+    --brand-light:#e6f4ec;
+    --brand-lighter:#f3faf6;
+    --surface:#fcfcfb;
+    --page:#f9f9f7;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --ink-muted:#898781;
+    --line:#e1e0d9;
+    --border:rgba(11,11,11,0.10);
+    --good:#0ca30c; --good-bg:#e5f6e0; --good-ink:#0a5c0a;
+    --warning:#fab219; --warning-bg:#fff3dc; --warning-ink:#8a5c00;
+    --serious:#ec835a; --serious-bg:#fdebe2; --serious-ink:#a3441f;
+    --critical:#d03b3b; --critical-bg:#fbe5e5; --critical-ink:#8f1f1f;
+    --gold:#c8860d; --gold-bg:#fdf1da; --gold-ink:#8a5c00;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);box-shadow:0 4px 18px rgba(7,74,53,0.28);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;}
+  .logo{display:flex;align-items:center;gap:10px;font-size:18.5px;letter-spacing:-0.3px;text-decoration:none;font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .logo .mark{position:relative;width:34px;height:34px;border-radius:10px;flex:none;background:#fff;padding:4px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.28);}
+  .logo .mark svg{width:100%;height:100%;}
+  .logo .wordmark-light{font-weight:600;color:rgba(255,255,255,0.72);}
+  .logo .wordmark-bold{font-weight:800;color:#fff;}
+  .navlinks{display:flex;gap:8px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.9);}
+  .navlinks a{text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.08);padding:8px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.14);transition:.15s ease;}
+  .navlinks a:hover{background:rgba(255,255,255,0.2);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+  .navlinks a.active{background:rgba(255,255,255,0.22);color:#fff;}
+  .navlinks svg{width:16px;height:16px;flex:none;}
+  .btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--brand);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer;transition:.15s;}
+  .btn:hover{background:var(--brand-dark);box-shadow:0 6px 16px rgba(11,110,79,0.28);transform:translateY(-1px);}
+  .btn,.btn-outline{transition:.15s ease;}
+  .btn-outline{background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand);display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;}
+  .btn-outline:hover{background:var(--brand-light);transform:translateY(-1px);}
+  .btn-sm{padding:8px 14px;font-size:13px;}
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .link-muted{text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);padding:8px 4px;white-space:nowrap;}
+  .link-muted:hover{color:var(--brand-dark);}
+  nav .link-muted{color:rgba(255,255,255,0.85);}
+  nav .link-muted:hover{color:#fff;}
+  nav .btn-outline{background:rgba(255,255,255,0.06);color:#fff;border:1.5px solid rgba(255,255,255,0.55);box-shadow:0 2px 6px rgba(0,0,0,0.14);}
+  nav .btn-outline:hover{background:rgba(255,255,255,0.18);border-color:#fff;}
+  nav .btn{background:#fff;color:var(--brand-dark);box-shadow:0 4px 14px rgba(0,0,0,0.24);}
+  nav .btn:hover{background:var(--gold-bg);color:var(--brand-dark);box-shadow:0 6px 18px rgba(0,0,0,0.3);}
+  @media (max-width:900px){ .navlinks{display:none;} }
+  @media (max-width:600px){ .link-muted{display:none;} }
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(11,11,11,0.45);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px;z-index:100;overflow-y:auto;}
+  .modal-bg.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:28px;max-width:440px;width:100%;}
+  .modal h3{margin:0 0 6px;font-size:18px;}
+  .modal p.hint{font-size:13.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.6;}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+
+  /* PAGE HERO */
+  .page-hero{padding:52px 0 36px;text-align:center;background:radial-gradient(600px 260px at 50% -60px, var(--brand-light), transparent 70%);}
+  .page-hero .kicker{display:inline-block;background:var(--brand-light);color:var(--brand-dark);font-size:12.5px;font-weight:700;letter-spacing:.03em;padding:6px 14px;border-radius:999px;margin-bottom:20px;}
+  .page-hero h1{font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:clamp(32px,4.4vw,48px);margin:0 0 14px;letter-spacing:-1px;}
+  .page-hero p{max-width:660px;margin:0 auto;color:var(--ink-2);font-size:16px;}
+  .page-hero p.meta{max-width:660px;margin:14px auto 0;color:var(--ink-muted);font-size:12.5px;}
+
+  section{padding:0 0 48px;}
+  section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:44px 0;}
+  .section-head{max-width:680px;margin:0 auto 24px;text-align:center;}
+  .section-head .eyebrow{color:var(--brand-dark);font-weight:700;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+  .section-head h2{font-family:'Poppins',system-ui,sans-serif;font-size:clamp(21px,3vw,27px);margin:0 0 10px;letter-spacing:-0.5px;}
+  .section-head p{color:var(--ink-2);font-size:14.5px;margin:0;}
+
+  /* STAT STRIP */
+  .stat-strip{max-width:1080px;margin:0 auto 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 4px 14px rgba(11,11,11,0.04);}
+  .stat-tile .stat-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);font-weight:700;margin-bottom:9px;}
+  .stat-tile .stat-value{font-size:25px;font-weight:800;letter-spacing:-0.5px;color:var(--ink);}
+  .stat-tile .stat-value.bad{color:var(--critical-ink);}
+  .stat-tile .stat-value.good{color:var(--good-ink);}
+  .stat-tile .stat-value small{font-size:14px;font-weight:700;color:var(--brand-dark);margin-left:4px;}
+  .stat-tile .stat-sub{font-size:11.5px;color:var(--ink-muted);margin-top:5px;}
+  .strip-caption{max-width:1080px;margin:8px auto 0;text-align:center;font-size:12px;color:var(--ink-muted);}
+  @media(max-width:760px){.stat-strip{grid-template-columns:1fr 1fr;}}
+
+  /* PANELS */
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:0 10px 30px rgba(11,11,11,0.05);max-width:1080px;margin:0 auto;overflow-x:auto;}
+  .panel h3{margin:0 0 3px;font-size:16px;}
+  .panel .panel-sub{margin:0 0 16px;font-size:12.5px;color:var(--ink-muted);}
+
+  .source-note{max-width:820px;margin:0 auto;background:var(--brand-lighter);border:1px dashed var(--brand);border-radius:12px;padding:16px 20px;font-size:13px;color:var(--ink-2);line-height:1.65;}
+  .source-note a{color:var(--brand-dark);font-weight:700;text-decoration:underline;}
+  .source-note b{color:var(--ink);}
+
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:40px 0 32px;}
+  .trust-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+  .trust-item{display:flex;align-items:center;gap:9px;background:var(--page);border:1px solid var(--line);border-radius:12px;padding:11px 16px;font-size:12.5px;font-weight:600;color:var(--ink-2);}
+  .trust-item svg{width:17px;height:17px;flex:none;color:var(--brand-dark);}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:28px;}
+  .footer-col h5{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);margin:0 0 12px;}
+  .footer-col a{display:block;font-size:14px;color:var(--ink-2);text-decoration:none;margin-bottom:8px;}
+  .footer-col a:hover{color:var(--brand-dark);}
+  .footer-bottom{border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink-muted);line-height:1.7;max-width:1160px;}
+  .footer-bottom b{color:var(--ink-2);}
+</style>
+
+<style>
+/* ===== COMPLAINTS HUB — page-specific ===== */
+body{background:#fff!important;}
+.wrap{max-width:1180px;padding-left:28px;padding-right:28px;}
+nav{background:#fff!important;border-bottom:1px solid #e8e8e3!important;box-shadow:0 4px 18px rgba(11,11,11,.035)!important;}
+nav .wrap{max-width:1180px!important;padding-top:12px!important;padding-bottom:12px!important;}
+.logo .mark{width:40px!important;height:40px!important;padding:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;}
+.logo .wordmark-light{color:#111!important;font-weight:700!important}.logo .wordmark-bold{color:var(--brand)!important;font-weight:800!important}
+.navlinks{gap:22px!important;font-size:13px!important}.navlinks a{position:relative;color:#2f312f!important;background:transparent!important;box-shadow:none!important;padding:7px 0!important;border-radius:0!important}.navlinks a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--brand);transform:scaleX(0)}.navlinks a:hover:after,.navlinks a.active:after{transform:scaleX(1)}
+nav .link-muted{color:#444!important}nav .btn-outline{background:#fff!important;color:var(--brand-dark)!important;border:1px solid #cfded6!important;box-shadow:none!important}nav .btn{background:var(--brand)!important;color:#fff!important;box-shadow:0 6px 16px rgba(11,110,79,.16)!important}
+footer{background:#fbfbfa!important;padding-top:32px!important}
+.complaints-main section{padding:44px 0;border-bottom:1px solid #f0f1ef}
+.complaints-main{max-width:1180px;}
+.section-heading{margin-bottom:20px;}
+.section-heading h2{font-family:'Poppins',system-ui,sans-serif;font-size:26px;line-height:1.18;letter-spacing:-.6px;margin:6px 0 0;}
+.section-heading p{max-width:640px;font-size:12px;color:#787e79;line-height:1.55;margin:6px 0 0;}
+@media(max-width:900px){
+ nav .wrap{display:grid!important;grid-template-columns:1fr auto auto auto!important;gap:10px!important;padding:10px 16px!important}.logo .mark{width:34px!important;height:34px!important}.logo .wordmark-light,.logo .wordmark-bold{font-size:17px!important}
+ .navlinks{display:flex!important;grid-column:1/-1;order:3;width:100%;gap:6px!important;overflow-x:auto;padding:4px 0 1px;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{flex:0 0 auto;padding:8px 11px!important;border:1px solid #e2e8e4;border-radius:999px!important;background:#fff!important;font-size:11.5px!important}.navlinks a:after{display:none!important}.nav-actions .link-muted{display:none!important}
+}
+@media(max-width:600px){
+ .wrap{padding-left:16px!important;padding-right:16px!important}.logo .wordmark-light,.logo .wordmark-bold{font-size:15px!important}
+}
+
+/* Status pill */
+.status-pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.02em;padding:4px 9px;border-radius:999px;white-space:nowrap;}
+.status-pill.good{background:var(--good-bg);color:var(--good-ink);}
+.status-pill.bad{background:var(--critical-bg);color:var(--critical-ink);}
+.status-pill.neutral{background:var(--warning-bg);color:var(--warning-ink);}
+.verified-badge{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:700;color:var(--brand-dark);margin-left:6px;}
+.verified-badge svg{width:11px;height:11px;}
+
+/* Concentration split: status donut + leaderboard, reused pattern */
+.concentration-layout{display:grid;grid-template-columns:330px 1fr;gap:18px;max-width:1080px;margin:0 auto;}
+.share-chart,.rank-panel{border:1px solid #e5e8e5;border-radius:16px;background:#fff;}
+.share-chart{padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.share-donut{position:relative;width:180px;height:180px;border-radius:50%;}
+.share-donut:after{content:"";position:absolute;inset:23px;background:#fff;border-radius:50%;}
+.share-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.share-center strong{font-family:'Poppins',system-ui,sans-serif;font-size:26px;}
+.share-center span{font-size:9px;color:#929792;text-align:center;max-width:100px;}
+.share-legend{width:100%;margin-top:20px;}
+.share-legend div{display:grid;grid-template-columns:13px 1fr auto;align-items:center;gap:7px;padding:5px 0;font-size:10.5px;}
+.share-legend b{font-size:10.5px;}
+.legend-dot{width:8px;height:8px;border-radius:50%;}
+
+.rank-panel{padding:15px 17px;}
+.rank-head{display:flex;justify-content:space-between;align-items:flex-end;padding:0 4px 9px;border-bottom:1px solid #eef0ee;}
+.rank-head div{display:flex;flex-direction:column;}
+.rank-head b{font-size:11px;}
+.rank-head span{font-size:7.5px;color:#9a9e9a;font-weight:800;letter-spacing:.06em;}
+.rank-row{display:grid;grid-template-columns:22px 1fr 62px;gap:9px;align-items:center;padding:8px 4px;border-bottom:1px solid #f1f2f0;text-decoration:none;}
+.rank-row:last-child{border:none;}
+.rank-row:hover{background:#fafcfa;}
+.rank-num{font-size:9px;color:#a1a4a1;}
+.rank-name{display:flex;align-items:center;gap:8px;min-width:0;}
+.rank-logo{width:20px;height:20px;border-radius:6px;flex:none;object-fit:contain;background:#eef1ef;}
+.rank-logo-fallback{width:20px;height:20px;border-radius:6px;flex:none;background:#e4e9e5;color:#6d7570;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.rank-name>b{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-value{text-align:right;}
+.rank-value b{display:block;font-size:11px;}
+.rank-value small{font-size:7.5px;color:#9a9e9a;}
+@media(max-width:900px){.concentration-layout{grid-template-columns:1fr;}.share-chart{flex-direction:row;gap:30px;}.share-legend{max-width:300px;margin-top:0;}}
+@media(max-width:520px){.share-chart{display:block;}.share-donut{width:150px;height:150px;margin:auto;}.share-legend{margin-top:16px;max-width:none;}}
+
+/* Issue-type bars, reused .chain-bars pattern */
+.chain-bars{max-width:1080px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 26px;box-shadow:0 10px 30px rgba(11,11,11,0.05);}
+.chain-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.chain-bar-row:last-child{margin-bottom:0;}
+.chain-bar-row .cb-name{width:230px;flex:none;font-size:12.5px;font-weight:700;}
+.chain-bar-row .cb-track{flex:1;height:10px;background:var(--page);border-radius:6px;overflow:hidden;}
+.chain-bar-row .cb-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#9acbb1,#0b6e4f);}
+.chain-bar-row .cb-count{width:44px;flex:none;text-align:right;font-size:12.5px;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums;}
+@media(max-width:640px){.chain-bar-row .cb-name{width:130px;font-size:11px;}}
+
+/* Explorer / table — reused pattern from analytics.html's market explorer */
+.explorer-shell{border:1px solid #dfe5e1;border-radius:18px;background:#fff;box-shadow:0 14px 40px rgba(11,11,11,.045);overflow:hidden;max-width:1180px;margin:0 auto;}
+.explorer-toolbar{display:grid;grid-template-columns:minmax(200px,1.5fr) repeat(3,minmax(135px,.75fr)) auto;gap:8px;padding:12px;background:#fafcfa;border-bottom:1px solid #e8ebe8;}
+.explorer-search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #dfe4e0;border-radius:10px;padding:0 11px;}
+.explorer-search span{color:#8c928d;font-size:17px;}
+.explorer-search input{width:100%;border:none;outline:none;background:transparent;font:inherit;font-size:11.5px;padding:9px 0;color:#222;}
+.explorer-control{display:flex;flex-direction:column;gap:3px;background:#fff;border:1px solid #dfe4e0;border-radius:10px;padding:6px 9px;position:relative;}
+.explorer-control label{font-size:7.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#9a9e9a;}
+.cs-trigger{border:none;outline:none;background:transparent;font:inherit;font-size:10.5px;font-weight:700;color:#303632;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;}
+.cs-caret{width:12px;height:12px;flex:none;color:#8c928d;transition:transform .15s ease;}
+.cs-trigger[aria-expanded="true"] .cs-caret{transform:rotate(180deg);}
+.cs-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:20;background:#fff;border:1px solid #dfe4e0;border-radius:10px;box-shadow:0 14px 32px rgba(11,11,11,.12);padding:5px;display:none;max-height:260px;overflow-y:auto;}
+.cs-control.open .cs-menu{display:block;}
+.cs-option{padding:8px 9px;border-radius:7px;font-size:11px;font-weight:600;color:#303632;cursor:pointer;}
+.cs-option:hover{background:#f2f7f4;}
+.cs-option.is-active{background:#e6f4ec;color:#0b6e4f;font-weight:800;}
+.reset-btn{border:1px solid #dfe4e0;background:#fff;border-radius:10px;padding:0 13px;font-size:10.5px;font-weight:700;color:#5f6661;cursor:pointer;}
+.reset-btn:hover{background:#f2f7f4;color:var(--brand-dark);}
+
+.explorer-summary{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #edf0ed;}
+.explorer-summary>div{padding:11px 14px;border-right:1px solid #edf0ed;}
+.explorer-summary>div:last-child{border-right:none;}
+.explorer-summary span{display:block;font-size:7.5px;color:#969b96;text-transform:uppercase;letter-spacing:.05em;}
+.explorer-summary b{display:block;font-size:11.5px;margin-top:2px;color:#1f2823;}
+
+.complaints-table{width:100%;border-collapse:collapse;font-size:13px;}
+.complaints-table th{text-align:left;color:#9a9e9a;font-weight:800;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;border-bottom:1px solid #edf0ed;white-space:nowrap;}
+.complaints-table td{padding:12px 14px;border-bottom:1px solid #f1f2f0;color:var(--ink-2);vertical-align:middle;}
+.complaints-table tr:hover td{background:#fafcfa;}
+.ct-op{display:flex;align-items:center;gap:9px;min-width:0;}
+.ct-logo{width:22px;height:22px;border-radius:6px;flex:none;object-fit:contain;background:#eef1ef;}
+.ct-logo-fallback{width:22px;height:22px;border-radius:6px;flex:none;background:#e4e9e5;color:#6d7570;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.ct-op a{font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap;}
+.ct-op a:hover{color:var(--brand-dark);text-decoration:underline;}
+.ct-title{max-width:340px;display:block;font-size:12px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ct-cat{display:inline-block;font-size:9.5px;font-weight:700;color:var(--brand-dark);background:var(--brand-lighter);padding:3px 8px;border-radius:999px;margin-top:3px;white-space:nowrap;}
+.ct-amount{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap;}
+.ct-amount small{display:block;font-weight:500;color:var(--ink-muted);font-size:10px;}
+.ct-view{font-size:12px;font-weight:700;color:var(--brand-dark);text-decoration:none;white-space:nowrap;}
+.ct-view:hover{text-decoration:underline;}
+.no-results{padding:50px 10px;text-align:center;color:#979b97;font-size:12.5px;}
+.explorer-pagination{display:flex;align-items:center;justify-content:center;gap:14px;padding:16px 14px;border-top:1px solid #edf0ed;}
+.explorer-pagination button{border:1px solid #dfe4e0;background:#fff;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;color:#303632;cursor:pointer;}
+.explorer-pagination button:disabled{opacity:.4;cursor:default;}
+.explorer-pagination button:not(:disabled):hover{background:#f2f7f4;}
+.explorer-pagination span{font-size:11.5px;color:#8c928d;}
+.explorer-footnote{display:flex;gap:8px;align-items:flex-start;padding:12px 16px;background:#fafcfa;border-top:1px solid #edf0ed;}
+.info-dot{width:19px;height:19px;border-radius:50%;background:#eaf5ee;color:#0b6e4f;display:flex;align-items:center;justify-content:center;font-family:serif;font-weight:700;flex:none;}
+.explorer-footnote p{margin:0;font-size:10px;line-height:1.5;color:#8a8f8a;}
+@media(max-width:900px){.explorer-toolbar{grid-template-columns:1fr 1fr;}.explorer-search{grid-column:1/-1;}.reset-btn{min-height:44px;}.explorer-summary{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:700px){.complaints-table thead{display:none;}.complaints-table,.complaints-table tbody,.complaints-table tr,.complaints-table td{display:block;width:100%;}.complaints-table tr{padding:12px 14px;border-bottom:1px solid var(--line);}.complaints-table td{padding:3px 0;border:none;}.ct-title{max-width:none;white-space:normal;}}
+@media(max-width:600px){.explorer-toolbar{grid-template-columns:1fr;}.explorer-summary{grid-template-columns:1fr 1fr;}}
+
+/* CTA */
+.complaints-cta{display:flex;justify-content:space-between;align-items:center;gap:25px;max-width:1080px;margin:0 auto;padding:26px 28px;border-radius:18px;background:linear-gradient(135deg,#0a5c43,#0b6e4f);color:#fff;}
+.complaints-cta .eyebrow{color:#bee3d1;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;}
+.complaints-cta h2{font-family:'Poppins',system-ui,sans-serif;font-size:21px;margin:5px 0;}
+.complaints-cta p{font-size:12.5px;color:rgba(255,255,255,.75);margin:0;max-width:480px;}
+.complaints-cta .btn{background:#fff;color:#0b6e4f;box-shadow:none;flex:none;}
+@media(max-width:640px){.complaints-cta{display:block;text-align:left;}.complaints-cta .btn{margin-top:16px;}}
+</style>
+
+<style>
+/* THEME TOGGLE / DARK MODE */
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:transparent;color:inherit;cursor:pointer;flex:none;padding:0;transition:.15s ease;}
+.theme-toggle:hover{background:rgba(11,11,11,0.08);}
+.theme-toggle svg{width:18px;height:18px;display:block;}
+.theme-toggle .icon-sun{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-moon{display:none;}
+html[data-theme="dark"] .theme-toggle .icon-sun{display:block;}
+html[data-theme="dark"]{color-scheme:dark;}
+html[data-theme="dark"] .theme-toggle{background:#111815;color:#DCE5DF;border-color:#314139;}
+html[data-theme="dark"] .theme-toggle:hover{background:#17211C;border-color:#456052;}
+
+html[data-theme="dark"]{
+ --brand:#34D27B!important;--brand-dark:#24B968!important;--brand-light:#1B3B2B!important;--brand-lighter:#132119!important;
+ --surface:#111815!important;--page:#0A0F0D!important;--ink:#F2F6F3!important;--ink-2:#A8B4AC!important;
+ --ink-muted:#76827A!important;--line:#28362F!important;--border:rgba(255,255,255,.09)!important;
+ --good:#4ADE80!important;--good-bg:#12311F!important;--good-ink:#7BEAA7!important;
+ --warning:#F2C14E!important;--warning-bg:#33280E!important;--warning-ink:#FFD978!important;
+ --serious:#F08A62!important;--serious-bg:#352018!important;--serious-ink:#FFAD8C!important;
+ --critical:#EF6666!important;--critical-bg:#35191A!important;--critical-ink:#FF9898!important;
+ --gold:#E2B64F!important;--gold-bg:#30260F!important;--gold-ink:#F3D27D!important
+}
+html[data-theme="dark"], html[data-theme="dark"] body{background:#0A0F0D!important;color:#F2F6F3!important}
+html[data-theme="dark"] body{background:radial-gradient(900px 430px at 72% 0,rgba(52,210,123,.055),transparent 70%),#0A0F0D!important}
+html[data-theme="dark"] nav{background:rgba(8,13,11,.94)!important;border-bottom:1px solid #1D2923!important;box-shadow:0 7px 26px rgba(0,0,0,.22)!important}
+html[data-theme="dark"] .logo .wordmark-light{color:#F2F6F3!important}
+html[data-theme="dark"] .logo .wordmark-bold{color:#34D27B!important}
+html[data-theme="dark"] .navlinks{color:#B7C2BB!important}
+html[data-theme="dark"] .navlinks a{color:#B7C2BB!important;background:transparent!important}
+html[data-theme="dark"] .navlinks a:hover, html[data-theme="dark"] .navlinks a.active{color:#fff!important}
+html[data-theme="dark"] .navlinks a:after{background:#34D27B!important}
+html[data-theme="dark"] nav .link-muted{color:#9EAAA2!important}
+html[data-theme="dark"] nav .btn-outline{background:#111815!important;color:#DCE5DF!important;border-color:#314139!important}
+html[data-theme="dark"] nav .btn{background:#34D27B!important;color:#06110A!important;box-shadow:0 6px 18px rgba(52,210,123,.15)!important}
+html[data-theme="dark"] .page-hero{background:radial-gradient(630px 330px at 82% 8%,rgba(52,210,123,.10),transparent 70%),linear-gradient(180deg,#0D1511,#0A0F0D)!important;}
+html[data-theme="dark"] .page-hero .kicker{background:#14271D!important;color:#69E69C!important;}
+html[data-theme="dark"] .page-hero h1{color:#F4F7F5!important}
+html[data-theme="dark"] .page-hero p{color:#A4B0A8!important}
+html[data-theme="dark"] .page-hero p.meta{color:#78857D!important}
+html[data-theme="dark"] .complaints-main section{background:transparent!important;border-bottom-color:#1D2923!important}
+html[data-theme="dark"] .complaints-main section.alt{background:#0E1411!important;border-top-color:#1D2923!important;border-bottom-color:#1D2923!important;}
+html[data-theme="dark"] .section-heading h2{color:#F1F5F2!important}
+html[data-theme="dark"] .section-heading p{color:#89968E!important}
+html[data-theme="dark"] .stat-tile{background:#111815!important;border-color:#29372F!important;box-shadow:none!important;}
+html[data-theme="dark"] .stat-tile .stat-label{color:#78857D!important}
+html[data-theme="dark"] .stat-tile .stat-value{color:#F2F6F3!important}
+html[data-theme="dark"] .stat-tile .stat-sub{color:#78857D!important}
+html[data-theme="dark"] .strip-caption{color:#6C7971!important}
+html[data-theme="dark"] .share-chart, html[data-theme="dark"] .rank-panel, html[data-theme="dark"] .chain-bars, html[data-theme="dark"] .panel{background:#111815!important;border-color:#29372F!important;box-shadow:none!important;}
+html[data-theme="dark"] .share-donut:after{background:#111815!important}
+html[data-theme="dark"] .share-center strong{color:#F2F6F3!important}
+html[data-theme="dark"] .share-center span{color:#7F8B83!important}
+html[data-theme="dark"] .share-legend b{color:#EAF0EC!important}
+html[data-theme="dark"] .rank-head{border-bottom-color:#29372F!important}
+html[data-theme="dark"] .rank-head span{color:#7B877F!important}
+html[data-theme="dark"] .rank-row{border-bottom-color:#26342D!important}
+html[data-theme="dark"] .rank-row:hover{background:#16211B!important}
+html[data-theme="dark"] .rank-name>b, html[data-theme="dark"] .rank-value b{color:#EAF0EC!important}
+html[data-theme="dark"] .rank-num, html[data-theme="dark"] .rank-value small{color:#7B877F!important}
+html[data-theme="dark"] .rank-logo, html[data-theme="dark"] .rank-logo-fallback, html[data-theme="dark"] .ct-logo, html[data-theme="dark"] .ct-logo-fallback{background:#202B25!important;color:#AAB5AE!important}
+html[data-theme="dark"] .chain-bar-row .cb-name{color:#DCE4DF!important}
+html[data-theme="dark"] .chain-bar-row .cb-track{background:#0A0F0D!important}
+html[data-theme="dark"] .chain-bar-row .cb-count{color:#A8B4AC!important}
+html[data-theme="dark"] .explorer-shell{background:#111815!important;border-color:#29372F!important;box-shadow:0 14px 40px rgba(0,0,0,.22)!important}
+html[data-theme="dark"] .explorer-toolbar, html[data-theme="dark"] .explorer-footnote, html[data-theme="dark"] .explorer-pagination{background:#0E1512!important;border-color:#26342D!important}
+html[data-theme="dark"] .explorer-search, html[data-theme="dark"] .explorer-control, html[data-theme="dark"] .reset-btn, html[data-theme="dark"] .explorer-pagination button{background:#111815!important;border-color:#2B3932!important}
+html[data-theme="dark"] .explorer-search input{color:#E8EFEA!important}
+html[data-theme="dark"] .explorer-search span, html[data-theme="dark"] .explorer-control label{color:#77847C!important}
+html[data-theme="dark"] .reset-btn, html[data-theme="dark"] .explorer-pagination button{color:#AAB5AE!important}
+html[data-theme="dark"] .reset-btn:hover, html[data-theme="dark"] .explorer-pagination button:not(:disabled):hover{background:#17231D!important;color:#72E6A1!important}
+html[data-theme="dark"] .explorer-pagination span{color:#77847C!important}
+html[data-theme="dark"] .explorer-summary{border-bottom-color:#26342D!important}
+html[data-theme="dark"] .explorer-summary>div{border-right-color:#26342D!important}
+html[data-theme="dark"] .explorer-summary span{color:#77847C!important}
+html[data-theme="dark"] .explorer-summary b{color:#E9EFEB!important}
+html[data-theme="dark"] .complaints-table th{color:#77847C!important;border-bottom-color:#29372F!important}
+html[data-theme="dark"] .complaints-table td{color:#AAB5AE!important;border-bottom-color:#26342D!important}
+html[data-theme="dark"] .complaints-table tr:hover td{background:#16211B!important}
+html[data-theme="dark"] .ct-op a{color:#EEF3EF!important}
+html[data-theme="dark"] .ct-title{color:#AAB5AE!important}
+html[data-theme="dark"] .ct-cat{background:#132119!important;color:#69E69C!important}
+html[data-theme="dark"] .ct-amount{color:#EEF3EF!important}
+html[data-theme="dark"] .ct-amount small{color:#6C7971!important}
+html[data-theme="dark"] .ct-view{color:#69E69C!important}
+html[data-theme="dark"] .info-dot{background:#153321!important;color:#72E6A1!important}
+html[data-theme="dark"] .explorer-footnote p{color:#7F8B83!important}
+html[data-theme="dark"] .status-pill.good{background:#12311F!important;color:#7BEAA7!important}
+html[data-theme="dark"] .status-pill.bad{background:#35191A!important;color:#FF9898!important}
+html[data-theme="dark"] .status-pill.neutral{background:#33280E!important;color:#FFD978!important}
+html[data-theme="dark"] .cs-trigger{color:#E8EFEA!important}
+html[data-theme="dark"] .cs-caret{color:#77847C!important}
+html[data-theme="dark"] .cs-menu{background:#111815!important;border-color:#2B3932!important;box-shadow:0 14px 32px rgba(0,0,0,.4)!important}
+html[data-theme="dark"] .cs-option{color:#E8EFEA!important}
+html[data-theme="dark"] .cs-option:hover{background:#17231D!important}
+html[data-theme="dark"] .cs-option.is-active{background:#153321!important;color:#72E6A1!important}
+html[data-theme="dark"] .complaints-cta{background:linear-gradient(135deg,#123E29,#0D6A42)!important}
+html[data-theme="dark"] .complaints-cta .btn{background:#F1F6F2!important;color:#0A5B39!important}
+html[data-theme="dark"] .modal-bg{background:rgba(0,0,0,.72)!important}
+html[data-theme="dark"] .modal{background:#111815!important;border:1px solid #2B3932!important;box-shadow:0 24px 70px rgba(0,0,0,.48)!important}
+html[data-theme="dark"] .modal h3{color:#F2F6F3!important}
+html[data-theme="dark"] .modal p.hint{color:#A8B4AC!important}
+html[data-theme="dark"] footer{background:#080D0B!important;border-top-color:#1D2923!important}
+html[data-theme="dark"] .trust-item{background:#111815!important;border-color:#29372F!important;color:#A8B4AC!important}
+html[data-theme="dark"] .footer-col h5{color:#758179!important}
+html[data-theme="dark"] .footer-col a{color:#A7B2AB!important}
+html[data-theme="dark"] .footer-col a:hover{color:#72E6A1!important}
+html[data-theme="dark"] .footer-bottom{border-top-color:#223028!important;color:#758179!important}
+@media(max-width:900px){html[data-theme="dark"] .navlinks a{background:#111815!important;border-color:#29372F!important;color:#B6C1BA!important}html[data-theme="dark"] .navlinks a:hover, html[data-theme="dark"] .navlinks a.active{background:#17231D!important;color:#fff!important}}
+</style>
+<script>
+function cbgToggleTheme(){
+  var html=document.documentElement;
+  var next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  if(next==='dark'){html.setAttribute('data-theme','dark');}else{html.removeAttribute('data-theme');}
+  try{localStorage.setItem('cbg_theme',next);}catch(e){}
+}
+</script>
+
+<style id="cbg-mobile-nav">
+.nav-hamburger{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:transparent;color:inherit;cursor:pointer;flex:none;padding:0;}
+.nav-hamburger svg{width:18px;height:18px;display:block;}
+.nav-hamburger .icon-close{display:none;}
+.nav-hamburger.open .icon-menu{display:none;}
+.nav-hamburger.open .icon-close{display:block;}
+.mobile-nav-panel{display:none;}
+@media(max-width:900px){#cbgUserMenu{display:none!important;}
+  .nav-hamburger{display:flex!important;}
+  .navlinks{display:none!important;}
+  .mobile-nav-panel{display:none;position:absolute;left:16px;right:16px;top:100%;margin-top:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px rgba(11,11,11,.16);padding:8px;z-index:60;}
+  .mobile-nav-panel.open{display:flex;flex-direction:column;gap:2px;}
+  .mobile-nav-panel a{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:8px;color:var(--ink);font-size:13.5px;font-weight:700;text-decoration:none;}
+  .mobile-nav-panel a svg{width:18px;height:18px;flex:none;color:var(--ink-muted);}
+  .mobile-nav-panel a:hover{background:var(--brand-lighter);}
+  .mobile-nav-panel a.active{background:var(--brand-light);color:var(--brand-dark);}
+}
+html[data-theme="dark"] .nav-hamburger{border-color:#29382F!important;color:#CBD5CF!important;}
+html[data-theme="dark"] .mobile-nav-panel{background:#0A100D!important;border-color:#26362D!important;box-shadow:0 18px 40px rgba(0,0,0,.4)!important;}
+html[data-theme="dark"] .mobile-nav-panel a{color:#DDE5E0!important;}
+html[data-theme="dark"] .mobile-nav-panel a svg{color:#6D7A72!important;}
+html[data-theme="dark"] .mobile-nav-panel a:hover{background:#111B16!important;}
+html[data-theme="dark"] .mobile-nav-panel a.active{background:#153321!important;color:#75E7A5!important;}
+html[data-theme="dark"] .mobile-nav-panel a.active svg{color:#75E7A5!important;}
+</style>
+<style id="cbg-nav-user-menu">
+.nav-user-menu{position:relative;}
+.nav-user-trigger{display:inline-flex;align-items:center;gap:6px;background:none;border:none;padding:8px 4px;font:inherit;font-weight:600;font-size:14px;color:var(--ink-2,var(--ink));cursor:pointer;}
+.nav-user-trigger:hover{color:var(--ink);}
+.nav-user-trigger .nav-user-email{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.nav-user-trigger .nav-user-caret{width:14px;height:14px;flex:none;color:var(--ink-muted);transition:transform .15s ease;}
+.nav-user-trigger[aria-expanded="true"] .nav-user-caret{transform:rotate(180deg);}
+.nav-user-menu-panel{display:none;position:absolute;top:100%;right:0;margin-top:8px;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 40px rgba(11,11,11,.16);padding:6px;z-index:70;}
+.nav-user-menu-panel.open{display:block;}
+.nav-user-menu-item{display:flex;align-items:center;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:none;background:none;font:inherit;font-size:13.5px;font-weight:700;color:var(--ink);text-align:left;border-radius:8px;cursor:pointer;}
+.nav-user-menu-item svg{width:16px;height:16px;flex:none;color:var(--ink-muted);}
+.nav-user-menu-item:hover{background:var(--brand-lighter);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="index.html#home" class="logo">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 L19.5 5.2 V11.6 C19.5 17 16.2 20.7 12 22 C7.8 20.7 4.5 17 4.5 11.6 V5.2 Z" fill="#0b6e4f"/><path d="M12.8 8.8 A3.7 3.7 0 1 0 12.8 16.2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="12.9" y="13.8" width="1.5" height="3.2" rx="0.5" fill="#8fcdae"/><rect x="15" y="11.6" width="1.5" height="5.4" rx="0.5" fill="#c9b467"/><rect x="17.1" y="9.4" width="1.5" height="7.6" rx="0.5" fill="#c8860d"/></svg></span>
+      <span><span class="wordmark-light">Crypto</span><span class="wordmark-bold">BetGrade</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="index.html#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+      <a href="research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Research</a>
+      <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+      <a href="complaints.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Complaints</a>
+    </div>
+    <button type="button" class="theme-toggle" onclick="cbgToggleTheme()" aria-label="Toggle dark mode" title="Dark / light mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <div class="nav-actions" id="navAuthSlot"></div>
+    <button type="button" class="nav-hamburger" id="navHamburger" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Menu">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav-panel" id="mobileNavPanel">
+    <a href="index.html#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg> Home</a>
+    <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Sportsbooks</a>
+    <a href="research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Research</a>
+    <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
+    <a href="complaints.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Complaints</a>
+    <a href="dashboard.html?file=1" id="mobileNavFileComplaint" style="display:none" onclick="return cbgFileComplaintNavClick()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> File a complaint</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="kicker">COMPLAINT DATABASE</span>
+    <h1>Every sportsbook complaint we track — in one place</h1>
+    <p>348 curated cases across 65 crypto sportsbooks and casinos, pulled from Casino Guru, AskGamblers, Trustpilot, Reddit and Bitcointalk, and matched to each operator's own Trust Score. Search, filter by issue type or status, or jump straight to the source.</p>
+    <p class="meta" id="heroMeta">Loading…</p>
+  </div>
+</header>
+
+<main class="complaints-main">
+
+<section style="padding-top:8px;">
+  <div class="wrap">
+    <div class="stat-strip" id="statStrip">
+      <div class="stat-tile"><div class="stat-label">Complaints tracked</div><div class="stat-value" id="statTotal">—</div><div class="stat-sub">across 65 operators</div></div>
+      <div class="stat-tile"><div class="stat-label">Unresolved</div><div class="stat-value bad" id="statUnresolved">—</div><div class="stat-sub" id="statUnresolvedSub">—</div></div>
+      <div class="stat-tile"><div class="stat-label">Resolved</div><div class="stat-value good" id="statResolved">—</div><div class="stat-sub" id="statResolvedSub">—</div></div>
+      <div class="stat-tile"><div class="stat-label">Approx. disputed amount*</div><div class="stat-value" id="statAmount">—</div><div class="stat-sub" id="statAmountSub">—</div></div>
+    </div>
+    <p class="strip-caption">*Sum of complaints with a single, clearly-stated USD/EUR/GBP figure only — excludes crypto-denominated amounts, amounts not stated, and disputed/claimed figures the operator contests. Not a total confirmed loss.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-heading" style="text-align:center;">
+      <span class="eyebrow" style="color:var(--brand-dark);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">OUTCOME BREAKDOWN</span>
+      <h2>How these complaints were resolved</h2>
+      <p style="margin-left:auto;margin-right:auto;">"Unclear" covers cases still open, community reports we couldn't independently verify as resolved, and outcomes the source didn't state plainly.</p>
+    </div>
+    <div class="concentration-layout">
+      <div class="share-chart">
+        <div class="share-donut" id="statusDonut">
+          <div class="share-center"><strong id="donutPct">—</strong><span>unresolved</span></div>
+        </div>
+        <div class="share-legend" id="statusLegend"></div>
+      </div>
+      <div class="rank-panel">
+        <div class="rank-head">
+          <div><b>Most complained sportsbooks</b><span>BY NUMBER OF COMPLAINTS TRACKED</span></div>
+        </div>
+        <div id="leaderboardRows"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-heading" style="text-align:center;">
+      <span class="eyebrow" style="color:var(--brand-dark);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">BY ISSUE TYPE</span>
+      <h2>What players are complaining about</h2>
+      <p style="margin-left:auto;margin-right:auto;">Every complaint is grouped into one of these categories based on the underlying dispute, not just the operator's stated reason.</p>
+    </div>
+    <div class="chain-bars" id="categoryBars"></div>
+  </div>
+</section>
+
+<section class="alt" style="padding-bottom:44px;">
+  <div class="wrap">
+    <div class="section-heading" style="text-align:center;">
+      <span class="eyebrow" style="color:var(--brand-dark);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">FULL RECORD</span>
+      <h2>Browse every complaint</h2>
+      <p style="margin-left:auto;margin-right:auto;">No date field exists for these cases — sources rarely stated one consistently enough to compare across operators, so we left it out rather than show unreliable dates.</p>
+    </div>
+    <div class="explorer-shell">
+      <div class="explorer-toolbar">
+        <div class="explorer-search">
+          <span>&#128269;</span>
+          <input type="text" id="complaintSearch" placeholder="Search sportsbook or complaint…">
+        </div>
+        <div class="explorer-control cs-control" id="categoryControl">
+          <label>Issue type</label>
+          <button type="button" class="cs-trigger" aria-expanded="false"><span class="cs-trigger-label">All types</span><svg class="cs-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="cs-menu" id="categoryMenu"></div>
+        </div>
+        <div class="explorer-control cs-control" id="statusControl">
+          <label>Status</label>
+          <button type="button" class="cs-trigger" aria-expanded="false"><span class="cs-trigger-label">All statuses</span><svg class="cs-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="cs-menu">
+            <div class="cs-option is-active" data-value="">All statuses</div>
+            <div class="cs-option" data-value="bad">Unresolved</div>
+            <div class="cs-option" data-value="good">Resolved</div>
+            <div class="cs-option" data-value="neutral">Unclear</div>
+          </div>
+        </div>
+        <div class="explorer-control cs-control" id="sortControl">
+          <label>Sort by</label>
+          <button type="button" class="cs-trigger" aria-expanded="false"><span class="cs-trigger-label">Amount (high→low)</span><svg class="cs-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="cs-menu">
+            <div class="cs-option is-active" data-value="amount-desc">Amount (high→low)</div>
+            <div class="cs-option" data-value="operator-asc">Sportsbook (A→Z)</div>
+          </div>
+        </div>
+        <button type="button" class="reset-btn" id="resetFilters">Reset</button>
+      </div>
+      <div class="explorer-summary">
+        <div><span>Showing</span><b id="summaryShown">—</b></div>
+        <div><span>Unresolved in view</span><b id="summaryUnresolved">—</b></div>
+        <div><span>Approx. amount in view</span><b id="summaryAmount">—</b></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="complaints-table">
+          <thead>
+            <tr><th>Sportsbook</th><th>Complaint</th><th>Amount</th><th>Status</th><th>Source</th><th></th></tr>
+          </thead>
+          <tbody id="complaintsRows"></tbody>
+        </table>
+      </div>
+      <div class="explorer-pagination">
+        <button type="button" id="pagePrev">&larr; Prev</button>
+        <span id="pageLabel">Page 1</span>
+        <button type="button" id="pageNext">Next &rarr;</button>
+      </div>
+      <div class="explorer-footnote">
+        <div class="info-dot">i</div>
+        <p>Every case here is also visible on its operator's own profile page. Verified cases (&#10003;) were independently corroborated beyond the original poster's account; unverified cases are single-source reports we couldn't cross-check further. See <a href="methodology.html" style="color:var(--brand-dark);font-weight:700;">How it works</a> for how complaints factor into Trust Scores.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:4px;padding-bottom:56px;border-bottom:none;">
+  <div class="wrap">
+    <div class="complaints-cta">
+      <div>
+        <span class="eyebrow">HAD A BAD EXPERIENCE?</span>
+        <h2>File your own complaint</h2>
+        <p>Tell us what happened — we verify what we can and add it to the operator's record, the same way every case above was added.</p>
+      </div>
+      <a href="dashboard.html?file=1" class="btn" onclick="return cbgFileComplaintNavClick()">File a complaint &rarr;</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="trust-row">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="m9 12 2 2 4-4"/></svg> Same formula for every operator</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> No crypto sportsbook can buy a score</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> Independent complaint records</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg> 18+ · Play responsibly</div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="methodology.html">How scoring works</a>
+        <a href="research.html">Research</a>
+        <a href="dashboard.html">Leaderboard</a>
+        <a href="analytics.html">Market analytics</a>
+      </div>
+      <div class="footer-col">
+        <h5>Crypto sportsbooks</h5>
+        <a href="https://playglobal11.com/i-3cjc4un4-n/" target="_blank" rel="noopener sponsored nofollow">BC.Game</a>
+        <a href="https://500.casino/r/REF7722BLUPWAEY" target="_blank" rel="noopener sponsored nofollow">500Casino</a>
+        <a href="https://stake.com/?c=NExd4vXA" target="_blank" rel="noopener sponsored nofollow">Stake</a>
+        <a href="#" onclick="return openSuggestModal()">Suggest a sportsbook</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="methodology.html">How it works</a>
+        <a href="mailto:disputes@cryptobetgrade.com?subject=Dispute%20a%20complaint%20or%20score">Contact / submit a dispute</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="cookies.html">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p><b>18+.</b> Gambling can be addictive — please play responsibly. CryptoBetGrade is an independent, unofficial review project — see <a href="about.html" style="color:var(--brand-dark);font-weight:600;">About</a> for how it's built and what's still in progress.</p>
+      <p>Some crypto sportsbook listings include an affiliate link — clearly marked on that sportsbook's profile page. Affiliate relationships never influence Trust Scores.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-bg" id="suggestModal">
+  <div class="modal">
+    <h3>Suggest a sportsbook</h3>
+    <p class="hint">There's no submission backend yet — this opens an email to our team with your link and comment already filled in.</p>
+    <div class="field"><label>Sportsbook link</label><input type="url" id="suggestUrl" placeholder="https://…"></div>
+    <p id="suggestError" style="display:none;font-size:12.5px;color:#c0392b;margin:-6px 0 12px;">Add a link to the sportsbook first.</p>
+    <div class="field"><label>Comment (optional)</label><textarea id="suggestComment" placeholder="Why should we review it?"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeSuggestModal()">Cancel</button>
+      <button class="btn" onclick="submitSuggestion()">Send suggestion &rarr;</button>
+    </div>
+  </div>
+</div>
+<script>
+function openSuggestModal(){
+  document.getElementById("suggestModal").classList.add("open");
+  return false;
+}
+function closeSuggestModal(){
+  document.getElementById("suggestModal").classList.remove("open");
+}
+function submitSuggestion(){
+  var urlInput = document.getElementById("suggestUrl");
+  var commentInput = document.getElementById("suggestComment");
+  var url = urlInput.value.trim();
+  var comment = commentInput.value.trim();
+  if(!url){
+    document.getElementById("suggestError").style.display = "block";
+    urlInput.focus();
+    return;
+  }
+  document.getElementById("suggestError").style.display = "none";
+  var subject = "Sportsbook suggestion: " + url;
+  var bodyLines = ["Suggested sportsbook: " + url];
+  if(comment) bodyLines.push("", "Comment:", comment);
+  var mailto = "mailto:suggestions@cryptobetgrade.com"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(bodyLines.join("\n"));
+  window.location.href = mailto;
+  urlInput.value = "";
+  commentInput.value = "";
+  closeSuggestModal();
+}
+document.addEventListener("DOMContentLoaded", function(){
+  var bg = document.getElementById("suggestModal");
+  if(bg) bg.addEventListener("click", function(e){ if(e.target === bg) closeSuggestModal(); });
+});
+</script>
+
+<script>
+// ===== Complaints hub: fetch complaints-index.json (built by
+// tools/gen-complaints-index.mjs from data.json) and render every section
+// client-side. Kept deliberately separate from dashboard-data.js (600KB+,
+// unrelated fields) and data.json (much larger, carries full rendered page
+// HTML this page doesn't need) — see tools/gen-complaints-index.mjs's own
+// header comment for why.
+let CX = null; // the parsed complaints-index.json
+let filtered = [];
+let currentCategory = "";
+let currentStatus = "";
+let currentSort = "amount-desc";
+const PAGE_SIZE = 25;
+let currentPage = 1;
+
+const DONUT_COLORS = { bad: "#d03b3b", good: "#0ca30c", neutral: "#fab219" };
+const DONUT_COLORS_DARK = { bad: "#EF6666", good: "#4ADE80", neutral: "#F2C14E" };
+function isDark(){ return document.documentElement.getAttribute("data-theme") === "dark"; }
+
+function fmtUsd(n){
+  if(n >= 1000000) return "$" + (n/1000000).toFixed(2) + "M";
+  if(n >= 1000) return "$" + Math.round(n).toLocaleString();
+  return "$" + Math.round(n);
+}
+
+function logoImg(domain, name, cls, fallbackCls){
+  if(!domain) return `<span class="${fallbackCls}">${initials(name)}</span>`;
+  return `<img class="${cls}" src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" data-fallback="https://icons.duckduckgo.com/ip3/${domain}.ico" data-initials="${initials(name)}" data-fallback-cls="${fallbackCls}" alt="${name} logo" loading="lazy" onerror="handleLogoError(this)">`;
+}
+function initials(name){ return (name||"?").replace(/[^A-Za-z0-9 ]/g,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(); }
+function handleLogoError(img){
+  if(img.dataset.stage !== "ddg"){ img.dataset.stage = "ddg"; img.src = img.dataset.fallback; }
+  else {
+    const span = document.createElement("span");
+    span.className = img.dataset.fallbackCls;
+    span.textContent = img.dataset.initials;
+    img.replaceWith(span);
+  }
+}
+
+function renderHero(){
+  document.getElementById("heroMeta").textContent =
+    `Snapshot generated ${CX.generatedAt} · ${CX.totalComplaints} complaints across ${CX.totalOperators} operators`;
+}
+
+function renderStats(){
+  const bad = CX.statusCounts.bad, good = CX.statusCounts.good, total = CX.totalComplaints;
+  document.getElementById("statTotal").textContent = total.toLocaleString();
+  document.getElementById("statUnresolved").textContent = bad.toLocaleString();
+  document.getElementById("statUnresolvedSub").textContent = ((bad/total)*100).toFixed(0) + "% of tracked complaints";
+  document.getElementById("statResolved").textContent = good.toLocaleString();
+  document.getElementById("statResolvedSub").textContent = ((good/total)*100).toFixed(0) + "% of tracked complaints";
+  document.getElementById("statAmount").textContent = "~" + fmtUsd(CX.amountStats.totalUsdApprox);
+  document.getElementById("statAmountSub").textContent = `from ${CX.amountStats.includedCount} of ${CX.amountStats.totalCount} cases with a clear figure`;
+}
+
+function renderDonut(){
+  const total = CX.totalComplaints;
+  const bad = CX.statusCounts.bad, good = CX.statusCounts.good, neutral = CX.statusCounts.neutral;
+  const badPct = bad/total*100, goodPct = good/total*100, neutralPct = neutral/total*100;
+  const colors = isDark() ? DONUT_COLORS_DARK : DONUT_COLORS;
+  const donut = document.getElementById("statusDonut");
+  const c1 = badPct, c2 = badPct+goodPct;
+  donut.style.background = `conic-gradient(${colors.bad} 0 ${c1}%, ${colors.good} ${c1}% ${c2}%, ${colors.neutral} ${c2}% 100%)`;
+  document.getElementById("donutPct").textContent = badPct.toFixed(0) + "%";
+  document.getElementById("statusLegend").innerHTML = `
+    <div><span class="legend-dot" style="background:${colors.bad}"></span><b>Unresolved</b><span>${bad} (${badPct.toFixed(0)}%)</span></div>
+    <div><span class="legend-dot" style="background:${colors.good}"></span><b>Resolved</b><span>${good} (${goodPct.toFixed(0)}%)</span></div>
+    <div><span class="legend-dot" style="background:${colors.neutral}"></span><b>Unclear</b><span>${neutral} (${neutralPct.toFixed(0)}%)</span></div>
+  `;
+}
+
+function renderLeaderboard(){
+  const top = CX.operators.slice(0, 8);
+  const max = top.length ? top[0].complaintCount : 1;
+  document.getElementById("leaderboardRows").innerHTML = top.map((op,i)=>`
+    <a class="rank-row" href="/sportsbooks/${op.id}/complaints">
+      <span class="rank-num">${i+1}</span>
+      <span class="rank-name">${logoImg(op.logoDomain, op.name, "rank-logo", "rank-logo-fallback")}<b>${op.name}</b></span>
+      <span class="rank-value"><b>${op.complaintCount}</b><small>complaints</small></span>
+    </a>
+  `).join("");
+}
+
+function renderCategoryBars(){
+  const max = Math.max(...CX.categories.map(c=>c.count));
+  document.getElementById("categoryBars").innerHTML = CX.categories.map(c=>`
+    <div class="chain-bar-row">
+      <div class="cb-name">${c.key}</div>
+      <div class="cb-track"><div class="cb-fill" style="width:${Math.max(4, c.count/max*100)}%"></div></div>
+      <div class="cb-count">${c.count}</div>
+    </div>
+  `).join("");
+}
+
+function populateCategoryMenu(){
+  const menu = document.getElementById("categoryMenu");
+  const opts = [`<div class="cs-option is-active" data-value="">All types</div>`]
+    .concat(CX.categories.map(c => `<div class="cs-option" data-value="${c.key}">${c.key} (${c.count})</div>`));
+  menu.innerHTML = opts.join("");
+  initCustomSelect("categoryControl");
+}
+
+function applyFilters(){
+  const q = document.getElementById("complaintSearch").value.trim().toLowerCase();
+  filtered = CX.items.filter(item => {
+    if(currentCategory && item.category !== currentCategory) return false;
+    if(currentStatus && item.statusCls !== currentStatus) return false;
+    if(q && !(item.operatorName.toLowerCase().includes(q) || item.title.toLowerCase().includes(q) || item.issueTag.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  filtered.sort((a,b)=>{
+    if(currentSort === "operator-asc") return a.operatorName.localeCompare(b.operatorName);
+    // amount-desc: unparsed amounts sink to the bottom, not treated as 0-worthy of top placement
+    const av = a.amountUsdApprox, bv = b.amountUsdApprox;
+    if(av == null && bv == null) return 0;
+    if(av == null) return 1;
+    if(bv == null) return -1;
+    return bv - av;
+  });
+  currentPage = 1;
+  renderSummary();
+  renderTable();
+}
+
+function renderSummary(){
+  document.getElementById("summaryShown").textContent = filtered.length.toLocaleString();
+  const unresolvedShown = filtered.filter(i=>i.statusCls==="bad").length;
+  document.getElementById("summaryUnresolved").textContent = unresolvedShown.toLocaleString();
+  const sum = filtered.reduce((s,i)=> s + (i.amountUsdApprox||0), 0);
+  document.getElementById("summaryAmount").textContent = "~" + fmtUsd(sum);
+}
+
+function renderTable(){
+  const root = document.getElementById("complaintsRows");
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  currentPage = Math.min(currentPage, totalPages);
+  const start = (currentPage-1)*PAGE_SIZE;
+  const pageItems = filtered.slice(start, start+PAGE_SIZE);
+
+  if(!pageItems.length){
+    root.innerHTML = `<tr><td colspan="6"><div class="no-results">No complaints match these filters.</div></td></tr>`;
+  } else {
+    root.innerHTML = pageItems.map(item => {
+      const statusLabel = item.statusCls === "good" ? "Resolved" : item.statusCls === "bad" ? "Unresolved" : "Unclear";
+      const amountHtml = item.amountUsdApprox != null
+        ? `<span class="ct-amount">~${fmtUsd(item.amountUsdApprox)}<small>${escapeHtml(item.amount)}</small></span>`
+        : `<span class="ct-amount" style="color:var(--ink-muted);font-weight:500;">${escapeHtml(item.amount||"Not stated")}</span>`;
+      return `
+      <tr>
+        <td><div class="ct-op">${logoImg(item.operatorLogoDomain, item.operatorName, "ct-logo", "ct-logo-fallback")}<a href="/sportsbooks/${item.operatorId}">${item.operatorName}</a></div></td>
+        <td><span class="ct-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}${item.verified ? '<span class="verified-badge">&#10003; verified</span>' : ''}</span><span class="ct-cat">${item.category}</span></td>
+        <td>${amountHtml}</td>
+        <td><span class="status-pill ${item.statusCls}">${statusLabel}</span></td>
+        <td>${escapeHtml(item.source||"—")}</td>
+        <td><a class="ct-view" href="/complaints/${item.slug}">View case &rarr;</a></td>
+      </tr>`;
+    }).join("");
+  }
+  document.getElementById("pageLabel").textContent = `Page ${currentPage} of ${totalPages}`;
+  document.getElementById("pagePrev").disabled = currentPage <= 1;
+  document.getElementById("pageNext").disabled = currentPage >= totalPages;
+}
+function escapeHtml(s){
+  return (s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+// ---- custom dropdown plumbing (same pattern as analytics.html) ----
+function closeAllCustomSelects(except){
+  document.querySelectorAll(".cs-control.open").forEach(control=>{
+    if(control === except) return;
+    control.classList.remove("open");
+    control.querySelector(".cs-trigger")?.setAttribute("aria-expanded","false");
+  });
+}
+function setCustomSelect(controlId, value, label){
+  const control = document.getElementById(controlId);
+  if(!control) return;
+  const labelEl = control.querySelector(".cs-trigger-label");
+  control.querySelectorAll(".cs-option").forEach(opt=>{
+    opt.classList.toggle("is-active", opt.dataset.value === value);
+  });
+  if(labelEl && label != null) labelEl.textContent = label;
+  if(controlId === "categoryControl") currentCategory = value;
+  if(controlId === "statusControl") currentStatus = value;
+  if(controlId === "sortControl") currentSort = value;
+}
+function initCustomSelect(controlId){
+  const control = document.getElementById(controlId);
+  if(!control) return;
+  const trigger = control.querySelector(".cs-trigger");
+  trigger.onclick = e => {
+    e.stopPropagation();
+    const isOpen = control.classList.contains("open");
+    closeAllCustomSelects();
+    control.classList.toggle("open", !isOpen);
+    trigger.setAttribute("aria-expanded", String(!isOpen));
+  };
+  control.querySelectorAll(".cs-option").forEach(opt=>{
+    opt.onclick = e => {
+      e.stopPropagation();
+      setCustomSelect(controlId, opt.dataset.value, opt.textContent);
+      control.classList.remove("open");
+      trigger.setAttribute("aria-expanded","false");
+      applyFilters();
+    };
+  });
+}
+document.addEventListener("click", ()=>closeAllCustomSelects());
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAllCustomSelects(); });
+
+document.getElementById("complaintSearch").addEventListener("input", applyFilters);
+document.getElementById("resetFilters").addEventListener("click", ()=>{
+  document.getElementById("complaintSearch").value = "";
+  setCustomSelect("categoryControl", "", "All types");
+  setCustomSelect("statusControl", "", "All statuses");
+  setCustomSelect("sortControl", "amount-desc", "Amount (high→low)");
+  applyFilters();
+});
+document.getElementById("pagePrev").addEventListener("click", ()=>{ if(currentPage>1){ currentPage--; renderTable(); window.scrollTo({top:document.querySelector(".explorer-shell").offsetTop-90, behavior:"smooth"}); } });
+document.getElementById("pageNext").addEventListener("click", ()=>{ currentPage++; renderTable(); window.scrollTo({top:document.querySelector(".explorer-shell").offsetTop-90, behavior:"smooth"}); });
+
+initCustomSelect("statusControl");
+initCustomSelect("sortControl");
+
+fetch("/complaints-index.json").then(r=>r.json()).then(data => {
+  CX = data;
+  renderHero();
+  renderStats();
+  renderDonut();
+  renderLeaderboard();
+  renderCategoryBars();
+  populateCategoryMenu();
+  filtered = CX.items.slice();
+  applyFilters();
+}).catch(err => {
+  document.getElementById("heroMeta").textContent = "Complaint data failed to load — please refresh.";
+  console.error("complaints-index.json load failed", err);
+});
+
+// Redraw the donut on theme toggle (colors are set via inline style, not
+// CSS vars, since conic-gradient can't reference custom properties inside
+// percentage stops reliably across browsers).
+const origToggle = window.cbgToggleTheme;
+window.cbgToggleTheme = function(){
+  origToggle();
+  if(CX) renderDonut();
+};
+</script>
+
+<script src="/site.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('navHamburger');
+  var panel = document.getElementById('mobileNavPanel');
+  if(!btn || !panel) return;
+  function closeMenu(){
+    panel.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  }
+  function openMenu(){
+    panel.classList.add('open');
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+  }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(panel.classList.contains('open')){ closeMenu(); } else { openMenu(); }
+  });
+  panel.addEventListener('click', function(e){
+    if(e.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(!panel.contains(e.target) && !btn.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+})();
+</script>
+</body>
+</html>
