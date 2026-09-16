@@ -252,7 +252,10 @@ footer{background:#fbfbfa!important;padding-top:32px!important}
 .complaints-table th{text-align:left;color:#9a9e9a;font-weight:800;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;border-bottom:1px solid #edf0ed;white-space:nowrap;}
 .complaints-table td{padding:12px 14px;border-bottom:1px solid #f1f2f0;color:var(--ink-2);vertical-align:middle;}
 .complaints-table tr:hover td{background:#fafcfa;}
+.complaints-table tbody tr[data-href]{cursor:pointer;}
+.complaints-table tbody tr[data-href]:focus-visible{outline:2px solid var(--brand-dark);outline-offset:-2px;}
 .ct-op{display:flex;align-items:center;gap:9px;min-width:0;}
+.ct-op a{position:relative;z-index:1;}
 .ct-logo{width:22px;height:22px;border-radius:6px;flex:none;object-fit:contain;background:#eef1ef;}
 .ct-logo-fallback{width:22px;height:22px;border-radius:6px;flex:none;background:#e4e9e5;color:#6d7570;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;}
 .ct-op a{font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap;}
@@ -363,6 +366,7 @@ html[data-theme="dark"] .explorer-summary b{color:#E9EFEB!important}
 html[data-theme="dark"] .complaints-table th{color:#77847C!important;border-bottom-color:#29372F!important}
 html[data-theme="dark"] .complaints-table td{color:#AAB5AE!important;border-bottom-color:#26342D!important}
 html[data-theme="dark"] .complaints-table tr:hover td{background:#16211B!important}
+html[data-theme="dark"] .complaints-table tbody tr[data-href]:focus-visible{outline-color:#69E69C!important}
 html[data-theme="dark"] .ct-op a{color:#EEF3EF!important}
 html[data-theme="dark"] .ct-title{color:#AAB5AE!important}
 html[data-theme="dark"] .ct-cat{background:#132119!important;color:#69E69C!important}
@@ -893,7 +897,7 @@ function renderTable(){
         ? `<span class="ct-amount">~${fmtUsd(item.amountUsdApprox)}<small>${escapeHtml(item.amount)}</small></span>`
         : `<span class="ct-amount" style="color:var(--ink-muted);font-weight:500;">${escapeHtml(item.amount||"Not stated")}</span>`;
       return `
-      <tr>
+      <tr class="ct-row" data-href="/complaints/${item.slug}" tabindex="0">
         <td><div class="ct-op">${logoImg(item.operatorLogoDomain, item.operatorName, "ct-logo", "ct-logo-fallback")}<a href="/sportsbooks/${item.operatorId}">${item.operatorName}</a></div></td>
         <td><span class="ct-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}${item.verified ? '<span class="verified-badge">&#10003; verified</span>' : ''}</span><span class="ct-cat">${item.category}</span></td>
         <td>${amountHtml}</td>
@@ -965,6 +969,34 @@ document.getElementById("resetFilters").addEventListener("click", ()=>{
 });
 document.getElementById("pagePrev").addEventListener("click", ()=>{ if(currentPage>1){ currentPage--; renderTable(); window.scrollTo({top:document.querySelector(".explorer-shell").offsetTop-90, behavior:"smooth"}); } });
 document.getElementById("pageNext").addEventListener("click", ()=>{ currentPage++; renderTable(); window.scrollTo({top:document.querySelector(".explorer-shell").offsetTop-90, behavior:"smooth"}); });
+
+// Whole-row click-through to the case page (event delegation so it survives
+// renderTable() re-rendering the tbody on every filter/sort/page change).
+// Clicks on the operator link or the "View case" link keep their own
+// native <a> behavior (ctrl/cmd-click, middle-click, etc.) rather than being
+// hijacked by the row handler.
+const complaintsRowsEl = document.getElementById("complaintsRows");
+complaintsRowsEl.addEventListener("click", e=>{
+  if(e.target.closest("a")) return;
+  const row = e.target.closest("tr[data-href]");
+  if(!row) return;
+  if(e.metaKey || e.ctrlKey){ window.open(row.dataset.href, "_blank"); return; }
+  window.location.href = row.dataset.href;
+});
+complaintsRowsEl.addEventListener("auxclick", e=>{
+  if(e.button !== 1) return;
+  if(e.target.closest("a")) return;
+  const row = e.target.closest("tr[data-href]");
+  if(!row) return;
+  window.open(row.dataset.href, "_blank");
+});
+complaintsRowsEl.addEventListener("keydown", e=>{
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const row = e.target.closest("tr[data-href]");
+  if(!row) return;
+  e.preventDefault();
+  window.location.href = row.dataset.href;
+});
 
 initCustomSelect("statusControl");
 initCustomSelect("sortControl");
