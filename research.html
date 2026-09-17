@@ -638,6 +638,7 @@ function cbgToggleTheme(){
 .research-shell{max-width:1320px;}
 
 .article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px;}
+.article-grid>.article-card:nth-child(7):last-child{grid-column:2;}
 .article-card{
   display:flex;flex-direction:column;overflow:hidden;
   background:var(--surface);border:1px solid var(--line);border-radius:18px;
@@ -837,6 +838,7 @@ html[data-theme="dark"] .research-hero-visual{border-color:#263a30;box-shadow:0 
   .research-principle:nth-child(2){border-right:none;}
   .research-principle:nth-child(3),.research-principle:nth-child(4){border-bottom:none;}
   .article-grid{grid-template-columns:1fr 1fr;}
+  .article-grid>.article-card:nth-child(7):last-child{grid-column:auto;}
 }
 @media(max-width:620px){
   .research-hero{padding-top:34px;}
@@ -848,6 +850,7 @@ html[data-theme="dark"] .research-hero-visual{border-color:#263a30;box-shadow:0 
   .research-principle:last-child{border-bottom:none!important;}
   .article-cover{height:205px;}
   .article-grid{grid-template-columns:1fr;}
+  .article-grid>.article-card:nth-child(7):last-child{grid-column:auto;}
 }
 
 </style>
@@ -986,6 +989,23 @@ html[data-theme="dark"] .research-hero-visual{border-color:#263a30;box-shadow:0 
           </div>
           <h3>Same Bet, Different Outcome: BC.GAME Voided It, 500 Casino Paid It</h3>
           <p>A documented case where the same MLB value bet was reportedly placed at two BETBY-powered sportsbooks &mdash; one voided it, the other paid it.</p>
+          <span class="article-readmore">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="article-card" href="research-sharp-player-limits-vs-confiscation.html">
+        <div class="article-cover">
+          <div class="cover-art"><div class="panel"></div><div class="coin">$</div><div class="slash">VOID</div></div>
+          <span class="cover-label">CBG / 07</span>
+          <span class="cover-mark">PLAYER TREATMENT</span>
+        </div>
+        <div class="article-body">
+          <div class="tag-row">
+            <span class="article-tag">Case study</span>
+            <span class="article-date">16 September 2026</span>
+          </div>
+          <h3>When Does a Sportsbook Limit You &mdash; and When Does It Take Your Winnings?</h3>
+          <p>Documented disputes from Degen, Jackpotter, BC.GAME and 500 Casino show the difference between limiting a sharp bettor for future action and retroactively voiding bets already accepted.</p>
           <span class="article-readmore">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
