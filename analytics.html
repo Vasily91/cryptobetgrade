@@ -511,19 +511,7 @@ footer{background:#fbfbfa!important;padding-top:32px!important}
 .explorer-summary>div{padding:8px 11px!important;}
 .explorer-content.compact{display:block!important;min-height:0!important;}
 .explorer-list-panel{padding:9px 11px 10px!important;}
-.explorer-list-head{grid-template-columns:1fr 96px!important;padding-bottom:5px!important;}
-.explorer-row.compact-row{
-  grid-template-columns:24px minmax(120px,1fr) minmax(90px,1.1fr) 78px!important;
-  padding:7px 5px!important;
-  gap:7px!important;
-}
-.explorer-name{gap:12px!important;}
-.explorer-name b{font-size:12px!important;}
-.explorer-name small{font-size:7px!important;}
-.explorer-logo,.explorer-logo-fallback{
-  width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;
-  flex:0 0 42px!important;border-radius:11px!important;
-}
+.explorer-list-head{grid-template-columns:1fr 96px!important;}
 .explorer-logo{
   background:#fafbfa!important;border:1px solid #e7e9e6!important;
   box-shadow:0 4px 12px rgba(11,16,14,.06)!important;
@@ -532,16 +520,10 @@ footer{background:#fbfbfa!important;padding-top:32px!important}
 .explorer-logo-fallback{
   background:#fafbfa!important;border:1px solid #e7e9e6!important;
   box-shadow:0 4px 12px rgba(11,16,14,.06)!important;
-  color:#6d7570!important;font-size:13px!important;font-weight:800!important;
+  color:#6d7570!important;font-weight:800!important;
 }
-.explorer-bar{height:5px!important;}
 .explorer-footnote{padding:8px 10px!important;}
 .explorer-footnote p{font-size:8px!important;}
-@media(max-width:600px){
-  .explorer-logo,.explorer-logo-fallback{
-    width:36px!important;height:36px!important;max-width:36px!important;max-height:36px!important;flex:0 0 36px!important;
-  }
-}
 
 /* Remove leftover compare styles from occupying anything */
 .compare-panel,.compare-cards,.compare-empty{display:none!important;}
@@ -1578,6 +1560,58 @@ html[data-theme="dark"] .explorer-control,
 html[data-theme="dark"] .reset-btn{
     min-height:54px!important;
   }
+}
+</style>
+<style id="cbg-explorer-theme-parity">
+/* Keep the Market Explorer list's layout identical between light and dark —
+   only colors should change with theme. Values below mirror what the dark
+   overrides above already produce, so dark is unaffected (its own
+   higher-specificity rules still win); this brings light up to match. */
+.explorer-list-head{padding:10px 14px!important;}
+.explorer-row.compact-row{
+  grid-template-columns:38px minmax(170px,1.35fr) minmax(120px,1fr) 92px!important;
+  min-height:68px!important;
+  padding:9px 8px!important;
+  gap:12px!important;
+  margin:6px 0!important;
+  border-radius:8px!important;
+  border:1px solid #e5e7e3!important;
+  background:#fff!important;
+  box-shadow:0 2px 8px rgba(11,11,11,.03)!important;
+  transition:background .16s ease,transform .16s ease,box-shadow .16s ease,border-color .16s ease!important;
+}
+.explorer-row.compact-row:hover{
+  background:#fafcfa!important;
+  border-color:#cfe2d7!important;
+  transform:translateX(3px);
+  box-shadow:inset 3px 0 0 var(--brand,#0b6e4f)!important;
+}
+.explorer-rank{font-size:10px!important;text-align:center;}
+.explorer-name{gap:13px!important;}
+.explorer-logo,.explorer-logo-fallback{
+  width:44px!important;height:44px!important;max-width:44px!important;max-height:44px!important;
+  flex:0 0 44px!important;border-radius:11px!important;
+}
+.explorer-name b{font-size:12.5px!important;line-height:1.2!important;}
+.explorer-name small{font-size:8.5px!important;margin-top:3px!important;}
+.explorer-logo-fallback{font-size:12px!important;}
+.explorer-bar{height:7px!important;}
+.explorer-bar i{height:7px!important;}
+.explorer-value b{font-size:12px!important;}
+.explorer-value small{font-size:8px!important;}
+.explorer-summary>div{padding:12px 16px!important;}
+.explorer-summary span{font-size:8px!important;letter-spacing:.08em!important;}
+.explorer-summary b{font-size:12.5px!important;}
+@media(max-width:600px){
+  .explorer-row.compact-row{
+    grid-template-columns:30px 1fr 72px!important;
+    min-height:64px!important;
+    padding:10px!important;
+  }
+  .explorer-logo,.explorer-logo-fallback{
+    width:40px!important;height:40px!important;max-width:40px!important;max-height:40px!important;flex:0 0 40px!important;
+  }
+  .explorer-name b{font-size:13px!important;}
 }
 </style>
 </head>
