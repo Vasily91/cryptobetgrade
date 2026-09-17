@@ -1603,6 +1603,14 @@ const ARBITRAGE_VOID_ONLY = {
 // appear in these pills at all. The sportsbook platform fact (e.g.
 // "Sportsbook powered by X") stays, since it's purely betting-relevant. When
 // in doubt, leave it out.
+//
+// Standing rule (site owner, 2026-09-17): these pills render as short green
+// badges (see the MetaWin/Toshi.bet/Qzino trim on this date, which fixed
+// three that had ballooned into full sentences) — keep every entry a few
+// words max, matching the terse style used everywhere else in this object
+// (e.g. "17+ cryptocurrencies accepted", "Sportsbook powered by BetBy").
+// Caveats/nuance and full sourcing detail belong in the prose fields
+// elsewhere on the profile, not in these pills.
 const KEY_PROS = {
   "SolCasino.io": ["Accepts 25+ cryptocurrencies","Sportsbook powered by BetBy"],
   "Stake": ["No maximum withdrawal limit","20+ cryptocurrencies accepted","Generous rakeback"],
@@ -1675,9 +1683,9 @@ const KEY_PROS = {
   // Checked across all 55 other "conditional" operators in KYC_STANCE and
   // none of them duplicate it in KEY_PROS this way — this was specific to
   // these three, now fixed with genuine, non-redundant pros instead.
-  "MetaWin": ["Genuine 25+ sport sportsbook confirmed directly on the operator's own site, not just a casino with a betting page bolted on","Trustpilot reviewers frequently report fast crypto withdrawals, despite the platform's overall polarized rating"],
-  "Toshi.bet": ["Covers roughly 22-25 sports plus esports with in-play betting and cash-out, per independent reviews","Licensed under Anjouan (Comoros), licence No. ALSI-202601015-FI1, per independent reviews"],
-  "Qzino": ["Sportsbook powered by BetBy, confirmed directly on the operator's own site","Sportsbook covers roughly 40 sports plus esports — the widest range of the three operators added alongside it"],
+  "MetaWin": ["25+ sport sportsbook, confirmed direct","Fast crypto withdrawals reported (Trustpilot)"],
+  "Toshi.bet": ["22-25 sports + esports, in-play betting","Anjouan (Comoros) licensed"],
+  "Qzino": ["Sportsbook powered by BetBy","40+ sports plus esports covered"],
 };
 // Distilled from the same TERMS_INFO bonus/withdrawal/kyc text already on this
 // profile — see below for the full prose these summarize.
