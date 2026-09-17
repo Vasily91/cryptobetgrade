@@ -2989,7 +2989,13 @@ const TERMS_INFO = {
 };
 
 const TRUST_BREAKDOWN = {
-  "Stake":         { licence:9, payout:8, complaintsRec:9, kyc:5, tc:10 },
+  // complaintsRec trimmed 2026-09-17 (9->8) after a Bitcointalk
+  // scam-accusation-tracker sweep added 14 new complaint entries (see
+  // COMPLAINT_REPORTS above), including 4 new priority-A disputes; 8 of the
+  // 14 remain unresolved. A one-point nudge, not a bigger drop — the added
+  // cases are unadjudicated community reports, not proven findings, and
+  // Stake's licence/payout/tc record is unaffected.
+  "Stake":         { licence:9, payout:8, complaintsRec:8, kyc:5, tc:10 },
   // BC.Game revised 4 Sep 2026 after a dedicated Bitcointalk/Trustpilot
   // community-report pass added 7 new complaint entries, including one
   // exceptionally large (~$1.5m) contested/unresolved dispute and a
@@ -3010,7 +3016,13 @@ const TRUST_BREAKDOWN = {
   // $1.5m case remains contested/unresolved, not proven) while still
   // keeping BC.Game below the operators with a cleaner, fully-adjudicated
   // complaint record.
-  "BC.Game":       { licence:9, payout:8, complaintsRec:8, kyc:8, tc:8 },
+  // Trimmed again 2026-09-17 (complaintsRec 8->7) after a further
+  // Bitcointalk tracker sweep added 18 new complaint entries — by far the
+  // largest single batch added to any operator this round, including 2 new
+  // priority-A disputes with 10 of the 18 still unresolved. Still a
+  // one-point move, not a bigger one: none of this is an adjudicated
+  // finding, just a much larger volume of unadjudicated reports on file.
+  "BC.Game":       { licence:9, payout:8, complaintsRec:7, kyc:8, tc:8 },
   // complaintsRec revised 2026-09-14 (9->7) after a dedicated complaint
   // sweep added five new cases to the single existing one (see
   // COMPLAINT_REPORTS above): two unresolved AskGamblers complaints
@@ -3023,18 +3035,41 @@ const TRUST_BREAKDOWN = {
   // already captures, matching how this database scores KYC-adjacent
   // complaints for other operators (e.g. Rakebit) without double-counting
   // them against the kyc sub-score too.
-  "Rainbet":       { licence:9, payout:9, complaintsRec:7, kyc:10, tc:8 },
-  "Roobet":        { licence:9, payout:8, complaintsRec:9, kyc:6, tc:8 },
+  // Trimmed again 2026-09-17 (complaintsRec 7->6): a further Bitcointalk
+  // tracker sweep added 4 new complaint entries, 2 of them priority-A
+  // (1 still unresolved) — a second consecutive escalation for Rainbet,
+  // so it now sits a point below the 4 Sep revision rather than holding.
+  "Rainbet":       { licence:9, payout:9, complaintsRec:6, kyc:10, tc:8 },
+  // complaintsRec trimmed 2026-09-17 (9->8): a Bitcointalk tracker sweep
+  // added 4 new complaint entries, 3 of them priority-A and 3 of the 4
+  // still unresolved — a notably higher-severity mix than Roobet's prior
+  // record, though still unadjudicated community reports rather than
+  // proven findings, so a one-point move rather than a bigger one.
+  "Roobet":        { licence:9, payout:8, complaintsRec:8, kyc:6, tc:8 },
   "500Casino":     { licence:9, payout:10, complaintsRec:8, kyc:9, tc:8 },
-  "Betpanda":      { licence:2, payout:5, complaintsRec:5, kyc:9, tc:3 },
+  // complaintsRec trimmed 2026-09-17 (5->4) after a Bitcointalk tracker
+  // sweep added 3 new complaint entries including 1 new priority-A
+  // dispute — on top of an already-weak record (licence 2, tc 3), so this
+  // keeps Betpanda's already-low complaint score moving in step.
+  "Betpanda":      { licence:2, payout:5, complaintsRec:4, kyc:9, tc:3 },
   "Gamdom":        { licence:9, payout:8, complaintsRec:9, kyc:9, tc:8 },
-  "Duelbits":      { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
-  "Winna":         { licence:9, payout:9, complaintsRec:9, kyc:9, tc:3 },
+  // complaintsRec trimmed 2026-09-17 (9->8) after a Bitcointalk tracker
+  // sweep added 2 new complaint entries — 1 priority-A, both still
+  // unresolved — the first unresolved cases on Duelbits' file.
+  "Duelbits":      { licence:9, payout:9, complaintsRec:8, kyc:9, tc:8 },
+  // complaintsRec trimmed 2026-09-17 (9->8) after a Bitcointalk tracker
+  // sweep added 7 new complaint entries, all still unresolved (none of the
+  // 7 has a recorded resolution). All are priority-C by disputed amount,
+  // so a one-point move rather than a bigger one.
+  "Winna":         { licence:9, payout:9, complaintsRec:8, kyc:9, tc:3 },
   "Razed":         { licence:9, payout:8, complaintsRec:9, kyc:9, tc:8 },
   "Thrill":        { licence:9, payout:5, complaintsRec:5, kyc:9, tc:8 },
   "Cryptorino":    { licence:9, payout:5, complaintsRec:5, kyc:9, tc:3 },
   "Bets.io":       { licence:9, payout:5, complaintsRec:5, kyc:9, tc:8 },
-  "Nitrobetting":  { licence:2, payout:5, complaintsRec:5, kyc:9, tc:8 },
+  // complaintsRec trimmed 2026-09-17 (5->4) after a Bitcointalk tracker
+  // sweep added 5 new complaint entries, 4 of the 5 still unresolved —
+  // on an already-weak record (licence 2), keeping it moving in step.
+  "Nitrobetting":  { licence:2, payout:5, complaintsRec:4, kyc:9, tc:8 },
   "Cloudbet":      { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
   "Rakebit":       { licence:9, payout:5, complaintsRec:6, kyc:9, tc:3 },
   "Fresh Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
@@ -3045,7 +3080,10 @@ const TRUST_BREAKDOWN = {
   "1Go Casino":    { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
   "Legzo Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
   "Irwin Casino":  { licence:9, payout:5, complaintsRec:8, kyc:9, tc:4 },
-  "Shuffle":       { licence:9, payout:9, complaintsRec:9, kyc:9, tc:8 },
+  // complaintsRec trimmed 2026-09-17 (9->8) after a Bitcointalk tracker
+  // sweep added 9 new complaint entries, 2 priority-A, 3 of the 9 still
+  // unresolved.
+  "Shuffle":       { licence:9, payout:9, complaintsRec:8, kyc:9, tc:8 },
   // Duel revised 2026-09-07 at the site owner's direction (raised from 5.5,
   // targeting a "nothing bad about them" 7.5 — flagged since that's not
   // quite accurate: Casino.Guru's own 5.9/10 "Below Average" verdict cites a
@@ -3062,7 +3100,12 @@ const TRUST_BREAKDOWN = {
   "1win":          { licence:9, payout:3, complaintsRec:3, kyc:4, tc:8 },
   "BetFury":       { licence:3, payout:6, complaintsRec:6, kyc:5, tc:3 },
   "bet105.ag":     { licence:2, payout:5, complaintsRec:5, kyc:4, tc:9 },
-  "Rollbit":       { licence:9, payout:2, complaintsRec:2, kyc:3, tc:8 },
+  // complaintsRec trimmed 2026-09-17 (2->1) after a Bitcointalk tracker
+  // sweep added 6 new complaint entries, 1 priority-A, 3 of the 6 still
+  // unresolved — on top of Rollbit's already lowest-on-file complaint
+  // score (payout is also already at 2), so this keeps it moving in step
+  // rather than a floor exception.
+  "Rollbit":       { licence:9, payout:2, complaintsRec:1, kyc:3, tc:8 },
   // StakeUS — per the site owner's direction, this profile mirrors Stake's
   // reviewed practice/trust assessment (same brand family). See COMPANY_INFO
   // for exactly which fields are copied vs. left blank pending independent
@@ -3210,7 +3253,11 @@ const TRUST_BREAKDOWN = {
   // 4*.125+4*.125 = 4.8 (was 4.0) — moves off the bottom of "Below average"
   // without crossing into "Above average", since the licence/KYC/arbitrage
   // issues are real and unaddressed by this change.
-  "Betcoin.ag":    { licence:3, payout:4, complaintsRec:8, kyc:4, tc:4 },
+  // Trimmed again 2026-09-17 (complaintsRec 8->7) after a Bitcointalk
+  // tracker sweep added 6 new complaint entries — 5 of the 6 already
+  // resolved, so the strong resolution record this section documents
+  // still mostly holds; only a one-point move to reflect the added volume.
+  "Betcoin.ag":    { licence:3, payout:4, complaintsRec:7, kyc:4, tc:4 },
   "Bspin.io":      { licence:7, payout:6, complaintsRec:7, kyc:6, tc:5 },
   "Megapari":      { licence:7, payout:5, complaintsRec:5, kyc:4, tc:5 },
   "WinTomato":     { licence:7, payout:7, complaintsRec:7, kyc:7, tc:6 },

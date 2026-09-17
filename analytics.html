@@ -269,6 +269,67 @@ nav .link-muted{color:#444!important}nav .btn-outline{background:#fff!important;
 
 footer{background:#fbfbfa!important;padding-top:32px!important}
 
+/* slim command rail (light) */
+.analytics-rail{
+  position:sticky;
+  top:66px;
+  z-index:35;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
+}
+.rail-inner{
+  min-height:46px;
+  display:grid;
+  grid-template-columns:1.25fr auto .65fr;
+  align-items:center;
+  gap:22px;
+}
+.rail-brand{display:flex;align-items:center;gap:8px;min-width:0}
+.rail-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--brand);
+  box-shadow:0 0 0 4px rgba(11,110,79,.09);
+}
+.rail-brand b{
+  font-size:9px;letter-spacing:.11em;color:var(--ink-2);
+}
+.rail-brand small{
+  font-size:8px;color:var(--ink-muted);white-space:nowrap;
+}
+.rail-links{display:flex;gap:2px}
+.rail-links a{
+  text-decoration:none;
+  color:var(--ink-2);
+  font-size:9px;
+  font-weight:700;
+  padding:7px 9px;
+  border:1px solid transparent;
+  border-radius:4px;
+}
+.rail-links a:hover{
+  background:var(--brand-lighter);
+  border-color:var(--line);
+  color:var(--brand-dark);
+}
+.rail-status{text-align:right;display:flex;flex-direction:column}
+.rail-status span{font-size:7px;color:var(--ink-muted);letter-spacing:.08em}
+.rail-status b{font-size:8px;color:var(--ink-2);margin-top:1px}
+@media(max-width:1000px){
+.analytics-rail{top:60px}
+.rail-inner{grid-template-columns:1fr auto}
+.rail-links{grid-column:1/-1;overflow-x:auto;padding-bottom:6px}
+.rail-status{display:none}
+}
+@media(max-width:760px){
+.rail-brand small{display:none}
+}
+@media(max-width:520px){
+.analytics-rail{position:relative;top:auto}
+.rail-inner{display:block;padding-top:10px;padding-bottom:8px}
+.rail-links{margin-top:8px}
+}
+
 /* responsive */
 @media(max-width:900px){
  nav .wrap{display:grid!important;grid-template-columns:1fr auto auto auto!important;gap:10px!important;padding:10px 16px!important}.logo .mark{width:34px!important;height:34px!important}.logo .wordmark-light,.logo .wordmark-bold{font-size:17px!important}
