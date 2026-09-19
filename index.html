@@ -2424,14 +2424,19 @@ document.addEventListener("DOMContentLoaded", () => {
   if(bg) bg.addEventListener("click", e => { if(e.target === bg) closeSuggestModal(); });
 });
 
-// Hero search — same 32 sportsbooks and IDs as dashboard.html's operator
-// list (kept in sync manually; ids match dashboard.html's slug(name)).
-// Shows a dropdown of name matches once the query reaches 3 characters,
-// e.g. typing "due" surfaces both Duel and Duelbits.
+// Hero search — every operator from dashboard.html's operator list, kept in
+// sync automatically by tools/gen-hero-search.mjs (regenerate whenever an
+// operator is added or removed — see tools/README.md step 5b; confirmed
+// stale on 2026-09-05 back when this was hand-maintained, when 15 added
+// operators were unsearchable from the homepage). Shows a dropdown of name
+// matches once the query reaches 3 characters, e.g. typing "due" surfaces
+// both Duel and Duelbits.
+/* AUTO-GENERATED:HERO_SEARCH_OPERATORS:START — regenerate with tools/gen-hero-search.mjs, do not hand-edit */
 const HERO_SEARCH_OPERATORS = [
-  {name:"Stake", id:"stake"}, {name:"BC.Game", id:"bc-game"}, {name:"Rainbet", id:"rainbet"},
-  {name:"Roobet", id:"roobet"}, {name:"500Casino", id:"500casino"},
-  {name:"Betpanda", id:"betpanda"}, {name:"Gamdom", id:"gamdom"}, {name:"Duelbits", id:"duelbits"},
+  {name:"Stake", id:"stake"}, {name:"BC.Game", id:"bc-game"},
+  {name:"Rainbet", id:"rainbet"}, {name:"Roobet", id:"roobet"},
+  {name:"500Casino", id:"500casino"}, {name:"Betpanda", id:"betpanda"},
+  {name:"Gamdom", id:"gamdom"}, {name:"Duelbits", id:"duelbits"},
   {name:"Winna", id:"winna"}, {name:"Razed", id:"razed"}, {name:"Thrill", id:"thrill"},
   {name:"Cryptorino", id:"cryptorino"}, {name:"Bets.io", id:"bets-io"},
   {name:"Nitrobetting", id:"nitrobetting"}, {name:"Cloudbet", id:"cloudbet"},
@@ -2443,23 +2448,27 @@ const HERO_SEARCH_OPERATORS = [
   {name:"Duel", id:"duel"}, {name:"1win", id:"1win"}, {name:"BetFury", id:"betfury"},
   {name:"bet105.ag", id:"bet105-ag"}, {name:"Rollbit", id:"rollbit"},
   {name:"StakeUS", id:"stakeus"}, {name:"Sportsbet.io", id:"sportsbet-io"},
-  {name:"Yeet", id:"yeet"}, {name:"Goated", id:"goated"}, {name:"Chips.gg", id:"chips-gg"},
-  {name:"Acebet", id:"acebet"}, {name:"Wild.io", id:"wild-io"},
-  {name:"Degen Casino", id:"degen-casino"}, {name:"Sportbet.one", id:"sportbet-one"},
-  {name:"Lucky Block", id:"lucky-block"}, {name:"NV Casino", id:"nv-casino"},
-  {name:"HitnSpin", id:"hitnspin"}, {name:"Verde Casino", id:"verde-casino"},
-  {name:"FortuneJack", id:"fortunejack"}, {name:"DuckDice", id:"duckdice"},
-  {name:"Tower.bet", id:"tower-bet"}, {name:"V.Vegas", id:"v-vegas"},
-  {name:"FS.Casino", id:"fs-casino"}, {name:"IceCasino", id:"icecasino"},
-  {name:"FieryPlay Casino", id:"fieryplay-casino"}, {name:"GGbet", id:"ggbet"},
-  {name:"Slotoro", id:"slotoro"}, {name:"Whale.io", id:"whale-io"},
-  {name:"Dicey.com", id:"dicey-com"}, {name:"Chancer", id:"chancer"}, {name:"RioBet", id:"riobet"},
+  {name:"Yeet", id:"yeet"}, {name:"Goated", id:"goated"},
+  {name:"Chips.gg", id:"chips-gg"}, {name:"Acebet", id:"acebet"},
+  {name:"Wild.io", id:"wild-io"}, {name:"Degen Casino", id:"degen-casino"},
+  {name:"Sportbet.one", id:"sportbet-one"}, {name:"Lucky Block", id:"lucky-block"},
+  {name:"NV Casino", id:"nv-casino"}, {name:"HitnSpin", id:"hitnspin"},
+  {name:"Verde Casino", id:"verde-casino"}, {name:"FortuneJack", id:"fortunejack"},
+  {name:"DuckDice", id:"duckdice"}, {name:"Tower.bet", id:"tower-bet"},
+  {name:"V.Vegas", id:"v-vegas"}, {name:"FS.Casino", id:"fs-casino"},
+  {name:"IceCasino", id:"icecasino"}, {name:"FieryPlay Casino", id:"fieryplay-casino"},
+  {name:"GGbet", id:"ggbet"}, {name:"Slotoro", id:"slotoro"},
+  {name:"Whale.io", id:"whale-io"}, {name:"Dicey.com", id:"dicey-com"},
+  {name:"Chancer", id:"chancer"}, {name:"RioBet", id:"riobet"},
   {name:"Betcoin.ag", id:"betcoin-ag"}, {name:"Bspin.io", id:"bspin-io"},
   {name:"Megapari", id:"megapari"}, {name:"WinTomato", id:"wintomato"},
-  {name:"Thunderpick.io", id:"thunderpick-io"}, {name:"BookMaker.eu", id:"bookmaker-eu"},
-  {name:"Betski", id:"betski"}, {name:"MetaWin", id:"metawin"}, {name:"Toshi.bet", id:"toshi-bet"},
-  {name:"Qzino", id:"qzino"}
+  {name:"Thunderpick.io", id:"thunderpick-io"},
+  {name:"BookMaker.eu", id:"bookmaker-eu"}, {name:"Betski", id:"betski"},
+  {name:"MetaWin", id:"metawin"}, {name:"Toshi.bet", id:"toshi-bet"},
+  {name:"Qzino", id:"qzino"}, {name:"96.com", id:"96-com"},
+  {name:"Flush.com", id:"flush-com"}
 ];
+/* AUTO-GENERATED:HERO_SEARCH_OPERATORS:END */
 const HERO_SEARCH_MIN_CHARS = 3;
 let heroSearchActiveIndex = -1;
 

@@ -3,7 +3,6 @@
   <url><loc>https://cryptobetgrade.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://cryptobetgrade.com/dashboard</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://cryptobetgrade.com/analytics</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cryptobetgrade.com/complaints</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/methodology</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/research</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/research-verifying-sportsbook-complaints</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -582,4 +581,16 @@
   <url><loc>https://cryptobetgrade.com/complaints/qzino-50-usd-sportsbook-winnings-not-paid-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/qzino-500-usd-sportsbook-account-closed-deposit-not-refunded-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/qzino-multi-account-allegation-cashout-ban-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/96-com</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/96-com/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/96-com-12680-account-blocked-over-duplicate-account-accusation-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/96-com-6000-withdrawal-delayed-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/96-com-390-usdt-withdrawal-not-confirmed-paid-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/96-com-313-eur-withdrawal-refused-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/flush-com</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/flush-com/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/flush-com-18000-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/flush-com-18200-eur-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/flush-com-15000-eur-account-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/flush-com-53-gbp-self-exclusion-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
