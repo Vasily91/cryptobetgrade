@@ -207,7 +207,7 @@ const KEY_CONS = {
   "Toshi.bet": ["Sportsbook provider (BetBy) is per the site owner rather than independently confirmed — toshi.bet blocks automated access (Cloudflare bot-check) and no independent review checked names a specific provider either","Casino Guru's own complaint verdict says the operator failed to supply sufficient evidence in a disputed $3,500 multi-accounting case, and a separate 1,200 USDT withdrawal remained unresolved for about six months — the most serious complaint record of the three operators added alongside it","Launch year conflicts between independent sources (2023 vs 2024)"],
   "Qzino": ["Very new operator — established 2026 per an independent review, with no long independent track record yet","Withdrawal time is stated as up to 72 hours (extendable to 7 days with additional checks) rather than a fast fixed window, per an independent review","AskGamblers and Trustpilot both log sportsbook-specific account-closure/withdrawal disputes, including a $300+ case later marked resolved plus several smaller unresolved player allegations"],
   // 96.com and Flush.com added 2026-09-19.
-  "96.com": ["The brand's UK white-label operation (96uk.com, run by TGP Europe) was forced out of the UK market in May 2025 after the UK Gambling Commission fined TGP Europe £3.3 million for anti-money-laundering and partner-vetting failures — a different corporate entity from the current Anjouan-licensed operator, but the same consumer-facing brand and a serious regulatory red flag","Formal complaints on Casino Guru and AskGamblers recur around sudden account blocks over \"duplicate account\" allegations and withdrawal delays exceeding the stated 24-hour window by a week or more; one AskGamblers complaint remains unresolved, with the crypto withdrawal option reportedly removed mid-dispute","Welcome-bonus terms are reported inconsistently across sources (100%/40x vs. 200%/50x), and one independent review states sportsbook wagering is calculated on net profit-and-loss per bet rather than total stake, making the real rollover burden higher and less predictable than advertised"],
+  "96.com": ["Formal complaints on Casino Guru and AskGamblers recur around sudden account blocks over \"duplicate account\" allegations and withdrawal delays exceeding the stated 24-hour window by a week or more; one AskGamblers complaint remains unresolved, with the crypto withdrawal option reportedly removed mid-dispute","Welcome-bonus terms are reported inconsistently across sources (100%/40x vs. 200%/50x), and one independent review states sportsbook wagering is calculated on net profit-and-loss per bet rather than total stake, making the real rollover burden higher and less predictable than advertised","The '96' consumer brand's earlier UK white-label operation (96uk.com) was forced out of the UK market in May 2025 after the UK Gambling Commission fined its separate host, TGP Europe, £3.3 million for anti-money-laundering and partner-vetting failures — a finding against TGP Europe, not against Dynasty Chain Success Limited (the current Anjouan licensee), so treated as brand history worth knowing rather than a mark against the operator running the site today"],
   "Flush.com": ["Multiple formal complaints (Casino Guru, AskGamblers) describe large winnings frozen or confiscated under a one-account/bonus-abuse clause shortly after a big win; outcomes were mixed, with several closed in the operator's favor after it supplied evidence of linked accounts, including one case where the player supplied every requested verification document but the complaint was still rejected","Withdrawals are capped at $2,500/day and $10,000/month, which one independent review says has blocked a player from cashing out a $28,000 jackpot win","A wave of 2025 Trustpilot reviews describes VIP/cashback loyalty balances being wiped after a site relaunch, which support reportedly attributed to a \"visual bug\" rather than crediting the funds; licensing details also conflict across independent sources (Anjouan/Fordegens Limitada vs. two other named entities/jurisdictions on lower-quality affiliate sites), an unresolved data-quality flag"],
 };
 
@@ -605,7 +605,7 @@ const BONUS_KYC_CHECKLIST = {
   "96.com": [
     { ok: true, text: "No KYC required to sign up or make ordinary crypto deposits, per independent reviews" },
     { ok: true, text: "Low minimum deposit — reported as low as $2 in crypto" },
-    { ok: false, text: "The brand's UK white-label operation (96uk.com) was forced out of the UK market in 2025 after a Gambling Commission AML enforcement action against its host" },
+    { ok: false, text: "The '96' brand's earlier UK white-label operation (96uk.com) was forced out of the UK market in 2025 after a Gambling Commission AML enforcement action against its separate host, TGP Europe — not a finding against the current Anjouan licensee" },
     { ok: false, text: "Real-world withdrawal delays of a week or more are documented in multiple formal complaints, despite a stated 24-hour policy" }
   ],
   "Flush.com": [
@@ -3388,11 +3388,18 @@ const TRUST_BREAKDOWN = {
   "Toshi.bet":       { licence:7, payout:6, complaintsRec:4, kyc:8, tc:4 },
   "Qzino":           { licence:8, payout:6, complaintsRec:6, kyc:7, tc:6 },
   // 96.com and Flush.com added 2026-09-19, both scored a notch below the
-  // MetaWin/Toshi.bet/Qzino batch above. 96.com: licence trimmed to 5 for a
-  // real regulatory red flag (the brand's UK white-label host, TGP Europe,
-  // was fined £3.3m and exited the UK market in 2025 over AML failures —
-  // not the current licensee itself, but the same consumer brand); payout
-  // 5 for documented real-world delays (a week+) against a stated 24h
+  // MetaWin/Toshi.bet/Qzino batch above. 96.com: licence revised 2026-09-19
+  // (5->7) at the site owner's direction — the UK Gambling Commission
+  // action was against TGP Europe, the separate white-label host of the
+  // old 96uk.com site, not against Dynasty Chain Success Limited (the
+  // current Anjouan licensee); no finding was made against the operator
+  // that actually holds today's licence, so this shouldn't weigh as
+  // heavily as a direct enforcement action against the current entity —
+  // landing at 7, alongside comparable Anjouan-licensed peers, rather than
+  // the earlier 5. Kept a point below the cleanest Anjouan licences (8) to
+  // reflect that it's still the same consumer-facing "96" brand and the
+  // same real regulatory history, just not the same legal entity. payout 5
+  // for documented real-world delays (a week+) against a stated 24h
   // policy; complaintsRec 5 for a moderate, partly-unresolved complaint
   // volume with a recognizable "sudden block, remove crypto withdrawal
   // mid-dispute" pattern; kyc 7 (ordinary conditional policy, no severe
@@ -3411,6 +3418,6 @@ const TRUST_BREAKDOWN = {
   // slower/heavier real enforcement than advertised; tc 4 for the same
   // aggressive bonus-abuse-clause pattern plus unresolved licensing-entity
   // conflicts across sources.
-  "96.com":          { licence:5, payout:5, complaintsRec:5, kyc:7, tc:4 },
+  "96.com":          { licence:7, payout:5, complaintsRec:5, kyc:7, tc:4 },
   "Flush.com":       { licence:6, payout:6, complaintsRec:4, kyc:6, tc:4 },
 };
