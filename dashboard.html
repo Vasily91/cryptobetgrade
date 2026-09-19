@@ -1420,6 +1420,12 @@ const SPORTSBOOK_PROVIDER = {
   // checked (its own site, or ~10 independent reviews).
   "Toshi.bet": "BetBy",
   "Qzino": "BetBy",
+  // Flush.com added 2026-09-19, BetBy per the site owner directly — no
+  // independent review checked named a specific provider (one called it
+  // in-house, another implied a white-label supplier without naming one),
+  // so recorded here the same way as Toshi.bet's site-owner-supplied,
+  // not-independently-confirmed provider fact above.
+  "Flush.com": "BetBy",
 };
 const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy", "Digitain": "Digitain", "Data.bet": "Data.bet" };
 function sportsbookProviderOf(name){ return SPORTSBOOK_PROVIDER[name] || null; }
@@ -1690,11 +1696,18 @@ const KEY_PROS = {
   // none of them duplicate it in KEY_PROS this way — this was specific to
   // these three, now fixed with genuine, non-redundant pros instead.
   "MetaWin": ["25+ sport sportsbook, confirmed direct","Fast crypto withdrawals reported (Trustpilot)"],
-  "Toshi.bet": ["22-25 sports + esports, in-play betting","Anjouan (Comoros) licensed"],
   "Qzino": ["Sportsbook powered by BetBy","40+ sports plus esports covered"],
-  // 96.com and Flush.com added 2026-09-19.
-  "96.com": ["Low minimum deposit — as little as $2 in crypto","6+ cryptocurrencies accepted"],
-  "Flush.com": ["9 cryptocurrencies accepted","Crypto withdrawals independently timed under 2 minutes"],
+  // Toshi.bet, 96.com and Flush.com revised 2026-09-19 at the site owner's
+  // direction — swapped their prior generic pros for a single "arbitrage
+  // betting restricted" pill instead. For 96.com this is directly evidenced
+  // (see complaint c966: an operator representative stated in a Bitcointalk
+  // thread that the account does not support arbitrage-based betting). For
+  // Toshi.bet and Flush.com this reflects the site owner's own knowledge
+  // rather than an independently sourced Terms quote found in this
+  // database's research passes so far.
+  "Toshi.bet": ["Arbitrage betting restricted"],
+  "96.com": ["Arbitrage betting restricted"],
+  "Flush.com": ["Arbitrage betting restricted"],
 };
 // Distilled from the same TERMS_INFO bonus/withdrawal/kyc text already on this
 // profile — see below for the full prose these summarize.
