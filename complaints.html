@@ -633,7 +633,7 @@ html[data-theme="dark"] .complaints-cta{background:linear-gradient(145deg,rgba(5
   <div class="wrap">
     <span class="kicker">COMPLAINT DATABASE</span>
     <h1>Every sportsbook complaint we track — in one place</h1>
-    <p>436 curated cases across 65 crypto sportsbooks and casinos, pulled from Casino Guru, AskGamblers, Trustpilot, Reddit and Bitcointalk, and matched to each operator's own Trust Score. Search, filter by issue type or status, or jump straight to the source.</p>
+    <p>400+ curated cases across dozens of crypto sportsbooks and casinos, pulled from Casino Guru, AskGamblers, Trustpilot, Reddit and Bitcointalk, and matched to each operator's own Trust Score. Search, filter by issue type or status, or jump straight to the source.</p>
     <p class="meta" id="heroMeta">Loading…</p>
     <div class="hero-tools">
       <div class="hero-search"><span>⌕</span><input id="heroComplaintSearch" type="text" placeholder="Search complaints (e.g. Rainbet, withdrawal, KYC...)"></div>
@@ -644,7 +644,7 @@ html[data-theme="dark"] .complaints-cta{background:linear-gradient(145deg,rgba(5
 
 <main class="complaints-main cbg-dashboard"><div class="wrap">
   <div class="stat-strip cbg-stats" id="statStrip">
-    <div class="stat-tile"><div class="stat-label">Complaints tracked</div><div class="stat-value" id="statTotal">—</div><div class="stat-sub">across 65 operators</div></div>
+    <div class="stat-tile"><div class="stat-label">Complaints tracked</div><div class="stat-value" id="statTotal">—</div><div class="stat-sub" id="statTotalSub">across 65 operators</div></div>
     <div class="stat-tile"><div class="stat-label">Unresolved</div><div class="stat-value bad" id="statUnresolved">—</div><div class="stat-sub" id="statUnresolvedSub">—</div></div>
     <div class="stat-tile"><div class="stat-label">Resolved</div><div class="stat-value good" id="statResolved">—</div><div class="stat-sub" id="statResolvedSub">—</div></div>
     <div class="stat-tile"><div class="stat-label">Approx. disputed amount*</div><div class="stat-value" id="statAmount">—</div><div class="stat-sub" id="statAmountSub">—</div></div>
@@ -815,6 +815,7 @@ function renderHero(){
 function renderStats(){
   const bad = CX.statusCounts.bad, good = CX.statusCounts.good, total = CX.totalComplaints;
   document.getElementById("statTotal").textContent = total.toLocaleString();
+  document.getElementById("statTotalSub").textContent = `across ${CX.totalOperators} operators`;
   document.getElementById("statUnresolved").textContent = bad.toLocaleString();
   document.getElementById("statUnresolvedSub").textContent = ((bad/total)*100).toFixed(0) + "% of tracked complaints";
   document.getElementById("statResolved").textContent = good.toLocaleString();
