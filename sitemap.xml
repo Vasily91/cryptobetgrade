@@ -10,7 +10,7 @@
   <url><loc>https://cryptobetgrade.com/research-betby-sportsbook-complaints</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://cryptobetgrade.com/research-arbitrage-vs-value-betting</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://cryptobetgrade.com/research-no-kyc-sportsbooks-requested-kyc</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://cryptobetgrade.com/research-bcgame-vs-500casino-same-bet-different-outcome</loc><changefreq>monthly</changefreq><priority>0.5</priority></url><url><loc>https://cryptobetgrade.com/research-sharp-player-limits-vs-confiscation</loc><changefreq>monthly</changefreq><priority>0.5</priority></url><url><loc>https://cryptobetgrade.com/research-degen-weak-lines-value-betting</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://cryptobetgrade.com/research-bcgame-vs-500casino-same-bet-different-outcome</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://cryptobetgrade.com/about</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://cryptobetgrade.com/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>https://cryptobetgrade.com/cookies</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
@@ -88,6 +88,8 @@
   <url><loc>https://cryptobetgrade.com/complaints/roobet-400000-usd-self-exclusion-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/roobet-3000000-usd-withdrawal-balance-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/roobet-40000-usd-vip-support-access-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/roobet-250000-usd-withdrawal-delayed-stuck</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/roobet-1300-eur-account-blocked-restricted-pending-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/500casino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/500casino/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/500casino-33300-eur-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -117,6 +119,7 @@
   <url><loc>https://cryptobetgrade.com/complaints/gamdom-1105-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/gamdom-2595-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/gamdom-1700-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/gamdom-85330-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/duelbits</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/duelbits/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/duelbits-500-usd-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -311,6 +314,7 @@
   <url><loc>https://cryptobetgrade.com/complaints/1win-17000-usdt-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/1win-5000-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/1win-300000-sportsbook-winnings-not-paid-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/1win-700-deposit-not-credited-payment-processing-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/betfury</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/betfury/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/betfury-5000-usd-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -336,6 +340,8 @@
   <url><loc>https://cryptobetgrade.com/complaints/rollbit-17700-usd-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/rollbit-withdrawal-balance-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/rollbit-1500-usd-withdrawal-balance-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/rollbit-5612-usdt-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/rollbit-2200-usdt-account-blocked-restricted-pending-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/stakeus</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/stakeus/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/stakeus-6117-usd-account-compromised</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -352,6 +358,7 @@
   <url><loc>https://cryptobetgrade.com/complaints/sportsbet-io-570-usd-funds-locked-review</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/sportsbet-io-bets-voided</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/sportsbet-io-9725-usdc-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/sportsbet-io-1692-usdt-withdrawal-balance-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/yeet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/yeet/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/yeet-8947-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -377,6 +384,8 @@
   <url><loc>https://cryptobetgrade.com/complaints/acebet-968-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/acebet-986-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/acebet-account-blocked-after-withdrawal-request</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/acebet-632-usdt-account-closed-after-withdrawal-request</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/acebet-2012-usdt-multi-account-allegation-funds-withheld-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/wild-io</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/wild-io/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/wild-io-452-usdt-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -575,6 +584,7 @@
   <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-1200-usdt-withdrawal-cancelled-funds-not-returned</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-652-usd-sportsbook-withdrawal-cancelled-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-741-usd-account-blocked-after-withdrawal-request</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/toshi-bet-300-usd-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/qzino</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/qzino/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/qzino-300-usd-sportsbook-account-closed-withdrawal-blocked-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -589,6 +599,7 @@
   <url><loc>https://cryptobetgrade.com/complaints/96-com-313-eur-withdrawal-refused-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/96-com-250-usdt-withdrawal-delayed-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/96-com-30000-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/96-com-bet-settlement-disputed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/flush-com</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cryptobetgrade.com/sportsbooks/flush-com/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/flush-com-18000-usd-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -599,4 +610,15 @@
   <url><loc>https://cryptobetgrade.com/complaints/flush-com-28000-eur-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/flush-com-70000-gbp-winnings-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/flush-com-300-eur-balance-confiscated</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/betanything</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/betanything/complaints</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-withdrawal-delay-speed-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-multi-account-arbitrage-betting-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-8770-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-sharp-player-limiting-spooling-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-sharp-player-limiting-spooling-dispute-2</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-sharp-player-limiting-spooling-dispute-3</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-withdrawal-delay-speed-dispute-2</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-800-usd-withdrawal-withheld-pending-verification-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/complaints/betanything-bonus-rollover-line-access-restriction-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
