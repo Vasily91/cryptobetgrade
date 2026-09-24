@@ -234,6 +234,53 @@ async function sendComplaintNotificationEmail(env, complaint) {
   }
 }
 
+// Admin notification — fired off after a new community review is submitted
+// (see submitReview below), same reasoning and same ADMIN_EMAILS/Resend
+// setup as sendComplaintNotificationEmail above. The full review text is
+// included right in the email body — not just a link — so the admin can
+// read and judge it without opening admin-complaints.html first; the link
+// is still there for the actual approve/reject action. Best-effort: a
+// failure here is logged but never blocks the review submission itself
+// (see the try/catch around the call in submitReview).
+async function sendReviewNotificationEmail(env, review) {
+  const adminEmails = (env.ADMIN_EMAILS || "").split(",").map(e => e.trim()).filter(Boolean);
+  if (!adminEmails.length) {
+    console.warn("ADMIN_EMAILS not set — skipping new-review notification email.");
+    return;
+  }
+  if (!env.RESEND_API_KEY) {
+    console.warn(`RESEND_API_KEY not set — would have emailed ${adminEmails.join(", ")} about review #${review.id}`);
+    return;
+  }
+  const reviewUrl = `${env.SITE_URL}/admin-complaints.html`;
+  const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+  const titleLine = review.title ? `Title: ${review.title}\n` : "";
+  const titleHtml = review.title ? `<b>Title:</b> ${escapeHtml(review.title)}<br>` : "";
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: `${env.SITE_NAME || "CryptoBetGrade"} <reviews@${new URL(env.SITE_URL).hostname}>`,
+      to: adminEmails,
+      subject: `New review: ${review.operatorName} — ${review.rating}/5 stars`,
+      text: `A new review was submitted and needs approval.\n\nSportsbook: ${review.operatorName}\nRating: ${stars} (${review.rating}/5)\n${titleLine}Submitted by: ${review.submitterEmail}\n\nReview:\n${review.body}\n\nApprove or reject it: ${reviewUrl}`,
+      html: `<p>A new review was submitted and needs approval.</p>
+        <p><b>Sportsbook:</b> ${escapeHtml(review.operatorName)}<br>
+        <b>Rating:</b> ${stars} (${review.rating}/5)<br>
+        ${titleHtml}
+        <b>Submitted by:</b> ${escapeHtml(review.submitterEmail)}</p>
+        <p><b>Review:</b><br>${escapeHtml(review.body).replace(/\n/g, "<br>")}</p>
+        <p><a href="${reviewUrl}">Approve or reject it on admin-complaints.html</a></p>`,
+    }),
+  });
+  if (!res.ok) {
+    console.error("Resend send failed (review notification):", res.status, await res.text());
+  }
+}
+
 // ---------------------------------------------------------------------
 // Auth: verify a magic link, start a session
 // ---------------------------------------------------------------------
@@ -578,6 +625,17 @@ async function submitReview(request, env) {
     // (operator_slug, submitter_user_id) is the real guard; the SELECT
     // above is just a friendlier first check.
     return json({ error: "You've already reviewed this sportsbook." }, 409);
+  }
+
+  // Best-effort admin notification — never fail the submission itself over
+  // an email hiccup, the review is already safely saved above.
+  try {
+    await sendReviewNotificationEmail(env, {
+      id: inserted.id, operatorName, rating, title, body: reviewBody,
+      submitterEmail: user.email,
+    });
+  } catch (e) {
+    console.error("New-review notification email failed:", e);
   }
 
   return json({ ok: true, id: inserted.id, status: "pending_review" });
