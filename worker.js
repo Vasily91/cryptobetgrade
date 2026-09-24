@@ -112,6 +112,24 @@ async function handleApi(request, env, url) {
     return adminUpdateComplaintStatus(request, env, Number(adminStatusMatch[1]));
   }
 
+  if (pathname === "/api/reviews" && method === "GET") {
+    return listReviews(request, env, url);
+  }
+  if (pathname === "/api/reviews" && method === "POST") {
+    return submitReview(request, env);
+  }
+
+  if (pathname === "/api/admin/reviews" && method === "GET") {
+    return adminListReviews(request, env, url);
+  }
+  const adminReviewStatusMatch = pathname.match(/^\/api\/admin\/reviews\/(\d+)$/);
+  if (adminReviewStatusMatch && method === "PATCH") {
+    return adminUpdateReviewStatus(request, env, Number(adminReviewStatusMatch[1]));
+  }
+  if (pathname === "/api/admin/migrate-reviews" && method === "POST") {
+    return adminMigrateReviews(request, env);
+  }
+
   return json({ error: "Not found" }, 404);
 }
 
@@ -484,6 +502,171 @@ async function adminUpdateComplaintStatus(request, env, id) {
 }
 
 // ---------------------------------------------------------------------
+// Reviews: public read (approved only) + summary
+// ---------------------------------------------------------------------
+//
+// Mirrors the complaints system above (same auth, same pending_review ->
+// admin-decides flow), but simpler: a review is a one-shot 1-5 star
+// rating + text, not a back-and-forth thread, so its lifecycle is just
+// pending_review -> approved | rejected (see d1-schema.sql). One review
+// per (operator, user), enforced by a unique index — see submitReview.
+
+async function listReviews(request, env, url) {
+  const slug = url.searchParams.get("operator_slug");
+  if (!slug) return json({ error: "operator_slug is required" }, 400);
+
+  const rows = await env.DB.prepare(
+    `SELECT r.id, r.rating, r.title, r.body, r.created_at, u.email AS submitter_email
+     FROM reviews r JOIN users u ON u.id = r.submitter_user_id
+     WHERE r.operator_slug = ? AND r.status = 'approved'
+     ORDER BY r.created_at DESC`
+  ).bind(slug).all();
+  const rawReviews = rows.results || [];
+
+  const count = rawReviews.length;
+  const average = count ? rawReviews.reduce((sum, r) => sum + r.rating, 0) / count : null;
+
+  // Never expose a submitter's real email to the public list — mask it
+  // the way the rest of the site keeps submitter identity out of public
+  // views (the complaint thread shows "Submitter", never an email).
+  const reviews = rawReviews.map(r => ({
+    id: r.id, rating: r.rating, title: r.title, body: r.body, created_at: r.created_at,
+    submitter: maskEmail(r.submitter_email),
+  }));
+
+  return json({ reviews, summary: { count, average } });
+}
+
+// ---------------------------------------------------------------------
+// Reviews: submit (auth required, starts pending_review)
+// ---------------------------------------------------------------------
+
+async function submitReview(request, env) {
+  const user = await requireUser(request, env);
+  const body = await safeJson(request);
+
+  const operatorSlug = trimmed(body?.operator_slug);
+  const operatorName = trimmed(body?.operator_name);
+  const rating = Number(body?.rating);
+  const title = trimmed(body?.title) || null;
+  const reviewBody = trimmed(body?.body);
+
+  if (!operatorSlug || !operatorName) return json({ error: "Missing operator." }, 400);
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+    return json({ error: "Pick a rating from 1 to 5 stars." }, 400);
+  }
+  if (title && title.length > 100) {
+    return json({ error: "Title is too long (max 100 characters)." }, 400);
+  }
+  if (!reviewBody || reviewBody.length < 20 || reviewBody.length > 3000) {
+    return json({ error: "Please describe your experience in at least 20 characters." }, 400);
+  }
+
+  const existing = await env.DB.prepare(
+    `SELECT id FROM reviews WHERE operator_slug = ? AND submitter_user_id = ?`
+  ).bind(operatorSlug, user.id).first();
+  if (existing) return json({ error: "You've already reviewed this sportsbook." }, 409);
+
+  let inserted;
+  try {
+    inserted = await env.DB.prepare(
+      `INSERT INTO reviews (operator_slug, operator_name, submitter_user_id, rating, title, body, status)
+       VALUES (?, ?, ?, ?, ?, ?, 'pending_review') RETURNING id`
+    ).bind(operatorSlug, operatorName, user.id, rating, title, reviewBody).first();
+  } catch (e) {
+    // Race with another submission from the same user — the unique index
+    // (operator_slug, submitter_user_id) is the real guard; the SELECT
+    // above is just a friendlier first check.
+    return json({ error: "You've already reviewed this sportsbook." }, 409);
+  }
+
+  return json({ ok: true, id: inserted.id, status: "pending_review" });
+}
+
+// ---------------------------------------------------------------------
+// Admin: reviews moderation queue + status changes
+// ---------------------------------------------------------------------
+
+async function adminListReviews(request, env, url) {
+  await requireAdmin(request, env);
+  const status = url.searchParams.get("status");
+  const query = status
+    ? env.DB.prepare(
+        `SELECT r.id, r.operator_slug, r.operator_name, r.rating, r.title, r.body, r.status, r.created_at, u.email AS submitter_email
+         FROM reviews r JOIN users u ON u.id = r.submitter_user_id
+         WHERE r.status = ? ORDER BY r.created_at DESC`
+      ).bind(status)
+    : env.DB.prepare(
+        `SELECT r.id, r.operator_slug, r.operator_name, r.rating, r.title, r.body, r.status, r.created_at, u.email AS submitter_email
+         FROM reviews r JOIN users u ON u.id = r.submitter_user_id
+         ORDER BY r.created_at DESC`
+      );
+  const rows = await query.all();
+  return json({ reviews: rows.results || [] });
+}
+
+const REVIEW_ALLOWED_STATUSES = ["approved", "rejected"];
+
+async function adminUpdateReviewStatus(request, env, id) {
+  const admin = await requireAdmin(request, env);
+  const body = await safeJson(request);
+  const status = body?.status;
+  if (!REVIEW_ALLOWED_STATUSES.includes(status)) {
+    return json({ error: `status must be one of: ${REVIEW_ALLOWED_STATUSES.join(", ")}` }, 400);
+  }
+
+  const existing = await env.DB.prepare(`SELECT id FROM reviews WHERE id = ?`).bind(id).first();
+  if (!existing) return json({ error: "Not found" }, 404);
+
+  await env.DB.prepare(
+    `UPDATE reviews SET status = ?, reviewed_at = datetime('now'), reviewed_by = ? WHERE id = ?`
+  ).bind(status, admin.id, id).run();
+
+  return json({ ok: true, status });
+}
+
+// ---------------------------------------------------------------------
+// Admin: one-time (idempotent) reviews table migration.
+//
+// This pipeline deploys by uploading files through GitHub's web UI, with
+// no wrangler/CLI access to the live D1 database — so there's no way to
+// run `wrangler d1 execute --file=d1-schema.sql` directly. Instead, an
+// admin session hits this endpoint once (the admin-complaints.html
+// Reviews tab does this automatically on first open) and it creates the
+// table + indexes via the Worker's own DB binding. Every statement uses
+// IF NOT EXISTS, so calling it again later is always a harmless no-op.
+// ---------------------------------------------------------------------
+
+async function adminMigrateReviews(request, env) {
+  await requireAdmin(request, env);
+
+  await env.DB.prepare(`CREATE TABLE IF NOT EXISTS reviews (
+    id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+    operator_slug      TEXT NOT NULL,
+    operator_name      TEXT NOT NULL,
+    submitter_user_id  INTEGER NOT NULL REFERENCES users(id),
+    rating             INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    title              TEXT,
+    body               TEXT NOT NULL,
+    status             TEXT NOT NULL DEFAULT 'pending_review',
+    created_at         TEXT NOT NULL DEFAULT (datetime('now')),
+    reviewed_at        TEXT,
+    reviewed_by        INTEGER REFERENCES users(id)
+  )`).run();
+  await env.DB.prepare(
+    `CREATE UNIQUE INDEX IF NOT EXISTS idx_reviews_one_per_user ON reviews(operator_slug, submitter_user_id)`
+  ).run();
+  await env.DB.prepare(
+    `CREATE INDEX IF NOT EXISTS idx_reviews_operator_slug ON reviews(operator_slug)`
+  ).run();
+  await env.DB.prepare(
+    `CREATE INDEX IF NOT EXISTS idx_reviews_status ON reviews(status)`
+  ).run();
+
+  return json({ ok: true, message: "reviews table ready." });
+}
+
+// ---------------------------------------------------------------------
 // Small utilities
 // ---------------------------------------------------------------------
 
@@ -513,6 +696,18 @@ async function safeJson(request) {
 function trimmed(v) { return typeof v === "string" ? v.trim() : ""; }
 
 function normalizeEmail(v) { return typeof v === "string" ? v.trim().toLowerCase() : ""; }
+
+// "ko*******1@gmail.com" — enough for a reader to tell two reviews came
+// from different people without exposing a real, findable email address.
+function maskEmail(email) {
+  const at = (email || "").indexOf("@");
+  if (at < 1) return "Verified user";
+  const local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const visible = local.slice(0, Math.min(2, local.length));
+  const hiddenLen = Math.max(local.length - visible.length, 3);
+  return `${visible}${"*".repeat(hiddenLen)}@${domain}`;
+}
 
 function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 

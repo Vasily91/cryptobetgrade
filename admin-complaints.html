@@ -113,8 +113,12 @@
   .status-pending_review{background:var(--warning-bg);color:var(--warning-ink);}
   .status-open{background:var(--critical-bg);color:var(--critical-ink);}
   .status-awaiting_response{background:var(--critical-bg);color:var(--critical-ink);}
-  .status-resolved{background:var(--good-bg);color:var(--good-ink);}
+  .status-resolved, .status-approved{background:var(--good-bg);color:var(--good-ink);}
   .status-rejected, .status-removed{background:#eeece6;color:var(--ink-muted);}
+
+  /* Top-level section tabs (Complaints / Reviews) */
+  .section-tabs{display:flex;gap:8px;margin-bottom:22px;}
+  .review-stars{color:var(--gold);letter-spacing:2px;font-size:15px;}
 
   .queue-detail{border-top:1px solid var(--line);padding:20px;background:var(--page);display:none;}
   .queue-detail.open{display:block;}
@@ -311,8 +315,8 @@ function cbgToggleTheme(){
 <header class="page-hero">
   <div class="wrap">
     <span class="kicker">ADMIN</span>
-    <h1>Complaint moderation queue</h1>
-    <p>Review complaints submitted by visitors, reply to submitters, and change a complaint's status. Only visible to logged-in admin accounts.</p>
+    <h1>Complaint &amp; review moderation</h1>
+    <p>Review complaints and star reviews submitted by visitors, reply to submitters, and change status. Only visible to logged-in admin accounts.</p>
   </div>
 </header>
 
@@ -322,8 +326,18 @@ function cbgToggleTheme(){
       <p>Checking your session…</p>
     </div>
     <div id="adminApp" style="display:none;">
-      <div class="filter-row" id="filterRow"></div>
-      <div id="queueList"></div>
+      <div class="section-tabs">
+        <button class="filter-pill active" id="adminSectionComplaintsBtn" onclick="cbgAdminSwitchSection('complaints')">Complaints</button>
+        <button class="filter-pill" id="adminSectionReviewsBtn" onclick="cbgAdminSwitchSection('reviews')">Reviews</button>
+      </div>
+      <div id="adminComplaintsPanel">
+        <div class="filter-row" id="filterRow"></div>
+        <div id="queueList"></div>
+      </div>
+      <div id="adminReviewsPanel" style="display:none;">
+        <div class="filter-row" id="reviewFilterRow"></div>
+        <div id="reviewQueueList"></div>
+      </div>
     </div>
   </div>
 </main>
@@ -536,6 +550,132 @@ async function cbgAdminSetStatus(id, status){
 }
 
 document.addEventListener("DOMContentLoaded", cbgAdminInit);
+
+/* ---- REVIEWS — a second, simpler moderation queue alongside complaints
+   above. No message thread (a review is one-shot: a rating + text), so
+   no expand/collapse detail view — just approve/reject inline. The first
+   time an admin opens this tab, it also pings /api/admin/migrate-reviews,
+   which creates the reviews table on the live database if it isn't there
+   yet (see that endpoint's comment in worker.js for why this exists —
+   this deploy pipeline has no CLI access to the database, so this ping
+   is how the table actually gets created). That call is idempotent
+   (CREATE TABLE/INDEX IF NOT EXISTS), so it's harmless to repeat. */
+
+let cbgAdminSection = "complaints";
+let cbgAdminReviewsInitialized = false;
+
+function cbgAdminSwitchSection(section){
+  cbgAdminSection = section;
+  document.getElementById("adminSectionComplaintsBtn").classList.toggle("active", section === "complaints");
+  document.getElementById("adminSectionReviewsBtn").classList.toggle("active", section === "reviews");
+  document.getElementById("adminComplaintsPanel").style.display = section === "complaints" ? "" : "none";
+  document.getElementById("adminReviewsPanel").style.display = section === "reviews" ? "" : "none";
+  if(section === "reviews" && !cbgAdminReviewsInitialized){
+    cbgAdminReviewsInitialized = true;
+    cbgAdminInitReviews();
+  }
+}
+
+async function cbgAdminInitReviews(){
+  try{
+    await fetch("/api/admin/migrate-reviews", { method: "POST" });
+  }catch(e){
+    console.error("reviews migration ping failed:", e);
+  }
+  cbgAdminRenderReviewFilters();
+  cbgAdminLoadReviewQueue();
+}
+
+const CBG_ADMIN_REVIEW_FILTERS = [
+  { key: "", label: "All" },
+  { key: "pending_review", label: "Pending review" },
+  { key: "approved", label: "Approved" },
+  { key: "rejected", label: "Rejected" },
+];
+const CBG_REVIEW_STATUS_LABEL = {
+  pending_review: "Pending review", approved: "Approved", rejected: "Rejected",
+};
+const CBG_REVIEW_ALLOWED_STATUSES = ["approved", "rejected"];
+
+let cbgAdminReviewFilter = "";
+let cbgAdminReviewQueue = [];
+
+function cbgAdminRenderReviewFilters(){
+  const row = document.getElementById("reviewFilterRow");
+  row.innerHTML = CBG_ADMIN_REVIEW_FILTERS.map(f =>
+    `<button class="filter-pill${f.key === cbgAdminReviewFilter ? " active" : ""}" onclick="cbgAdminSetReviewFilter('${f.key}')">${f.label}</button>`
+  ).join("");
+}
+function cbgAdminSetReviewFilter(key){
+  cbgAdminReviewFilter = key;
+  cbgAdminRenderReviewFilters();
+  cbgAdminLoadReviewQueue();
+}
+
+function cbgAdminStarsText(rating){
+  return "★".repeat(rating) + "☆".repeat(5 - rating);
+}
+
+async function cbgAdminLoadReviewQueue(){
+  const list = document.getElementById("reviewQueueList");
+  list.innerHTML = `<div class="empty-note">Loading…</div>`;
+  try{
+    const url = "/api/admin/reviews" + (cbgAdminReviewFilter ? "?status=" + encodeURIComponent(cbgAdminReviewFilter) : "");
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("Failed to load (HTTP " + res.status + ")");
+    const data = await res.json();
+    cbgAdminReviewQueue = data.reviews || [];
+    cbgAdminRenderReviewQueue();
+  }catch(e){
+    list.innerHTML = `<div class="empty-note">Couldn't load reviews: ${cbgAdminEscape(e.message)}</div>`;
+  }
+}
+
+function cbgAdminRenderReviewQueue(){
+  const list = document.getElementById("reviewQueueList");
+  if(cbgAdminReviewQueue.length === 0){
+    list.innerHTML = `<div class="empty-note">No reviews in this view.</div>`;
+    return;
+  }
+  list.innerHTML = cbgAdminReviewQueue.map(r => `
+    <div class="queue-item">
+      <div class="queue-row" style="cursor:default;">
+        <div class="queue-main">
+          <div class="queue-op">${cbgAdminEscape(r.operator_name)}</div>
+          <div class="review-stars">${cbgAdminStarsText(r.rating)}</div>
+          ${r.title ? `<div class="queue-title">${cbgAdminEscape(r.title)}</div>` : ""}
+          <div class="queue-meta" style="margin:6px 0;white-space:pre-wrap;">${cbgAdminEscape(r.body)}</div>
+          <div class="queue-meta">${cbgAdminEscape(r.submitter_email)} · ${cbgAdminDate(r.created_at)}</div>
+        </div>
+        <div class="row-actions">
+          <span class="status-chip status-${r.status}">${CBG_REVIEW_STATUS_LABEL[r.status] || r.status}</span>
+        </div>
+      </div>
+      <div class="status-actions" style="padding:0 20px 16px;border-top:none;margin-top:0;">
+        ${CBG_REVIEW_ALLOWED_STATUSES.map(s => `
+          <button class="status-btn${r.status === s ? " current" : ""}" onclick="cbgAdminSetReviewStatus(${r.id}, '${s}')" ${r.status === s ? "disabled" : ""}>${CBG_REVIEW_STATUS_LABEL[s]}</button>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+async function cbgAdminSetReviewStatus(id, status){
+  try{
+    const res = await fetch("/api/admin/reviews/" + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    if(!res.ok){
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || "Couldn't update status.");
+    }
+    await cbgAdminLoadReviewQueue();
+  }catch(e){
+    alert(e.message);
+  }
+}
 </script>
 
 <script src="/site.js"></script>

@@ -57,8 +57,32 @@ CREATE TABLE IF NOT EXISTS complaint_messages (
   created_at     TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+-- Star reviews, one per (operator, user) — see the unique index below.
+-- Simpler lifecycle than complaints (no message thread, no
+-- awaiting_response/resolved/removed): pending_review -> approved |
+-- rejected. Applied to the live database via the one-time
+-- /api/admin/migrate-reviews endpoint in worker.js (idempotent — every
+-- statement here uses IF NOT EXISTS), since this deploy pipeline has no
+-- wrangler/CLI access to run `wrangler d1 execute` directly.
+CREATE TABLE IF NOT EXISTS reviews (
+  id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+  operator_slug      TEXT NOT NULL,
+  operator_name      TEXT NOT NULL,
+  submitter_user_id  INTEGER NOT NULL REFERENCES users(id),
+  rating             INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  title              TEXT,
+  body               TEXT NOT NULL,
+  status             TEXT NOT NULL DEFAULT 'pending_review',
+  created_at         TEXT NOT NULL DEFAULT (datetime('now')),
+  reviewed_at        TEXT,
+  reviewed_by        INTEGER REFERENCES users(id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_magic_links_email ON magic_links(email);
 CREATE INDEX IF NOT EXISTS idx_sessions_user_id ON sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_complaints_operator_slug ON complaints(operator_slug);
 CREATE INDEX IF NOT EXISTS idx_complaints_status ON complaints(status);
 CREATE INDEX IF NOT EXISTS idx_complaint_messages_complaint_id ON complaint_messages(complaint_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_reviews_one_per_user ON reviews(operator_slug, submitter_user_id);
+CREATE INDEX IF NOT EXISTS idx_reviews_operator_slug ON reviews(operator_slug);
+CREATE INDEX IF NOT EXISTS idx_reviews_status ON reviews(status);
