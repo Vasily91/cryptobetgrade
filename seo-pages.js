@@ -73,6 +73,9 @@ export function matchSeoRoute(pathname) {
   let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints$/);
   if (m) return { kind: "operator-complaints", id: m[1] };
 
+  m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/reviews$/);
+  if (m) return { kind: "operator-reviews", id: m[1] };
+
   m = path.match(/^\/sportsbooks\/([a-z0-9-]+)$/);
   if (m) return { kind: "operator", id: m[1] };
 
@@ -100,7 +103,7 @@ function operatorMeta(op) {
   if (faq) jsonLd.push(faq);
   return {
     title: `${op.name} Review — Trust Score, KYC & Complaints | CryptoBetGrade`,
-    description: `${op.name} reviewed: Trust Score ${op.score ?? "—"}/10, ${op.complaintStats.total} reported complaints, licensing, KYC stance, and payout reliability — independently assessed by CryptoBetGrade.`,
+    description: `${op.name} reviewed: Trust Score ${op.score ?? "—"}/10, ${op.complaintStats.total} reported complaints, licensing, KYC stance, and payout reliability — independently assessed by CryptoBetGrade. Read visitor complaints and reviews, or submit your own.`,
     canonicalPath: `/sportsbooks/${op.id}`,
     viewHtml: op.overviewHtml,
     jsonLd,
@@ -110,7 +113,7 @@ function operatorMeta(op) {
 function operatorComplaintsMeta(op) {
   return {
     title: `${op.name} Complaints — ${op.complaints.length} Reported Cases | CryptoBetGrade`,
-    description: `${op.complaints.length} publicly-sourced complaints reported against ${op.name}, with outcomes, disputed amounts, and links to the original source.`,
+    description: `${op.complaints.length} publicly-sourced complaints reported against ${op.name}, plus complaints filed directly with CryptoBetGrade by visitors — read outcomes and disputed amounts, or file your own complaint.`,
     canonicalPath: `/sportsbooks/${op.id}/complaints`,
     viewHtml: op.complaintsHtml,
     jsonLd: [breadcrumb([
@@ -118,6 +121,21 @@ function operatorComplaintsMeta(op) {
       ["Sportsbooks", `${SITE_URL}/dashboard`],
       [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
       ["Complaints", `${SITE_URL}/sportsbooks/${op.id}/complaints`],
+    ])],
+  };
+}
+
+function operatorReviewsMeta(op) {
+  return {
+    title: `${op.name} Reviews — Visitor Ratings & Feedback | CryptoBetGrade`,
+    description: `Real visitor reviews and star ratings for ${op.name}, submitted directly and checked by CryptoBetGrade before publishing — read them, or write your own.`,
+    canonicalPath: `/sportsbooks/${op.id}/reviews`,
+    viewHtml: op.reviewsHtml,
+    jsonLd: [breadcrumb([
+      ["Home", `${SITE_URL}/`],
+      ["Sportsbooks", `${SITE_URL}/dashboard`],
+      [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
+      ["Reviews", `${SITE_URL}/sportsbooks/${op.id}/reviews`],
     ])],
   };
 }
@@ -203,6 +221,20 @@ function faqJsonLd(op) {
       ? `${op.complaintStats.total} publicly-sourced complaint${op.complaintStats.total === 1 ? "" : "s"} ${op.complaintStats.total === 1 ? "has" : "have"} been logged against ${op.name}, with ${op.complaintStats.ongoing} still unresolved or ongoing. See the full complaint log on this page for details and sources.`
       : (op.complaintsNote || `No complaints have been logged against ${op.name} in CryptoBetGrade's research so far.`),
   });
+  // These two exist to make explicit, in structured data search engines and
+  // AI crawlers actually parse, that CryptoBetGrade is not just an
+  // aggregator of third-party complaint sites — visitors can file a
+  // complaint or leave a star review directly here, reviewed by
+  // CryptoBetGrade before it's published. See the Complaints/Reviews tabs
+  // on this same page (and file-a-complaint.html / write-a-review.html).
+  qas.push({
+    q: `Can I file a complaint about ${op.name} directly with CryptoBetGrade?`,
+    a: `Yes — visitors can file a complaint about ${op.name} directly on this site. Every submission is reviewed by CryptoBetGrade before it's published, and the submitter can post follow-up updates once it's live. See the Complaints tab on this page.`,
+  });
+  qas.push({
+    q: `Can I leave a review of ${op.name}?`,
+    a: `Yes — visitors can rate ${op.name} from 1 to 5 stars and leave a written review directly on this site. Reviews are checked by CryptoBetGrade before publishing. See the Reviews tab on this page.`,
+  });
   if (qas.length < 2) return null;
   return {
     "@context": "https://schema.org",
@@ -224,11 +256,143 @@ function metaFor(match) {
     const op = OPERATORS_BY_ID.get(match.id);
     return op ? operatorComplaintsMeta(op) : null;
   }
+  if (match.kind === "operator-reviews") {
+    const op = OPERATORS_BY_ID.get(match.id);
+    return op ? operatorReviewsMeta(op) : null;
+  }
   if (match.kind === "complaint") {
     const entry = COMPLAINT_INDEX.get(match.slug);
     return entry ? complaintMeta(entry.op, entry.complaint) : null;
   }
   return null;
+}
+
+// ---------------------------------------------------------------------
+// Live, visitor-submitted content (complaints + reviews), rendered
+// server-side at request time from D1 — NOT part of data.json, which is a
+// build-time snapshot with no database access. Without this, every
+// crawler that doesn't execute JS (most of them, including most LLM
+// crawlers) would only ever see the curated, third-party-sourced dataset
+// on these pages — i.e. exactly the "we're just an aggregator" signal
+// this exists to fix. dashboard.html's own client JS (cbgLoadComplaints /
+// cbgLoadReviews) re-fetches and re-renders over this once it hydrates,
+// so this only has to be reasonable markup for the pre-hydration/no-JS
+// case, not pixel-identical to the client render.
+// ---------------------------------------------------------------------
+
+const PUBLIC_COMPLAINT_STATUSES = ["open", "awaiting_response", "resolved", "rejected"];
+
+async function fetchCommunityComplaints(env, slug) {
+  try {
+    const placeholders = PUBLIC_COMPLAINT_STATUSES.map(() => "?").join(",");
+    const rows = await env.DB.prepare(
+      `SELECT title, description, amount, status, created_at FROM complaints
+       WHERE operator_slug = ? AND status IN (${placeholders})
+       ORDER BY created_at DESC LIMIT 30`
+    ).bind(slug, ...PUBLIC_COMPLAINT_STATUSES).all();
+    return rows.results || [];
+  } catch (e) {
+    console.error("SEO page: community complaints fetch failed:", e);
+    return [];
+  }
+}
+
+async function fetchApprovedReviews(env, slug) {
+  try {
+    const rows = await env.DB.prepare(
+      `SELECT r.rating, r.title, r.body, r.created_at, u.email AS submitter_email
+       FROM reviews r JOIN users u ON u.id = r.submitter_user_id
+       WHERE r.operator_slug = ? AND r.status = 'approved'
+       ORDER BY r.created_at DESC LIMIT 30`
+    ).bind(slug).all();
+    return rows.results || [];
+  } catch (e) {
+    // Also covers the reviews table not existing yet on a fresh deploy
+    // before the one-time /api/admin/migrate-reviews ping has run — fail
+    // to an empty list rather than a 500 for the whole page.
+    console.error("SEO page: reviews fetch failed:", e);
+    return [];
+  }
+}
+
+const CBG_STATUS_LABEL = { open: "Open", awaiting_response: "Awaiting response", resolved: "Resolved", rejected: "Rejected" };
+const CBG_STATUS_CLASS = { open: "bad", awaiting_response: "bad", resolved: "good", rejected: "neutral" };
+
+function truncate(s, n) {
+  s = s || "";
+  return s.length > n ? s.slice(0, n).trim() + "…" : s;
+}
+function dateShort(iso) {
+  try { return new Date(String(iso).replace(" ", "T") + "Z").toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }); }
+  catch (e) { return String(iso || ""); }
+}
+function maskEmail(email) {
+  const at = (email || "").indexOf("@");
+  if (at < 1) return "Verified user";
+  const local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const visible = local.slice(0, Math.min(2, local.length));
+  const hiddenLen = Math.max(local.length - visible.length, 3);
+  return `${visible}${"*".repeat(hiddenLen)}@${domain}`;
+}
+function starsHtml(rating, size) {
+  size = size || 15;
+  const n = Math.round(rating || 0);
+  let out = "";
+  for (let i = 1; i <= 5; i++) {
+    out += `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="${i <= n ? "#f5a623" : "none"}" stroke="#f5a623" stroke-width="1.5" style="vertical-align:-3px;"><polygon points="12 2.5 15.09 8.9 22.18 9.9 17.09 14.85 18.27 21.9 12 18.6 5.73 21.9 6.91 14.85 1.82 9.9 8.91 8.9"/></svg>`;
+  }
+  return out;
+}
+
+function communityComplaintsHtml(rows, operatorName) {
+  if (!rows.length) {
+    return `<div class="empty-note">No community-submitted complaints yet — be the first to file one if you've had an issue with ${esc(operatorName)}.</div>`;
+  }
+  return rows.map(c => `
+    <div class="complaint">
+      <div class="row1">
+        <div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+            <span class="unverified-tag">Community report</span>
+          </div>
+          <div class="ctitle">${esc(c.title)}</div>
+          <div class="cmeta">${esc(truncate(c.description, 120))}</div>
+        </div>
+        <span class="status-chip status-${CBG_STATUS_CLASS[c.status] || "neutral"}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
+      </div>
+      <div class="cmeta" style="margin-top:8px;">${c.amount ? esc(c.amount) + " at stake" : "Amount not stated"} · filed ${dateShort(c.created_at)}</div>
+    </div>
+  `).join("");
+}
+
+function reviewsHtmlBlocks(rows, operatorName) {
+  const count = rows.length;
+  const average = count ? rows.reduce((s, r) => s + r.rating, 0) / count : null;
+  const summary = count ? `
+      <div class="sidebar-box" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:32px;font-weight:800;color:var(--ink);line-height:1;">${average.toFixed(1)}</div>
+        <div>
+          <div>${starsHtml(average, 18)}</div>
+          <div class="cmeta" style="margin-top:4px;">${count} review${count === 1 ? "" : "s"}</div>
+        </div>
+      </div>
+    ` : `<div class="empty-note">No reviews yet — be the first to rate your experience with ${esc(operatorName)}.</div>`;
+
+  const list = rows.map(r => `
+    <div class="complaint">
+      <div class="row1">
+        <div>
+          <div style="margin-bottom:6px;">${starsHtml(r.rating)}</div>
+          ${r.title ? `<div class="ctitle">${esc(r.title)}</div>` : ""}
+          <div class="cmeta" style="white-space:pre-wrap;color:var(--ink-2);">${esc(r.body)}</div>
+        </div>
+      </div>
+      <div class="cmeta" style="margin-top:8px;">${esc(maskEmail(r.submitter_email))} · ${dateShort(r.created_at)}</div>
+    </div>
+  `).join("");
+
+  return { summary, list };
 }
 
 // ---------------------------------------------------------------------
@@ -288,6 +452,33 @@ ${jsonLdBlocks}
     '<div class="wrap" id="view"></div>',
     `<div class="wrap" id="view">${meta.viewHtml}</div>`
   );
+
+  // Splice in the live, visitor-submitted content (see the big comment
+  // above fetchCommunityComplaints) — env.DB is present on the deployed
+  // Worker; guarded here mainly so local/test environments without a DB
+  // binding degrade to the static "Loading…" placeholder instead of
+  // throwing.
+  if (match.kind === "operator-complaints" && env?.DB) {
+    const op = OPERATORS_BY_ID.get(match.id);
+    const rows = await fetchCommunityComplaints(env, match.id);
+    const placeholder = `<div id="cbgComplaints-${match.id}"><div class="empty-note">Loading…</div></div>`;
+    if (html.includes(placeholder)) {
+      html = html.replace(placeholder, `<div id="cbgComplaints-${match.id}">${communityComplaintsHtml(rows, op?.name || "")}</div>`);
+    }
+  }
+  if (match.kind === "operator-reviews" && env?.DB) {
+    const op = OPERATORS_BY_ID.get(match.id);
+    const rows = await fetchApprovedReviews(env, match.id);
+    const { summary, list } = reviewsHtmlBlocks(rows, op?.name || "");
+    const summaryPlaceholder = `<div id="cbgReviewsSummary-${match.id}" style="margin-bottom:18px;"><div class="empty-note">Loading…</div></div>`;
+    const listPlaceholder = `<div id="cbgReviewsList-${match.id}"></div>`;
+    if (html.includes(summaryPlaceholder)) {
+      html = html.replace(summaryPlaceholder, `<div id="cbgReviewsSummary-${match.id}" style="margin-bottom:18px;">${summary}</div>`);
+    }
+    if (html.includes(listPlaceholder)) {
+      html = html.replace(listPlaceholder, `<div id="cbgReviewsList-${match.id}">${list}</div>`);
+    }
+  }
 
   return html;
 }
