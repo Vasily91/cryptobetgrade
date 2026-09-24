@@ -399,6 +399,42 @@ function cbgToggleTheme(){
 .nav-user-menu-item:hover{background:var(--brand-lighter);}
 </style>
 <style>nav{zoom:1.1;}</style>
+
+<style id="cbg-complaint-redesign">
+/* Focused complaint-page redesign */
+.complaint-shell{max-width:1120px;margin:0 auto;padding:0 24px}
+.page-hero{padding:72px 0 58px!important;text-align:left!important}
+.page-hero .wrap{max-width:1120px!important}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:54px;align-items:center}
+.page-hero h1{font-size:clamp(38px,5vw,62px)!important;line-height:1.04;max-width:780px;letter-spacing:-1.8px!important}
+.page-hero p{margin:0!important;max-width:700px!important;font-size:17px!important;line-height:1.7}
+.page-hero .cta-row{justify-content:flex-start!important;margin-top:28px!important}
+.hero-proof{display:grid;gap:12px}
+.hero-proof-card{background:rgba(17,24,21,.86);border:1px solid #29372f;border-radius:18px;padding:20px;box-shadow:0 20px 55px rgba(0,0,0,.18)}
+.hero-proof-card strong{display:block;font:800 15px Poppins,system-ui;margin-bottom:5px;color:#f2f6f3}
+.hero-proof-card span{display:block;color:#9eaaa2;font-size:13px;line-height:1.55}
+.hero-proof-card .mini-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#13291d;color:#70e6a1;margin-bottom:13px;font-weight:800}
+.direct-answer{max-width:920px;margin:-1px auto 0;padding:28px 30px;background:linear-gradient(135deg,rgba(52,210,123,.10),rgba(52,210,123,.035));border:1px solid #28513a;border-radius:18px;position:relative;top:28px;box-shadow:0 18px 45px rgba(0,0,0,.15)}
+.direct-answer .label{font:800 12px Poppins,system-ui;letter-spacing:.08em;text-transform:uppercase;color:#70e6a1;margin-bottom:8px}
+.direct-answer h2{font:800 clamp(21px,3vw,28px) Poppins,system-ui;margin:0 0 8px;color:#f2f6f3}
+.direct-answer p{margin:0;color:#a8b4ac;font-size:15px;line-height:1.7}
+section.first-content{padding-top:82px}
+.step-grid{max-width:1000px!important;grid-template-columns:repeat(4,1fr)!important}
+.step-card{display:block!important;min-height:190px;padding:22px!important}
+.step-icon{margin-bottom:22px;width:42px!important;height:42px!important;font:800 15px Poppins,system-ui}
+.step-card h3{font-size:15px!important;margin-bottom:8px!important}
+.what-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.what-card{background:#111815;border:1px solid #29372f;border-radius:18px;padding:26px;box-shadow:0 10px 30px rgba(0,0,0,.14)}
+.what-card h3{font:800 17px Poppins,system-ui;margin:0 0 14px;color:#eef3ef}
+.what-card p{font-size:14px;color:#a8b4ac;margin:0 0 12px;line-height:1.65}
+.what-card p:last-child{margin-bottom:0}
+.issue-list{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.issue-pill{border:1px solid #2b4035;background:#0e1712;border-radius:10px;padding:10px 12px;color:#b8c4bc;font-size:12.5px;font-weight:650}
+.final-cta{max-width:1000px;margin:0 auto;background:linear-gradient(135deg,#12291d,#0d1812);border:1px solid #2b563d;border-radius:22px;padding:34px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.final-cta h2{font:800 25px Poppins,system-ui;margin:0 0 7px;color:#f2f6f3}.final-cta p{margin:0;color:#9faca4;font-size:14px}.final-cta .cta-row{margin:0;flex:none}
+@media(max-width:900px){.hero-grid,.what-grid{grid-template-columns:1fr}.hero-proof{grid-template-columns:repeat(3,1fr)}.step-grid{grid-template-columns:1fr 1fr!important}.final-cta{display:block}.final-cta .cta-row{justify-content:flex-start;margin-top:22px}}
+@media(max-width:650px){.page-hero{padding:50px 0 44px!important}.hero-proof{grid-template-columns:1fr}.step-grid{grid-template-columns:1fr!important}.issue-list{grid-template-columns:1fr}.direct-answer{margin-left:18px;margin-right:18px;padding:22px}.final-cta{padding:24px}.page-hero h1{font-size:38px!important}}
+</style>
 </head>
 <body>
 
@@ -438,20 +474,35 @@ function cbgToggleTheme(){
 <header class="page-hero">
   <div class="wrap">
     <span class="kicker">COMPLAINTS</span>
-    <h1>File a complaint against a crypto sportsbook</h1>
-    <p>Had a payout delayed, a bonus term disputed, or a balance withheld pending "review"? File it directly with CryptoBetGrade — free, checked by our team before it's published, with a public case thread the operator can respond to.</p>
-    <div class="cta-row" style="margin-top:24px;">
-      <a href="dashboard.html?file=1" class="btn">File a complaint →</a>
-      <a href="complaints.html" class="btn-outline">See published complaints</a>
+    <div class="hero-grid">
+      <div>
+        <span class="kicker">DIRECT COMPLAINT SUBMISSION</span>
+        <h1>File a complaint against a crypto sportsbook</h1>
+        <p>Withdrawal delayed? Winnings withheld? Account closed after a win? Submit your case directly to CryptoBetGrade. Filing is free, every complaint is reviewed before publication, and the operator can respond publicly.</p>
+        <div class="cta-row">
+          <a href="dashboard.html?file=1" class="btn">File your complaint →</a>
+          <a href="complaints.html" class="btn-outline">Browse complaint database</a>
+        </div>
+      </div>
+      <div class="hero-proof" aria-label="Complaint service highlights">
+        <div class="hero-proof-card"><div class="mini-icon">✓</div><strong>Free to submit</strong><span>No fee to file a complaint or add updates to your case.</span></div>
+        <div class="hero-proof-card"><div class="mini-icon">↗</div><strong>Public case record</strong><span>Approved complaints are published with a dedicated case thread.</span></div>
+        <div class="hero-proof-card"><div class="mini-icon">◎</div><strong>Reviewed before publishing</strong><span>We check submissions to reduce spam, duplicates and unsupported entries.</span></div>
+      </div>
     </div>
   </div>
 </header>
+<div class="direct-answer">
+  <div class="label">Can I file a complaint directly on CryptoBetGrade?</div>
+  <h2>Yes. You can submit your complaint directly to CryptoBetGrade.</h2>
+  <p>You do not need to publish it on another complaint platform first. Select the operator, explain what happened and submit the case for review. If approved, it becomes part of the public CryptoBetGrade complaint record.</p>
+</div>
 
-<section>
+<section class="first-content">
   <div class="wrap">
     <div class="prose">
-      <p>Most of the complaint data on CryptoBetGrade's sportsbook profiles is sourced from public platforms — AskGamblers, Casino.Guru, the BBB, Trustpilot, named forum and Reddit threads — each individually cited. But those platforms aren't the only way to get a case in front of CryptoBetGrade and, eventually, the operator itself.</p>
-      <p><b>You can file a complaint directly here.</b> It works the same way whether the site you're reporting is already reviewed or brand new to CryptoBetGrade.</p>
+      <p>CryptoBetGrade maintains a public database of gambling disputes from independent sources and direct player submissions. If your issue involves a crypto sportsbook or casino, you can submit it here even if the operator is not yet covered by CryptoBetGrade.</p>
+      <p><b>Direct submissions are kept distinct from independently sourced complaint records.</b> We review the information before publication and may request additional details where the case is unclear.</p>
     </div>
   </div>
 </section>
@@ -487,6 +538,32 @@ function cbgToggleTheme(){
 </section>
 
 <section>
+  <div class="complaint-shell">
+    <div class="section-head">
+      <div class="eyebrow">What you can report</div>
+      <h2>Common sportsbook and casino disputes</h2>
+      <p>Submit a case when there is a specific issue that can be described and, where possible, supported with account history, messages or transaction details.</p>
+    </div>
+    <div class="what-grid">
+      <div class="what-card">
+        <h3>Issues we commonly review</h3>
+        <div class="issue-list">
+          <div class="issue-pill">Withdrawal or payout delays</div><div class="issue-pill">Withheld winnings or balances</div>
+          <div class="issue-pill">Account closure or restriction</div><div class="issue-pill">KYC / source-of-funds disputes</div>
+          <div class="issue-pill">Voided or adjusted bets</div><div class="issue-pill">Bonus or rollover disputes</div>
+          <div class="issue-pill">Arbitrage / value-betting allegations</div><div class="issue-pill">Other documented disputes</div>
+        </div>
+      </div>
+      <div class="what-card">
+        <h3>What makes a useful submission</h3>
+        <p>Tell us what happened in chronological order, the amount involved and what explanation the operator gave you.</p>
+        <p>If available, keep screenshots, transaction IDs, bet IDs and support messages. Do not publish passwords, seed phrases, full identity documents or other sensitive personal information.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Good to know</div>
@@ -501,15 +578,10 @@ function cbgToggleTheme(){
 </section>
 
 <section class="alt">
-  <div class="wrap">
-    <div class="section-head" style="margin-bottom:0;">
-      <div class="eyebrow">Also on CryptoBetGrade</div>
-      <h2>Rather leave a star rating?</h2>
-      <p style="margin-bottom:20px;">If you don't have a specific dispute to report — just an overall experience to share — <a href="write-a-review.html" style="color:var(--brand-dark);font-weight:600;text-decoration:underline;">write a review</a> instead.</p>
-      <div class="cta-row">
-        <a href="write-a-review.html" class="btn-outline">Write a review</a>
-        <a href="dashboard.html" class="btn-outline">Browse sportsbooks</a>
-      </div>
+  <div class="complaint-shell">
+    <div class="final-cta">
+      <div><h2>Have a specific dispute? Put it on the record.</h2><p>Submit the facts directly to CryptoBetGrade. If you only want to share an overall experience, you can leave a review instead.</p></div>
+      <div class="cta-row"><a href="dashboard.html?file=1" class="btn">File a complaint →</a><a href="write-a-review.html" class="btn-outline">Write a review</a></div>
     </div>
   </div>
 </section>
