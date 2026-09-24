@@ -953,7 +953,7 @@ html[data-theme="dark"] #cbgPickOperatorSearch{background:#0C1210;color:#EDF3EF;
     <a href="research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Research</a>
     <a href="analytics.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg> Analytics</a>
     <a href="complaints.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Complaints</a>
-    <a href="dashboard.html?file=1" id="mobileNavFileComplaint" style="display:none" onclick="return cbgFileComplaintNavClick()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> File a complaint</a>
+    <a href="file-a-complaint.html" id="mobileNavFileComplaint" style="display:none" onclick="return cbgFileComplaintNavClick()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> File a complaint</a>
   </div>
 </nav>
 
@@ -1121,10 +1121,12 @@ html[data-theme="dark"] #cbgPickOperatorSearch{background:#0C1210;color:#EDF3EF;
   </div>
 </div>
 
-<!-- FILE A COMPLAINT: pick a sportsbook first — opened from the top-nav
-     "File a complaint" button (site.js's cbgFileComplaintNavClick calls
-     cbgOpenComplaintPicker() below), separate from the per-operator
-     shortcut lower on this page which skips straight to cbgFileModal. -->
+<!-- FILE A COMPLAINT: pick a sportsbook first — opened via the ?file=1
+     deep-link handler below, reached from file-a-complaint.html's own
+     "File a complaint" button (every nav entry point now routes through
+     that landing page first, via site.js's cbgFileComplaintNavClick).
+     Separate from the per-operator shortcut lower on this page which
+     skips straight to cbgFileModal. -->
 <div class="modal-bg" id="cbgPickOperatorModal">
   <div class="modal" style="max-width:480px;">
     <h3 id="cbgPickOperatorTitle">File a complaint</h3>
@@ -3437,15 +3439,15 @@ function cbgEscape(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({ "
 function cbgDateShort(iso){ try{ return new Date(iso.replace(" ","T")+"Z").toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"}); }catch(e){ return iso; } }
 
 // ---- Pick-a-sportsbook step, shared by "File a complaint" and "Write a
-// review" (from the top-nav button, or from the file-a-complaint.html /
-// write-a-review.html landing pages). Reached via site.js's
-// cbgFileComplaintNavClick(), which either calls cbgOpenComplaintPicker()
-// directly (on this page) or, on every other page, lets its link navigate
-// here to dashboard.html?file=1 — see the small inline script right after
-// <script src="/site.js"> below, which detects that query param (or
-// ?review=1) once the session check resolves and opens the matching picker
-// or the login modal. cbgPickOperatorMode decides which flow the picker
-// hands off to once a sportsbook is chosen.
+// review" — reached only via the file-a-complaint.html / write-a-review.html
+// landing pages now (every top-nav "File a complaint" click, via site.js's
+// cbgFileComplaintNavClick(), navigates to that landing page first, even
+// from this page). Their buttons link to dashboard.html?file=1 /
+// ?review=1 — see the small inline scripts right after <script
+// src="/site.js"> below, which detect those query params once the session
+// check resolves and open the matching picker or the login modal.
+// cbgPickOperatorMode decides which flow the picker hands off to once a
+// sportsbook is chosen.
 
 let cbgPickOperatorMode = "complaint"; // "complaint" | "review"
 

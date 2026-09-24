@@ -90,24 +90,24 @@ function cbgUserMenuFileComplaint(){
 }
 
 // "File a complaint" click handler, shared by the nav dropdown item and the
-// mobile-panel duplicate. On dashboard.html itself (where the operator
-// picker + file-complaint modal actually live), open the picker in place
-// instead of navigating. On every other page, navigate to
-// dashboard.html?file=1, which auto-opens the picker on load (see the inline
-// script after site.js in dashboard.html).
+// mobile-panel duplicate. Always navigates to the crawlable
+// file-a-complaint.html landing page — including from dashboard.html
+// itself — rather than opening the picker/modal in place, so every entry
+// point into this feature goes through the same URL search engines and
+// LLM crawlers can find and index. That landing page's own "File a
+// complaint" button is the one that goes on to dashboard.html?file=1 and
+// auto-opens the picker there (see the inline script after site.js in
+// dashboard.html).
 //
 // NOTE: this has to navigate explicitly with location.href rather than just
 // `return true` — that trick only works for an <a href> (the mobile-panel
 // duplicate), where "true" lets the browser's own default action run. The
 // desktop dropdown item is a <button> with no href, so there is no default
-// navigation for "true" to allow, and the click silently did nothing there
-// on every page except dashboard.html. Fixed 2026-09-12.
+// navigation for "true" to allow, and the click silently did nothing there.
+// Fixed 2026-09-12; changed 2026-09-24 to always route through the landing
+// page instead of skipping it on dashboard.html.
 function cbgFileComplaintNavClick(){
-  if(typeof cbgOpenComplaintPicker === "function"){
-    cbgOpenComplaintPicker();
-    return false;
-  }
-  window.location.href = "dashboard.html?file=1";
+  window.location.href = "file-a-complaint.html";
   return false;
 }
 
