@@ -1723,16 +1723,20 @@ const KEY_PROS = {
   "MetaWin": ["25+ sport sportsbook, confirmed direct","Fast crypto withdrawals reported (Trustpilot)"],
   "Qzino": ["Sportsbook powered by BetBy","40+ sports plus esports covered"],
   // Toshi.bet, 96.com and Flush.com revised 2026-09-19 at the site owner's
-  // direction — swapped their prior generic pros for a single "arbitrage
-  // betting restricted" pill instead. For 96.com this is directly evidenced
-  // (see complaint c966: an operator representative stated in a Bitcointalk
-  // thread that the account does not support arbitrage-based betting). For
-  // Toshi.bet and Flush.com this reflects the site owner's own knowledge
-  // rather than an independently sourced Terms quote found in this
-  // database's research passes so far.
-  "Toshi.bet": ["Arbitrage betting restricted"],
-  "96.com": ["Arbitrage betting restricted"],
-  "Flush.com": ["Arbitrage betting restricted"],
+  // direction to show "Arbitrage betting restricted" instead of their prior
+  // generic pros. Corrected 2026-09-25: that's a restriction on the player,
+  // not a benefit — it was showing green (pro) when it should read red
+  // (con), same as every other arbitrage-restricted operator in this
+  // database (Winna, SolCasino.io, BC.Game, etc). Moved to KEY_CONS in
+  // dashboard-data.js instead; these three have no distinct pro bullet left.
+  // For 96.com this is directly evidenced (see complaint c966: an operator
+  // representative stated in a Bitcointalk thread that the account does not
+  // support arbitrage-based betting). For Toshi.bet and Flush.com this
+  // reflects the site owner's own knowledge rather than an independently
+  // sourced Terms quote found in this database's research passes so far.
+  "Toshi.bet": [],
+  "96.com": [],
+  "Flush.com": [],
 };
 // Distilled from the same TERMS_INFO bonus/withdrawal/kyc text already on this
 // profile — see below for the full prose these summarize.
