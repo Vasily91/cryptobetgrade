@@ -541,14 +541,15 @@ nav .wrap{max-width:1320px!important}
 .hero-count{height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;padding:0 14px;color:var(--ink-2);font-size:10.5px;white-space:nowrap}
 .cbg-dashboard{max-width:1460px!important;padding:0 0 42px!important}
 .cbg-layout{grid-template-columns:minmax(0,1fr) 330px!important;gap:16px!important}
-.cbg-maincol{display:flex;flex-direction:column}
+.cbg-maincol{display:flex;flex-direction:column;min-width:0!important}
 .cbg-stats{max-width:none!important;margin:0 0 14px!important;gap:12px!important}
 .stat-tile{min-height:102px!important;padding:16px 18px!important;background:linear-gradient(145deg,var(--surface),rgba(52,210,123,.018))!important;display:flex;flex-direction:column;justify-content:center}
 .stat-tile .stat-label{order:2;text-transform:none!important;letter-spacing:0!important;font-size:10px!important;margin:2px 0 0!important;color:var(--ink-2)!important}
 .stat-tile .stat-value{order:1;font-size:23px!important}.stat-tile .stat-sub{order:3;font-size:9px!important;margin-top:1px!important}
 .strip-caption{display:none!important}
 .cbg-heading-row{display:none!important}
-.explorer-shell{border-radius:12px!important;overflow:hidden!important}
+.explorer-shell{border-radius:12px!important;overflow:hidden!important;min-width:0!important;width:100%!important}
+.explorer-shell > div[style*="overflow-x"]{min-width:0!important;width:100%!important}
 .explorer-toolbar{grid-template-columns:1.1fr .9fr .9fr .9fr auto!important;gap:8px!important;padding:14px!important;background:var(--surface)!important}
 .explorer-search{display:none!important}
 .explorer-control{min-height:48px!important;padding:7px 10px!important;border-radius:9px!important}
