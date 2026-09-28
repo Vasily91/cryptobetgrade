@@ -1461,15 +1461,22 @@ const SPORTSBOOK_PROVIDER = {
   // independent review or page fetch could confirm this (one third-party
   // review instead named an uncorroborated, likely-unreliable "BetsyGames"),
   // so recorded here the same way as other site-owner-supplied,
-  // not-independently-confirmed provider facts above. WinWinBet and
-  // FairPari have no entry — no tracked provider (BetBy/Digitain/Data.bet)
-  // could be confirmed for either; one FairPari review describes it as
-  // possibly running on 1xBet's platform infrastructure, which isn't one
-  // of the categories tracked here, so it's recorded in COMPANY_INFO
-  // instead rather than given a placeholder entry in this map.
+  // not-independently-confirmed provider facts above.
   "BetBolt": "BetBy",
+  // Megapari, WinWinBet and FairPari added 2026-09-28, BetB2B per the site
+  // owner directly. Not independently confirmed by brand name — a
+  // third-party BetB2B roundup instead names 22Bet, 1XBet and Betwinner
+  // as its confirmed partners — but those three are the same 1xBet-family
+  // operator cluster Megapari/WinWinBet/FairPari are commonly grouped with,
+  // and one FairPari review separately (and independently) describes it as
+  // possibly running on 1xBet's own platform infrastructure, which is
+  // directionally consistent. Recorded the same way as other site-owner-
+  // supplied, not-independently-confirmed provider facts above.
+  "Megapari": "BetB2B",
+  "WinWinBet": "BetB2B",
+  "FairPari": "BetB2B",
 };
-const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy", "Digitain": "Digitain", "Data.bet": "Data.bet" };
+const SPORTSBOOK_PROVIDER_LABEL = { "BetBy": "BetBy", "Digitain": "Digitain", "Data.bet": "Data.bet", "BetB2B": "BetB2B" };
 function sportsbookProviderOf(name){ return SPORTSBOOK_PROVIDER[name] || null; }
 
 // Arbitrage-betting clause — whether an operator's own official Terms
