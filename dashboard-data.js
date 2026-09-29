@@ -3291,6 +3291,49 @@ const TERMS_INFO = {
   },
 };
 
+// Reputation / community-trust incidents — added 2026-09-29 as a 6th Trust
+// Score category (see dashboard.html's TRUST_CATEGORY_WEIGHTS and
+// computeTrustScore, and tools/reputation-scoring-proposal.md for the full
+// methodology writeup). This is deliberately separate from complaintsRec:
+// complaintsRec scores the complaints themselves (volume, resolution),
+// while this category scores whether the operator (or someone acting for
+// it) has tried to manipulate or suppress the public record about itself —
+// an operator can have a clean complaintsRec and still score badly here if
+// that clean record was partly manufactured by suppression, which is
+// exactly the Winna case below.
+//
+// Default (no entry here) = 10/10 — most operators have no documented
+// integrity incident on file; absence of research here is not evidence of
+// wrongdoing. An entry only appears once a specific, sourced incident is
+// on record. Where an operator has more than one incident, the WORST
+// (lowest) score governs — see reputationScore() in dashboard.html.
+//
+// Scale: 9-10 no incident (default) · 7-8 isolated unverified community
+// report, no admin action · 5-6 repeated unverified pattern, or one
+// admin-logged-but-unconfirmed incident · 3-4 admin/court/regulator-
+// confirmed violation not involving evidence manipulation · 0-2
+// admin-confirmed attempt to suppress/censor/manipulate the public record
+// about the operator (worst signal — proves bad faith regardless of
+// whether the underlying accusations were true).
+const REPUTATION_INCIDENTS = {
+  "Winna": [{
+    severity: "suppression",
+    description: "A Bitcointalk administrator (theymos) posted that a former forum moderator (\"Sapta\") admitted being paid to delete roughly 19 Winna scam-accusation threads (plus 1 Gamdom thread). theymos said he couldn't be 100% certain Winna itself paid the bribe but called it likely. Winna's official forum account (bennettwinna) issued a public denial.",
+    source: "Bitcointalk (theymos, administrator post)",
+    sourceUrl: "https://bitcointalk.org/index.php?topic=5589060.0",
+    date: "2026-09",
+    score: 1,
+  }],
+  "BC.Game": [{
+    severity: "unverified-single",
+    description: "A Bitcointalk ANN-thread scam warning banner was posted about BC.Game by the community. Bitcointalk itself states such warnings are not independently verified by forum administration, and no admin action or suppression attempt is on record for this case.",
+    source: "Bitcointalk (ANN thread, community-posted warning)",
+    sourceUrl: "https://bitcointalk.org/index.php?topic=5088875.0",
+    date: "2026-09",
+    score: 7,
+  }],
+};
+
 const TRUST_BREAKDOWN = {
   // complaintsRec trimmed 2026-09-17 (9->8) after a Bitcointalk
   // scam-accusation-tracker sweep added 14 new complaint entries (see

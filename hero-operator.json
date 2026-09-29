@@ -1,17 +1,18 @@
 {
-  "generatedAt": "2026-09-28",
+  "generatedAt": "2026-09-29",
   "id": "500casino",
   "name": "500Casino",
   "logoDomain": "500.casino",
   "jurisdictionShort": "Curaçao",
-  "score": 8.9,
+  "score": 9,
   "gradeLabel": "Trusted",
   "breakdown": {
     "licence": 9,
     "payout": 10,
     "complaintsRec": 8,
     "kyc": 9,
-    "tc": 8
+    "tc": 8,
+    "reputation": 10
   },
   "deposits24hShort": "$388K",
   "depositsRank": "22 of 43",

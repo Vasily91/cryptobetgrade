@@ -2010,9 +2010,11 @@ function jurisdictionShort(op){
 // until a real complaint-verification pass is done (see METHODOLOGY.md).
 
 // Trust Score breakdown — first-pass / beta scoring (see methodology.html).
-// Each operator gets a 0–10 score in the 5 categories methodology.html defines
+// Each operator gets a 0–10 score in the 6 categories methodology.html defines
 // (licence & regulation, payout reliability, complaint record, KYC practice,
-// T&C fairness). "Limiting practice" and "customer support" were dropped as
+// T&C fairness, reputation & community trust — the last one added 2026-09-29,
+// see REPUTATION_INCIDENTS in dashboard-data.js). "Limiting practice" and
+// "customer support" were dropped as
 // standalone categories — support responsiveness is near-universal across
 // these operators and wasn't differentiating, and limiting-practice evidence
 // was too thin to score independently — their combined weight was folded into
@@ -2082,7 +2084,23 @@ function jurisdictionShort(op){
 // complaintsRec revision above) and the Galaktika group gets a smaller
 // payout bump to 5/10 too, versus a neutral 5 elsewhere on the sheet.
 // Expect these to move as real complaint intake happens.
-const TRUST_CATEGORY_WEIGHTS = { licence:0.25, payout:0.25, complaintsRec:0.25, kyc:0.125, tc:0.125 };
+// Reputation & community trust added as a 6th category 2026-09-29 — see
+// REPUTATION_INCIDENTS in dashboard-data.js and
+// tools/reputation-scoring-proposal.md for the full rationale. Existing 5
+// weights scaled by 0.9 (proportional, not arbitrary) to make room for the
+// new category at 10% — kept deliberately modest since most operators have
+// no reputation-incident research yet; may be revised as that research
+// deepens.
+const TRUST_CATEGORY_WEIGHTS = { licence:0.225, payout:0.225, complaintsRec:0.225, kyc:0.1125, tc:0.1125, reputation:0.10 };
+
+// Reputation score for an operator: the worst (lowest) score among its
+// REPUTATION_INCIDENTS entries, or 10 (default — no documented incident)
+// when it has none. See REPUTATION_INCIDENTS in dashboard-data.js.
+function reputationScore(name){
+  const incidents = REPUTATION_INCIDENTS[name];
+  if(!incidents || !incidents.length) return 10;
+  return Math.min(...incidents.map(i => i.score));
+}
 
 // Short "typical payout time" label per operator for the sportsbooks list page —
 // summarized from the fuller sourced text in TERMS_INFO[name].withdrawal above.
@@ -2113,10 +2131,11 @@ const PAYOUT_TIME_SHORT = {
 
 function computeTrustScore(name){
   const b = TRUST_BREAKDOWN[name];
-  if(!b) return { breakdown:{ licence:null, payout:null, complaintsRec:null, kyc:null, tc:null }, score:null };
+  if(!b) return { breakdown:{ licence:null, payout:null, complaintsRec:null, kyc:null, tc:null, reputation:null }, score:null };
+  const full = {...b, reputation: reputationScore(name)};
   let total = 0;
-  for(const k in TRUST_CATEGORY_WEIGHTS) total += (b[k]||0) * TRUST_CATEGORY_WEIGHTS[k];
-  return { breakdown: {...b}, score: Math.round(total*10)/10 };
+  for(const k in TRUST_CATEGORY_WEIGHTS) total += (full[k]||0) * TRUST_CATEGORY_WEIGHTS[k];
+  return { breakdown: full, score: Math.round(total*10)/10 };
 }
 
 // Manual logo overrides — for when the auto-fetched favicon (Google's s2
@@ -2593,7 +2612,8 @@ function normalizeOperators(){
     if(!op.onchain) op.onchain = {deposits24h:null,uaw24h:null,balance:null,rank:null,source:"",checked:""};
     if(!op.annualVolume) op.annualVolume = {amount:null,yoy:null,source:"",checked:""};
     if(!op.ownership) op.ownership = {parent:"",jurisdiction:"",related:""};
-    if(!op.breakdown) op.breakdown = {licence:null,payout:null,complaintsRec:null,kyc:null,tc:null};
+    if(!op.breakdown) op.breakdown = {licence:null,payout:null,complaintsRec:null,kyc:null,tc:null,reputation:null};
+    if(op.breakdown && op.breakdown.reputation===undefined) op.breakdown.reputation = null;
     if(!op.terms) op.terms = {bonus:{text:"",source:"",checked:""},withdrawal:{text:"",source:"",checked:""},kyc:{text:"",source:"",checked:""}};
     if(!op.complaints) op.complaints = [];
     if(op.complaintsNote===undefined) op.complaintsNote = "";
@@ -2846,7 +2866,7 @@ function renderDetail(id){
 
   const breakdownLabels = {
     licence:"Licence & regulation", payout:"Payout reliability", complaintsRec:"Complaint record",
-    kyc:"KYC practice", tc:"T&C fairness"
+    kyc:"KYC practice", tc:"T&C fairness", reputation:"Reputation & community trust"
   };
 
   const keyPros = op.keyPros || [];
@@ -4358,7 +4378,7 @@ function addOperator(){
     logoDomain: domain, logoData: null,
     officialUrl:"", affiliateUrl:"",
     grade:null, score:null,
-    breakdown:{licence:null,payout:null,complaintsRec:null,kyc:null,tc:null},
+    breakdown:{licence:null,payout:null,complaintsRec:null,kyc:null,tc:null,reputation:null},
     overview:"", ownership:{parent:"",jurisdiction:"",related:""},
     terms:{ bonus:{text:"",source:"",checked:""}, withdrawal:{text:"",source:"",checked:""}, kyc:{text:"",source:"",checked:""} },
     onchain:{deposits24h:null,uaw24h:null,balance:null,rank:null,source:"",checked:""},
