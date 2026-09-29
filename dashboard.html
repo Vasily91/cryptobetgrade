@@ -2094,11 +2094,18 @@ function jurisdictionShort(op){
 const TRUST_CATEGORY_WEIGHTS = { licence:0.225, payout:0.225, complaintsRec:0.225, kyc:0.1125, tc:0.1125, reputation:0.10 };
 
 // Reputation score for an operator: the worst (lowest) score among its
-// REPUTATION_INCIDENTS entries, or 10 (default — no documented incident)
-// when it has none. See REPUTATION_INCIDENTS in dashboard-data.js.
+// REPUTATION_INCIDENTS entries, or 7 (neutral default) when it has none.
+// Deliberately NOT a high default like licence/kyc/tc — revised 2026-09-29
+// after review. "No documented incident found" only means our research
+// didn't surface one; it is not proof of a clean record, especially for a
+// smaller operator with little independent online scrutiny. A high default
+// (9-10) would silently hand every under-researched operator a free score
+// boost on this category. 7 is neutral and only rises with a
+// operator-specific finding of demonstrated good standing — see the scale
+// comment above REPUTATION_INCIDENTS in dashboard-data.js.
 function reputationScore(name){
   const incidents = REPUTATION_INCIDENTS[name];
-  if(!incidents || !incidents.length) return 10;
+  if(!incidents || !incidents.length) return 7;
   return Math.min(...incidents.map(i => i.score));
 }
 

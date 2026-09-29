@@ -3302,27 +3302,39 @@ const TERMS_INFO = {
 // that clean record was partly manufactured by suppression, which is
 // exactly the Winna case below.
 //
-// Default (no entry here) = 10/10 — most operators have no documented
-// integrity incident on file; absence of research here is not evidence of
-// wrongdoing. An entry only appears once a specific, sourced incident is
-// on record. Where an operator has more than one incident, the WORST
-// (lowest) score governs — see reputationScore() in dashboard.html.
+// Default (no entry here) = 7/10, NOT 9-10 — deliberately a neutral default,
+// same convention as complaintsRec/payout elsewhere in this file, revised
+// 2026-09-29 after review. "No documented incident found" is not the same
+// claim as "confirmed clean record," especially for smaller operators with
+// little independent online scrutiny — treating absence of research as
+// evidence of good reputation would silently reward under-researched
+// operators with a free score boost. 7/10 sits below the maximum and only
+// rises with an operator-specific finding of *demonstrated, scrutinized*
+// good standing (see 8-9 tier below), never by default alone.
 //
-// Scale: 9-10 no incident (default) · 7-8 isolated unverified community
-// report, no admin action · 5-6 repeated unverified pattern, or one
-// admin-logged-but-unconfirmed incident · 3-4 admin/court/regulator-
-// confirmed violation not involving evidence manipulation · 0-2
-// admin-confirmed attempt to suppress/censor/manipulate the public record
-// about the operator (worst signal — proves bad faith regardless of
-// whether the underlying accusations were true).
+// Where an operator has more than one incident, the WORST (lowest) score
+// governs — see reputationScore() in dashboard.html.
+//
+// Scale: 7 (default, no evidence either way) · 8-9 demonstrated track
+// record under real, sustained independent scrutiny with no
+// reputation-manipulation pattern found (not given by default — requires a
+// specific documented basis) · 5-6 isolated unverified community report or
+// scam-warning flag, no admin action, no suppression attempt · 3-4 a known
+// incident where the public complaint record about the operator WAS
+// manipulated/suppressed, but the operator's own direct involvement or
+// authorization is NOT proven (attribution disputed/unconfirmed) · 1-2
+// administratively confirmed that the operator itself (or someone
+// provably acting on its explicit instruction) paid for or ordered the
+// suppression/censorship — i.e. the operator's own culpability, not just
+// the suppression event, is confirmed.
 const REPUTATION_INCIDENTS = {
   "Winna": [{
-    severity: "suppression",
-    description: "A Bitcointalk administrator (theymos) posted that a former forum moderator (\"Sapta\") admitted being paid to delete roughly 19 Winna scam-accusation threads (plus 1 Gamdom thread). theymos said he couldn't be 100% certain Winna itself paid the bribe but called it likely. Winna's official forum account (bennettwinna) issued a public denial.",
+    severity: "suppression-unattributed",
+    description: "CONFIRMED (Bitcointalk administrator theymos, administrative post): a former forum moderator (\"Sapta\") admitted being paid to delete roughly 19 Winna scam-accusation threads (plus 1 Gamdom thread) — the moderator's payment and misconduct are administratively confirmed. NOT confirmed: that Winna itself paid, authorized, or was aware of this — theymos said he couldn't be 100% certain Winna was the payer, though he considered it likely; Winna's official forum account (bennettwinna) issued a public denial. Scored as a known suppression event that benefited the operator, with the operator's own involvement unconfirmed — not as proven operator misconduct.",
     source: "Bitcointalk (theymos, administrator post)",
     sourceUrl: "https://bitcointalk.org/index.php?topic=5589060.0",
     date: "2026-09",
-    score: 1,
+    score: 3,
   }],
   "BC.Game": [{
     severity: "unverified-single",
@@ -3330,7 +3342,7 @@ const REPUTATION_INCIDENTS = {
     source: "Bitcointalk (ANN thread, community-posted warning)",
     sourceUrl: "https://bitcointalk.org/index.php?topic=5088875.0",
     date: "2026-09",
-    score: 7,
+    score: 6,
   }],
 };
 
