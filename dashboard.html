@@ -3320,14 +3320,18 @@ function renderComplaintsTab(op, id){
         <div class="stat-tile"><div class="n">${st.ongoing}</div><div class="l">Unresolved / ongoing</div></div>
         <div class="stat-tile"><div class="n">${st.verified}</div><div class="l">Independently adjudicated</div></div>
       </div>
-      ${op.complaints.length === 0 ? `<div class="empty-note">${op.complaintsNote || "No complaints logged yet."}</div>` : ""}
-      ${sorted.map(c => complaintCardHtml(c, id)).join("")}
 
-      <div class="section-title" style="margin-top:30px;">
+      <div class="section-title" style="margin-top:0;">
         <span>Community-submitted complaints</span>
       </div>
-      <p class="cmeta" style="margin:-4px 0 12px;">Submitted by site visitors, reviewed by CryptoBetGrade before publishing. Separate from the sourced complaints above.</p>
+      <p class="cmeta" style="margin:-4px 0 12px;">Submitted by site visitors, reviewed by CryptoBetGrade before publishing. Separate from the sourced complaints below.</p>
       <div id="cbgComplaints-${id}"><div class="empty-note">Loading…</div></div>
+
+      <div class="section-title" style="margin-top:30px;">
+        <span>Sourced complaints</span>
+      </div>
+      ${op.complaints.length === 0 ? `<div class="empty-note">${op.complaintsNote || "No complaints logged yet."}</div>` : ""}
+      ${sorted.map(c => complaintCardHtml(c, id)).join("")}
   `;
 }
 function complaintCardHtml(c, id){
