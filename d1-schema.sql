@@ -48,13 +48,24 @@ CREATE TABLE IF NOT EXISTS complaints (
   reviewed_by        INTEGER REFERENCES users(id)
 );
 
+-- visible/public_body: added via the one-time /api/admin/migrate-message-
+-- visibility endpoint (ALTER TABLE, see worker.js) rather than being part
+-- of this CREATE TABLE from the start, for the same no-wrangler-CLI reason
+-- reviews' migration endpoint exists. They let an admin hide a message
+-- from the public thread view, or swap in a redacted stand-in (e.g. a
+-- submitter pasted their own email into a reply) without altering what
+-- was actually written — the admin and the submitter themselves always
+-- see the real `body`; everyone else sees `public_body` in its place when
+-- set, or nothing at all when visible = 0.
 CREATE TABLE IF NOT EXISTS complaint_messages (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
   complaint_id   INTEGER NOT NULL REFERENCES complaints(id),
   author_user_id INTEGER NOT NULL REFERENCES users(id),
   author_role    TEXT NOT NULL, -- 'submitter' | 'admin'
   body           TEXT NOT NULL,
-  created_at     TEXT NOT NULL DEFAULT (datetime('now'))
+  created_at     TEXT NOT NULL DEFAULT (datetime('now')),
+  visible        INTEGER NOT NULL DEFAULT 1, -- 0 = hidden from public thread view
+  public_body    TEXT -- redacted stand-in shown to the public instead of `body`, when set
 );
 
 -- Star reviews, one per (operator, user) — see the unique index below.

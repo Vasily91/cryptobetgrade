@@ -138,6 +138,15 @@
   .status-btn.current{background:var(--brand);border-color:var(--brand);color:#fff;cursor:default;}
   .amount-line{font-size:13px;color:var(--ink-2);margin-bottom:12px;}
   .row-actions{display:flex;align-items:center;gap:10px;flex:none;}
+
+  /* Per-message visibility / redaction controls */
+  .msg-vis-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);}
+  .vis-pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
+  .vis-pill.hidden-state{border-color:var(--critical);color:var(--critical-ink);background:var(--critical-bg);}
+  .vis-pill.redacted-state{border-color:var(--warning);color:var(--warning-ink);background:var(--warning-bg);}
+  .redact-box{width:100%;margin-top:8px;}
+  .redact-box textarea{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit;resize:vertical;min-height:50px;margin-bottom:6px;}
+  .redact-actions{display:flex;gap:6px;}
 </style>
 <style>
 /* THEME TOGGLE / DARK MODE */
@@ -213,6 +222,8 @@ html[data-theme="dark"] .msg{background:#111815!important;border-color:#28362F!i
 html[data-theme="dark"] .status-btn{background:#111815!important;border-color:#314038!important;color:#C7D1CB!important}
 html[data-theme="dark"] .status-btn:hover{border-color:#34D27B!important;color:#66E399!important}
 html[data-theme="dark"] .status-btn.current{background:var(--brand)!important;border-color:var(--brand)!important;color:#06110A!important}
+html[data-theme="dark"] .vis-pill{background:#111815!important;border-color:#314038!important;color:#C7D1CB!important}
+html[data-theme="dark"] .redact-box textarea{background:#0D1310!important;border-color:#314038!important;color:#F3F7F4!important}
 </style>
 <script>
 function cbgToggleTheme(){
@@ -392,6 +403,11 @@ async function cbgAdminInit(){
   }
   gate.style.display = "none";
   app.style.display = "";
+  // One-time, idempotent — adds the visible/public_body columns to
+  // complaint_messages if this DB doesn't have them yet (see worker.js's
+  // adminMigrateMessageVisibility). Harmless to ping on every load.
+  try{ await fetch("/api/admin/migrate-message-visibility", { method: "POST" }); }
+  catch(e){ console.error("message-visibility migration ping failed:", e); }
   cbgAdminRenderFilters();
   cbgAdminLoadQueue();
 }
@@ -481,13 +497,28 @@ function cbgAdminRenderDetail(id){
   el.innerHTML = `
     ${c.amount ? `<div class="amount-line"><b>Amount:</b> ${cbgAdminEscape(c.amount)}</div>` : ""}
     <div class="thread">
-      ${messages.map(m => `
+      ${messages.map(m => {
+        const isVisible = m.visible == null ? true : !!m.visible;
+        const hasRedaction = typeof m.public_body === "string" && m.public_body.length > 0;
+        return `
         <div class="msg ${m.author_role === "admin" ? "admin" : ""}">
           <div class="msg-role">${m.author_role === "admin" ? "CryptoBetGrade" : "Submitter"}</div>
           <div class="msg-body">${cbgAdminEscape(m.body)}</div>
           <div class="msg-time">${cbgAdminDate(m.created_at)}</div>
+          <div class="msg-vis-row">
+            <button class="vis-pill${isVisible ? "" : " hidden-state"}" onclick="cbgAdminMsgToggleVisible(${id}, ${m.id}, ${isVisible})">${isVisible ? "Visible publicly" : "Hidden from public"}</button>
+            <button class="vis-pill${hasRedaction ? " redacted-state" : ""}" onclick="cbgAdminMsgToggleRedactBox(${m.id})">${hasRedaction ? "Edit redaction" : "Redact…"}</button>
+            ${hasRedaction ? `<button class="vis-pill" onclick="cbgAdminMsgClearRedaction(${id}, ${m.id})">Show full text publicly</button>` : ""}
+          </div>
+          <div class="redact-box" id="redact-box-${m.id}" style="display:none;">
+            <textarea id="redact-text-${m.id}" placeholder="What the public should see instead of the full message…">${cbgAdminEscape(m.public_body || m.body)}</textarea>
+            <div class="redact-actions">
+              <button class="btn btn-sm" onclick="cbgAdminMsgSaveRedaction(${id}, ${m.id})">Save redacted version</button>
+              <button class="status-btn" onclick="cbgAdminMsgToggleRedactBox(${m.id})">Cancel</button>
+            </div>
+          </div>
         </div>
-      `).join("")}
+      `;}).join("")}
     </div>
     <div class="reply-box">
       <textarea id="reply-${id}" placeholder="Reply to the submitter…"></textarea>
@@ -522,6 +553,52 @@ async function cbgAdminReply(id){
   }catch(e){
     alert(e.message);
   }
+}
+
+// ---- Per-message visibility / redaction -------------------------------
+
+async function cbgAdminRefreshDetail(complaintId){
+  const detailRes = await fetch("/api/complaints/" + complaintId);
+  cbgAdminDetailCache[complaintId] = await detailRes.json();
+  cbgAdminRenderDetail(complaintId);
+}
+
+async function cbgAdminPatchMessage(complaintId, messageId, payload){
+  try{
+    const res = await fetch("/api/admin/messages/" + messageId, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if(!res.ok){
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || "Couldn't update that message.");
+    }
+    await cbgAdminRefreshDetail(complaintId);
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+function cbgAdminMsgToggleVisible(complaintId, messageId, currentlyVisible){
+  cbgAdminPatchMessage(complaintId, messageId, { visible: !currentlyVisible });
+}
+
+function cbgAdminMsgToggleRedactBox(messageId){
+  const box = document.getElementById("redact-box-" + messageId);
+  if(!box) return;
+  box.style.display = box.style.display === "none" ? "" : "none";
+}
+
+function cbgAdminMsgSaveRedaction(complaintId, messageId){
+  const ta = document.getElementById("redact-text-" + messageId);
+  const text = ta.value.trim();
+  if(!text){ alert("Redacted text can't be empty — hide the message instead if nothing should show."); return; }
+  cbgAdminPatchMessage(complaintId, messageId, { public_body: text });
+}
+
+function cbgAdminMsgClearRedaction(complaintId, messageId){
+  cbgAdminPatchMessage(complaintId, messageId, { public_body: null });
 }
 
 async function cbgAdminSetStatus(id, status){

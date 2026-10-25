@@ -112,6 +112,14 @@ async function handleApi(request, env, url) {
     return adminUpdateComplaintStatus(request, env, Number(adminStatusMatch[1]));
   }
 
+  const adminMessageMatch = pathname.match(/^\/api\/admin\/messages\/(\d+)$/);
+  if (adminMessageMatch && method === "PATCH") {
+    return adminUpdateMessageVisibility(request, env, Number(adminMessageMatch[1]));
+  }
+  if (pathname === "/api/admin/migrate-message-visibility" && method === "POST") {
+    return adminMigrateMessageVisibility(request, env);
+  }
+
   if (pathname === "/api/reviews" && method === "GET") {
     return listReviews(request, env, url);
   }
@@ -405,18 +413,56 @@ async function getComplaint(request, env, id) {
   ).bind(id).first();
   if (!complaint) return json({ error: "Not found" }, 404);
 
+  const user = await currentUser(request, env);
+  const isAdmin = !!(user && user.is_admin);
+  const isSubmitter = !!(user && user.id === complaint.submitter_user_id);
+
   if (!PUBLIC_STATUSES.includes(complaint.status)) {
     // Pending/removed complaints are only visible to the submitter or an admin.
-    const user = await currentUser(request, env);
-    const allowed = user && (user.is_admin || user.id === complaint.submitter_user_id);
-    if (!allowed) return json({ error: "Not found" }, 404);
+    if (!isAdmin && !isSubmitter) return json({ error: "Not found" }, 404);
   }
 
-  const messages = await env.DB.prepare(
-    `SELECT id, author_role, body, created_at FROM complaint_messages WHERE complaint_id = ? ORDER BY created_at ASC`
-  ).bind(id).all();
+  // visible/public_body let an admin hide a message from public view, or
+  // swap in a redacted stand-in (e.g. a submitter pasted their own email
+  // into a reply) without altering what they actually wrote. Columns may
+  // not exist yet on a given DB until /api/admin/migrate-message-visibility
+  // has run once — fall back to the plain query so this never 500s.
+  let rows;
+  try {
+    rows = await env.DB.prepare(
+      `SELECT id, author_role, body, created_at, visible, public_body FROM complaint_messages WHERE complaint_id = ? ORDER BY created_at ASC`
+    ).bind(id).all();
+  } catch (e) {
+    rows = await env.DB.prepare(
+      `SELECT id, author_role, body, created_at FROM complaint_messages WHERE complaint_id = ? ORDER BY created_at ASC`
+    ).bind(id).all();
+  }
+  const rawMessages = rows.results || [];
 
-  return json({ complaint, messages: messages.results || [] });
+  // Admin and the submitter themselves always see exactly what was
+  // written (and the admin also gets the visible/public_body moderation
+  // state); anyone else — the public thread view — only sees messages
+  // the admin hasn't hidden, with a redacted public_body swapped in
+  // where the admin set one.
+  const privileged = isAdmin || isSubmitter;
+  const messages = privileged
+    ? rawMessages.map(m => ({
+        id: m.id,
+        author_role: m.author_role,
+        body: m.body,
+        created_at: m.created_at,
+        ...(isAdmin ? { visible: m.visible == null ? 1 : m.visible, public_body: m.public_body ?? null } : {}),
+      }))
+    : rawMessages
+        .filter(m => (m.visible == null ? 1 : m.visible) !== 0)
+        .map(m => ({
+          id: m.id,
+          author_role: m.author_role,
+          body: m.public_body != null && m.public_body !== "" ? m.public_body : m.body,
+          created_at: m.created_at,
+        }));
+
+  return json({ complaint, messages });
 }
 
 // ---------------------------------------------------------------------
@@ -546,6 +592,70 @@ async function adminUpdateComplaintStatus(request, env, id) {
   }
 
   return json({ ok: true, status });
+}
+
+// ---------------------------------------------------------------------
+// Admin: per-message visibility (hide a message from the public thread,
+// or swap in a redacted stand-in — e.g. a submitter pasted their own
+// email/phone into a reply and the admin wants to keep the rest of the
+// message visible without exposing that). Doesn't change what the
+// submitter actually wrote; see getComplaint's filtering above for how
+// this is applied for non-privileged viewers.
+// ---------------------------------------------------------------------
+
+async function adminUpdateMessageVisibility(request, env, messageId) {
+  await requireAdmin(request, env);
+  const body = await safeJson(request);
+
+  const existing = await env.DB.prepare(`SELECT id FROM complaint_messages WHERE id = ?`).bind(messageId).first();
+  if (!existing) return json({ error: "Not found" }, 404);
+
+  const sets = [];
+  const binds = [];
+  if (typeof body?.visible === "boolean") {
+    sets.push("visible = ?");
+    binds.push(body.visible ? 1 : 0);
+  }
+  if ("public_body" in (body || {})) {
+    const pb = body.public_body;
+    if (pb !== null && typeof pb !== "string") {
+      return json({ error: "public_body must be a string or null." }, 400);
+    }
+    if (typeof pb === "string" && pb.length > 4000) {
+      return json({ error: "public_body can't be longer than 4000 characters." }, 400);
+    }
+    sets.push("public_body = ?");
+    binds.push(pb === "" ? null : pb);
+  }
+  if (!sets.length) return json({ error: "Nothing to update — pass visible and/or public_body." }, 400);
+
+  binds.push(messageId);
+  await env.DB.prepare(`UPDATE complaint_messages SET ${sets.join(", ")} WHERE id = ?`).bind(...binds).run();
+
+  return json({ ok: true });
+}
+
+// One-time (idempotent) migration, same pattern as adminMigrateReviews
+// below — this deploy pipeline has no wrangler/CLI access to run `wrangler
+// d1 execute` directly, so new columns on an existing table are added by
+// pinging this endpoint once from the admin panel. ALTER TABLE ADD COLUMN
+// has no IF NOT EXISTS in SQLite, so a second run is made harmless by
+// swallowing the "duplicate column name" error.
+async function adminMigrateMessageVisibility(request, env) {
+  await requireAdmin(request, env);
+
+  for (const stmt of [
+    `ALTER TABLE complaint_messages ADD COLUMN visible INTEGER NOT NULL DEFAULT 1`,
+    `ALTER TABLE complaint_messages ADD COLUMN public_body TEXT`,
+  ]) {
+    try {
+      await env.DB.prepare(stmt).run();
+    } catch (e) {
+      if (!/duplicate column name/i.test(e.message || "")) throw e;
+    }
+  }
+
+  return json({ ok: true, message: "complaint_messages visibility columns ready." });
 }
 
 // ---------------------------------------------------------------------
