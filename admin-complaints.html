@@ -141,7 +141,9 @@
 
   /* Per-message visibility / redaction controls */
   .msg-vis-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);}
-  .vis-pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
+  .vis-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
+  .vis-pill .vis-pill-icon{font-size:12px;line-height:1;}
+  .vis-pill.visible-state{border-color:var(--good);color:var(--good-ink);background:var(--good-bg);}
   .vis-pill.hidden-state{border-color:var(--critical);color:var(--critical-ink);background:var(--critical-bg);}
   .vis-pill.redacted-state{border-color:var(--warning);color:var(--warning-ink);background:var(--warning-bg);}
   .redact-box{width:100%;margin-top:8px;}
@@ -506,7 +508,7 @@ function cbgAdminRenderDetail(id){
           <div class="msg-body">${cbgAdminEscape(m.body)}</div>
           <div class="msg-time">${cbgAdminDate(m.created_at)}</div>
           <div class="msg-vis-row">
-            <button class="vis-pill${isVisible ? "" : " hidden-state"}" onclick="cbgAdminMsgToggleVisible(${id}, ${m.id}, ${isVisible})">${isVisible ? "Visible publicly" : "Hidden from public"}</button>
+            <button class="vis-pill${isVisible ? " visible-state" : " hidden-state"}" title="${isVisible ? "Shown to site visitors — click to hide" : "Hidden from site visitors — click to show"}" onclick="cbgAdminMsgToggleVisible(${id}, ${m.id}, ${isVisible})"><span class="vis-pill-icon">${isVisible ? "✓" : "✕"}</span> Visible publicly</button>
             <button class="vis-pill${hasRedaction ? " redacted-state" : ""}" onclick="cbgAdminMsgToggleRedactBox(${m.id})">${hasRedaction ? "Edit redaction" : "Redact…"}</button>
             ${hasRedaction ? `<button class="vis-pill" onclick="cbgAdminMsgClearRedaction(${id}, ${m.id})">Show full text publicly</button>` : ""}
           </div>
