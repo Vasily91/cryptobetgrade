@@ -3477,7 +3477,7 @@ const CBG_STATUS_LABEL = {
   rejected: "Rejected", removed: "Removed", pending_review: "Pending review",
 };
 const CBG_STATUS_CLASS = {
-  open: "bad", awaiting_response: "bad", resolved: "good", rejected: "neutral", removed: "neutral",
+  open: "bad", awaiting_response: "pending", resolved: "good", rejected: "neutral", removed: "neutral",
 };
 
 async function cbgLoadComplaints(id, operatorName){
@@ -3660,7 +3660,7 @@ async function cbgRenderThread(){
       </div>
       <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;">
         ${data.messages.map(m => `
-          <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role==='admin' ? 'var(--brand-lighter)' : '#fff'};">
+          <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role==='admin' ? 'var(--brand-lighter)' : 'var(--surface)'};">
             <div style="font-size:11.5px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${m.author_role==='admin' ? 'CryptoBetGrade team' : 'Submitter'} · ${cbgDateShort(m.created_at)}</div>
             <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${cbgEscape(m.body)}</div>
           </div>

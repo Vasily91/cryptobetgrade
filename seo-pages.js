@@ -316,7 +316,7 @@ async function fetchApprovedReviews(env, slug) {
 }
 
 const CBG_STATUS_LABEL = { open: "Open", awaiting_response: "Awaiting response", resolved: "Resolved", rejected: "Rejected" };
-const CBG_STATUS_CLASS = { open: "bad", awaiting_response: "bad", resolved: "good", rejected: "neutral" };
+const CBG_STATUS_CLASS = { open: "bad", awaiting_response: "pending", resolved: "good", rejected: "neutral" };
 
 function truncate(s, n) {
   s = s || "";
