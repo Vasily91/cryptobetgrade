@@ -70,13 +70,23 @@ function issuePhrase(c) { return ISSUE_TAG_PHRASE[c.issueTag] || c.issueTag || "
 export function matchSeoRoute(pathname) {
   const path = pathname.replace(/\/+$/, "") || "/";
 
-  // A single community-submitted (live, D1-backed) complaint thread — e.g.
-  // /sportsbooks/rakebit/complaints/7. Distinct from the curated
+  // A single community-submitted (live, D1-backed) complaint — e.g.
+  // /sportsbooks/rakebit/complaints/lost-500-usd-withdrawal-7, or a bare
+  // /sportsbooks/rakebit/complaints/7 (still accepted, for links shared
+  // before the descriptive slug was added). Distinct from the curated
   // /complaints/{slug} route below: this id is the live complaints.id from
   // the database, not a build-time slug, so it needs a request-time DB
-  // fetch (see communityComplaintMeta) rather than a data.json lookup.
-  let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints\/(\d+)$/);
-  if (m) return { kind: "community-complaint", opId: m[1], id: Number(m[2]) };
+  // fetch (see communityComplaintMeta) rather than a data.json lookup. The
+  // text before the trailing dash-digit group is cosmetic only — it isn't
+  // looked up, only the id is — but communityComplaintMeta always builds
+  // its canonicalPath from the *current* title, so every URL for a given
+  // complaint consolidates onto one canonical link regardless of which
+  // slug text a visitor actually arrived on.
+  let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints\/([a-z0-9-]+)$/);
+  if (m) {
+    const idMatch = m[2].match(/(?:^|-)(\d+)$/);
+    if (idMatch) return { kind: "community-complaint", opId: m[1], id: Number(idMatch[1]) };
+  }
 
   m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints$/);
   if (m) return { kind: "operator-complaints", id: m[1] };
@@ -343,6 +353,20 @@ function maskEmail(email) {
   const hiddenLen = Math.max(local.length - visible.length, 3);
   return `${visible}${"*".repeat(hiddenLen)}@${domain}`;
 }
+// Mirrors dashboard.html's cbgSlugify exactly — descriptive text in a
+// community-complaint URL is cosmetic only (matchSeoRoute/matchRealPath
+// both key off the trailing dash-digit group), but keeping the two
+// generators identical means the link a visitor clicks already matches
+// the canonical URL this file settles on, so there's no visible mismatch
+// on first paint.
+function slugify(s, maxLen) {
+  maxLen = maxLen || 60;
+  let slug = String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  if (slug.length > maxLen) slug = slug.slice(0, maxLen).replace(/-+[^-]*$/, "");
+  return slug || "complaint";
+}
+
 function starsHtml(rating, size) {
   size = size || 15;
   const n = Math.round(rating || 0);
@@ -358,15 +382,16 @@ function communityComplaintsHtml(rows, operatorName, operatorSlug) {
     return `<div class="empty-note">No community-submitted complaints yet — be the first to file one if you've had an issue with ${esc(operatorName)}.</div>`;
   }
   // Each card links to its own permalink (/sportsbooks/{slug}/complaints/
-  // {id} — see matchSeoRoute's "community-complaint" kind and dashboard.
-  // html's cbgOpenThread) so every live thread has a real, shareable,
-  // crawlable URL of its own, not just a click target inside this list.
-  // dashboard.html's own client JS still intercepts the click (cbgOpenThread
-  // is wired up after hydration) to open the modal in-place instead of a
-  // full navigation; the href is what makes it a real link for crawlers,
-  // no-JS visitors, and anyone copying the URL.
+  // {descriptive-slug}-{id} — see matchSeoRoute's "community-complaint"
+  // kind and dashboard.html's cbgGoCommunityComplaint) so every live
+  // thread has a real, shareable, crawlable URL of its own, not just a
+  // click target inside this list. A plain full navigation — dashboard.
+  // html's own client JS (cbgLoadComplaints) replaces this whole list
+  // with its own fetch once it hydrates, so no onclick interception is
+  // needed here; the href alone is what crawlers, no-JS visitors, and
+  // anyone copying the URL actually use.
   return rows.map(c => `
-    <a class="complaint" href="/sportsbooks/${esc(operatorSlug || "")}/complaints/${c.id}" style="display:block;text-decoration:none;color:inherit;" onclick="return typeof cbgOpenThread !== 'function' || (cbgOpenThread(${c.id}, '${operatorSlug || ""}'), false)">
+    <a class="complaint" href="/sportsbooks/${esc(operatorSlug || "")}/complaints/${slugify(c.title)}-${c.id}" style="display:block;text-decoration:none;color:inherit;">
       <div class="row1">
         <div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
@@ -436,7 +461,7 @@ async function communityComplaintMeta(env, match) {
   const c = thread.complaint;
   const amountPart = c.amount ? `${c.amount} ` : "";
   const titlePhrase = truncate(c.title, 60);
-  const canonicalPath = `/sportsbooks/${op.id}/complaints/${c.id}`;
+  const canonicalPath = `/sportsbooks/${op.id}/complaints/${slugify(c.title)}-${c.id}`;
   return {
     title: `${op.name} ${amountPart}Complaint — ${titlePhrase} | CryptoBetGrade`,
     description: `Community complaint against ${op.name}: ${truncate(c.description || "", 180)}`,
@@ -453,6 +478,13 @@ async function communityComplaintMeta(env, match) {
   };
 }
 
+// Mirrors dashboard.html's renderCommunityComplaintDetail +
+// cbgLoadCommunityDetail combined (no async split needed here — the DB
+// fetch already happened in communityComplaintMeta) so the page a
+// crawler or pre-hydration visitor sees matches, structurally, what the
+// client renders in place once it hydrates: a back-link plus a full
+// .complaint-detail-grid card, same as a curated/"sourced" complaint
+// page — not a shortened summary and not a modal.
 function communityComplaintThreadHtml(c, messages, operatorName) {
   const roleLabel = role => role === "admin" ? "CryptoBetGrade team" : role === "operator" ? `${esc(operatorName)} · Operator` : "Submitter";
   const msgsHtml = messages.map(m => `
@@ -461,16 +493,31 @@ function communityComplaintThreadHtml(c, messages, operatorName) {
       <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${esc(m.body)}</div>
     </div>
   `).join("") || `<div class="empty-note">No messages yet.</div>`;
+  const replyBlock = c.status === "pending_review"
+    ? `<p class="cmeta">This is still awaiting review — replies open once it's approved.</p>`
+    : `<p class="cmeta"><a href="#" onclick="return cbgOpenAuthModal && cbgOpenAuthModal()">Log in</a> to reply.</p>`;
   return `
-    <div class="complaint-detail-card" style="margin-bottom:18px;">
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
-        <span class="status-chip status-${CBG_STATUS_CLASS[c.status] || "neutral"}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
-        ${c.amount ? `<span class="cmeta">${esc(c.amount)} at stake</span>` : ""}
+      <span class="back-link" onclick="backToComplaints('${esc(c.operator_slug)}')">← Back to all complaints</span>
+      <div class="complaint-detail-grid">
+        <div class="complaint-detail-card">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
+            <span class="status-chip status-${CBG_STATUS_CLASS[c.status] || "neutral"}" style="font-size:12px;padding:5px 12px;">${CBG_STATUS_LABEL[c.status] || c.status}</span>
+            <span class="unverified-tag">Community report</span>
+          </div>
+          <h2 style="margin:0 0 12px;font-size:19px;line-height:1.3;font-weight:700;">${esc(c.title)}</h2>
+          <div class="cd-block"><div class="cd-label">What happened</div><div class="overview-text">${esc(c.description)}</div></div>
+          <div class="cd-block"><div class="cd-label">Amount at stake</div><div class="overview-text" style="font-weight:700;">${c.amount ? esc(c.amount) : "Not stated"}</div></div>
+          <div class="cd-block"><div class="cd-label">Discussion</div></div>
+          <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 16px;">${msgsHtml}</div>
+          ${replyBlock}
+        </div>
+        <div>
+          <div class="sidebar-box">
+            <div class="section-title" style="margin-top:0;">How this works</div>
+            <p style="font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0;">This is a complaint filed directly with CryptoBetGrade by a site visitor. It went through admin review before publishing, and the conversation above is the real back-and-forth between the submitter, ${esc(operatorName)}, and our team. See <a href="methodology.html" style="color:var(--brand-dark);font-weight:600;">How scoring works</a> for the full methodology.</p>
+          </div>
+        </div>
       </div>
-      <h2 style="font-size:19px;font-weight:800;margin:0 0 12px;">${esc(c.title)}</h2>
-      <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;">${msgsHtml}</div>
-      <p class="cmeta" style="margin-top:10px;"><a href="/sportsbooks/${esc(c.operator_slug)}/complaints">← All ${esc(operatorName)} complaints</a></p>
-    </div>
   `;
 }
 
@@ -561,25 +608,49 @@ ${jsonLdBlocks}
 
   html = html.replace(/<title>.*?<\/title>/s, `<title>${esc(meta.title)}</title>`);
   html = html.replace("</head>", headExtra);
+
+  // "community-complaint" gets special handling: meta.viewHtml (= the
+  // operator's normal op.complaintsHtml snapshot — stat tiles, the live
+  // community-list placeholder, and the sourced-complaints list below it)
+  // is only the DEFAULT Complaints tab. We want this one page's Complaints
+  // tab-panel to instead show just a back-link + this single complaint's
+  // full detail card, exactly mirroring dashboard.html's own
+  // activeCommunityComplaintId branch (renderComplaintsTab). The known,
+  // literal "Complaints" section-title div marks where that default body
+  // starts inside the fragment, and (per renderDetail's own template) the
+  // fragment's content genuinely ends right there too — renderComplaintsTab's
+  // own output is the last thing in it, followed only by the tab-panel's
+  // and the page wrapper's two closing </div> tags — so slicing from that
+  // anchor to the end of the fragment and appending those same two closing
+  // tags swaps the whole default body for the single-complaint view
+  // without disturbing the nav/header/tab-bar chrome above it.
+  let viewHtml = meta.viewHtml;
+  if (match.kind === "community-complaint") {
+    const anchor = '<div class="section-title" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">';
+    const anchorIdx = viewHtml.indexOf(anchor);
+    if (anchorIdx !== -1) {
+      const op = OPERATORS_BY_ID.get(match.opId);
+      const detail = communityComplaintThreadHtml(meta.thread.complaint, meta.thread.messages, op?.name || "");
+      viewHtml = viewHtml.slice(0, anchorIdx) + detail + "</div>\n    </div>\n  ";
+    }
+  }
   html = html.replace(
     '<div class="wrap" id="view"></div>',
-    `<div class="wrap" id="view">${meta.viewHtml}</div>`
+    `<div class="wrap" id="view">${viewHtml}</div>`
   );
 
-  // Splice in the live, visitor-submitted content (see the big comment
-  // above fetchCommunityComplaints) — env.DB is present on the deployed
-  // Worker; guarded here mainly so local/test environments without a DB
-  // binding degrade to the static "Loading…" placeholder instead of
-  // throwing.
-  if ((match.kind === "operator-complaints" || match.kind === "community-complaint") && env?.DB) {
-    const opId = match.kind === "community-complaint" ? match.opId : match.id;
-    const op = OPERATORS_BY_ID.get(opId);
-    const placeholder = `<div id="cbgComplaints-${opId}"><div class="empty-note">Loading…</div></div>`;
+  // Splice in the live, visitor-submitted complaints list for the normal
+  // Complaints-tab page — env.DB is present on the deployed Worker;
+  // guarded here mainly so local/test environments without a DB binding
+  // degrade to the static "Loading…" placeholder instead of throwing.
+  // "community-complaint" doesn't need this: its single-complaint content
+  // was already built from a live DB fetch above, via communityComplaintMeta.
+  if (match.kind === "operator-complaints" && env?.DB) {
+    const op = OPERATORS_BY_ID.get(match.id);
+    const placeholder = `<div id="cbgComplaints-${match.id}"><div class="empty-note">Loading…</div></div>`;
     if (html.includes(placeholder)) {
-      const inner = match.kind === "community-complaint"
-        ? communityComplaintThreadHtml(meta.thread.complaint, meta.thread.messages, op?.name || "")
-        : communityComplaintsHtml(await fetchCommunityComplaints(env, match.id), op?.name || "", opId);
-      html = html.replace(placeholder, `<div id="cbgComplaints-${opId}">${inner}</div>`);
+      const inner = communityComplaintsHtml(await fetchCommunityComplaints(env, match.id), op?.name || "", match.id);
+      html = html.replace(placeholder, `<div id="cbgComplaints-${match.id}">${inner}</div>`);
     }
   }
   if (match.kind === "operator-reviews" && env?.DB) {

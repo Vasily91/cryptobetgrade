@@ -1158,17 +1158,6 @@ html[data-theme="dark"] #cbgPickOperatorSearch{background:#0C1210;color:#EDF3EF;
   </div>
 </div>
 
-<!-- COMPLAINT THREAD VIEWER (community-submitted complaints) -->
-<div class="modal-bg" id="cbgThreadModal">
-  <div class="modal" style="max-width:640px;max-height:80vh;overflow-y:auto;">
-    <h3 id="cbgThreadTitle">Complaint</h3>
-    <div id="cbgThreadBody"><div class="empty-note">Loading…</div></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="cbgCloseThread()">Close</button>
-    </div>
-  </div>
-</div>
-
 <!-- WRITE A REVIEW (real, community-submitted star review — separate from
      the modeled player-rating widget on the Overview tab; goes to admin
      review before it's public, mirrors the "File a complaint" flow) -->
@@ -1894,16 +1883,23 @@ const COMPLAINT_SLUG_INDEX = {"stake-3000-usd-balance-confiscated":{"opId":"stak
 // hash change. See seo-pages.js for the server-side counterpart that
 // pre-renders these same views for crawlers.
 //
-// /sportsbooks/{id}/complaints/{dbId} (numeric dbId) is a single
-// community-submitted (live, D1-backed) complaint thread — NOT a curated
-// complaint from COMPLAINT_SLUG_INDEX (those use the textual-slug
-// /complaints/{slug} route instead). communityComplaintId tells render()
-// to auto-open that thread's modal after the operator page loads — see
-// cbgOpenThread's pushUrl handling in the COMMUNITY COMPLAINTS section.
+// /sportsbooks/{id}/complaints/{slug-or-dbId} is a single community-
+// submitted (live, D1-backed) complaint — NOT a curated complaint from
+// COMPLAINT_SLUG_INDEX (those use the textual-slug /complaints/{slug}
+// route instead). The trailing segment's last dash-digit group (or the
+// whole segment, for a bare numeric id) is the real lookup key — any
+// descriptive text before it is cosmetic only, same as cbgSlugify's output
+// client-side. communityComplaintId tells render() to show that
+// complaint's full-page detail view inline, in the Complaints tab, in
+// place of the normal complaints list — see renderComplaintsTab's
+// activeCommunityComplaintId branch and cbgLoadCommunityDetail.
 function matchRealPath(pathname){
   const path = pathname.replace(/\/+$/,"") || "/";
-  let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints\/(\d+)$/);
-  if(m) return { opId: m[1], tab: "complaints", complaintId: null, communityComplaintId: Number(m[2]) };
+  let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints\/([a-z0-9-]+)$/);
+  if(m){
+    const idMatch = m[2].match(/(?:^|-)(\d+)$/);
+    if(idMatch) return { opId: m[1], tab: "complaints", complaintId: null, communityComplaintId: Number(idMatch[1]) };
+  }
   m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints$/);
   if(m) return { opId: m[1], tab: "complaints", complaintId: null };
   m = path.match(/^\/sportsbooks\/([a-z0-9-]+)$/);
@@ -2437,6 +2433,7 @@ let complaintTarget = null; // operator id the complaint modal is adding to
 let complaintEditId = null; // complaint id being edited (null = new)
 let detailTab = "overview"; // "overview" | "complaints" | "analytics" — active tab on the profile page
 let activeComplaintId = null; // set when viewing a single complaint's detail sub-view
+let activeCommunityComplaintId = null; // set when viewing a single community (D1-backed) complaint's full-page detail sub-view, same slot pattern as activeComplaintId
 let lastDetailOpId = null;  // last operator id shown on the detail page, so switching to a *different* operator resets the tab
 
 /* ================= HELPERS ================= */
@@ -2622,9 +2619,28 @@ function payoutTimeShort(op){ return PAYOUT_TIME_SHORT[op.name] || "—"; }
 window.addEventListener("hashchange", render);
 function goList(){ location.href = "/dashboard.html"; }
 function goDetail(id){ location.href = "/sportsbooks/" + id; }
-function setDetailTab(id, tab){ detailTab = tab; activeComplaintId = null; renderDetail(id); }
+function setDetailTab(id, tab){ detailTab = tab; activeComplaintId = null; activeCommunityComplaintId = null; renderDetail(id); }
 function goComplaint(id, complaintId){ const slug = COMPLAINT_SLUGS[complaintId]; if(slug) location.href = "/complaints/" + slug; else location.hash = "#/operator/" + id + "/complaint/" + complaintId; }
 function backToComplaints(id){ location.href = "/sportsbooks/" + id + "/complaints"; }
+// SEO-friendly slug for a community complaint's permalink — descriptive
+// text is purely cosmetic (matchRealPath only reads the trailing numeric
+// id), but keeping client and server (seo-pages.js) generation in sync
+// means the URL a visitor clicks already matches the canonical one SSR
+// settles on, so there's no visible change on first load.
+function cbgSlugify(s, maxLen){
+  let slug = String(s||"").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g,"")
+    .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+  if(slug.length > (maxLen||60)) slug = slug.slice(0, maxLen||60).replace(/-+[^-]*$/,"");
+  return slug || "complaint";
+}
+// Full page navigation to a community complaint's own URL — mirrors
+// goComplaint's behavior for curated complaints exactly (a real
+// location.href navigation, not a pushState-only SPA transition), so the
+// browser's own back/forward handles history and the SSR page (see
+// seo-pages.js) is what crawlers and no-JS visitors see on first paint.
+function cbgGoCommunityComplaint(opId, complaintId, title){
+  location.href = "/sportsbooks/" + opId + "/complaints/" + cbgSlugify(title) + "-" + complaintId;
+}
 
 function normalizeOperators(){
   // Backfills fields missing from older exports/imports so edit handlers never hit undefined.
@@ -2656,10 +2672,8 @@ function render(){
     lastDetailOpId = pathMatch.opId;
     detailTab = pathMatch.tab;
     activeComplaintId = pathMatch.complaintId;
+    activeCommunityComplaintId = pathMatch.communityComplaintId || null;
     renderDetail(pathMatch.opId);
-    if(pathMatch.communityComplaintId){
-      cbgOpenThread(pathMatch.communityComplaintId, pathMatch.opId, false);
-    }
     return;
   }
   const hash = location.hash || "#/";
@@ -2670,6 +2684,7 @@ function render(){
     if(opId !== lastDetailOpId) detailTab = "overview";
     lastDetailOpId = opId;
     activeComplaintId = complaintId;
+    activeCommunityComplaintId = null;
     if(complaintId) detailTab = "complaints";
     renderDetail(opId);
   } else {
@@ -3066,7 +3081,8 @@ function renderDetail(id){
     </div>
   `;
   if(!editing) initGeoStatus(id);
-  if(!editing && detailTab === "complaints") cbgLoadComplaints(id, op.name);
+  if(!editing && detailTab === "complaints" && activeCommunityComplaintId) cbgLoadCommunityDetail(id, activeCommunityComplaintId);
+  else if(!editing && detailTab === "complaints") cbgLoadComplaints(id, op.name);
   if(!editing && detailTab === "reviews") cbgLoadReviews(id, op.name);
 }
 
@@ -3315,6 +3331,7 @@ function renderOverviewTab(op, id, editing, ctx){
 
 /* ---- COMPLAINTS TAB ---- */
 function renderComplaintsTab(op, id){
+  if(activeCommunityComplaintId) return renderCommunityComplaintDetail(id, activeCommunityComplaintId);
   if(activeComplaintId){
     const c = op.complaints.find(x => x.id === activeComplaintId);
     if(c) return renderComplaintDetail(op, id, c);
@@ -3480,6 +3497,19 @@ function renderComplaintDetail(op, id, c){
   `;
 }
 
+// Full-page in-tab detail view for a single community complaint — the
+// synchronous placeholder returned immediately so renderComplaintsTab can
+// slot it into the normal tab-panel render pass (same spot
+// renderComplaintDetail fills for curated complaints); the real content is
+// filled in async by cbgLoadCommunityDetail right after, since (unlike the
+// curated case) it isn't already in memory.
+function renderCommunityComplaintDetail(id, complaintId){
+  return `
+      <span class="back-link" onclick="backToComplaints('${id}')">← Back to all complaints</span>
+      <div id="cbgCommunityDetail-${complaintId}"><div class="empty-note">Loading…</div></div>
+  `;
+}
+
 /* ---- COMMUNITY COMPLAINTS — real, visitor-submitted complaints, backed
    by the /api/complaints* endpoints (see the Worker). Kept visually and
    functionally separate from the curated op.complaints dataset above:
@@ -3509,13 +3539,13 @@ async function cbgLoadComplaints(id, operatorName){
       return;
     }
     container.innerHTML = items.map(c => `
-      <div class="complaint" onclick="cbgOpenThread(${c.id}, '${op.id}')" role="button" tabindex="0">
+      <div class="complaint" onclick="cbgGoCommunityComplaint('${op.id}', ${c.id}, ${JSON.stringify(c.title)})" role="button" tabindex="0">
         <div class="row1">
           <div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
               <span class="unverified-tag">Community report</span>
             </div>
-            <div class="ctitle">${cbgEscape(c.title)}</div>
+            <div class="ctitle"><a href="/sportsbooks/${op.id}/complaints/${cbgSlugify(c.title)}-${c.id}" style="color:inherit;text-decoration:none;" onclick="event.stopPropagation()">${cbgEscape(c.title)}</a></div>
             <div class="cmeta">${cbgEscape(cbgTruncate(c.description, 120))}</div>
           </div>
           <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}">${CBG_STATUS_LABEL[c.status]||c.status}</span>
@@ -3646,87 +3676,77 @@ async function cbgSubmitNewComplaint(){
   }
 }
 
-// ---- Thread viewer ---------------------------------------------------
+// ---- Community complaint full-page detail (mirrors curated complaints'
+// renderComplaintDetail/.complaint-detail-grid styling, per the operator
+// profile staying visible and everything happening inside the Complaints
+// tab, not a modal) --------------------------------------------------
 
-let cbgActiveThreadId = null;
-let cbgThreadOpId = null; // operator id for the currently-open thread, so cbgCloseThread knows where to send the URL back to
-
-// complaintId: the live/community complaint's numeric id.
-// opId: the operator slug — needed to build/restore the /sportsbooks/{opId}/
-// complaints/{id} URL, so this thread has its own shareable, bookmarkable
-// link (see matchRealPath's communityComplaintId and seo-pages.js's
-// matching SSR route) rather than only existing inside a modal with no URL
-// of its own.
-// pushUrl: false when render() is auto-opening this thread because the
-// page just loaded ON that URL already — pushing again would be a no-op
-// but also a wasted history entry.
-async function cbgOpenThread(complaintId, opId, pushUrl){
-  cbgActiveThreadId = complaintId;
-  cbgThreadOpId = opId || lastDetailOpId;
-  document.getElementById("cbgThreadTitle").textContent = "Complaint";
-  document.getElementById("cbgThreadBody").innerHTML = `<div class="empty-note">Loading…</div>`;
-  openModal("cbgThreadModal");
-  if(pushUrl !== false && cbgThreadOpId){
-    const target = "/sportsbooks/" + cbgThreadOpId + "/complaints/" + complaintId;
-    if(location.pathname !== target) history.pushState(null, "", target);
-  }
-  await cbgRenderThread();
+function cbgMessagesHtml(messages, operatorName){
+  return messages.map(m => `
+    <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role==='admin' ? 'var(--brand-lighter)' : m.author_role==='operator' ? 'var(--op-bg)' : 'var(--surface)'};">
+      <div style="font-size:11.5px;font-weight:700;color:${m.author_role==='operator' ? 'var(--op-ink)' : 'var(--ink-muted)'};text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${m.author_role==='admin' ? 'CryptoBetGrade team' : m.author_role==='operator' ? cbgEscape(operatorName) + ' · Operator' : 'Submitter'} · ${cbgDateShort(m.created_at)}</div>
+      <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${cbgEscape(m.body)}</div>
+    </div>
+  `).join("");
 }
 
-// Closes the thread modal and, if its URL is currently on this thread's own
-// permalink, sends the address bar back to the operator's complaints tab —
-// mirrors cbgOpenThread's pushUrl so Close/backdrop-click/Esc all leave the
-// URL consistent with what's on screen.
-function cbgCloseThread(){
-  closeModal("cbgThreadModal");
-  if(cbgThreadOpId && /\/complaints\/\d+$/.test(location.pathname)){
-    history.pushState(null, "", "/sportsbooks/" + cbgThreadOpId + "/complaints");
-  }
-}
-
-async function cbgRenderThread(){
-  const body = document.getElementById("cbgThreadBody");
+// id: operator slug, complaintId: the live/community complaint's numeric id.
+// Fetches and fills the #cbgCommunityDetail-{complaintId} placeholder
+// renderCommunityComplaintDetail already put on the page, mirroring
+// renderComplaintDetail's .complaint-detail-grid layout for visual parity
+// with the curated (sourced) complaint pages.
+async function cbgLoadCommunityDetail(id, complaintId){
+  const container = document.getElementById(`cbgCommunityDetail-${complaintId}`);
+  if(!container) return;
   try{
-    const res = await fetch(`/api/complaints/${cbgActiveThreadId}`);
-    if(!res.ok){ body.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`; return; }
+    const res = await fetch(`/api/complaints/${complaintId}`);
+    if(!res.ok){ container.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`; return; }
     const data = await res.json();
     const c = data.complaint;
-    document.getElementById("cbgThreadTitle").textContent = c.title;
-    const isSubmitter = CBG_USER; // server checks the real match; client just decides whether to show a reply box at all
+    if(c.operator_slug !== id){ container.innerHTML = `<div class="empty-note">Couldn't find this complaint.</div>`; return; }
     const canReply = CBG_USER && c.status !== "pending_review";
-    body.innerHTML = `
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
-        <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}">${CBG_STATUS_LABEL[c.status]||c.status}</span>
-        ${c.amount ? `<span class="cmeta">${cbgEscape(c.amount)} at stake</span>` : ""}
-      </div>
-      <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;">
-        ${data.messages.map(m => `
-          <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role==='admin' ? 'var(--brand-lighter)' : m.author_role==='operator' ? 'var(--op-bg)' : 'var(--surface)'};">
-            <div style="font-size:11.5px;font-weight:700;color:${m.author_role==='operator' ? 'var(--op-ink)' : 'var(--ink-muted)'};text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${m.author_role==='admin' ? 'CryptoBetGrade team' : m.author_role==='operator' ? cbgEscape(c.operator_name) + ' · Operator' : 'Submitter'} · ${cbgDateShort(m.created_at)}</div>
-            <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${cbgEscape(m.body)}</div>
+    container.innerHTML = `
+      <div class="complaint-detail-grid">
+        <div class="complaint-detail-card">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
+            <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}" style="font-size:12px;padding:5px 12px;">${CBG_STATUS_LABEL[c.status]||c.status}</span>
+            <span class="unverified-tag">Community report</span>
           </div>
-        `).join("")}
+          <h2 style="margin:0 0 12px;font-size:19px;line-height:1.3;font-weight:700;">${cbgEscape(c.title)}</h2>
+          <div class="cd-block"><div class="cd-label">What happened</div><div class="overview-text">${cbgEscape(c.description)}</div></div>
+          <div class="cd-block"><div class="cd-label">Amount at stake</div><div class="overview-text" style="font-weight:700;">${c.amount ? cbgEscape(c.amount) : "Not stated"}</div></div>
+          <div class="cd-block"><div class="cd-label">Discussion</div></div>
+          <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 16px;">
+            ${cbgMessagesHtml(data.messages, c.operator_name)}
+          </div>
+          ${canReply ? `
+            ${CBG_USER && CBG_USER.operator_slug === c.operator_slug ? `<p class="cmeta" style="margin:0 0 8px;color:var(--op-ink);">Replying as <b>${cbgEscape(c.operator_name)}</b> (operator).</p>` : ""}
+            <textarea id="cbgCommunityReplyBox-${complaintId}" placeholder="Add an update…" style="min-height:70px;width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;margin-bottom:8px;"></textarea>
+            <button class="btn btn-sm" onclick="cbgSubmitCommunityReply('${id}', ${complaintId})">Post</button>
+          ` : c.status === "pending_review"
+            ? `<p class="cmeta">This is still awaiting review — replies open once it's approved.</p>`
+            : `<p class="cmeta"><a href="#" onclick="return cbgOpenAuthModal()">Log in</a> to reply.</p>`
+          }
+        </div>
+        <div>
+          <div class="sidebar-box">
+            <div class="section-title" style="margin-top:0;">How this works</div>
+            <p style="font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0;">This is a complaint filed directly with CryptoBetGrade by a site visitor. It went through admin review before publishing, and the conversation above is the real back-and-forth between the submitter, ${cbgEscape(c.operator_name)}, and our team. See <a href="methodology.html" style="color:var(--brand-dark);font-weight:600;">How scoring works</a> for the full methodology.</p>
+          </div>
+        </div>
       </div>
-      ${canReply ? `
-        ${CBG_USER && CBG_USER.operator_slug === c.operator_slug ? `<p class="cmeta" style="margin:0 0 8px;color:var(--op-ink);">Replying as <b>${cbgEscape(c.operator_name)}</b> (operator).</p>` : ""}
-        <textarea id="cbgReplyBox" placeholder="Add an update…" style="min-height:70px;width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;margin-bottom:8px;"></textarea>
-        <button class="btn btn-sm" onclick="cbgSubmitReply()">Post</button>
-      ` : c.status === "pending_review"
-        ? `<p class="cmeta">This is still awaiting review — replies open once it's approved.</p>`
-        : `<p class="cmeta"><a href="#" onclick="return cbgOpenAuthModal()">Log in</a> to reply.</p>`
-      }
     `;
   }catch(e){
-    body.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`;
+    container.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`;
   }
 }
 
-async function cbgSubmitReply(){
-  const box = document.getElementById("cbgReplyBox");
+async function cbgSubmitCommunityReply(id, complaintId){
+  const box = document.getElementById(`cbgCommunityReplyBox-${complaintId}`);
   const text = box.value.trim();
   if(!text) return;
   try{
-    const res = await fetch(`/api/complaints/${cbgActiveThreadId}/messages`, {
+    const res = await fetch(`/api/complaints/${complaintId}/messages`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ body: text }),
@@ -3735,7 +3755,7 @@ async function cbgSubmitReply(){
       const data = await res.json().catch(() => ({}));
       throw new Error(data.error || "Couldn't post that.");
     }
-    await cbgRenderThread();
+    await cbgLoadCommunityDetail(id, complaintId);
   }catch(e){
     alert(e.message);
   }
@@ -4518,18 +4538,8 @@ function submitSuggestion(){
 document.querySelectorAll(".modal-bg").forEach(m => {
   m.addEventListener("click", e => {
     if(e.target !== m) return;
-    if(m.id === "cbgThreadModal") cbgCloseThread();
-    else m.classList.remove("open");
+    m.classList.remove("open");
   });
-});
-
-// Back/forward through a community complaint's own permalink (pushed by
-// cbgOpenThread/cbgCloseThread above) should open/close its modal to match,
-// same as any other real URL this app recognizes.
-window.addEventListener("popstate", () => {
-  const m = matchRealPath(location.pathname);
-  if(m && m.communityComplaintId) cbgOpenThread(m.communityComplaintId, m.opId, false);
-  else closeModal("cbgThreadModal");
 });
 
 /* ================= INIT ================= */
