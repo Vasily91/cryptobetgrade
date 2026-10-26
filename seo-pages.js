@@ -493,40 +493,74 @@ async function communityComplaintMeta(env, match) {
 // cbgLoadCommunityDetail combined (no async split needed here — the DB
 // fetch already happened in communityComplaintMeta) so the page a
 // crawler or pre-hydration visitor sees matches, structurally, what the
-// client renders in place once it hydrates: a back-link plus a full
-// .complaint-detail-grid card, same as a curated/"sourced" complaint
-// page — not a shortened summary and not a modal.
+// client renders in place once it hydrates: a back-link plus the
+// .cbg-cdx hero/stat-row/discussion/aside card layout, same redesign as
+// the live client view — not a shortened summary and not a modal. The
+// .cbg-cdx CSS itself lives in dashboard.html's <style> block, which this
+// page's shell is built from (see renderSeoPage), so no styles are
+// duplicated here.
 function communityComplaintThreadHtml(c, messages, operatorName) {
-  const roleLabel = role => role === "admin" ? "CryptoBetGrade team" : role === "operator" ? `${esc(operatorName)} · Operator` : "Submitter";
-  const msgsHtml = messages.map(m => `
-    <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role === "admin" ? "var(--brand-lighter)" : m.author_role === "operator" ? "var(--op-bg)" : "var(--surface)"};">
-      <div style="font-size:11.5px;font-weight:700;color:${m.author_role === "operator" ? "var(--op-ink)" : "var(--ink-muted)"};text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${roleLabel(m.author_role)} · ${dateShort(m.created_at)}</div>
-      <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${esc(m.body)}</div>
+  const msgsHtml = messages.map(m => {
+    const roleClass = m.author_role === "admin" ? "admin" : m.author_role === "operator" ? "operator" : "";
+    const roleLabel = m.author_role === "admin" ? "CryptoBetGrade team" : m.author_role === "operator" ? `${esc(operatorName)} · Operator` : "Submitter";
+    const initial = m.author_role === "admin" ? "C" : m.author_role === "operator" ? (operatorName || "O").trim().charAt(0).toUpperCase() : "S";
+    return `
+    <div class="message ${roleClass}">
+      <div class="message-top">
+        <div class="avatar">${initial}</div>
+        <div><div class="author">${roleLabel}</div><div class="date">${dateShort(m.created_at)}</div></div>
+      </div>
+      <div class="message-body">${esc(m.body)}</div>
     </div>
-  `).join("") || `<div class="empty-note">No messages yet.</div>`;
+  `;
+  }).join("") || `<div class="empty-note">No messages yet.</div>`;
   const replyBlock = c.status === "pending_review"
-    ? `<p class="cmeta">This is still awaiting review — replies open once it's approved.</p>`
-    : `<p class="cmeta"><a href="#" onclick="return cbgOpenAuthModal && cbgOpenAuthModal()">Log in</a> to reply.</p>`;
+    ? `<div class="login">This is still awaiting review — replies open once it's approved.</div>`
+    : `<div class="login"><a href="#" onclick="return cbgOpenAuthModal && cbgOpenAuthModal()">Log in</a> to join the discussion.</div>`;
+  const msgCount = messages.length;
   return `
       <span class="back-link" onclick="backToComplaints('${esc(c.operator_slug)}')">← Back to all complaints</span>
-      <div class="complaint-detail-grid">
-        <div class="complaint-detail-card">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
-            <span class="status-chip status-${CBG_STATUS_CLASS[c.status] || "neutral"}" style="font-size:12px;padding:5px 12px;">${CBG_STATUS_LABEL[c.status] || c.status}</span>
-            <span class="unverified-tag">Community report</span>
-          </div>
-          <h2 style="margin:0 0 12px;font-size:19px;line-height:1.3;font-weight:700;">${esc(c.title)}</h2>
-          <div class="cd-block"><div class="cd-label">What happened</div><div class="overview-text">${esc(c.public_summary || c.description)}</div></div>
-          <div class="cd-block"><div class="cd-label">Amount at stake</div><div class="overview-text" style="font-weight:700;">${c.amount ? esc(c.amount) : "Not stated"}</div></div>
-          <div class="cd-block"><div class="cd-label">Discussion</div></div>
-          <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 16px;">${msgsHtml}</div>
-          ${replyBlock}
-        </div>
-        <div>
-          <div class="sidebar-box">
-            <div class="section-title" style="margin-top:0;">How this works</div>
-            <p style="font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0;">This is a complaint filed directly with CryptoBetGrade by a site visitor. It went through admin review before publishing, and the conversation above is the real back-and-forth between the submitter, ${esc(operatorName)}, and our team. See <a href="methodology.html" style="color:var(--brand-dark);font-weight:600;">How scoring works</a> for the full methodology.</p>
-          </div>
+      <div class="cbg-cdx">
+        <div class="layout">
+          <article class="card main-card">
+            <section class="hero">
+              <p class="eyebrow">Player complaint / ${esc(operatorName)}</p>
+              <div class="badges">
+                <span class="badge ${CBG_STATUS_CLASS[c.status] || "neutral"}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
+                <span class="badge neutral">Community report · Unverified</span>
+              </div>
+              <h1>${esc(c.title)}</h1>
+              <p class="lead">A publicly submitted dispute involving ${esc(operatorName)}. The allegations below reflect the submitter's account and have not been independently established.</p>
+            </section>
+            <div class="content">
+              <div class="stat-row">
+                <div class="stat"><div class="stat-label">Disputed amount</div><div class="stat-value">${c.amount ? esc(c.amount) : "Not stated"}</div></div>
+                <div class="stat"><div class="stat-label">Operator</div><div class="stat-value">${esc(operatorName)}</div></div>
+                <div class="stat"><div class="stat-label">Current status</div><div class="stat-value small">${CBG_STATUS_LABEL[c.status] || c.status}</div></div>
+              </div>
+              <section>
+                <h2>Case overview</h2>
+                <p class="summary">${esc(c.public_summary || c.description)}</p>
+              </section>
+              <div class="divider"></div>
+              <section>
+                <div class="thread-header"><h2 style="margin:0">Complaint discussion</h2><span class="thread-count">${msgCount} message${msgCount === 1 ? "" : "s"}</span></div>
+                ${msgsHtml}
+                ${replyBlock}
+              </section>
+            </div>
+          </article>
+          <aside class="card aside">
+            <h3>About this complaint</h3>
+            <p>This complaint was submitted directly to CryptoBetGrade by a visitor and reviewed before publication.</p>
+            <div class="rule"></div>
+            <h3>How complaints are handled</h3>
+            <p>CryptoBetGrade documents player allegations, available evidence, operator responses and case outcomes. Publication does not establish wrongdoing. See <a href="methodology.html">How scoring works</a>.</p>
+            <div class="notice">
+              <strong>Evidence matters</strong>
+              <p>${esc(operatorName)} has an opportunity to respond. Case status may change as new information becomes available.</p>
+            </div>
+          </aside>
         </div>
       </div>
   `;

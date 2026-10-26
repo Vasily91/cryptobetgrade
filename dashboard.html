@@ -344,6 +344,67 @@
   .cd-label{font-size:11px;font-weight:800;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px;}
   @media (max-width:760px){ .complaint-detail-grid{grid-template-columns:1fr;} }
 
+  /* Community-complaint detail redesign — scoped under .cbg-cdx so none of
+     these generic-sounding class names (.card, h1, h2, .badge, .content...)
+     collide with the rest of the SPA's global CSS. Visual language was
+     supplied as a standalone mockup; only the colors/spacing/type below are
+     copied from it, re-namespaced to live safely inside the existing page
+     chrome (nav/header/tabs stay the real site's own). */
+  .cbg-cdx{--cdxbg:#f5f7f6;--cdxink:#14221e;--cdxmuted:#64736d;--cdxgreen:#087451;--cdxline:#e0e8e3;--cdxwhite:#fff;--cdxsoft:#eaf6ef;
+    font:15px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--cdxink);}
+  .cbg-cdx a{color:var(--cdxgreen);}
+  .cbg-cdx .layout{display:grid;grid-template-columns:minmax(0,1fr) 305px;gap:25px;align-items:start;}
+  .cbg-cdx .card{background:var(--cdxwhite);border:1px solid var(--cdxline);border-radius:18px;box-shadow:0 8px 30px rgba(15,52,34,.035);}
+  .cbg-cdx .main-card{overflow:hidden;}
+  .cbg-cdx .hero{padding:34px 38px 30px;border-bottom:1px solid var(--cdxline);background:linear-gradient(125deg,#fff 55%,#f1f9f4);}
+  .cbg-cdx .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;font-weight:850;color:var(--cdxgreen);margin:0 0 14px;}
+  .cbg-cdx .badges{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:19px;}
+  .cbg-cdx .badge{font-size:12px;font-weight:750;border-radius:100px;padding:5px 12px;background:#fff4de;color:#8b6008;border:1px solid #f4dfb3;}
+  .cbg-cdx .badge.neutral{background:#f0f3f1;color:#617168;border-color:#e2e9e4;}
+  .cbg-cdx .badge.good{background:#e5f6e0;color:#0a5c0a;border-color:#c9ecc0;}
+  .cbg-cdx .badge.bad{background:#fbe5e5;color:#8f1f1f;border-color:#f3cccc;}
+  .cbg-cdx h1{font-size:clamp(26px,3.2vw,37px);line-height:1.19;letter-spacing:-1.1px;margin:0 0 15px;max-width:750px;}
+  .cbg-cdx .lead{color:#617069;max-width:680px;margin:0;font-size:14px;}
+  .cbg-cdx .content{padding:30px 38px 38px;}
+  .cbg-cdx .stat-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:34px;}
+  .cbg-cdx .stat{padding:17px 19px;border:1px solid var(--cdxline);border-radius:12px;background:#fbfcfb;}
+  .cbg-cdx .stat-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7b8981;}
+  .cbg-cdx .stat-value{font-size:20px;font-weight:850;line-height:1.4;margin-top:4px;letter-spacing:-.4px;}
+  .cbg-cdx .stat-value.small{font-size:14px;letter-spacing:0;padding-top:5px;}
+  .cbg-cdx h2{font-size:18px;letter-spacing:-.4px;margin:0 0 13px;}
+  .cbg-cdx .summary{font-size:14px;color:#43534a;line-height:1.8;margin:0;}
+  .cbg-cdx .divider{height:1px;background:var(--cdxline);margin:32px 0;}
+  .cbg-cdx .thread-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .cbg-cdx .thread-count{font-size:12px;color:#829087;}
+  .cbg-cdx .message{border:1px solid var(--cdxline);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+  .cbg-cdx .message:last-child{margin-bottom:0;}
+  .cbg-cdx .message-top{display:flex;align-items:center;gap:12px;padding:17px 19px;border-bottom:1px solid var(--cdxline);background:#fafcfb;}
+  .cbg-cdx .message.admin .message-top{background:#eaf6ef;}
+  .cbg-cdx .message.operator .message-top{background:#eaf0ff;}
+  .cbg-cdx .avatar{width:37px;height:37px;display:grid;place-items:center;border-radius:11px;background:#d9efe2;color:var(--cdxgreen);font-weight:850;flex:none;}
+  .cbg-cdx .message.operator .avatar{background:#dbe6ff;color:#1d4ed8;}
+  .cbg-cdx .author{font-weight:800;font-size:13px;}
+  .cbg-cdx .date{font-size:12px;color:#7b8981;}
+  .cbg-cdx .message-body{padding:20px 22px;white-space:pre-line;color:#3e5047;font-size:14px;line-height:1.85;}
+  .cbg-cdx .login{margin-top:20px;padding:17px 19px;background:#f6faf7;border:1px dashed #d2e2d8;border-radius:12px;color:#64766a;font-size:13px;}
+  .cbg-cdx .login a{font-weight:800;text-decoration:none;}
+  .cbg-cdx .login textarea{width:100%;box-sizing:border-box;border:1.5px solid var(--cdxline);border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;min-height:70px;margin:10px 0;}
+  .cbg-cdx .login .btn{display:inline-flex;align-items:center;gap:6px;background:var(--cdxgreen)!important;color:#fff!important;font-weight:700;font-size:13px;border:none;border-radius:10px;padding:9px 16px;cursor:pointer;}
+  .cbg-cdx .aside{padding:24px;}
+  .cbg-cdx .aside h3{font-size:15px;margin:0 0 12px;}
+  .cbg-cdx .aside p{font-size:13px;line-height:1.8;color:#66776c;margin:0 0 16px;}
+  .cbg-cdx .aside .rule{height:1px;background:var(--cdxline);margin:19px 0;}
+  .cbg-cdx .notice{background:#f0f7f2;border:1px solid #d9e9de;border-radius:12px;padding:15px;margin-top:20px;}
+  .cbg-cdx .notice strong{display:block;font-size:12px;color:#176543;margin-bottom:5px;}
+  .cbg-cdx .notice p{margin:0;font-size:12px;}
+  @media(max-width:850px){
+    .cbg-cdx .layout{grid-template-columns:1fr;}
+    .cbg-cdx .hero{padding:27px 23px;}
+    .cbg-cdx .content{padding:24px 23px;}
+    .cbg-cdx .stat-row{grid-template-columns:1fr;}
+    .cbg-cdx .stat{padding:13px 16px;}
+  }
+
   /* Analytics tab chart */
   .chart-box{border:1px solid var(--line);border-radius:14px;padding:16px 18px;}
   .chart-box-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:13.5px;}
@@ -3674,12 +3735,20 @@ async function cbgSubmitNewComplaint(){
 // tab, not a modal) --------------------------------------------------
 
 function cbgMessagesHtml(messages, operatorName){
-  return messages.map(m => `
-    <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role==='admin' ? 'var(--brand-lighter)' : m.author_role==='operator' ? 'var(--op-bg)' : 'var(--surface)'};">
-      <div style="font-size:11.5px;font-weight:700;color:${m.author_role==='operator' ? 'var(--op-ink)' : 'var(--ink-muted)'};text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${m.author_role==='admin' ? 'CryptoBetGrade team' : m.author_role==='operator' ? cbgEscape(operatorName) + ' · Operator' : 'Submitter'} · ${cbgDateShort(m.created_at)}</div>
-      <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${cbgEscape(m.body)}</div>
+  return messages.map(m => {
+    const roleClass = m.author_role === "admin" ? "admin" : m.author_role === "operator" ? "operator" : "";
+    const roleLabel = m.author_role === "admin" ? "CryptoBetGrade team" : m.author_role === "operator" ? cbgEscape(operatorName) + " · Operator" : "Submitter";
+    const initial = m.author_role === "admin" ? "C" : m.author_role === "operator" ? (operatorName || "O").trim().charAt(0).toUpperCase() : "S";
+    return `
+    <div class="message ${roleClass}">
+      <div class="message-top">
+        <div class="avatar">${initial}</div>
+        <div><div class="author">${roleLabel}</div><div class="date">${cbgDateShort(m.created_at)}</div></div>
+      </div>
+      <div class="message-body">${cbgEscape(m.body)}</div>
     </div>
-  `).join("");
+  `;
+  }).join("");
 }
 
 // Waits (polling every 50ms, up to ~3s) for site.js to have loaded and
@@ -3732,34 +3801,58 @@ async function cbgLoadCommunityDetail(id, complaintId){
     if(c.operator_slug !== id){ container.innerHTML = `<div class="empty-note">Couldn't find this complaint.</div>`; return; }
     const cbgUser = typeof CBG_USER !== "undefined" ? CBG_USER : null;
     const canReply = cbgUser && c.status !== "pending_review";
+    const msgCount = (data.messages || []).length;
     container.innerHTML = `
-      <div class="complaint-detail-grid">
-        <div class="complaint-detail-card">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
-            <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}" style="font-size:12px;padding:5px 12px;">${CBG_STATUS_LABEL[c.status]||c.status}</span>
-            <span class="unverified-tag">Community report</span>
-          </div>
-          <h2 style="margin:0 0 12px;font-size:19px;line-height:1.3;font-weight:700;">${cbgEscape(c.title)}</h2>
-          <div class="cd-block"><div class="cd-label">What happened</div><div class="overview-text">${cbgEscape(c.public_summary || c.description)}</div></div>
-          <div class="cd-block"><div class="cd-label">Amount at stake</div><div class="overview-text" style="font-weight:700;">${c.amount ? cbgEscape(c.amount) : "Not stated"}</div></div>
-          <div class="cd-block"><div class="cd-label">Discussion</div></div>
-          <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 16px;">
-            ${cbgMessagesHtml(data.messages, c.operator_name)}
-          </div>
-          ${canReply ? `
-            ${cbgUser && cbgUser.operator_slug === c.operator_slug ? `<p class="cmeta" style="margin:0 0 8px;color:var(--op-ink);">Replying as <b>${cbgEscape(c.operator_name)}</b> (operator).</p>` : ""}
-            <textarea id="cbgCommunityReplyBox-${complaintId}" placeholder="Add an update…" style="min-height:70px;width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;margin-bottom:8px;"></textarea>
-            <button class="btn btn-sm" onclick="cbgSubmitCommunityReply('${id}', ${complaintId})">Post</button>
-          ` : c.status === "pending_review"
-            ? `<p class="cmeta">This is still awaiting review — replies open once it's approved.</p>`
-            : `<p class="cmeta"><a href="#" onclick="return cbgOpenAuthModal()">Log in</a> to reply.</p>`
-          }
-        </div>
-        <div>
-          <div class="sidebar-box">
-            <div class="section-title" style="margin-top:0;">How this works</div>
-            <p style="font-size:12.5px;color:var(--ink-2);line-height:1.65;margin:0;">This is a complaint filed directly with CryptoBetGrade by a site visitor. It went through admin review before publishing, and the conversation above is the real back-and-forth between the submitter, ${cbgEscape(c.operator_name)}, and our team. See <a href="methodology.html" style="color:var(--brand-dark);font-weight:600;">How scoring works</a> for the full methodology.</p>
-          </div>
+      <div class="cbg-cdx">
+        <div class="layout">
+          <article class="card main-card">
+            <section class="hero">
+              <p class="eyebrow">Player complaint / ${cbgEscape(c.operator_name)}</p>
+              <div class="badges">
+                <span class="badge ${CBG_STATUS_CLASS[c.status]||"neutral"}">${CBG_STATUS_LABEL[c.status]||c.status}</span>
+                <span class="badge neutral">Community report · Unverified</span>
+              </div>
+              <h1>${cbgEscape(c.title)}</h1>
+              <p class="lead">A publicly submitted dispute involving ${cbgEscape(c.operator_name)}. The allegations below reflect the submitter's account and have not been independently established.</p>
+            </section>
+            <div class="content">
+              <div class="stat-row">
+                <div class="stat"><div class="stat-label">Disputed amount</div><div class="stat-value">${c.amount ? cbgEscape(c.amount) : "Not stated"}</div></div>
+                <div class="stat"><div class="stat-label">Operator</div><div class="stat-value">${cbgEscape(c.operator_name)}</div></div>
+                <div class="stat"><div class="stat-label">Current status</div><div class="stat-value small">${CBG_STATUS_LABEL[c.status]||c.status}</div></div>
+              </div>
+              <section>
+                <h2>Case overview</h2>
+                <p class="summary">${cbgEscape(c.public_summary || c.description)}</p>
+              </section>
+              <div class="divider"></div>
+              <section>
+                <div class="thread-header"><h2 style="margin:0">Complaint discussion</h2><span class="thread-count">${msgCount} message${msgCount===1?"":"s"}</span></div>
+                ${cbgMessagesHtml(data.messages, c.operator_name)}
+                ${canReply ? `
+                  <div class="login">
+                    ${cbgUser && cbgUser.operator_slug === c.operator_slug ? `<p style="margin:0 0 10px;font-weight:700;">Replying as ${cbgEscape(c.operator_name)} (operator).</p>` : ""}
+                    <textarea id="cbgCommunityReplyBox-${complaintId}" placeholder="Add an update…"></textarea>
+                    <button class="btn" onclick="cbgSubmitCommunityReply('${id}', ${complaintId})">Post</button>
+                  </div>
+                ` : c.status === "pending_review"
+                  ? `<div class="login">This is still awaiting review — replies open once it's approved.</div>`
+                  : `<div class="login"><a href="#" onclick="return cbgOpenAuthModal()">Log in</a> to join the discussion.</div>`
+                }
+              </section>
+            </div>
+          </article>
+          <aside class="card aside">
+            <h3>About this complaint</h3>
+            <p>This complaint was submitted directly to CryptoBetGrade by a visitor and reviewed before publication.</p>
+            <div class="rule"></div>
+            <h3>How complaints are handled</h3>
+            <p>CryptoBetGrade documents player allegations, available evidence, operator responses and case outcomes. Publication does not establish wrongdoing. See <a href="methodology.html">How scoring works</a>.</p>
+            <div class="notice">
+              <strong>Evidence matters</strong>
+              <p>${cbgEscape(c.operator_name)} has an opportunity to respond. Case status may change as new information becomes available.</p>
+            </div>
+          </aside>
         </div>
       </div>
     `;
