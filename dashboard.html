@@ -3690,6 +3690,33 @@ function cbgMessagesHtml(messages, operatorName){
   `).join("");
 }
 
+// Waits (polling every 50ms, up to ~3s) for site.js to have loaded and
+// assigned window.cbgSessionReady, then for that promise to resolve — i.e.
+// for CBG_USER to reflect the real session state. Needed because dashboard.
+// html's own init script calls render() (line ~4558) well before the
+// <script src="/site.js"> tag after it (line ~4574) even starts loading,
+// so right after a full-page navigation straight to a complaint's own URL
+// (e.g. via cbgGoCommunityComplaint or a shared link), window.cbgSessionReady
+// doesn't exist yet the instant cbgLoadCommunityDetail starts — checking for
+// it once and falling back to a no-op (as a plain `window.cbgSessionReady ?
+// ... : Promise.resolve()` would) misses it every time on a fresh load,
+// which is exactly the case this matters for. Mirrors the retry pattern the
+// ?file=1/?review=1 handlers near the bottom of this file already use for
+// the same reason.
+function cbgWaitForSessionReady(triesLeft){
+  return new Promise(resolve => {
+    (function poll(tries){
+      if(window.cbgSessionReady && typeof window.cbgSessionReady.then === "function"){
+        window.cbgSessionReady.then(resolve, resolve);
+      } else if(tries > 0){
+        setTimeout(() => poll(tries - 1), 50);
+      } else {
+        resolve(); // give up waiting, proceed with whatever CBG_USER currently is
+      }
+    })(triesLeft);
+  });
+}
+
 // id: operator slug, complaintId: the live/community complaint's numeric id.
 // Fetches and fills the #cbgCommunityDetail-{complaintId} placeholder
 // renderCommunityComplaintDetail already put on the page, mirroring
@@ -3699,12 +3726,20 @@ async function cbgLoadCommunityDetail(id, complaintId){
   const container = document.getElementById(`cbgCommunityDetail-${complaintId}`);
   if(!container) return;
   try{
-    const res = await fetch(`/api/complaints/${complaintId}`);
+    // Run the data fetch and the session-ready wait in parallel so a logged-
+    // in visitor's reply box shows up correctly on first paint (see
+    // cbgWaitForSessionReady above) without adding extra latency on top of
+    // the fetch itself.
+    const [res] = await Promise.all([
+      fetch(`/api/complaints/${complaintId}`),
+      cbgWaitForSessionReady(60),
+    ]);
     if(!res.ok){ container.innerHTML = `<div class="empty-note">Couldn't load this complaint.</div>`; return; }
     const data = await res.json();
     const c = data.complaint;
     if(c.operator_slug !== id){ container.innerHTML = `<div class="empty-note">Couldn't find this complaint.</div>`; return; }
-    const canReply = CBG_USER && c.status !== "pending_review";
+    const cbgUser = typeof CBG_USER !== "undefined" ? CBG_USER : null;
+    const canReply = cbgUser && c.status !== "pending_review";
     container.innerHTML = `
       <div class="complaint-detail-grid">
         <div class="complaint-detail-card">
@@ -3720,7 +3755,7 @@ async function cbgLoadCommunityDetail(id, complaintId){
             ${cbgMessagesHtml(data.messages, c.operator_name)}
           </div>
           ${canReply ? `
-            ${CBG_USER && CBG_USER.operator_slug === c.operator_slug ? `<p class="cmeta" style="margin:0 0 8px;color:var(--op-ink);">Replying as <b>${cbgEscape(c.operator_name)}</b> (operator).</p>` : ""}
+            ${cbgUser && cbgUser.operator_slug === c.operator_slug ? `<p class="cmeta" style="margin:0 0 8px;color:var(--op-ink);">Replying as <b>${cbgEscape(c.operator_name)}</b> (operator).</p>` : ""}
             <textarea id="cbgCommunityReplyBox-${complaintId}" placeholder="Add an update…" style="min-height:70px;width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;margin-bottom:8px;"></textarea>
             <button class="btn btn-sm" onclick="cbgSubmitCommunityReply('${id}', ${complaintId})">Post</button>
           ` : c.status === "pending_review"
