@@ -43,12 +43,22 @@ const block = `${START}
 const COMPLAINT_SLUGS = ${JSON.stringify(complaintSlugs)};
 const COMPLAINT_SLUG_INDEX = ${JSON.stringify(complaintSlugIndex)}; // slug -> {opId, complaintId}, for the real-path router below
 // Recognizes the real, crawlable URLs (/sportsbooks/{id}, /sportsbooks/{id}/
-// complaints, /complaints/{slug}) so render() shows the right view on a
-// normal page load, not just on a "#" hash change. See seo-pages.js for the
-// server-side counterpart that pre-renders these same views for crawlers.
+// complaints, /sportsbooks/{id}/complaints/{dbId}, /complaints/{slug}) so
+// render() shows the right view on a normal page load, not just on a "#"
+// hash change. See seo-pages.js for the server-side counterpart that
+// pre-renders these same views for crawlers.
+//
+// /sportsbooks/{id}/complaints/{dbId} (numeric dbId) is a single
+// community-submitted (live, D1-backed) complaint thread — NOT a curated
+// complaint from COMPLAINT_SLUG_INDEX (those use the textual-slug
+// /complaints/{slug} route instead). communityComplaintId tells render()
+// to auto-open that thread's modal after the operator page loads — see
+// cbgOpenThread's pushUrl handling in the COMMUNITY COMPLAINTS section.
 function matchRealPath(pathname){
   const path = pathname.replace(/\\/+$/,"") || "/";
-  let m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)\\/complaints$/);
+  let m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)\\/complaints\\/(\\d+)$/);
+  if(m) return { opId: m[1], tab: "complaints", complaintId: null, communityComplaintId: Number(m[2]) };
+  m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)\\/complaints$/);
   if(m) return { opId: m[1], tab: "complaints", complaintId: null };
   m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)$/);
   if(m) return { opId: m[1], tab: "overview", complaintId: null };
