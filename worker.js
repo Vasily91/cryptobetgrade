@@ -120,6 +120,20 @@ async function handleApi(request, env, url) {
     return adminMigrateMessageVisibility(request, env);
   }
 
+  if (pathname === "/api/admin/operator-access" && method === "GET") {
+    return adminListOperatorAccess(request, env, url);
+  }
+  if (pathname === "/api/admin/operator-access" && method === "POST") {
+    return adminGrantOperatorAccess(request, env);
+  }
+  const opAccessMatch = pathname.match(/^\/api\/admin\/operator-access\/(\d+)$/);
+  if (opAccessMatch && method === "DELETE") {
+    return adminRevokeOperatorAccess(request, env, Number(opAccessMatch[1]));
+  }
+  if (pathname === "/api/admin/migrate-operator-accounts" && method === "POST") {
+    return adminMigrateOperatorAccounts(request, env);
+  }
+
   if (pathname === "/api/reviews" && method === "GET") {
     return listReviews(request, env, url);
   }
@@ -351,7 +365,7 @@ async function logout(request, env) {
 async function meEndpoint(request, env) {
   const user = await currentUser(request, env);
   if (!user) return json({ user: null });
-  return json({ user: { email: user.email, is_admin: !!user.is_admin } });
+  return json({ user: { email: user.email, is_admin: !!user.is_admin, operator_slug: user.operator_slug || null } });
 }
 
 // ---------------------------------------------------------------------
@@ -361,11 +375,23 @@ async function meEndpoint(request, env) {
 async function currentUser(request, env) {
   const token = getCookie(request, SESSION_COOKIE);
   if (!token) return null;
-  const row = await env.DB.prepare(
-    `SELECT u.id, u.email, u.is_admin FROM sessions s
-     JOIN users u ON u.id = s.user_id
-     WHERE s.token = ? AND s.expires_at > datetime('now')`
-  ).bind(token).first();
+  // operator_slug may not exist yet on a given DB until
+  // /api/admin/migrate-operator-accounts has run once — fall back to the
+  // plain query so login never 500s on an un-migrated database.
+  let row;
+  try {
+    row = await env.DB.prepare(
+      `SELECT u.id, u.email, u.is_admin, u.operator_slug FROM sessions s
+       JOIN users u ON u.id = s.user_id
+       WHERE s.token = ? AND s.expires_at > datetime('now')`
+    ).bind(token).first();
+  } catch (e) {
+    row = await env.DB.prepare(
+      `SELECT u.id, u.email, u.is_admin FROM sessions s
+       JOIN users u ON u.id = s.user_id
+       WHERE s.token = ? AND s.expires_at > datetime('now')`
+    ).bind(token).first();
+  }
   return row || null;
 }
 
@@ -520,12 +546,19 @@ async function submitComplaint(request, env) {
 async function postMessage(request, env, complaintId) {
   const user = await requireUser(request, env);
   const complaint = await env.DB.prepare(
-    `SELECT id, submitter_user_id, status FROM complaints WHERE id = ?`
+    `SELECT id, submitter_user_id, operator_slug, status FROM complaints WHERE id = ?`
   ).bind(complaintId).first();
   if (!complaint) return json({ error: "Not found" }, 404);
 
   const isSubmitter = user.id === complaint.submitter_user_id;
-  if (!isSubmitter && !user.is_admin) return json({ error: "Not your complaint." }, 403);
+  // An "operator" account is a user an admin has linked to one specific
+  // operator_slug (see adminGrantOperatorAccess) — e.g. a Rakebit
+  // representative, so they can reply in that operator's own threads
+  // without an admin relaying for them, and the reply is clearly
+  // labeled as coming from the operator rather than from the submitter
+  // or CryptoBetGrade's own team.
+  const isOperator = !!(user.operator_slug && user.operator_slug === complaint.operator_slug);
+  if (!isSubmitter && !user.is_admin && !isOperator) return json({ error: "Not your complaint." }, 403);
   if (complaint.status === "pending_review" && !user.is_admin) {
     return json({ error: "This complaint hasn't been reviewed yet." }, 403);
   }
@@ -536,9 +569,10 @@ async function postMessage(request, env, complaintId) {
     return json({ error: "Message can't be empty (max 4000 characters)." }, 400);
   }
 
+  const role = user.is_admin ? "admin" : isOperator ? "operator" : "submitter";
   await env.DB.prepare(
     `INSERT INTO complaint_messages (complaint_id, author_user_id, author_role, body) VALUES (?, ?, ?, ?)`
-  ).bind(complaintId, user.id, isSubmitter ? "submitter" : "admin", text).run();
+  ).bind(complaintId, user.id, role, text).run();
 
   await env.DB.prepare(`UPDATE complaints SET updated_at = datetime('now') WHERE id = ?`).bind(complaintId).run();
 
@@ -656,6 +690,74 @@ async function adminMigrateMessageVisibility(request, env) {
   }
 
   return json({ ok: true, message: "complaint_messages visibility columns ready." });
+}
+
+// ---------------------------------------------------------------------
+// Admin: operator accounts — lets a specific user (e.g. "the Rakebit
+// support rep") log in themselves and reply directly in that operator's
+// own complaint threads, tagged author_role='operator' so it's clearly
+// not the submitter or CryptoBetGrade's own team (see postMessage).
+// Login itself is the existing passwordless magic-link flow; this just
+// marks a user row with the one operator_slug they're allowed to speak
+// for. A user can be linked to at most one operator at a time.
+// ---------------------------------------------------------------------
+
+async function adminMigrateOperatorAccounts(request, env) {
+  await requireAdmin(request, env);
+
+  try {
+    await env.DB.prepare(`ALTER TABLE users ADD COLUMN operator_slug TEXT`).run();
+  } catch (e) {
+    if (!/duplicate column name/i.test(e.message || "")) throw e;
+  }
+
+  return json({ ok: true, message: "users.operator_slug ready." });
+}
+
+async function adminListOperatorAccess(request, env, url) {
+  await requireAdmin(request, env);
+  const slug = url.searchParams.get("operator_slug");
+
+  let rows;
+  try {
+    rows = slug
+      ? await env.DB.prepare(`SELECT id, email, operator_slug FROM users WHERE operator_slug = ? ORDER BY email ASC`).bind(slug).all()
+      : await env.DB.prepare(`SELECT id, email, operator_slug FROM users WHERE operator_slug IS NOT NULL ORDER BY operator_slug ASC, email ASC`).all();
+  } catch (e) {
+    // operator_slug column doesn't exist yet on this DB.
+    return json({ accounts: [] });
+  }
+
+  return json({ accounts: rows.results || [] });
+}
+
+async function adminGrantOperatorAccess(request, env) {
+  await requireAdmin(request, env);
+  const body = await safeJson(request);
+  const email = normalizeEmail(body?.email);
+  const operatorSlug = trimmed(body?.operator_slug);
+  if (!email || !isValidEmail(email)) return json({ error: "Enter a valid email address." }, 400);
+  if (!operatorSlug) return json({ error: "operator_slug is required." }, 400);
+
+  // Find-or-create the user by email, same pattern as magic-link login —
+  // the rep doesn't need an account to exist beforehand; granting access
+  // and logging in for the first time can happen in either order.
+  let user = await env.DB.prepare(`SELECT id, operator_slug FROM users WHERE email = ?`).bind(email).first();
+  if (!user) {
+    user = await env.DB.prepare(
+      `INSERT INTO users (email, is_admin, operator_slug) VALUES (?, 0, ?) RETURNING id, operator_slug`
+    ).bind(email, operatorSlug).first();
+  } else {
+    await env.DB.prepare(`UPDATE users SET operator_slug = ? WHERE id = ?`).bind(operatorSlug, user.id).run();
+  }
+
+  return json({ ok: true, email, operator_slug: operatorSlug });
+}
+
+async function adminRevokeOperatorAccess(request, env, userId) {
+  await requireAdmin(request, env);
+  await env.DB.prepare(`UPDATE users SET operator_slug = NULL WHERE id = ?`).bind(userId).run();
+  return json({ ok: true });
 }
 
 // ---------------------------------------------------------------------

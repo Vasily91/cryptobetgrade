@@ -6,7 +6,7 @@
 // some pages still have for editing the curated operator dataset —
 // that's a different, unrelated thing from real user accounts.
 
-let CBG_USER = null; // { email, is_admin } | null, filled in by checkSession()
+let CBG_USER = null; // { email, is_admin, operator_slug } | null, filled in by checkSession()
 
 async function cbgCheckSession(){
   try{

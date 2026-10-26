@@ -2,11 +2,20 @@
 -- Covers: passwordless email-link accounts, and the complaint
 -- submission + admin-review + message-thread system.
 
+-- operator_slug: added via the one-time /api/admin/migrate-operator-
+-- accounts endpoint (ALTER TABLE, see worker.js), same reason as the
+-- complaint_messages columns below (no wrangler CLI access to this
+-- deploy's database). When set, this user may log in (the existing
+-- passwordless magic-link flow — no separate login system) and reply
+-- directly in that one operator's complaint threads, tagged
+-- author_role='operator' (see postMessage in worker.js) — e.g. a
+-- Rakebit support rep granted access only to Rakebit's own threads.
 CREATE TABLE IF NOT EXISTS users (
-  id         INTEGER PRIMARY KEY AUTOINCREMENT,
-  email      TEXT UNIQUE NOT NULL,
-  is_admin   INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  email         TEXT UNIQUE NOT NULL,
+  is_admin      INTEGER NOT NULL DEFAULT 0,
+  operator_slug TEXT,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
 -- One-time login links. A row is created when someone requests a
@@ -61,7 +70,7 @@ CREATE TABLE IF NOT EXISTS complaint_messages (
   id             INTEGER PRIMARY KEY AUTOINCREMENT,
   complaint_id   INTEGER NOT NULL REFERENCES complaints(id),
   author_user_id INTEGER NOT NULL REFERENCES users(id),
-  author_role    TEXT NOT NULL, -- 'submitter' | 'admin'
+  author_role    TEXT NOT NULL, -- 'submitter' | 'admin' | 'operator'
   body           TEXT NOT NULL,
   created_at     TEXT NOT NULL DEFAULT (datetime('now')),
   visible        INTEGER NOT NULL DEFAULT 1, -- 0 = hidden from public thread view
