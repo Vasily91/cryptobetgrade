@@ -120,6 +120,14 @@ async function handleApi(request, env, url) {
     return adminMigrateMessageVisibility(request, env);
   }
 
+  const adminSummaryMatch = pathname.match(/^\/api\/admin\/complaints\/(\d+)\/summary$/);
+  if (adminSummaryMatch && method === "PATCH") {
+    return adminUpdateComplaintSummary(request, env, Number(adminSummaryMatch[1]));
+  }
+  if (pathname === "/api/admin/migrate-complaint-summary" && method === "POST") {
+    return adminMigrateComplaintSummary(request, env);
+  }
+
   if (pathname === "/api/admin/operator-access" && method === "GET") {
     return adminListOperatorAccess(request, env, url);
   }
@@ -433,10 +441,28 @@ async function listComplaints(request, env, url) {
 }
 
 async function getComplaint(request, env, id) {
-  const complaint = await env.DB.prepare(
-    `SELECT id, operator_slug, operator_name, submitter_user_id, title, description, amount, status, created_at, updated_at
-     FROM complaints WHERE id = ?`
-  ).bind(id).first();
+  // public_summary: an admin-written narrative of the complaint, in
+  // CryptoBetGrade's own voice (third person, matching how curated
+  // complaints' whatHappened text reads) — see adminUpdateComplaintSummary.
+  // Shown in place of the submitter's raw first-person description on the
+  // public complaint page when set, so that page reads as a CryptoBetGrade
+  // write-up rather than a pasted submission; the raw description still
+  // doubles as the submitter's first message in the thread below it either
+  // way (see submitComplaint), so nothing is lost by replacing it up top.
+  // May not exist yet on a given DB until /api/admin/migrate-complaint-
+  // summary has run once — fall back to the plain query so this never 500s.
+  let complaint;
+  try {
+    complaint = await env.DB.prepare(
+      `SELECT id, operator_slug, operator_name, submitter_user_id, title, description, public_summary, amount, status, created_at, updated_at
+       FROM complaints WHERE id = ?`
+    ).bind(id).first();
+  } catch (e) {
+    complaint = await env.DB.prepare(
+      `SELECT id, operator_slug, operator_name, submitter_user_id, title, description, amount, status, created_at, updated_at
+       FROM complaints WHERE id = ?`
+    ).bind(id).first();
+  }
   if (!complaint) return json({ error: "Not found" }, 404);
 
   const user = await currentUser(request, env);
@@ -690,6 +716,44 @@ async function adminMigrateMessageVisibility(request, env) {
   }
 
   return json({ ok: true, message: "complaint_messages visibility columns ready." });
+}
+
+// One-time (idempotent) migration for complaints.public_summary — same
+// pattern as adminMigrateMessageVisibility above.
+async function adminMigrateComplaintSummary(request, env) {
+  await requireAdmin(request, env);
+
+  try {
+    await env.DB.prepare(`ALTER TABLE complaints ADD COLUMN public_summary TEXT`).run();
+  } catch (e) {
+    if (!/duplicate column name/i.test(e.message || "")) throw e;
+  }
+
+  return json({ ok: true, message: "complaints.public_summary column ready." });
+}
+
+// Lets an admin write (or clear) a short CryptoBetGrade-voiced narrative of
+// a community complaint — shown on the public complaint page in place of
+// the submitter's raw first-person description (see getComplaint's
+// public_summary comment). Purely editorial framing of what the submitter
+// already said; it never changes the raw description or the submitter's
+// own first message in the thread, both of which stay exactly as written.
+async function adminUpdateComplaintSummary(request, env, id) {
+  await requireAdmin(request, env);
+  const body = await safeJson(request);
+  const summary = trimmed(body?.public_summary);
+  if (summary && summary.length > 4000) {
+    return json({ error: "Summary is too long (max 4000 characters)." }, 400);
+  }
+
+  const existing = await env.DB.prepare(`SELECT id FROM complaints WHERE id = ?`).bind(id).first();
+  if (!existing) return json({ error: "Not found" }, 404);
+
+  await env.DB.prepare(
+    `UPDATE complaints SET public_summary = ? WHERE id = ?`
+  ).bind(summary || null, id).run();
+
+  return json({ ok: true, public_summary: summary || null });
 }
 
 // ---------------------------------------------------------------------

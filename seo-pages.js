@@ -419,9 +419,20 @@ function communityComplaintsHtml(rows, operatorName, operatorSlug) {
 
 async function fetchCommunityComplaintThread(env, id, opSlug) {
   try {
-    const complaint = await env.DB.prepare(
-      `SELECT id, operator_slug, operator_name, title, description, amount, status, created_at, updated_at FROM complaints WHERE id = ?`
-    ).bind(id).first();
+    // public_summary may not exist yet on a given DB until
+    // /api/admin/migrate-complaint-summary has run once — fall back to the
+    // plain query, same guarded pattern used elsewhere in this file and in
+    // worker.js's getComplaint.
+    let complaint;
+    try {
+      complaint = await env.DB.prepare(
+        `SELECT id, operator_slug, operator_name, title, description, public_summary, amount, status, created_at, updated_at FROM complaints WHERE id = ?`
+      ).bind(id).first();
+    } catch (e) {
+      complaint = await env.DB.prepare(
+        `SELECT id, operator_slug, operator_name, title, description, amount, status, created_at, updated_at FROM complaints WHERE id = ?`
+      ).bind(id).first();
+    }
     if (!complaint || complaint.operator_slug !== opSlug) return null;
     if (!PUBLIC_COMPLAINT_STATUSES.includes(complaint.status)) return null;
 
@@ -464,7 +475,7 @@ async function communityComplaintMeta(env, match) {
   const canonicalPath = `/sportsbooks/${op.id}/complaints/${slugify(c.title)}-${c.id}`;
   return {
     title: `${op.name} ${amountPart}Complaint — ${titlePhrase} | CryptoBetGrade`,
-    description: `Community complaint against ${op.name}: ${truncate(c.description || "", 180)}`,
+    description: `Community complaint against ${op.name}: ${truncate(c.public_summary || c.description || "", 180)}`,
     canonicalPath,
     viewHtml: op.complaintsHtml,
     jsonLd: [breadcrumb([
@@ -505,7 +516,7 @@ function communityComplaintThreadHtml(c, messages, operatorName) {
             <span class="unverified-tag">Community report</span>
           </div>
           <h2 style="margin:0 0 12px;font-size:19px;line-height:1.3;font-weight:700;">${esc(c.title)}</h2>
-          <div class="cd-block"><div class="cd-label">What happened</div><div class="overview-text">${esc(c.description)}</div></div>
+          <div class="cd-block"><div class="cd-label">What happened</div><div class="overview-text">${esc(c.public_summary || c.description)}</div></div>
           <div class="cd-block"><div class="cd-label">Amount at stake</div><div class="overview-text" style="font-weight:700;">${c.amount ? esc(c.amount) : "Not stated"}</div></div>
           <div class="cd-block"><div class="cd-label">Discussion</div></div>
           <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 16px;">${msgsHtml}</div>

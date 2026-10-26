@@ -42,6 +42,16 @@ CREATE TABLE IF NOT EXISTS sessions (
 --   resolved        -> case closed, in the submitter's favor or settled
 --   rejected        -> admin reviewed and declined to publish (spam, unverifiable, abusive)
 --   removed         -> was public, later taken down (e.g. proven false)
+--
+-- public_summary: added via the one-time /api/admin/migrate-complaint-
+-- summary endpoint (ALTER TABLE, see worker.js), same no-wrangler-CLI
+-- reason as the other migration endpoints. An admin-written narrative of
+-- the complaint in CryptoBetGrade's own voice (third person, like the
+-- curated complaints' whatHappened text) — shown on the public complaint
+-- page in place of the submitter's raw first-person `description` when
+-- set, via getComplaint. Purely editorial framing: `description` itself,
+-- and the submitter's own first message in the thread (a copy of it, see
+-- submitComplaint), are never altered by setting this.
 CREATE TABLE IF NOT EXISTS complaints (
   id                 INTEGER PRIMARY KEY AUTOINCREMENT,
   operator_slug      TEXT NOT NULL,
@@ -49,6 +59,7 @@ CREATE TABLE IF NOT EXISTS complaints (
   submitter_user_id  INTEGER NOT NULL REFERENCES users(id),
   title              TEXT NOT NULL,
   description        TEXT NOT NULL,
+  public_summary     TEXT,
   amount             TEXT,
   status             TEXT NOT NULL DEFAULT 'pending_review',
   created_at         TEXT NOT NULL DEFAULT (datetime('now')),

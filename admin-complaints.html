@@ -140,6 +140,14 @@
   .amount-line{font-size:13px;color:var(--ink-2);margin-bottom:12px;}
   .row-actions{display:flex;align-items:center;gap:10px;flex:none;}
 
+  /* Raw description + editorial public-summary editor */
+  .raw-description-box{margin:0 0 14px;padding:10px 12px;border:1.5px dashed var(--line);border-radius:10px;background:var(--page);}
+  .raw-description-box .lbl{font-size:11.5px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px;}
+  .raw-description-text{font-size:13px;color:var(--ink-2);white-space:pre-wrap;}
+  .summary-box{margin:0 0 16px;padding:10px 12px;border:1.5px solid var(--brand-light);border-radius:10px;background:var(--brand-lighter);}
+  .summary-box .lbl{font-size:11.5px;font-weight:700;color:var(--brand-dark);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px;}
+  .summary-box textarea{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;resize:vertical;min-height:70px;margin-bottom:8px;}
+
   /* Per-message visibility / redaction controls */
   .msg-vis-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);}
   .vis-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;}
@@ -238,6 +246,9 @@ html[data-theme="dark"] .status-btn.current{background:var(--brand)!important;bo
 html[data-theme="dark"] .vis-pill{background:#111815!important;border-color:#314038!important;color:#C7D1CB!important}
 html[data-theme="dark"] .redact-box textarea{background:#0D1310!important;border-color:#314038!important;color:#F3F7F4!important}
 html[data-theme="dark"] .op-access-form input{background:#0D1310!important;border-color:#314038!important;color:#F3F7F4!important}
+html[data-theme="dark"] .raw-description-box{background:#0A0F0D!important;border-color:#314038!important}
+html[data-theme="dark"] .summary-box{background:#111D17!important;border-color:#1F3B2A!important}
+html[data-theme="dark"] .summary-box textarea{background:#0D1310!important;border-color:#314038!important;color:#F3F7F4!important}
 </style>
 <script>
 function cbgToggleTheme(){
@@ -589,6 +600,18 @@ function cbgAdminRenderDetail(id){
   const messages = data.messages || [];
   el.innerHTML = `
     ${c.amount ? `<div class="amount-line"><b>Amount:</b> ${cbgAdminEscape(c.amount)}</div>` : ""}
+    <div class="raw-description-box">
+      <div class="lbl">Submitter's raw description (what the public page shows by default)</div>
+      <div class="raw-description-text">${cbgAdminEscape(c.description)}</div>
+    </div>
+    <div class="summary-box">
+      <div class="lbl">CryptoBetGrade's summary (shown publicly instead of the raw text above, once set)</div>
+      <textarea id="summary-${id}" placeholder="Write a short third-person summary of what happened, in CryptoBetGrade's own voice…">${cbgAdminEscape(c.public_summary || "")}</textarea>
+      <div class="redact-actions">
+        <button class="btn btn-sm" onclick="cbgAdminSaveSummary(${id})">Save summary</button>
+        ${c.public_summary ? `<button class="status-btn" onclick="cbgAdminClearSummary(${id})">Revert to raw text</button>` : ""}
+      </div>
+    </div>
     ${cbgAdminOpAccessHtml(c.operator_slug, c.operator_name)}
     <div class="thread">
       ${messages.map(m => {
@@ -645,6 +668,42 @@ async function cbgAdminReply(id){
     const detailRes = await fetch("/api/complaints/" + id);
     cbgAdminDetailCache[id] = await detailRes.json();
     cbgAdminRenderDetail(id);
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+async function cbgAdminSaveSummary(id){
+  const ta = document.getElementById("summary-" + id);
+  const public_summary = ta.value.trim();
+  try{
+    const res = await fetch("/api/admin/complaints/" + id + "/summary", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ public_summary: public_summary || null }),
+    });
+    if(!res.ok){
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || "Couldn't save the summary.");
+    }
+    await cbgAdminRefreshDetail(id);
+  }catch(e){
+    alert(e.message);
+  }
+}
+
+async function cbgAdminClearSummary(id){
+  try{
+    const res = await fetch("/api/admin/complaints/" + id + "/summary", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ public_summary: null }),
+    });
+    if(!res.ok){
+      const d = await res.json().catch(() => ({}));
+      throw new Error(d.error || "Couldn't clear the summary.");
+    }
+    await cbgAdminRefreshDetail(id);
   }catch(e){
     alert(e.message);
   }
