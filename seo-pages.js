@@ -383,7 +383,7 @@ function communityComplaintsHtml(rows, operatorName, operatorSlug) {
   }
   // Each card links to its own permalink (/sportsbooks/{slug}/complaints/
   // {descriptive-slug}-{id} — see matchSeoRoute's "community-complaint"
-  // kind and dashboard.html's cbgGoCommunityComplaint) so every live
+  // kind and dashboard.html's matching complaints-list card link) so every live
   // thread has a real, shareable, crawlable URL of its own, not just a
   // click target inside this list. A plain full navigation — dashboard.
   // html's own client JS (cbgLoadComplaints) replaces this whole list

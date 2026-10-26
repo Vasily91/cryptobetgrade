@@ -2633,14 +2633,6 @@ function cbgSlugify(s, maxLen){
   if(slug.length > (maxLen||60)) slug = slug.slice(0, maxLen||60).replace(/-+[^-]*$/,"");
   return slug || "complaint";
 }
-// Full page navigation to a community complaint's own URL — mirrors
-// goComplaint's behavior for curated complaints exactly (a real
-// location.href navigation, not a pushState-only SPA transition), so the
-// browser's own back/forward handles history and the SSR page (see
-// seo-pages.js) is what crawlers and no-JS visitors see on first paint.
-function cbgGoCommunityComplaint(opId, complaintId, title){
-  location.href = "/sportsbooks/" + opId + "/complaints/" + cbgSlugify(title) + "-" + complaintId;
-}
 
 function normalizeOperators(){
   // Backfills fields missing from older exports/imports so edit handlers never hit undefined.
@@ -3539,19 +3531,19 @@ async function cbgLoadComplaints(id, operatorName){
       return;
     }
     container.innerHTML = items.map(c => `
-      <div class="complaint" onclick="cbgGoCommunityComplaint('${op.id}', ${c.id}, ${JSON.stringify(c.title)})" role="button" tabindex="0">
+      <a class="complaint" href="/sportsbooks/${op.id}/complaints/${cbgSlugify(c.title)}-${c.id}" style="display:block;text-decoration:none;color:inherit;">
         <div class="row1">
           <div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
               <span class="unverified-tag">Community report</span>
             </div>
-            <div class="ctitle"><a href="/sportsbooks/${op.id}/complaints/${cbgSlugify(c.title)}-${c.id}" style="color:inherit;text-decoration:none;" onclick="event.stopPropagation()">${cbgEscape(c.title)}</a></div>
+            <div class="ctitle">${cbgEscape(c.title)}</div>
             <div class="cmeta">${cbgEscape(cbgTruncate(c.description, 120))}</div>
           </div>
           <span class="status-chip status-${CBG_STATUS_CLASS[c.status]||"neutral"}">${CBG_STATUS_LABEL[c.status]||c.status}</span>
         </div>
         <div class="cmeta" style="margin-top:8px;">${c.amount ? cbgEscape(c.amount) + " at stake" : "Amount not stated"} · filed ${cbgDateShort(c.created_at)}</div>
-      </div>
+      </a>
     `).join("");
   }catch(e){
     container.innerHTML = `<div class="empty-note">Couldn't load community complaints right now. Try refreshing.</div>`;
@@ -3696,7 +3688,7 @@ function cbgMessagesHtml(messages, operatorName){
 // html's own init script calls render() (line ~4558) well before the
 // <script src="/site.js"> tag after it (line ~4574) even starts loading,
 // so right after a full-page navigation straight to a complaint's own URL
-// (e.g. via cbgGoCommunityComplaint or a shared link), window.cbgSessionReady
+// (e.g. via the complaints-list card link or a shared link), window.cbgSessionReady
 // doesn't exist yet the instant cbgLoadCommunityDetail starts — checking for
 // it once and falling back to a no-op (as a plain `window.cbgSessionReady ?
 // ... : Promise.resolve()` would) misses it every time on a fresh load,
