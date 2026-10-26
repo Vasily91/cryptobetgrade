@@ -70,7 +70,15 @@ function issuePhrase(c) { return ISSUE_TAG_PHRASE[c.issueTag] || c.issueTag || "
 export function matchSeoRoute(pathname) {
   const path = pathname.replace(/\/+$/, "") || "/";
 
-  let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints$/);
+  // A single community-submitted (live, D1-backed) complaint thread — e.g.
+  // /sportsbooks/rakebit/complaints/7. Distinct from the curated
+  // /complaints/{slug} route below: this id is the live complaints.id from
+  // the database, not a build-time slug, so it needs a request-time DB
+  // fetch (see communityComplaintMeta) rather than a data.json lookup.
+  let m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints\/(\d+)$/);
+  if (m) return { kind: "community-complaint", opId: m[1], id: Number(m[2]) };
+
+  m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/complaints$/);
   if (m) return { kind: "operator-complaints", id: m[1] };
 
   m = path.match(/^\/sportsbooks\/([a-z0-9-]+)\/reviews$/);
@@ -286,7 +294,7 @@ async function fetchCommunityComplaints(env, slug) {
   try {
     const placeholders = PUBLIC_COMPLAINT_STATUSES.map(() => "?").join(",");
     const rows = await env.DB.prepare(
-      `SELECT title, description, amount, status, created_at FROM complaints
+      `SELECT id, title, description, amount, status, created_at FROM complaints
        WHERE operator_slug = ? AND status IN (${placeholders})
        ORDER BY created_at DESC LIMIT 30`
     ).bind(slug, ...PUBLIC_COMPLAINT_STATUSES).all();
@@ -345,12 +353,20 @@ function starsHtml(rating, size) {
   return out;
 }
 
-function communityComplaintsHtml(rows, operatorName) {
+function communityComplaintsHtml(rows, operatorName, operatorSlug) {
   if (!rows.length) {
     return `<div class="empty-note">No community-submitted complaints yet — be the first to file one if you've had an issue with ${esc(operatorName)}.</div>`;
   }
+  // Each card links to its own permalink (/sportsbooks/{slug}/complaints/
+  // {id} — see matchSeoRoute's "community-complaint" kind and dashboard.
+  // html's cbgOpenThread) so every live thread has a real, shareable,
+  // crawlable URL of its own, not just a click target inside this list.
+  // dashboard.html's own client JS still intercepts the click (cbgOpenThread
+  // is wired up after hydration) to open the modal in-place instead of a
+  // full navigation; the href is what makes it a real link for crawlers,
+  // no-JS visitors, and anyone copying the URL.
   return rows.map(c => `
-    <div class="complaint">
+    <a class="complaint" href="/sportsbooks/${esc(operatorSlug || "")}/complaints/${c.id}" style="display:block;text-decoration:none;color:inherit;" onclick="return typeof cbgOpenThread !== 'function' || (cbgOpenThread(${c.id}, '${operatorSlug || ""}'), false)">
       <div class="row1">
         <div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
@@ -362,8 +378,100 @@ function communityComplaintsHtml(rows, operatorName) {
         <span class="status-chip status-${CBG_STATUS_CLASS[c.status] || "neutral"}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
       </div>
       <div class="cmeta" style="margin-top:8px;">${c.amount ? esc(c.amount) + " at stake" : "Amount not stated"} · filed ${dateShort(c.created_at)}</div>
-    </div>
+    </a>
   `).join("");
+}
+
+// ---------------------------------------------------------------------
+// A single community complaint's own page (/sportsbooks/{slug}/complaints/
+// {id}) — see matchSeoRoute's "community-complaint" kind above. Unlike the
+// curated /complaints/{slug} pages (static, from data.json), this is a
+// live thread fetched from D1 at request time, so it always reflects the
+// real current state (status, and any admin visibility/redaction applied
+// to a message — see worker.js's getComplaint for the matching
+// public-viewer filtering this mirrors).
+// ---------------------------------------------------------------------
+
+async function fetchCommunityComplaintThread(env, id, opSlug) {
+  try {
+    const complaint = await env.DB.prepare(
+      `SELECT id, operator_slug, operator_name, title, description, amount, status, created_at, updated_at FROM complaints WHERE id = ?`
+    ).bind(id).first();
+    if (!complaint || complaint.operator_slug !== opSlug) return null;
+    if (!PUBLIC_COMPLAINT_STATUSES.includes(complaint.status)) return null;
+
+    // visible/public_body may not exist yet on a given DB until
+    // /api/admin/migrate-message-visibility has run once — fall back to
+    // the plain query, same guarded pattern as worker.js's getComplaint.
+    let rows;
+    try {
+      rows = await env.DB.prepare(
+        `SELECT author_role, body, created_at, visible, public_body FROM complaint_messages WHERE complaint_id = ? ORDER BY created_at ASC`
+      ).bind(id).all();
+    } catch (e) {
+      rows = await env.DB.prepare(
+        `SELECT author_role, body, created_at FROM complaint_messages WHERE complaint_id = ? ORDER BY created_at ASC`
+      ).bind(id).all();
+    }
+    const messages = (rows.results || [])
+      .filter(m => (m.visible == null ? 1 : m.visible) !== 0)
+      .map(m => ({
+        author_role: m.author_role,
+        body: m.public_body != null && m.public_body !== "" ? m.public_body : m.body,
+        created_at: m.created_at,
+      }));
+
+    return { complaint, messages };
+  } catch (e) {
+    console.error("SEO page: community complaint thread fetch failed:", e);
+    return null;
+  }
+}
+
+async function communityComplaintMeta(env, match) {
+  const op = OPERATORS_BY_ID.get(match.opId);
+  if (!op || !env?.DB) return null;
+  const thread = await fetchCommunityComplaintThread(env, match.id, match.opId);
+  if (!thread) return null;
+  const c = thread.complaint;
+  const amountPart = c.amount ? `${c.amount} ` : "";
+  const titlePhrase = truncate(c.title, 60);
+  const canonicalPath = `/sportsbooks/${op.id}/complaints/${c.id}`;
+  return {
+    title: `${op.name} ${amountPart}Complaint — ${titlePhrase} | CryptoBetGrade`,
+    description: `Community complaint against ${op.name}: ${truncate(c.description || "", 180)}`,
+    canonicalPath,
+    viewHtml: op.complaintsHtml,
+    jsonLd: [breadcrumb([
+      ["Home", `${SITE_URL}/`],
+      ["Sportsbooks", `${SITE_URL}/dashboard`],
+      [op.name, `${SITE_URL}/sportsbooks/${op.id}`],
+      ["Complaints", `${SITE_URL}/sportsbooks/${op.id}/complaints`],
+      [titlePhrase, `${SITE_URL}${canonicalPath}`],
+    ])],
+    thread,
+  };
+}
+
+function communityComplaintThreadHtml(c, messages, operatorName) {
+  const roleLabel = role => role === "admin" ? "CryptoBetGrade team" : role === "operator" ? `${esc(operatorName)} · Operator` : "Submitter";
+  const msgsHtml = messages.map(m => `
+    <div style="padding:12px 14px;border-bottom:1px solid var(--line);background:${m.author_role === "admin" ? "var(--brand-lighter)" : m.author_role === "operator" ? "var(--op-bg)" : "var(--surface)"};">
+      <div style="font-size:11.5px;font-weight:700;color:${m.author_role === "operator" ? "var(--op-ink)" : "var(--ink-muted)"};text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;">${roleLabel(m.author_role)} · ${dateShort(m.created_at)}</div>
+      <div style="font-size:13.5px;color:var(--ink);white-space:pre-wrap;">${esc(m.body)}</div>
+    </div>
+  `).join("") || `<div class="empty-note">No messages yet.</div>`;
+  return `
+    <div class="complaint-detail-card" style="margin-bottom:18px;">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="status-chip status-${CBG_STATUS_CLASS[c.status] || "neutral"}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
+        ${c.amount ? `<span class="cmeta">${esc(c.amount)} at stake</span>` : ""}
+      </div>
+      <h2 style="font-size:19px;font-weight:800;margin:0 0 12px;">${esc(c.title)}</h2>
+      <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;">${msgsHtml}</div>
+      <p class="cmeta" style="margin-top:10px;"><a href="/sportsbooks/${esc(c.operator_slug)}/complaints">← All ${esc(operatorName)} complaints</a></p>
+    </div>
+  `;
 }
 
 function reviewsHtmlBlocks(rows, operatorName) {
@@ -401,7 +509,12 @@ function reviewsHtmlBlocks(rows, operatorName) {
 // ---------------------------------------------------------------------
 
 export async function renderSeoPage(match, env, request) {
-  const meta = metaFor(match);
+  // "community-complaint" needs a live D1 fetch (the specific thread) to
+  // build its meta/title/description, so it can't go through metaFor's
+  // synchronous data.json-only lookup like every other kind.
+  const meta = match.kind === "community-complaint"
+    ? await communityComplaintMeta(env, match)
+    : metaFor(match);
   if (!meta) return null;
 
   // Cloudflare's static-asset handling 307-redirects "/dashboard.html" ->
@@ -458,12 +571,15 @@ ${jsonLdBlocks}
   // Worker; guarded here mainly so local/test environments without a DB
   // binding degrade to the static "Loading…" placeholder instead of
   // throwing.
-  if (match.kind === "operator-complaints" && env?.DB) {
-    const op = OPERATORS_BY_ID.get(match.id);
-    const rows = await fetchCommunityComplaints(env, match.id);
-    const placeholder = `<div id="cbgComplaints-${match.id}"><div class="empty-note">Loading…</div></div>`;
+  if ((match.kind === "operator-complaints" || match.kind === "community-complaint") && env?.DB) {
+    const opId = match.kind === "community-complaint" ? match.opId : match.id;
+    const op = OPERATORS_BY_ID.get(opId);
+    const placeholder = `<div id="cbgComplaints-${opId}"><div class="empty-note">Loading…</div></div>`;
     if (html.includes(placeholder)) {
-      html = html.replace(placeholder, `<div id="cbgComplaints-${match.id}">${communityComplaintsHtml(rows, op?.name || "")}</div>`);
+      const inner = match.kind === "community-complaint"
+        ? communityComplaintThreadHtml(meta.thread.complaint, meta.thread.messages, op?.name || "")
+        : communityComplaintsHtml(await fetchCommunityComplaints(env, match.id), op?.name || "", opId);
+      html = html.replace(placeholder, `<div id="cbgComplaints-${opId}">${inner}</div>`);
     }
   }
   if (match.kind === "operator-reviews" && env?.DB) {
