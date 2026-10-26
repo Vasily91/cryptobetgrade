@@ -48,16 +48,23 @@ const COMPLAINT_SLUG_INDEX = ${JSON.stringify(complaintSlugIndex)}; // slug -> {
 // hash change. See seo-pages.js for the server-side counterpart that
 // pre-renders these same views for crawlers.
 //
-// /sportsbooks/{id}/complaints/{dbId} (numeric dbId) is a single
-// community-submitted (live, D1-backed) complaint thread — NOT a curated
-// complaint from COMPLAINT_SLUG_INDEX (those use the textual-slug
-// /complaints/{slug} route instead). communityComplaintId tells render()
-// to auto-open that thread's modal after the operator page loads — see
-// cbgOpenThread's pushUrl handling in the COMMUNITY COMPLAINTS section.
+// /sportsbooks/{id}/complaints/{slug-or-dbId} is a single community-
+// submitted (live, D1-backed) complaint — NOT a curated complaint from
+// COMPLAINT_SLUG_INDEX (those use the textual-slug /complaints/{slug}
+// route instead). The trailing segment's last dash-digit group (or the
+// whole segment, for a bare numeric id) is the real lookup key — any
+// descriptive text before it is cosmetic only, same as cbgSlugify's output
+// client-side. communityComplaintId tells render() to show that
+// complaint's full-page detail view inline, in the Complaints tab, in
+// place of the normal complaints list — see renderComplaintsTab's
+// activeCommunityComplaintId branch and cbgLoadCommunityDetail.
 function matchRealPath(pathname){
   const path = pathname.replace(/\\/+$/,"") || "/";
-  let m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)\\/complaints\\/(\\d+)$/);
-  if(m) return { opId: m[1], tab: "complaints", complaintId: null, communityComplaintId: Number(m[2]) };
+  let m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)\\/complaints\\/([a-z0-9-]+)$/);
+  if(m){
+    const idMatch = m[2].match(/(?:^|-)(\\d+)$/);
+    if(idMatch) return { opId: m[1], tab: "complaints", complaintId: null, communityComplaintId: Number(idMatch[1]) };
+  }
   m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)\\/complaints$/);
   if(m) return { opId: m[1], tab: "complaints", complaintId: null };
   m = path.match(/^\\/sportsbooks\\/([a-z0-9-]+)$/);
