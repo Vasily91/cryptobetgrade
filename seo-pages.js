@@ -527,7 +527,7 @@ function communityComplaintThreadHtml(c, messages, operatorName) {
               <p class="eyebrow">Player complaint / ${esc(operatorName)}</p>
               <div class="badges">
                 <span class="badge ${CBG_STATUS_CLASS[c.status] || "neutral"}">${CBG_STATUS_LABEL[c.status] || c.status}</span>
-                <span class="badge neutral">Community report · Unverified</span>
+                <span class="badge neutral">Community report</span>
               </div>
               <h1>${esc(c.title)}</h1>
               <p class="lead">A publicly submitted dispute involving ${esc(operatorName)}. The allegations below reflect the submitter's account and have not been independently established.</p>
