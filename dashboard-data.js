@@ -202,6 +202,8 @@ const KEY_CONS = {
   "Whale.io": ["Licence claim is internally inconsistent — its own Terms & Conditions page cites a Curaçao licence in one place and an Anjouan (Comoros) licence elsewhere, and AskGamblers separately lists Curaçao while Casino Guru and Whale's own FAQ cite Anjouan licence ALSI-202503012-FI1","Markets withdrawals as \"instant and fee-free,\" but multiple 2026 AskGamblers complaints describe delays of 7-9+ days after full KYC, including a $36,128 case left unresolved with no documented operator response","No published KYC threshold — verification is discretionary and can be re-triggered even after being previously completed","Trustpilot reviewers describe sportsbook winning bets voided after settlement, including allegations tied to disputed live-stream timing"],
   "Dicey.com": ["Very new operator (launched 2025, with some 2026 coverage still describing it as in beta) — too little independent track record yet to establish payout reliability either way","No welcome bonus is currently published, unlike most competitors","A Trustpilot reviewer describes two separate KYC verification attempts each rejected over a disputed reason, allegedly blocking access to funds; no final outcome is publicly documented"],
   "Chancer": ["Corporate identity is inconsistently documented — reviewers name it both \"Chancer Group Ltd.\" (Belize) and \"Chancer Group N.V.\" (Curaçao-style), with one source calling the operator name \"not public\"","Restricted-country list varies wildly by source, from a narrow \"Ohio only\" claim to a broader 15+-country list including the US, UK and EU","Anjouan (Comoros) licensing is a lower-tier jurisdiction with materially less oversight than MGA or UKGC","Domain-reputation scanners (ScamAdviser, Gridinsoft) flag chancer1.xyz with a low automated trust score — a domain-risk signal, not a confirmed player complaint, but worth disclosing"],
+  "Kings Game": ["Very new operator (launched early 2026) with no independent complaint history yet to judge payout reliability against","Anjouan licensing is a lower-tier jurisdiction with materially less oversight than MGA or UKGC","Welcome bonus terms reported inconsistently across sources (up to 500% across four stages in one place, a flat 100% match in another, within the same review)","Operator's own site could not be directly fetched during this research — figures are drawn from a third-party, commission-linked review (BitDegree) and press coverage"],
+  "Jack": ["Rebranded from Jackbit to Jack.com on 29 May 2026 — too recent to have an independent complaint record under the new name","Curaçao licence (OGL/2024/1562/1139) is a lower-tier jurisdiction than MGA or UKGC","Jack's own current bonus/KYC terms could not be directly fetched during this research; figures are drawn from the rebrand press release and third-party coverage"],
   "RioBet": ["Dual Curaçao + Anjouan licensing (unusual)","High complaint volume (73 logged)"],
   "Betcoin.ag": ["Governing-law and licensing claims are inconsistent across its own materials — Curaçao, Costa Rica and Anjouan (Comoros) have all been cited at different times, with no licence number independently verified against a regulator","Its own Terms of Service formally ban the entire United States, yet third-party geo-block listings name only Ohio — a discrepancy consistent with continued informal accessibility to US bettors","Recurring pattern of post-win account suspensions over discretionary fraud, collusion or arbitrage accusations that the operator did not always substantiate with evidence when the player asked","Large wins (25+ BTC) are reportedly paid out over ten monthly installments rather than as a lump sum, per LCB's own testing","Account may be closed for arbitrage betting"],
   "Bspin.io": ["Restricted-country information conflicts across third-party sources — one review excludes the US and UK, another does not, and Bspin's own Terms could not be directly retrieved to resolve it","Bonus wagering requirements are reported inconsistently (10x/35x/45x depending on source and date)","A 13.7 BTC balance lockout after a large win remains unresolved on AskGamblers, alongside a separate KYC-triggered withdrawal delay with no firm timeframe given to the player"],
@@ -562,6 +564,18 @@ const BONUS_KYC_CHECKLIST = {
     { ok: true, text: "No verification required to deposit and play" },
     { ok: false, text: "Verification is triggered before withdrawal, with risk-based document escalation (ID, selfie, proof of address, payment-method check) and review times reported up to 72 hours" },
     { ok: false, text: "Restricted-country list is reported inconsistently across sources — check current terms before relying on any specific list" }
+  ],
+  "Kings Game": [
+    { ok: false, text: "Welcome bonus terms reported inconsistently across sources — up to 500% across four stages in one place, a flat 100% match in another, within the same review" },
+    { ok: true, text: "No verification required to deposit, play or claim the no-deposit bonus" },
+    { ok: false, text: "General KYC policy outside the no-deposit bonus is only loosely described — \"may request verification in other situations\" per third-party review" },
+    { ok: false, text: "Very new operator (launched early 2026) with no independent complaint history yet to judge payout reliability against" }
+  ],
+  "Jack": [
+    { ok: true, text: "Welcome offer refunds a losing first qualifying bet as a free bet, rather than a high-wagering deposit match" },
+    { ok: false, text: "Only months old under the Jack.com name (rebranded 29 May 2026) — too recent for an independent complaint record to judge against" },
+    { ok: false, text: "Curaçao licence (OGL/2024/1562/1139) is a lower-tier jurisdiction than MGA or UKGC" },
+    { ok: false, text: "KYC policy not independently confirmed for Jack specifically during this research" }
   ],
   "RioBet": [
     { ok: false, text: "35x wagering requirement is reported on most current welcome-bonus offers" },
@@ -1116,6 +1130,22 @@ const PROFILE_SIDEBAR = {
     minDeposit: "Reported inconsistently across sources — €1 to €20 depending on the review and payment method",
     cryptocurrencies: "BTC, ETH, LTC, SOL, USDC, USDT, TRX, DOGE, XRP, BNB, plus a card/fiat on-ramp via third-party widgets (Wert, MoonPay, Banxa, Transak or Onramper depending on source)",
     source: "ccn.com; cryptoslate.com; casino.guru; askgamblers.com; lcb.org; rakerace.com (third-party coverage — the operator's own site could not be directly fetched)", checked: "2026-09-06"
+  },
+  "Kings Game": {
+    license: "Anjouan, Union of Comoros — Anjouan Gaming Board, licence No. ALSI-202410033-FI2, per third-party review (BitDegree); operator is Royal Way Limited",
+    launched: "Early 2026 (per BitDegree and CryptoSlate coverage)",
+    welcomeBonus: "Reported inconsistently — up to 500% + 250 free spins across four stages per one section of BitDegree's review, a 100% match up to $1,000 + 25 free spins per another; exact current terms unconfirmed",
+    minDeposit: "$20 minimum per bonus stage per BitDegree; general minimum deposit not independently confirmed",
+    cryptocurrencies: "~16 cryptocurrencies (BTC, ETH, USDT, BNB, LTC, SOL, BCH, USDC, TRX, XRP, POL, DOT, DOGE, etc.) plus EUR/CAD/USD/GBP fiat via a built-in Exchange (USD/GBP lack direct bank deposit per BitDegree)",
+    source: "bitdegree.org; cryptoslate.com; pokerlistings.com (third-party coverage — the operator's own site could not be directly fetched during this research)", checked: "2026-11-02"
+  },
+  "Jack": {
+    license: "Curaçao — Curaçao Gaming Authority licence OGL/2024/1562/1139, held by Data Link Digital B.V.",
+    launched: "2022 as Jackbit; rebranded to Jack.com 29 May 2026",
+    welcomeBonus: "First losing qualifying bet refunded as a free bet up to $100, plus a tiered Rakeback VIP Club (Rookie-Legend) — per the operator's rebrand press release",
+    minDeposit: "Not independently confirmed",
+    cryptocurrencies: "~17 cryptocurrencies, plus Visa/Mastercard and Apple Pay/Google Pay to purchase crypto",
+    source: "globenewswire.com; cryptoslate.com; coincodex.com (operator press release and third-party coverage — Jack's own current Terms page not directly fetched)", checked: "2026-11-02"
   },
   "RioBet": {
     license: "Curaçao Gaming Authority (CGA), certificate No. OGL/2024/552/0560, per Casino Guru's live licence-check widget; the same page also shows a concurrent Anjouan (Comoros) licence, No. ALSI-202507034-FI2 — an unusual dual-licence structure.",
@@ -1689,6 +1719,16 @@ const PROFILE_STATS = {
     markets: "Casino, live casino, sportsbook (40+ sports)",
     oddsFormat: null, maxWin: null, support: null, mobileApp: null,
     source: "Sports-range tier set directly by site admin", checked: "2026-09-07"
+  },
+  "Kings Game": {
+    markets: "Casino (8,000+ games: slots, dice, blackjack, roulette, baccarat, plinko, crash, mines, keno, tower per BitDegree); sportsbook claimed in marketing copy but not confirmed by independent reviews",
+    oddsFormat: null, maxWin: null, support: null, mobileApp: "No native app reported (per BitDegree)",
+    source: "bitdegree.org (third-party)", checked: "2026-11-02"
+  },
+  "Jack": {
+    markets: "Sportsbook (pre-match & live, many sports, esports, racing) with Bet Builder, Edit Bet and cash-out; casino also offered per CryptoSlate",
+    oddsFormat: null, maxWin: null, support: "Live chat, 24/7 (per CryptoSlate review)", mobileApp: null,
+    source: "cryptoslate.com; globenewswire.com", checked: "2026-11-02"
   },
   "Betcoin.ag": {
     markets: "Casino, live casino, sportsbook (40+ sports)",
@@ -2452,6 +2492,10 @@ const COMPLAINT_REPORTS = {
   ], note:"Dicey is a very new, small operator with a thin public complaint history: Casino Guru shows a 7.3/10 Safety Index with just one (newly opened) logged complaint, and Trustpilot has only 14 reviews (29% one-star). This should be read as insufficient track record rather than either strong safety or risk — complaint monitoring is more informative here than a large complaint count. A separate Bitcointalk thread raised skepticism about a promotional sportsbook review posted by a new account, but did not itself document a distinct player-loss case, so it isn't itemized above." },
   "Chancer": { items: [
   ], note:"Chancer is a very new operator (2024/2025-era footprint) with no substantiated player complaint found on Casino Guru, AskGamblers or Bitcointalk in the indexed public record at the time of this research. Third-party domain-reputation scanners (ScamAdviser, Gridinsoft) flag the young domain with a very low automated trust score and multiple security-provider warnings — a transparency/domain-risk signal worth recording, but not itself a player complaint, so it is not counted as a confiscation or non-payment case above." },
+  "Kings Game": { items: [
+  ], note:"Kings Game is a very new operator (launched early 2026) with no substantiated player complaint found on Casino Guru, AskGamblers or Bitcointalk in the indexed public record at the time of this research. That reflects the operator's short track record and limited independent scrutiny, not a confirmed clean record." },
+  "Jack": { items: [
+  ], note:"Jack is a very recent rebrand (from Jackbit, completed 29 May 2026) with no substantiated player complaint found under the Jack.com name in the indexed public record at the time of this research. This does not cover any complaint history that may exist under the prior Jackbit brand, which was not separately reconciled here." },
   "RioBet": { items: [
     { id:"crio1", title:"€918 deposit not credited for nine days", category:"Account", issueTag:"Deposit not credited / payment-processing dispute", priority:"B", amount:"€918", status:"Unresolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/riobet-casino-deposit-delayed-for-9-days", whatHappened:"A player said a €918 deposit remained uncredited for nine days, with RioBet repeatedly saying it was waiting on the payment system. This is the only unresolved case among AskGamblers' nine indexed complaints against RioBet.", operatorReason:"RioBet said the deposit was pending confirmation from the payment processor" },
     { id:"crio2", title:"$3,557 in withdrawal attempts repeatedly failed across payment methods", category:"Account", issueTag:"Withdrawal repeatedly failed / payment-processing dispute", priority:"B", amount:"$3,557", status:"Resolved", verified:true, source:"AskGamblers", sourceUrl:"https://www.askgamblers.com/casino-complaints/riobet-casino-withdrawal-failed-couple-times", whatHappened:"A player reported 16 days of rejected or failed withdrawal attempts across card, Skrill and crypto payment methods. AskGamblers' indexed record shows the complaint was ultimately resolved.", operatorReason:"Not stated in the indexed source" },
@@ -2851,6 +2895,14 @@ const COMPANY_INFO = {
     overview: "Chancer (chancer1.xyz) is a crypto casino and sportsbook with a 2024-era launch, per CCN, CryptoSlate and Casino Guru. Corporate identity is inconsistently documented across sources — reviewers name the operator both \"Chancer Group Ltd.\" (Belize) and \"Chancer Group N.V.\" (a Curaçao-style name), and one source describes the operator name as not publicly disclosed. It holds an Anjouan (Comoros) licence, No. ALSI-122405028-FI2, per multiple independent reviews — a lower-tier jurisdiction with materially less oversight than MGA or UKGC. No substantiated player complaint was found on Casino Guru, AskGamblers or Bitcointalk in the indexed public record, though the young domain is flagged by third-party reputation scanners (ScamAdviser, Gridinsoft) with a low automated trust score — a domain-risk signal rather than a confirmed complaint. Restricted-country coverage also varies sharply by source, from a narrow \"Ohio only\" claim to a broader 15+-country list including the US, UK and EU.",
     ownership: { parent: "Corporate identity inconsistently documented — named as either \"Chancer Group Ltd.\" (Belize) or \"Chancer Group N.V.\" in different third-party sources; one source describes the operator name as not publicly disclosed", jurisdiction: "Anjouan (Comoros) — Offshore Finance Authority of Anjouan, licence No. ALSI-122405028-FI2, per multiple independent reviews", related: "Not established in the indexed public record" }
   },
+  "Kings Game": {
+    overview: "Kings Game (kings.game) is a crypto casino that launched in early 2026, operated by Royal Way Limited (with payments reportedly handled by a separate entity, Alfrimax Limited) under an Anjouan (Union of Comoros) gaming licence, No. ALSI-202410033-FI2. It offers a large slots/table-game library (8,000+ titles per BitDegree's review) built around dice, blackjack, roulette, baccarat, crash and similar crypto-casino staples, plus a built-in currency Exchange across roughly 16 cryptocurrencies and several fiat options. Marketing material also describes it as a \"crypto casino and sportsbook platform,\" but independent reviews found no sportsbook content to confirm that claim. As a 2026-era operator, no substantiated player complaint was found on Casino Guru, AskGamblers or Bitcointalk in the indexed public record at the time of this research — but that reflects a lack of track record and independent scrutiny, not a confirmed clean record.",
+    ownership: { parent: "Royal Way Limited (per BitDegree's review); a separate entity, Alfrimax Limited, is reported to handle payments", jurisdiction: "Anjouan, Union of Comoros — Anjouan Gaming Board, licence No. ALSI-202410033-FI2", related: "Not established in the indexed public record" }
+  },
+  "Jack": {
+    overview: "Jack (jack.com) is a crypto sportsbook and casino operated by Data Link Digital B.V. under a Curaçao Gaming Authority licence, OGL/2024/1562/1139. It launched as Jackbit in 2022 and completed a rebrand to Jack.com on 29 May 2026 alongside a platform overhaul (\"Volume 2.0\"/\"Wallet 2.0\") covering payment infrastructure, transaction tracking, navigation and security; the company says existing Jackbit accounts carried over without disruption. The sportsbook covers pre-match and live betting across many sports plus esports and racing, with Bet Builder, Edit Bet and cash-out on eligible tickets, deposits/withdrawals in roughly 17 cryptocurrencies, and card on-ramps (Visa/Mastercard, Apple Pay, Google Pay). Because the Jack.com brand is only months old, no substantiated player complaint was found specifically under that name in the indexed public record at the time of this research; this does not cover any complaint history that may exist under the prior Jackbit brand, which was not separately reconciled here.",
+    ownership: { parent: "Data Link Digital B.V.", jurisdiction: "Curaçao — Curaçao Gaming Authority licence OGL/2024/1562/1139", related: "Formerly operated as Jackbit (rebranded to Jack.com, 29 May 2026)" }
+  },
   "RioBet": {
     overview: "RioBet (riobet.com) is a crypto and fiat casino/sportsbook operating since 2014, per Casino Guru and AskGamblers. It holds a dual-licence structure — a Curaçao Gaming Authority (CGA) certificate, No. OGL/2024/552/0560, alongside a concurrent Anjouan (Comoros) licence, No. ALSI-202507034-FI2, per Casino Guru's live licence-check widget, an unusual arrangement not seen on most operators in this database. Its complaint record is comparatively favorable for its size: AskGamblers shows 8 of 9 indexed complaints resolved, with a €918 deposit that went uncredited for nine days as the sole case still shown unresolved. Casino Guru separately tallies 73 total complaints (24 resolved, 48 rejected) — a high raw volume, though the large majority are closed rather than left open.",
     ownership: { parent: "Operating entity not independently confirmed beyond the RioBet brand itself, per the indexed third-party sources", jurisdiction: "Dual-licensed: Curaçao Gaming Authority (CGA) certificate No. OGL/2024/552/0560, and a concurrent Anjouan (Comoros) licence No. ALSI-202507034-FI2, per Casino Guru's live licence-check widget", related: "Not established in the indexed public record" }
@@ -3200,6 +3252,16 @@ const TERMS_INFO = {
     bonus: { text: "300% up to €300 on the first deposit reported, with further 300% match offers on the 2nd/3rd deposit; wagering reported around 40x — on the high end industry-wide. Exact current terms vary by source/region.", source: "ccn.com; cryptoslate.com; casino.guru (third-party)", checked: "2026-09-06" },
     withdrawal: { text: "No independent withdrawal-speed or delay pattern was found in the indexed public record — Chancer has essentially no substantiated player complaint history to judge payout reliability against.", source: "casino.guru; askgamblers.com; bitcointalk.org (third-party — no substantiated complaint found)", checked: "2026-09-06" },
     kyc: { text: "No verification required to deposit or play; identity/document verification with risk-based escalation (ID, selfie, proof of address, payment-method check) is triggered before withdrawal, with review times reported up to 72 hours.", source: "casino.guru; correctcasinos.com (third-party coverage)", checked: "2026-09-06" }
+  },
+  "Kings Game": {
+    bonus: { text: "Reported inconsistently across sources: BitDegree's review describes a welcome offer of up to 500% plus 250 free spins spread across four deposit stages (35x wagering, $20 minimum per stage, $1,000 cap per stage), while the same review's own deposit-bonus section separately cites a 100% match up to $1,000 plus 25 free spins — the two figures were not reconciled. A no-deposit code (77 free spins, 35x wagering, $0.10-$1 bet limits, 7-day validity, no KYC) is also reported.", source: "bitdegree.org (third-party, commission-linked review — figures not independently reconciled)", checked: "2026-11-02" },
+    withdrawal: { text: "Crypto withdrawals are described as \"mostly instant\" with roughly a 1% fee; fiat withdrawals go through Skrill or Neteller with roughly a 2.5% fee. No independent complaint or payout-delay pattern was found in the indexed public record to check this claim against.", source: "bitdegree.org (third-party)", checked: "2026-11-02" },
+    kyc: { text: "No verification required to deposit, play, or claim the no-deposit bonus; KYC is described as required for some other promotions and may be requested at the operator's discretion in other situations (standard withdrawal-trigger language, not independently confirmed).", source: "bitdegree.org (third-party)", checked: "2026-11-02" }
+  },
+  "Jack": {
+    bonus: { text: "The rebrand press release and third-party coverage describe a welcome offer refunding a player's first losing qualifying bet as a free bet up to $100, plus a tiered Rakeback VIP Club (Rookie to Legend). Jack's own current bonus Terms could not be directly fetched during this research.", source: "globenewswire.com; cryptoslate.com (operator press release and third-party coverage — operator's own terms not directly fetched)", checked: "2026-11-02" },
+    withdrawal: { text: "No independent withdrawal-speed or payout-delay pattern was found in the indexed public record under the Jack.com name; the May 2026 rebrand's \"Wallet 2.0\" upgrade is described as improving deposit/withdrawal flow and transaction visibility, per the operator's own press release.", source: "globenewswire.com (operator press release — third-party coverage not yet available under the new name)", checked: "2026-11-02" },
+    kyc: { text: "Jack's KYC policy was not directly confirmed during this research; Curaçao-licensed crypto sportsbooks of this type typically require no verification to deposit and play, with checks triggered at withdrawal — treated here as conditional pending direct confirmation.", source: "Inferred from licensing/operator category — not independently confirmed for Jack specifically", checked: "2026-11-02" }
   },
   "RioBet": {
     bonus: { text: "100% up to $750 plus bonus spins per AskGamblers' current listing; other sources cite up to €500 or $1,000. Wagering reported around 30x-35x — terms vary by source/region.", source: "askgamblers.com; casino.guru (third-party)", checked: "2026-09-06" },
@@ -3593,6 +3655,8 @@ const TRUST_BREAKDOWN = {
   "Whale.io":      { licence:6, payout:6, complaintsRec:7, kyc:6, tc:5 },
   "Dicey.com":     { licence:7, payout:7, complaintsRec:7, kyc:6, tc:6 },
   "Chancer":       { licence:6, payout:6, complaintsRec:7, kyc:7, tc:6 },
+  "Kings Game": { licence:6, payout:5, complaintsRec:7, kyc:6, tc:5 },
+  "Jack": { licence:7, payout:6, complaintsRec:7, kyc:6, tc:6 },
   "RioBet":        { licence:7, payout:7, complaintsRec:9, kyc:6, tc:6 },
   // Betcoin.ag raised 2026-09-07 at the site owner's direction ("isn't that
   // bad"). Checked against the evidence already on file: complaintsRec was

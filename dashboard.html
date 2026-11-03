@@ -1355,6 +1355,8 @@ const RELIABILITY_SCORE = {
 // KYC paragraph in each operator's profile, not as a separate badge state —
 // that's where the detail and the sourcing already live.
 const KYC_STANCE = {
+  "Kings Game": "conditional",
+  "Jack": "conditional",
   "Stake":          "conditional",
   "BC.Game":        "conditional",
   "Rainbet":        "conditional",
@@ -1764,6 +1766,8 @@ const ARBITRAGE_VOID_ONLY = {
 // Caveats/nuance and full sourcing detail belong in the prose fields
 // elsewhere on the profile, not in these pills.
 const KEY_PROS = {
+  "Kings Game": ["Large game library (8,000+ titles) spanning slots, dice, blackjack, roulette, baccarat, crash and more","Wide crypto support (~16 currencies) plus a built-in multi-currency Exchange and several fiat on-ramps","Rakeback and a tiered VIP program reported up to 30%"],
+  "Jack": ["Carries over an operating history from the Jackbit brand (since 2022) rather than launching from zero","Broad crypto support (~17 currencies) plus card on-ramps (Visa/Mastercard, Apple Pay, Google Pay)","Sports-focused product with Bet Builder, Edit Bet and cash-out on eligible tickets"],
   "SolCasino.io": ["Accepts 25+ cryptocurrencies","Sportsbook powered by BetBy"],
   "Stake": ["No maximum withdrawal limit","20+ cryptocurrencies accepted","Generous rakeback"],
   "BC.Game": ["170+ cryptocurrencies accepted","Generous rakeback","Sportsbook powered by BetBy"],
@@ -2028,6 +2032,8 @@ function matchRealPath(pathname){
 // "Licence & jurisdiction" field — nothing here is lost, just not repeated
 // in the tag.
 const JURISDICTION_SHORT = {
+  "Kings Game": "Anjouan",
+  "Jack": "Curaçao",
   "Stake": "Curaçao",
   "Roobet": "Curaçao",
   "Rainbet": "Anjouan",
@@ -2242,6 +2248,7 @@ const PAYOUT_TIME_SHORT = {
   "MetaWin":"Varies","Toshi.bet":"Varies","Qzino":"Varies",
   "96.com":"Varies","Flush.com":"Varies",
   "BetBolt":"Varies","WinWinBet":"Varies","FairPari":"Varies",
+"Kings Game":"Varies","Jack":"Varies",
 };
 
 function computeTrustScore(name){
@@ -2470,6 +2477,8 @@ function seedOperators(){
     ["BetBolt","betbolt.com", null, null, null, null],
     ["WinWinBet","winwin.bet", null, null, null, null],
     ["FairPari","fairpari.com", null, null, null, null],
+    ["Kings Game","kings.game", null, null, null, null],
+    ["Jack","jack.com", null, null, null, null],
   ];
   return seed.map(([name,domain,deposits24h,uaw24h,balance,rank]) => {
     const av = ANNUAL_VOLUME[name];

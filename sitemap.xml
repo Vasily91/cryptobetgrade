@@ -716,4 +716,8 @@
   <url><loc>https://cryptobetgrade.com/complaints/fairpari-1000-usd-withdrawal-delayed-speed-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/fairpari-1000-eur-withdrawal-delayed-speed-dispute</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://cryptobetgrade.com/complaints/fairpari-15-eur-account-restriction-dispute-2</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/kings-game</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/kings-game/reviews</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/jack</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cryptobetgrade.com/sportsbooks/jack/reviews</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>
