@@ -2093,7 +2093,7 @@ html[data-theme="dark"] .reset-btn{
         <div>
           <span class="eyebrow">About this data</span>
           <h2>Use it as market intelligence, not an accounting statement.</h2>
-          <p>All figures on this page except the deposit-chain mix are a market-data snapshot, checked 5 Sep 2026. The underlying tracker covers a wider set of gambling operators than CryptoBetGrade reviews, so some names shown here do not have profiles on this site.</p>
+          <p>All figures on this page except the deposit-chain mix are a market-data snapshot, checked 8 Nov 2026. The underlying tracker covers a wider set of gambling operators than CryptoBetGrade reviews, so some names shown here do not have profiles on this site.</p>
           <p>On-chain visibility depends on which wallets and flows have been identified. A tracked hot-wallet balance is not a complete measure of an operator's assets, liabilities or solvency.</p>
         </div>
       </div>
@@ -2180,7 +2180,9 @@ html[data-theme="dark"] .reset-btn{
 // review at all (Gamba, a second unrelated "Degen" brand distinct from
 // CryptoBetGrade's own Degen Casino, etc.) is intentionally left out — not
 // filtered by a toggle, just never included.
-// Refreshed 14 Sep 2026 (previously 12 Sep 2026, 5 Sep 2026, 2 Sep 2026,
+// Refreshed 8 Nov 2026 from fairgambling.com/analytics (30D; 73 casinos tracked).
+// Rollbit no longer appears in FairGambling's 30D ranking, so its row was left
+// at its last-known (14 Sep 2026) values. (Earlier refreshes: 14 Sep 2026, 12 Sep 2026, 5 Sep 2026, 2 Sep 2026,
 // 24 Aug 2026). MetaWin, Toshi.bet (listed by FairGambling as "Toshibet")
 // and Qzino added this pass as newly-reviewed operators — all three were
 // previously known to be FairGambling-tracked (see the old version of the
@@ -2192,41 +2194,41 @@ html[data-theme="dark"] .reset-btn{
 // See the profile-page Analytics tab parity note next to
 // FAIRGAMBLING_MARKET_DATA in dashboard.html for the same snapshot.
 const explorerData = [
-  {name:"Stake",          slug:"stake",            domain:"stake.com",            fgRank:1,  share:49.22, volume:2180,    deposits:3310,    change:13.9,  wallet:139.5},
-  {name:"Roobet",         slug:"roobet",           domain:"roobet.com",           fgRank:2,  share:8.81,  volume:389.43,  deposits:658.08,  change:2.2,   wallet:30.56},
-  {name:"Duel",           slug:"duel",             domain:"duel.com",             fgRank:3,  share:7.45,  volume:329.51,  deposits:244.75,  change:21.2,  wallet:13.70},
-  {name:"Rainbet",        slug:"rainbet",          domain:"rainbet.com",          fgRank:4,  share:6.22,  volume:274.90,  deposits:862.49,  change:-22.3, wallet:97.13},
-  {name:"Shuffle",        slug:"shuffle",          domain:"shuffle.com",          fgRank:5,  share:4.83,  volume:213.80,  deposits:540.71,  change:-1.6,  wallet:21.38},
-  {name:"Gamdom",         slug:"gamdom",           domain:"gamdom.com",           fgRank:6,  share:4.76,  volume:210.46,  deposits:177.54,  change:15.2,  wallet:8.85},
-  {name:"BC.Game",        slug:"bc-game",          domain:"bc.game",              fgRank:7,  share:3.30,  volume:146.15,  deposits:90.18,   change:51.1,  wallet:11.69},
-  {name:"1win",           slug:"1win",             domain:"1win.com",             fgRank:8,  share:2.60,  volume:114.98,  deposits:404.02,  change:11.3,  wallet:18.04},
-  {name:"Sportsbet.io",   slug:"sportsbet-io",     domain:"sportsbet.io",         fgRank:9,  share:1.88,  volume:83.30,   deposits:13.82,   change:64.4,  wallet:3.30},
-  {name:"StakeUS",        slug:"stakeus",          domain:"stake.us",             fgRank:10, share:1.71,  volume:75.50,   deposits:121.07,  change:-1.8,  wallet:36.78},
-  {name:"Thrill",         slug:"thrill",           domain:"thrill.com",           fgRank:11, share:1.07,  volume:47.52,   deposits:139.16,  change:-11.6, wallet:1.49},
-  {name:"Winna",          slug:"winna",            domain:"winna.com",            fgRank:12, share:1.04,  volume:45.95,   deposits:59.00,   change:18.2,  wallet:1.64},
-  {name:"Betpanda",       slug:"betpanda",         domain:"betpanda.io",          fgRank:13, share:0.62,  volume:27.59,   deposits:107.11,  change:9.9,   wallet:2.06},
-  {name:"Duelbits",       slug:"duelbits",         domain:"duelbits.com",         fgRank:14, share:0.58,  volume:25.64,   deposits:48.54,   change:20.1,  wallet:5.24},
-  {name:"500Casino",      slug:"500casino",        domain:"500.casino",           fgRank:15, share:0.57,  volume:25.03,   deposits:62.04,   change:12.6,  wallet:2.60},
-  {name:"Yeet",           slug:"yeet",             domain:"yeet.com",             fgRank:16, share:0.55,  volume:24.25,   deposits:36.40,   change:-26.9, wallet:5.12},
-  {name:"Dicey.com",      slug:"dicey-com",        domain:"dicey.com",            fgRank:17, share:0.54,  volume:23.82,   deposits:12.43,   change:32.4,  wallet:13.89},
-  {name:"Razed",          slug:"razed",            domain:"razedcasino.com",      fgRank:18, share:0.53,  volume:23.29,   deposits:46.84,   change:-4.7,  wallet:4.86},
-  {name:"BetFury",        slug:"betfury",          domain:"betfury.io",           fgRank:19, share:0.51,  volume:22.34,   deposits:37.60,   change:49.9,  wallet:6.79},
-  {name:"Cloudbet",       slug:"cloudbet",         domain:"cloudbet.com",         fgRank:20, share:0.48,  volume:21.40,   deposits:9.81,    change:-36.5, wallet:13.50},
-  {name:"SolCasino.io",   slug:"solcasino-io",     domain:"solcasino.io",         fgRank:22, share:0.32,  volume:14.14,   deposits:60.14,   change:-1.6,  wallet:7.14},
-  {name:"Acebet",         slug:"acebet",           domain:"acebet.com",           fgRank:29, share:0.12,  volume:5.29,    deposits:11.07,   change:-19.7, wallet:0.3472},
-  {name:"Goated",         slug:"goated",           domain:"goated.com",           fgRank:32, share:0.07,  volume:3.30,    deposits:19.94,   change:25.8,  wallet:1.44},
-  {name:"Whale.io",       slug:"whale-io",         domain:"whale.io",             fgRank:34, share:0.07,  volume:2.95,    deposits:13.61,   change:-15.4, wallet:0.1139},
-  {name:"DuckDice",       slug:"duckdice",         domain:"duckdice.io",          fgRank:39, share:0.04,  volume:1.62,    deposits:13.10,   change:-6.6,  wallet:0.2203},
-  {name:"Chips.gg",       slug:"chips-gg",         domain:"chips.gg",             fgRank:41, share:0.03,  volume:1.45,    deposits:5.35,    change:42.4,  wallet:3.94},
+  {name:"Stake",          slug:"stake",            domain:"stake.com",            fgRank:1, share:42.2, volume:1917, deposits:3665.3, change:-11.7, wallet:74.71},
+  {name:"Roobet",         slug:"roobet",           domain:"roobet.com",           fgRank:2, share:11.43, volume:519.3, deposits:684.59, change:7.9, wallet:52.35},
+  {name:"Duel",           slug:"duel",             domain:"duel.com",             fgRank:6, share:5.32, volume:241.7, deposits:213.01, change:-30.7, wallet:18.64},
+  {name:"Rainbet",        slug:"rainbet",          domain:"rainbet.com",          fgRank:3, share:8.37, volume:380.3, deposits:1072.9, change:5.2, wallet:98.07},
+  {name:"Shuffle",        slug:"shuffle",          domain:"shuffle.com",          fgRank:4, share:6.36, volume:289.1, deposits:604.17, change:22.4, wallet:24.97},
+  {name:"Gamdom",         slug:"gamdom",           domain:"gamdom.com",           fgRank:7, share:4.29, volume:194.8, deposits:214.28, change:-19.9, wallet:5.37},
+  {name:"BC.Game",        slug:"bc-game",          domain:"bc.game",              fgRank:5, share:5.93, volume:269.1, deposits:206.22, change:-1.5, wallet:26.02},
+  {name:"1win",           slug:"1win",             domain:"1win.com",             fgRank:9, share:2.71, volume:123.3, deposits:372.77, change:-15.1, wallet:24.8},
+  {name:"Sportsbet.io",   slug:"sportsbet-io",     domain:"sportsbet.io",         fgRank:16, share:0.75, volume:34.18, deposits:12.242, change:-49.3, wallet:0.8719},
+  {name:"StakeUS",        slug:"stakeus",          domain:"stake.us",             fgRank:10, share:1.89, volume:85.73, deposits:175.54, change:1.8, wallet:11.02},
+  {name:"Thrill",         slug:"thrill",           domain:"thrill.com",           fgRank:12, share:1.42, volume:64.37, deposits:132.93, change:27.9, wallet:2.563},
+  {name:"Winna",          slug:"winna",            domain:"winna.com",            fgRank:15, share:0.89, volume:40.48, deposits:60.95, change:13.3, wallet:1.566},
+  {name:"Betpanda",       slug:"betpanda",         domain:"betpanda.io",          fgRank:13, share:1.26, volume:62.67, deposits:138.14, change:5.6, wallet:5.528},
+  {name:"Duelbits",       slug:"duelbits",         domain:"duelbits.com",         fgRank:25, share:0.5, volume:22.5, deposits:49.398, change:-28.2, wallet:6.066},
+  {name:"500Casino",      slug:"500casino",        domain:"500.casino",           fgRank:19, share:0.63, volume:28.39, deposits:87.425, change:17.9, wallet:2.33},
+  {name:"Yeet",           slug:"yeet",             domain:"yeet.com",             fgRank:23, share:0.52, volume:23.49, deposits:35.357, change:-35.3, wallet:3.741},
+  {name:"Dicey.com",      slug:"dicey-com",        domain:"dicey.com",            fgRank:17, share:0.73, volume:32.98, deposits:15.249, change:93.4, wallet:7.117},
+  {name:"Razed",          slug:"razed",            domain:"razedcasino.com",      fgRank:21, share:0.6, volume:27.36, deposits:33.403, change:-4.9, wallet:4.016},
+  {name:"BetFury",        slug:"betfury",          domain:"betfury.io",           fgRank:20, share:0.62, volume:28.17, deposits:40.136, change:-36.1, wallet:3.827},
+  {name:"Cloudbet",       slug:"cloudbet",         domain:"cloudbet.com",         fgRank:14, share:1.01, volume:45.89, deposits:13.166, change:27.9, wallet:15.68},
+  {name:"SolCasino.io",   slug:"solcasino-io",     domain:"solcasino.io",         fgRank:31, share:0.29, volume:12.95, deposits:55.781, change:-15.8, wallet:6.455},
+  {name:"Acebet",         slug:"acebet",           domain:"acebet.com",           fgRank:40, share:0.1, volume:4.611, deposits:6.801, change:26.1, wallet:0.2873},
+  {name:"Goated",         slug:"goated",           domain:"goated.com",           fgRank:46, share:0.07, volume:3.209, deposits:19.087, change:-20.3, wallet:0.6756},
+  {name:"Whale.io",       slug:"whale-io",         domain:"whale.io",             fgRank:42, share:0.08, volume:3.851, deposits:10.959, change:45.9, wallet:0.1995},
+  {name:"DuckDice",       slug:"duckdice",         domain:"duckdice.io",          fgRank:49, share:0.06, volume:2.645, deposits:13.704, change:54.1, wallet:0.4239},
+  {name:"Chips.gg",       slug:"chips-gg",         domain:"chips.gg",             fgRank:55, share:0.02, volume:1.11, deposits:6.063, change:2.7, wallet:3.858},
   {name:"Rollbit",        slug:"rollbit",          domain:"rollbit.com",          fgRank:54, share:0,     volume:0.0669,  deposits:0.137,   change:-99.8, wallet:0.1534},
   // MetaWin, Toshi.bet and Qzino added 2026-09-14, now CryptoBetGrade-reviewed
   // operators (previously named above as ones FairGambling tracks but this
   // site didn't review — that note is now out of date and has been updated).
   // Same fairgambling.com/analytics snapshot as FAIRGAMBLING_MARKET_DATA in
   // dashboard.html.
-  {name:"MetaWin",        slug:"metawin",          domain:"metawin.com",          fgRank:21, share:0.43,  volume:19.17,   deposits:55.28,   change:-14.8, wallet:5.25},
-  {name:"Toshi.bet",      slug:"toshi-bet",        domain:"toshi.bet",            fgRank:25, share:0.17,  volume:7.70,    deposits:20.25,   change:26.0,  wallet:0.60},
-  {name:"Qzino",          slug:"qzino",            domain:"qzino.com",            fgRank:31, share:0.09,  volume:3.89,    deposits:18.01,   change:27.3,  wallet:2.38}
+  {name:"MetaWin",        slug:"metawin",          domain:"metawin.com",          fgRank:22, share:0.57, volume:25.72, deposits:85.549, change:-7.9, wallet:3.303},
+  {name:"Toshi.bet",      slug:"toshi-bet",        domain:"toshi.bet",            fgRank:29, share:0.39, volume:17.53, deposits:24.398, change:-50.3, wallet:0.4873},
+  {name:"Qzino",          slug:"qzino",            domain:"qzino.com",            fgRank:41, share:0.1, volume:4.32, deposits:22.055, change:25.6, wallet:0.9781}
 ];
 
 const metricMeta = {
