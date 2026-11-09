@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /admin-complaints.html
+Disallow: /api/
+Disallow: /*{
+Disallow: /*%7B
+Disallow: /*%7b
 
 Sitemap: https://cryptobetgrade.com/sitemap.xml

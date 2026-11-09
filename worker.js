@@ -42,6 +42,18 @@ export default {
       }
     }
 
+    // Retired / malformed URLs -> 301 to the closest live page (keeps old
+    // links and Search Console 404s tidy).
+    const REDIRECTS = {
+      "/complaints/roobet-eur-1300-account-blocked-no-explanation": "/complaints/roobet-1300-eur-account-blocked-restricted-pending-review",
+      "/complaints/roobet-250000-usd-withdrawal-held-for-review": "/complaints/roobet-250000-usd-withdrawal-delayed-stuck",
+      "/sportsbooks/": "/",
+      "/complaint/": "/",
+      "/complaints/": "/",
+    };
+    const redirectTo = REDIRECTS[url.pathname];
+    if (redirectTo) return Response.redirect(url.origin + redirectTo, 301);
+
     const seoMatch = matchSeoRoute(url.pathname);
     if (seoMatch) {
       try {
