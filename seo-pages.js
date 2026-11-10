@@ -298,7 +298,7 @@ function metaFor(match) {
 // case, not pixel-identical to the client render.
 // ---------------------------------------------------------------------
 
-const PUBLIC_COMPLAINT_STATUSES = ["open", "awaiting_response", "resolved", "rejected"];
+const PUBLIC_COMPLAINT_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "unresolved_no_response"];
 
 async function fetchCommunityComplaints(env, slug) {
   try {
@@ -333,8 +333,8 @@ async function fetchApprovedReviews(env, slug) {
   }
 }
 
-const CBG_STATUS_LABEL = { open: "Open", awaiting_response: "Awaiting response", resolved: "Resolved", rejected: "Rejected" };
-const CBG_STATUS_CLASS = { open: "bad", awaiting_response: "pending", resolved: "good", rejected: "neutral" };
+const CBG_STATUS_LABEL = { open: "Open", awaiting_response: "Awaiting response", resolved: "Resolved", rejected: "Rejected", unresolved_no_response: "Unresolved – Operator did not respond" };
+const CBG_STATUS_CLASS = { open: "bad", awaiting_response: "pending", resolved: "good", rejected: "neutral", unresolved_no_response: "bad" };
 
 function truncate(s, n) {
   s = s || "";

@@ -435,7 +435,7 @@ class HttpError extends Error {
 // Complaints: public read
 // ---------------------------------------------------------------------
 
-const PUBLIC_STATUSES = ["open", "awaiting_response", "resolved", "rejected"];
+const PUBLIC_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "unresolved_no_response"];
 
 async function listComplaints(request, env, url) {
   const slug = url.searchParams.get("operator_slug");
@@ -639,7 +639,7 @@ async function adminListComplaints(request, env, url) {
   return json({ complaints: rows.results || [] });
 }
 
-const ALLOWED_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "removed"];
+const ALLOWED_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "removed", "unresolved_no_response"];
 
 async function adminUpdateComplaintStatus(request, env, id) {
   const admin = await requireAdmin(request, env);

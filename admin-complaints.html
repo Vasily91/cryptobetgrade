@@ -114,6 +114,7 @@
   .status-pending_review{background:var(--warning-bg);color:var(--warning-ink);}
   .status-open{background:var(--critical-bg);color:var(--critical-ink);}
   .status-awaiting_response{background:var(--warning-bg);color:var(--warning-ink);}
+  .status-unresolved_no_response{background:var(--critical-bg);color:var(--critical-ink);}
   .status-resolved, .status-approved{background:var(--good-bg);color:var(--good-ink);}
   .status-rejected, .status-removed{background:#eeece6;color:var(--ink-muted);}
 
@@ -386,13 +387,15 @@ const CBG_ADMIN_FILTERS = [
   { key: "awaiting_response", label: "Awaiting response" },
   { key: "resolved", label: "Resolved" },
   { key: "rejected", label: "Rejected" },
+  { key: "unresolved_no_response", label: "Unresolved – no response" },
   { key: "removed", label: "Removed" },
 ];
 const CBG_STATUS_LABEL = {
   pending_review: "Pending review", open: "Open", awaiting_response: "Awaiting response",
   resolved: "Resolved", rejected: "Rejected", removed: "Removed",
+  unresolved_no_response: "Unresolved – Operator did not respond",
 };
-const CBG_ALLOWED_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "removed"];
+const CBG_ALLOWED_STATUSES = ["open", "awaiting_response", "resolved", "rejected", "unresolved_no_response", "removed"];
 
 let cbgAdminFilter = "";
 let cbgAdminQueue = [];

@@ -3625,9 +3625,10 @@ function renderCommunityComplaintDetail(id, complaintId){
 const CBG_STATUS_LABEL = {
   open: "Open", awaiting_response: "Awaiting response", resolved: "Resolved",
   rejected: "Rejected", removed: "Removed", pending_review: "Pending review",
+  unresolved_no_response: "Unresolved – Operator did not respond",
 };
 const CBG_STATUS_CLASS = {
-  open: "bad", awaiting_response: "pending", resolved: "good", rejected: "neutral", removed: "neutral",
+  open: "bad", awaiting_response: "pending", resolved: "good", rejected: "neutral", removed: "neutral", unresolved_no_response: "bad",
 };
 
 async function cbgLoadComplaints(id, operatorName){
